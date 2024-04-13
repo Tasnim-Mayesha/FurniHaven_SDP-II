@@ -15,12 +15,14 @@ class SplashView extends StatelessWidget {
     });
     return Scaffold(
       backgroundColor: GlobalColors.mainColor,
-      body: const Center(
+      body:  Center(
         child: Text('Logo',style: TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,
           fontSize: 35
-        ),),
+        ),
+        ),
+        //child: Image.asset('assets/images/s.jpg'),
       ),
     );
   }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sdp2/utils/global_colors.dart';
 import 'package:sdp2/view/signup_view.dart';
+import 'package:sdp2/view/widgets/button_signin.dart';
 import 'package:sdp2/view/widgets/global_textform.dart';
+import 'package:sdp2/view/widgets/social_login.dart';
 
 class LoginView extends StatelessWidget {
   LoginView({super.key});
@@ -22,6 +24,7 @@ class LoginView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const SizedBox(height: 20,),
                 Center(
                   child: Text(
                     'Logo',
@@ -57,13 +60,37 @@ class LoginView extends StatelessWidget {
                   textInputType: TextInputType.text,
                   obscure: true,
                 ),
-                ElevatedButton(onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=> SignupView()));
-                }, child: Text('Sign up with'))
+                const SizedBox(height: 25),
+                const ButtonSignIn(),
+                const SizedBox(height: 25),
+                SocialLogin(),
 
               ],
             ),
           )
+        ),
+      ),
+      bottomNavigationBar: Container(
+        height: 150,
+          color: Colors.white,
+        alignment: Alignment.center,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Don\'t have an account?'),
+            InkWell(
+              child: Text(
+                  ' Sign Up',
+                   style: TextStyle(
+                     color: GlobalColors.mainColor,
+                   ),
+              ),
+              onTap:(){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> SignupView()));
+            }
+
+            )
+          ]
         ),
       ),
     );
