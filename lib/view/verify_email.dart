@@ -34,7 +34,7 @@ class VerifyEmailScreen extends StatelessWidget{
                 const SizedBox(height: 16),
                 Text('support@codingwitht.com',style: Theme.of(context).textTheme.labelLarge, textAlign: TextAlign.center,),
                 const SizedBox(height: 16),
-                Text('Congratulations! Your Account Awaits: Verify Your Email to Start Exploring and Experience a World of Unrivaled Deals and Personalized Offers.',style: Theme.of(context).textTheme.labelMedium,textAlign: TextAlign.center,),
+                Text('Verify Your Email to Start Exploring and Experience a World of Unrivaled Deals and Personalized Offers.',style: Theme.of(context).textTheme.labelMedium,textAlign: TextAlign.center,),
                 const SizedBox(height: 32),
 
                 ///Buttons
@@ -42,7 +42,7 @@ class VerifyEmailScreen extends StatelessWidget{
                     onTap: () => Get.to(()=> SuccessScreen(
                       image: AppImages.success,
                       title: 'Your account successfully created!',
-                      subTitle: 'Welcome to Your Ultimate Shopping Destination: Your Account is Created, Unleash the Joy of Seamless Online Shopping!',
+                      subTitle: 'Your Account is Created, Unleash the Joy of Seamless Online Shopping!',
                       onPressed: () => Get.to(() =>  LoginView()),
                     ),
                     ),
