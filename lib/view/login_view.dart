@@ -77,7 +77,7 @@ class LoginView extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Don\'t have an account?'),
+            const Text('Don\'t have an account?'),
             InkWell(
               child: Text(
                   ' Sign Up',

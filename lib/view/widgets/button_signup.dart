@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sdp2/utils/global_colors.dart';
+import 'package:sdp2/view/verify_email.dart';
 
 class ButtonSignUp extends StatelessWidget{
   const ButtonSignUp({Key? key}) : super(key: key);
@@ -8,7 +8,7 @@ class ButtonSignUp extends StatelessWidget{
   Widget build(BuildContext context){
     return InkWell(
       onTap: (){
-        print('SignUp');
+        Navigator.push(context, MaterialPageRoute(builder: (context)=> VerifyEmailScreen()));
       },
       child: Container(
         alignment: Alignment.center,
