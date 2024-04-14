@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sdp2/utils/global_colors.dart';
 import 'package:sdp2/view/verify_email.dart';
 
@@ -7,9 +8,7 @@ class ButtonSignUp extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return InkWell(
-      onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=> VerifyEmailScreen()));
-      },
+      onTap: () => Get.to(()=>const VerifyEmailScreen()),
       child: Container(
         alignment: Alignment.center,
         height: 55,

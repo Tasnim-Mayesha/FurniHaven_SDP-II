@@ -13,7 +13,7 @@ class SuccessScreen extends StatelessWidget {
     return  Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.only(top: 56, left: 24, bottom: 24,right: 24),
+          padding: const EdgeInsets.only(top: 56, left: 24, bottom: 24,right: 24),
           child: Column(
             children: [
               ///Image
@@ -45,8 +45,6 @@ class SuccessScreen extends StatelessWidget {
 
               const SizedBox(height: 16),
               // SizedBox(width: double.infinity,child:TextButton(onPressed: (){},child:const Text(TTexts.resendEmail),),),
-
-
             ],
           ),
         ),

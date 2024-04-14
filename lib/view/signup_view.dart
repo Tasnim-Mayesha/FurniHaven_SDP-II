@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:sdp2/utils/global_colors.dart';
 import 'package:sdp2/view/widgets/button_signup.dart';
 import 'package:sdp2/view/widgets/global_textform.dart';
@@ -49,6 +50,7 @@ class SignupView extends StatelessWidget {
                     text: 'Email',
                     textInputType: TextInputType.emailAddress,
                     obscure: false,
+                    icon: Icon(Iconsax.direct_right,color: GlobalColors.mainColor),
                   ),
                   const SizedBox(height: 10),
                   ///Password Input
@@ -57,6 +59,7 @@ class SignupView extends StatelessWidget {
                     text: 'Password',
                     textInputType: TextInputType.text,
                     obscure: true,
+                    icon: Icon(Iconsax.password_check,color: GlobalColors.mainColor,),
                   ),
                   const SizedBox(height: 10),
                   ///Password Input
@@ -65,11 +68,12 @@ class SignupView extends StatelessWidget {
                     text: 'Confirm Password',
                     textInputType: TextInputType.text,
                     obscure: true,
+                    icon: Icon(Icons.password_outlined,color: GlobalColors.mainColor,),
                   ),
                   const SizedBox(height: 25),
                   const ButtonSignUp(),
                   const SizedBox(height: 25),
-                  SocialLogin(),
+                  const SocialLogin(),
                 ],
 
               ),

@@ -38,6 +38,7 @@ dependencies:
   get: ^4.6.6
   hexcolor: ^3.0.1
   flutter_svg: ^2.0.10+1
+  iconsax: ^0.0.8
 
 dev_dependencies:
   flutter_test:

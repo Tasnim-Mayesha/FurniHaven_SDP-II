@@ -9,10 +9,8 @@ class SocialLogin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-
         children: [
         Container(
-
           alignment: Alignment.center,
           child: Text(
           '-Or sign in with-',
