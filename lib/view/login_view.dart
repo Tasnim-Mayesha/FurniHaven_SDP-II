@@ -4,7 +4,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:sdp2/utils/global_colors.dart';
 import 'package:sdp2/view/password_configuration/forget_password.dart';
 import 'package:sdp2/view/signup_view.dart';
-import 'package:sdp2/view/widgets/button_signin.dart';
+import 'package:sdp2/view/widgets/button.dart';
 import 'package:sdp2/view/widgets/global_textform.dart';
 import 'package:sdp2/view/widgets/social_login.dart';
 
@@ -67,12 +67,12 @@ class LoginView extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      TextButton(onPressed: () => Get.to(()=>const ForgetPassword()),
-                          child: Text('Forget Password ?',style: TextStyle(color: GlobalColors.textColor),))
+                      TextButton(onPressed: () => Get.to(()=> ForgetPassword()),
+                          child: Text('Forgot Password ?',style: TextStyle(color: GlobalColors.textColor),))
                     ],
                   ),
                   const SizedBox(height: 10),
-                  const ButtonSignIn(),
+                  CustomButton(text: 'Sign In',onTap: (){},),
                   const SizedBox(height: 25),
                   const SocialLogin(),
                 ],

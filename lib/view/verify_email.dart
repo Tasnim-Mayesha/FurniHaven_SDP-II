@@ -22,7 +22,7 @@ class VerifyEmailScreen extends StatelessWidget{
       body:  SingleChildScrollView(
         //padding to give default equal space on all sides in all screens
           child: Padding(
-            padding: const EdgeInsets.only(top: 56.0,left: 0,bottom: 0,right: 0),
+            padding: const EdgeInsets.only(top: 20.0,left: 0,bottom: 0,right: 0),
             child: Column(
               children: [
                 ///Image
@@ -70,7 +70,7 @@ class VerifyEmailScreen extends StatelessWidget{
                     ),
                   ),
 
-                SizedBox(height: 32),
+                const SizedBox(height: 16),
                 SizedBox(width: double.infinity,child:TextButton(onPressed: (){},child: const Text('Resend Email'),),),
               ],
             ),

@@ -41,10 +41,6 @@ class SuccessScreen extends StatelessWidget {
                   child: const Text('Continue'),
                 ),
               ),
-
-
-              const SizedBox(height: 16),
-              // SizedBox(width: double.infinity,child:TextButton(onPressed: (){},child:const Text(TTexts.resendEmail),),),
             ],
           ),
         ),

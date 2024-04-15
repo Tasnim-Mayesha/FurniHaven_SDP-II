@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:sdp2/utils/global_colors.dart';
-import 'package:sdp2/view/verify_email.dart';
 
-class ButtonSignUp extends StatelessWidget{
-  const ButtonSignUp({Key? key}) : super(key: key);
+class CustomButton extends StatelessWidget {
+  final VoidCallback? onTap;
+  final String text;
+
+  const CustomButton({
+    Key? key,
+    this.onTap,
+    required this.text,
+  }) : super(key: key);
+
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Get.to(()=>const VerifyEmailScreen()),
+      onTap: onTap,
       child: Container(
         alignment: Alignment.center,
         height: 55,
@@ -20,17 +26,16 @@ class ButtonSignUp extends StatelessWidget{
               color: Colors.black.withOpacity(0.1),
               blurRadius: 10,
             ),
-          ]
+          ],
         ),
-        child: const Text(
-            'Sign Up',
-          style: TextStyle(
+        child: Text(
+          text,
+          style: const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.w600,
-          )
-        )
+          ),
+        ),
       ),
     );
-
   }
 }

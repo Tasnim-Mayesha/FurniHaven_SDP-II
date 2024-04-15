@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:sdp2/utils/global_colors.dart';
-import 'package:sdp2/view/widgets/button_signup.dart';
+import 'package:sdp2/view/verify_email.dart';
+import 'package:sdp2/view/widgets/button.dart';
 import 'package:sdp2/view/widgets/global_textform.dart';
 import 'package:sdp2/view/widgets/social_login.dart';
 
@@ -71,7 +73,7 @@ class SignupView extends StatelessWidget {
                     icon: Icon(Icons.password_outlined,color: GlobalColors.mainColor,),
                   ),
                   const SizedBox(height: 25),
-                  const ButtonSignUp(),
+                  CustomButton(text: 'Sign Up',onTap: () => Get.to(()=>const VerifyEmailScreen()),),
                   const SizedBox(height: 25),
                   const SocialLogin(),
                 ],
