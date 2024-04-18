@@ -43,7 +43,7 @@ class ForgetPassword extends StatelessWidget {
             ),
             const SizedBox(height: 24,),
             CustomButton(text: 'Submit',
-              onTap: ()=>Get.off(() => const ResetPassword()))
+              onTap: ()=>Get.to(() => const ResetPassword()))
           ],
         ),
       ),

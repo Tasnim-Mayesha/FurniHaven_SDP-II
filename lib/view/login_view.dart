@@ -5,7 +5,6 @@ import 'package:sdp2/utils/global_colors.dart';
 import 'package:sdp2/view/password_configuration/forget_password.dart';
 import 'package:sdp2/view/signup_view.dart';
 import 'package:sdp2/view/widgets/button.dart';
-import 'package:sdp2/view/widgets/global_textform.dart';
 import 'package:sdp2/view/widgets/social_login.dart';
 
 class LoginView extends StatelessWidget {
@@ -48,21 +47,20 @@ class LoginView extends StatelessWidget {
                   ),
                   const SizedBox(height: 15),
                   ///Email Input
-                  GlobalTextForm(
+                  TextFormField(
                     controller: emailController,
-                    text: 'Email',
-                    textInputType: TextInputType.emailAddress,
-                    obscure: false,
-                    icon: Icon(Iconsax.direct_right,color: GlobalColors.mainColor),
+                    expands: false,
+                    decoration:  const InputDecoration(labelText: 'Email',prefixIcon: Icon(Iconsax.direct,color: GlobalColors.mainColorHex,), ),
                   ),
                   const SizedBox(height: 10),
                   ///Password Input
-                  GlobalTextForm(
+                  TextFormField(
                     controller: passwordController,
-                    text: 'Password',
-                    textInputType: TextInputType.text,
-                    obscure: true,
-                    icon: Icon(Iconsax.password_check,color: GlobalColors.mainColor,),
+                    expands: false,
+                    decoration: const InputDecoration(
+                      labelText: 'Password',
+                      prefixIcon: Icon(Iconsax.password_check,color: GlobalColors.mainColorHex,),),
+
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
