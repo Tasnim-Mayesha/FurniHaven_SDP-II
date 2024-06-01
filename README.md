@@ -1,6 +1,6 @@
 # sdp2
 
-A new Flutter project.
+A Paradise for Furniture Lovers, Enhanced by AR Technology
 
 ## Getting Started
 
