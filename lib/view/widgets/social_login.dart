@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:sdp2/utils/global_colors.dart';
 
@@ -13,7 +14,7 @@ class SocialLogin extends StatelessWidget {
         Container(
           alignment: Alignment.center,
           child: Text(
-          '-Or sign in with-',
+          '-Or sign in with-'.tr,
           style: TextStyle(
             color: GlobalColors.textColor,
             fontWeight: FontWeight.w600,

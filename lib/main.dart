@@ -7,6 +7,7 @@ import 'package:sdp2/bindings/general_bindings.dart';
 import 'package:sdp2/routes/app_routes.dart';
 import 'package:sdp2/utils/themes/theme.dart';
 import 'package:sdp2/view/splash_view.dart';
+import 'package:sdp2/view/widgets/locall_string.dart';
 
 
 import 'data/repositories/authentication/authentication_repository.dart';
@@ -34,6 +35,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      translations: LocalString(),
+      locale: const Locale('en','US'),
       title: 'SDP 2',
       themeMode: ThemeMode.system,
       theme: MyAppTheme.lightTheme,

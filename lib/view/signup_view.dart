@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sdp2/view/widgets/custom_appbar_out.dart';
 
 import 'package:sdp2/view/widgets/social_login.dart';
 
@@ -13,7 +14,7 @@ class SignupView extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar : AppBar(),
+      appBar : CustomAppBar(),
       body: SingleChildScrollView(
         child: SafeArea(
             child: Container(

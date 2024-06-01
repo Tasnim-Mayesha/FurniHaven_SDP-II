@@ -34,12 +34,22 @@ class ForgetPassword extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 48,),
-            GlobalTextForm(
+            TextFormField(
               controller: emailController,
-              text: 'Email',
-              textInputType: TextInputType.emailAddress,
-              obscure: false,
-              icon: Icon(Iconsax.direct_right,color: GlobalColors.mainColor),
+              keyboardType: TextInputType.emailAddress,
+              obscureText: false,
+              decoration: InputDecoration(
+                labelText: 'Email',
+                prefixIcon: Icon(Iconsax.direct_right, color: GlobalColors.mainColor),
+                border: OutlineInputBorder(),
+              ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter your email';
+                }
+                // Add more validation logic if needed
+                return null;
+              },
             ),
             const SizedBox(height: 24,),
             CustomButton(text: 'Submit',

@@ -34,10 +34,10 @@ class SignupForm extends StatelessWidget {
           ///Username
           TextFormField(
             controller: controller.userName,
-            validator: (value) => Validator.validateEmptyText('Username', value),
+            validator: (value) => Validator.validateEmptyText('Username'.tr, value),
 
             expands: false,
-            decoration: const InputDecoration(labelText: 'Username',prefixIcon: Icon(Iconsax.user_edit,color: GlobalColors.mainColorHex,)),
+            decoration:  InputDecoration(labelText: 'Username'.tr,prefixIcon: const Icon(Iconsax.user_edit,color: GlobalColors.mainColorHex,)),
           ),
           ///Email
           const SizedBox(height: 10),
@@ -45,7 +45,7 @@ class SignupForm extends StatelessWidget {
             validator: (value) => Validator.validateEmail(value),
             controller: controller.email,
             expands: false,
-            decoration:  const InputDecoration(labelText: 'Email',prefixIcon: Icon(Iconsax.direct,color: GlobalColors.mainColorHex,), ),
+            decoration:  InputDecoration(labelText: 'Email'.tr,prefixIcon: const Icon(Iconsax.direct,color: GlobalColors.mainColorHex,), ),
           ),
 
           ///Password
@@ -57,7 +57,7 @@ class SignupForm extends StatelessWidget {
               obscureText: controller.hidePassword.value,
               expands: false,
               decoration: InputDecoration(
-                labelText: 'Password',
+                labelText: 'Password'.tr,
                 prefixIcon: const Icon(Iconsax.password_check,color: GlobalColors.mainColorHex,),
                 suffixIcon: IconButton(
                     onPressed: () => controller.hidePassword.value =
@@ -69,7 +69,7 @@ class SignupForm extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          CustomButton(text: 'Sign Up',onTap: () => controller.signup()),
+          CustomButton(text: 'Sign Up'.tr,onTap: () => controller.signup()),
         ],
       ),
     );

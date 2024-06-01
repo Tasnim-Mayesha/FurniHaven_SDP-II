@@ -6,8 +6,8 @@ import 'package:hexcolor/hexcolor.dart';
 class GlobalColors {
 
   ///App theme colors
-  static HexColor mainColor=HexColor('#1E3190');
-  static const Color mainColorHex= Color(0xFF1E3190);
+  static HexColor mainColor=HexColor('#FF5E00');
+  static const Color mainColorHex= Color(0xFFFF5E00);
   static const Color secondary = Color(0xFFFFE24B);
   static const Color accent = Color(0xFFb0c7ff);
 
@@ -38,7 +38,7 @@ class GlobalColors {
   static const Color error = Color(0xFFD32F2F);
   static const Color success = Color(0xFF388E3C);
   static const Color warning = Color(0xFFF57C00);
-  static const Color info = Color(0xFF1976D2);
+  static const Color info = Color(0xFFFF5E00);
 
   // Neutral Shades
   static const Color black = Color(0xFF232323);

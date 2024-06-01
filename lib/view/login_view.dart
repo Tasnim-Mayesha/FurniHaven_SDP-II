@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:sdp2/utils/global_colors.dart';
+import 'package:sdp2/view/home_view.dart';
 import 'package:sdp2/view/password_configuration/forget_password.dart';
 import 'package:sdp2/view/signup_view.dart';
 import 'package:sdp2/view/widgets/button.dart';
+import 'package:sdp2/view/widgets/custom_appbar_out.dart';
 import 'package:sdp2/view/widgets/social_login.dart';
+
+import '../utils/helpers/helper_functions.dart';
 
 class LoginView extends StatelessWidget {
   LoginView({super.key});
@@ -14,67 +18,71 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dark = HelperFunctions.isDarkMode(context);
     return Scaffold(
+      appBar: const CustomAppBar(),
       body: SingleChildScrollView(
         child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 40),
-            child: Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(15.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 20,),
-                  Center(
-                    child: Text(
-                      'Logo',
-                      style: TextStyle(
-                        color: GlobalColors.mainColor,
-                        fontSize: 35,
-                        fontWeight: FontWeight.bold
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 50),
-                  Text(
-                    'Login to your Account',
-                    style: TextStyle(
-                        color: GlobalColors.textColor,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  ///Email Input
-                  TextFormField(
-                    controller: emailController,
-                    expands: false,
-                    decoration:  const InputDecoration(labelText: 'Email',prefixIcon: Icon(Iconsax.direct,color: GlobalColors.mainColorHex,), ),
-                  ),
-                  const SizedBox(height: 10),
-                  ///Password Input
-                  TextFormField(
-                    controller: passwordController,
-                    expands: false,
-                    decoration: const InputDecoration(
-                      labelText: 'Password',
-                      prefixIcon: Icon(Iconsax.password_check,color: GlobalColors.mainColorHex,),),
-
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+          child: Container(
+            width: double.infinity,
+            padding: const EdgeInsets.only(right: 15,left: 15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+               // const SizedBox(height: 20,),
+                Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      TextButton(onPressed: () => Get.to(()=> ForgetPassword()),
-                          child: Text('Forgot Password ?',style: TextStyle(color: GlobalColors.textColor),))
+                      Image.asset(
+                        'assets/images/furnihaven_logo.png',
+                        width: 100, // Adjust the size as needed
+                        height: 100,
+                      ),
                     ],
+                  )
+
+                ),
+                const SizedBox(height: 24),
+                Text(
+                  'Login to your Account'.tr,
+                  style: TextStyle(
+                      color: GlobalColors.textColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500
                   ),
-                  const SizedBox(height: 10),
-                  CustomButton(text: 'Sign In',onTap: (){},),
-                  const SizedBox(height: 25),
-                  const SocialLogin(),
-                ],
-              ),
+                ),
+                const SizedBox(height: 15),
+                ///Email Input
+                TextFormField(
+                  controller: emailController,
+                  expands: false,
+                  decoration:   InputDecoration(labelText: 'Email'.tr,prefixIcon: Icon(Iconsax.direct,color: GlobalColors.mainColorHex,), ),
+                ),
+                const SizedBox(height: 10),
+                ///Password Input
+                TextFormField(
+                  controller: passwordController,
+                  expands: false,
+                  decoration:  InputDecoration(
+                    labelText: 'Password'.tr,
+                    prefixIcon: const Icon(Iconsax.password_check,color: GlobalColors.mainColorHex,),),
+
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(onPressed: () => Get.to(()=> ForgetPassword()),
+                        child: Text('Forgot Password ?'.tr,style: TextStyle(color: GlobalColors.textColor),))
+                  ],
+                ),
+                const SizedBox(height: 10),
+                CustomButton(text: 'Sign In'.tr,onTap: (){
+                  Get.to(()=>HomeView());
+                },),
+                const SizedBox(height: 25),
+                const SocialLogin(),
+              ],
             ),
           )
         ),
@@ -86,10 +94,10 @@ class LoginView extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('Don\'t have an account?'),
+            Text("Don't have an account?".tr),
             InkWell(
               child: Text(
-                  ' Sign Up',
+                  'Sign Up'.tr,
                    style: TextStyle(
                      color: GlobalColors.mainColor,
                    ),
