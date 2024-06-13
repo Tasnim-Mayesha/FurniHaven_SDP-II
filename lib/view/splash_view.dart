@@ -8,16 +8,21 @@ class SplashView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Schedule a navigation to LoginScreen() after 5 seconds
-    Timer(const Duration(seconds: 5), () {
-      Get.to(LoginView());
+    // Schedule a navigation to LoginView after 2 seconds
+    Timer(const Duration(seconds: 2), () {
+      // Ensuring we are not adding multiple instances to the navigation stack
+      // by checking if the current route is not already the LoginView
+      if (ModalRoute.of(context)?.settings.name != '/login') {
+        Get.off(LoginView(),
+            transition: Transition
+                .fade); // Using Get.off() to replace the current route
+      }
     });
 
     return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          //crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image.asset(
               'assets/images/furnihaven_logo.png',

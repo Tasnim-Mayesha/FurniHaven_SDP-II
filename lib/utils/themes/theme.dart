@@ -26,6 +26,11 @@ class MyAppTheme {
     elevatedButtonTheme: MyElevatedButtonTheme.lightElevatedButtonTheme,
     outlinedButtonTheme: MyOutlinedButtonTheme.lightOutlinedButtonTheme,
     inputDecorationTheme: MyTextFormFieldTheme.lightInputDecorationTheme,
+    bottomAppBarTheme: const BottomAppBarTheme(color: GlobalColors.white),
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      backgroundColor:
+          GlobalColors.white, // Here, the type and field are corrected.
+    ),
   );
 
   static ThemeData darkTheme = ThemeData(
@@ -42,5 +47,10 @@ class MyAppTheme {
     elevatedButtonTheme: MyElevatedButtonTheme.darkElevatedButtonTheme,
     outlinedButtonTheme: MyOutlinedButtonTheme.darkOutlinedButtonTheme,
     inputDecorationTheme: MyTextFormFieldTheme.darkInputDecorationTheme,
+    bottomAppBarTheme: const BottomAppBarTheme(color: GlobalColors.black),
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      backgroundColor:
+          GlobalColors.black, // Here, the type and field are corrected.
+    ),
   );
 }
