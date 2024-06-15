@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sdp2/seller/views/main_page.dart'; //don't remove it
 import 'dart:async';
-import 'package:sdp2/view/login_view.dart';
+import 'package:sdp2/view/login_view.dart'; //don't remove it
 
 class SplashView extends StatelessWidget {
   const SplashView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Schedule a navigation to LoginView after 2 seconds
     Timer(const Duration(seconds: 2), () {
-      // Ensuring we are not adding multiple instances to the navigation stack
-      // by checking if the current route is not already the LoginView
-      if (ModalRoute.of(context)?.settings.name != '/login') {
-        Get.off(LoginView(),
-            transition: Transition
-                .fade); // Using Get.off() to replace the current route
-      }
+      // Get.off(LoginView(), transition: Transition.fade);
+      Get.off(MainPage(), transition: Transition.fade);
     });
 
     return Scaffold(
