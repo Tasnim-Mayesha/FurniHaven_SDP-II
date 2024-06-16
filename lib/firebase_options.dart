@@ -64,7 +64,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '893072319984',
     projectId: 'sdp2-bf09c',
     storageBucket: 'sdp2-bf09c.appspot.com',
-    androidClientId: '893072319984-c7jotuldfdqqqd4veo1fog2lmgn9pc96.apps.googleusercontent.com',
+    androidClientId: '893072319984-0mv09u5ifrotauusqsultr9ko5rl6qvf.apps.googleusercontent.com',
     iosClientId: '893072319984-1q5oglvh2ktu1nreu2gvieppoadqo6fe.apps.googleusercontent.com',
     iosBundleId: 'com.example.sdp2',
   );

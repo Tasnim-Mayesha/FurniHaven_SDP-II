@@ -9,106 +9,102 @@ import 'package:sdp2/view/signup_view.dart';
 import 'package:sdp2/view/widgets/button.dart';
 import 'package:sdp2/view/widgets/custom_appbar_out.dart';
 import 'package:sdp2/view/widgets/social_login.dart';
-// import './onboarding/Onboarding.dart';
-// import './onboarding/Onboarding2.dart';
-// import './onboarding/Onboarding3.dart';
 import '../utils/helpers/helper_functions.dart';
 
 class LoginView extends StatelessWidget {
   LoginView({super.key});
-  final TextEditingController emailController=TextEditingController();
-  final TextEditingController passwordController=TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    final dark = HelperFunctions.isDarkMode(context);
     return Scaffold(
       appBar: const CustomAppBar(),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
             width: double.infinity,
-            padding: const EdgeInsets.only(right: 15,left: 15),
+            padding: const EdgeInsets.only(right: 15, left: 15),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-               // const SizedBox(height: 20,),
                 Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/images/furnihaven_logo.png',
-                        width: 100, // Adjust the size as needed
-                        height: 100,
-                      ),
-                    ],
-                  )
-
-                ),
+                    child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/images/furnihaven_logo.png',
+                      width: 100,
+                      height: 100,
+                    ),
+                  ],
+                )),
                 const SizedBox(height: 24),
                 Text(
                   'Login to your Account'.tr,
-                  style: TextStyle(
-                      color: GlobalColors.textColor,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500
-                  ),
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(height: 15),
-                ///Email Input
+                // Email Input
                 TextFormField(
                   controller: emailController,
                   expands: false,
-                  decoration:   InputDecoration(labelText: 'Email'.tr,prefixIcon: Icon(Iconsax.direct,color: GlobalColors.mainColorHex,), ),
+                  decoration: InputDecoration(
+                    labelText: 'Email'.tr,
+                    prefixIcon: const Icon(Iconsax.direct,
+                        color: GlobalColors.mainColorHex),
+                  ),
                 ),
                 const SizedBox(height: 10),
-                ///Password Input
+                // Password Input
                 TextFormField(
                   controller: passwordController,
                   expands: false,
-                  decoration:  InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'Password'.tr,
-                    prefixIcon: const Icon(Iconsax.password_check,color: GlobalColors.mainColorHex,),),
-
+                    prefixIcon: const Icon(Iconsax.password_check,
+                        color: GlobalColors.mainColorHex),
+                  ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    TextButton(onPressed: () => Get.to(()=> ForgetPassword()),
-                        child: Text('Forgot Password ?'.tr,style: TextStyle(color: GlobalColors.textColor),))
+                    TextButton(
+                      onPressed: () => Get.to(() => ForgetPassword()),
+                      child: Text('Forgot Password ?'.tr),
+                    )
                   ],
                 ),
                 const SizedBox(height: 10),
-                CustomButton(text: 'Sign In'.tr,onTap: (){
-                  Get.to(()=>HomeView());
-                },),
+                CustomButton(
+                  text: 'Sign In'.tr,
+                  onTap: () {
+                    Get.to(() => HomeView());
+                  },
+                ),
                 const SizedBox(height: 25),
                 const SocialLogin(),
               ],
             ),
-          )
+          ),
         ),
       ),
       bottomNavigationBar: Container(
         height: 80,
-          color: Colors.white,
         alignment: Alignment.center,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Don't have an account?".tr),
-            InkWell(
-              child: Text(
-                  'Sign Up'.tr,
-                   style: TextStyle(
-                     color: GlobalColors.mainColor,
-                   ),
+        child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Text("Don't have an account?".tr),
+          InkWell(
+            child: Text(
+              'Sign Up'.tr,
+              style: TextStyle(
+                color: GlobalColors.mainColor,
               ),
-              onTap:() => Get.to(()=> SignupView())
-            )
-          ]
-        ),
+            ),
+            onTap: () => Get.to(() => SignupView()),
+          )
+        ]),
       ),
     );
   }
