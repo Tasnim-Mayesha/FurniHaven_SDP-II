@@ -3,11 +3,13 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:sdp2/utils/global_colors.dart';
 import 'package:sdp2/view/home_view.dart';
+import 'package:sdp2/view/onboarding/Onboarding3.dart';
 import 'package:sdp2/view/password_configuration/forget_password.dart';
 import 'package:sdp2/view/signup_view.dart';
 import 'package:sdp2/view/widgets/button.dart';
 import 'package:sdp2/view/widgets/custom_appbar_out.dart';
 import 'package:sdp2/view/widgets/social_login.dart';
+import '../utils/helpers/helper_functions.dart';
 
 class LoginView extends StatelessWidget {
   LoginView({super.key});

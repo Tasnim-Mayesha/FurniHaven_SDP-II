@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sdp2/seller/views/main_page.dart'; //don't remove it
 import 'dart:async';
+import 'package:sdp2/view/login_view.dart';
+import 'package:sdp2/view/onboarding/Onboarding.dart';
 import 'package:sdp2/view/login_view.dart'; //don't remove it
 
 class SplashView extends StatelessWidget {
@@ -9,8 +11,9 @@ class SplashView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Timer(const Duration(seconds: 2), () {
-      Get.off(LoginView(), transition: Transition.fade);
+    // Schedule a navigation to LoginScreen() after 5 seconds
+    Timer(const Duration(seconds: 3), () {
+      Get.to(Onboarding());
       // Get.off(MainPage(), transition: Transition.fade);
     });
 
