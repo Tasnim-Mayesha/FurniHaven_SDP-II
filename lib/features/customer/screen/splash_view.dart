@@ -13,7 +13,7 @@ class SplashView extends StatelessWidget {
   Widget build(BuildContext context) {
     Timer(const Duration(seconds: 2), () {
       Get.off(LoginView(), transition: Transition.fade);
-       //Get.off(MainPage(), transition: Transition.fade);
+      //Get.off(MainPage(), transition: Transition.fade);
     });
 
     return Scaffold(
