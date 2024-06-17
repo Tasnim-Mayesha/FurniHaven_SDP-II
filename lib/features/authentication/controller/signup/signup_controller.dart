@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sdp2/view/verify_email.dart';
+import 'package:sdp2/features/authentication/screen/signup/verify_email.dart';
 
+import '../../../../common/widgets/loaders/loaders.dart';
 import '../../../../data/repositories/authentication/authentication_repository.dart';
 import '../../../../data/repositories/user/user_repository.dart';
 import '../../../personilization/model/user_models.dart';
 import '../../../../utils/constant.dart';
 import '../../../../utils/helpers/network_manager.dart';
 import '../../../../utils/popups/full_screen_loader.dart';
-import '../../../../view/widgets/loaders/loaders.dart';
 
 class SignupController extends GetxController{
   static SignupController get instance => Get.find();

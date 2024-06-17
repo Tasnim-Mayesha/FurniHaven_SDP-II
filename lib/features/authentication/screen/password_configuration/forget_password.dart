@@ -1,10 +1,10 @@
 import "package:flutter/material.dart";
 import "package:get/get.dart";
 import "package:iconsax/iconsax.dart";
+import "package:sdp2/features/authentication/screen/password_configuration/reset_password.dart";
 import "package:sdp2/utils/global_colors.dart";
-import "package:sdp2/view/password_configuration/reset_password.dart";
-import "package:sdp2/view/widgets/button.dart";
-import "../widgets/global_textform.dart";
+
+import "../../../../common/widgets/button.dart";
 
 class ForgetPassword extends StatelessWidget {
   ForgetPassword({super.key});

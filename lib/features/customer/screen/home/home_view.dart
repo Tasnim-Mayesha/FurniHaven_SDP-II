@@ -14,6 +14,10 @@ class HomeView extends StatelessWidget {
           
         ),
       ),
+      body: Center(
+        child: Text("Home Page",
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+      ),
 
 
     );

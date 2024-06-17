@@ -6,10 +6,10 @@ import 'package:get_storage/get_storage.dart';
 import 'package:sdp2/bindings/general_bindings.dart';
 import 'package:sdp2/routes/app_routes.dart';
 import 'package:sdp2/utils/themes/theme.dart';
-import 'package:sdp2/view/splash_view.dart';
-import 'package:sdp2/view/widgets/locall_string.dart';
 
+import 'common/widgets/multi_language/locall_string.dart';
 import 'data/repositories/authentication/authentication_repository.dart';
+import 'features/customer/screen/splash_view.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {

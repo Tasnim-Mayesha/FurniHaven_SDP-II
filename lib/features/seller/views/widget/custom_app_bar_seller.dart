@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sdp2/seller/controllers/nav_controller.dart';
+
+
+import '../../controllers/nav_controller.dart';
 
 AppBar customAppBar(BuildContext context) {
   NavController navController = Get.find<NavController>();

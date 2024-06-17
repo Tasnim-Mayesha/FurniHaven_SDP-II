@@ -1,15 +1,10 @@
-
-
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-
-import '../../../../utils/global_colors.dart';
-import '../../../../validators/validation.dart';
-import '../../../../view/widgets/button.dart';
-import '../../controller/signup/signup_controller.dart';
+import '../../../../../common/widgets/button.dart';
+import '../../../../../utils/global_colors.dart';
+import '../../../../../validators/validation.dart';
+import '../../../controller/signup/signup_controller.dart';
 
 class SignupForm extends StatelessWidget {
   const SignupForm({

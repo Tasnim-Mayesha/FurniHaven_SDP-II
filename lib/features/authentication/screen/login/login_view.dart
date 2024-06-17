@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:sdp2/features/customer/screen/home/home_view.dart';
 import 'package:sdp2/utils/global_colors.dart';
-import 'package:sdp2/view/home_view.dart';
-import 'package:sdp2/view/password_configuration/forget_password.dart';
-import 'package:sdp2/view/signup_view.dart';
-import 'package:sdp2/view/widgets/button.dart';
-import 'package:sdp2/view/widgets/custom_appbar_out.dart';
-import 'package:sdp2/view/widgets/social_login.dart';
+
+import 'package:sdp2/features/authentication/screen/signup/signup_view.dart';
+
+import '../../../../common/widgets/appbar/custom_appbar_out.dart';
+import '../../../../common/widgets/button.dart';
+import '../../../../common/widgets/social_login.dart';
+import '../password_configuration/forget_password.dart';
 
 class LoginView extends StatelessWidget {
   LoginView({super.key});
@@ -92,7 +94,7 @@ class LoginView extends StatelessWidget {
         height: 80,
         alignment: Alignment.center,
         child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Text("Don't have an account?".tr),
+          Text("Don't have an account? ".tr),
           InkWell(
             child: Text(
               'Sign Up'.tr,

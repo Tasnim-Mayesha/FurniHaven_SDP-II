@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:sdp2/view/home_view.dart';
 
-import '../../../../utils/global_colors.dart';
-import '../../../../validators/validation.dart';
-import '../../../../view/widgets/button.dart';
+import '../../../../../common/widgets/button.dart';
+import '../../../../../utils/global_colors.dart';
+import '../../../../../validators/validation.dart';
+import '../../../../customer/screen/home/home_view.dart';
 
 
 class LoginForm extends StatelessWidget {

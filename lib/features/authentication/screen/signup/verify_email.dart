@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sdp2/utils/constant.dart';
 import 'package:sdp2/utils/global_colors.dart';
-import 'package:sdp2/view/login_view.dart';
-import 'package:sdp2/view/success_screen.dart';
+import 'package:sdp2/features/authentication/screen/login/login_view.dart';
+
+import '../../../../common/widgets/success_screen.dart';
+
 
 class VerifyEmailScreen extends StatelessWidget{
   const VerifyEmailScreen({super.key});

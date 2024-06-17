@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sdp2/seller/controllers/nav_controller.dart';
-import 'package:sdp2/seller/views/pages/account_page.dart';
-import 'package:sdp2/seller/views/pages/chat_page.dart';
-import 'package:sdp2/seller/views/pages/coupon_page.dart';
-import 'package:sdp2/seller/views/pages/dashboard_page.dart';
-import 'package:sdp2/seller/views/pages/products_page.dart';
-import 'package:sdp2/seller/views/widget/custom_app_bar_seller.dart';
+import 'package:sdp2/features/seller/views/pages/account_page.dart';
+import 'package:sdp2/features/seller/views/pages/chat_page.dart';
+import 'package:sdp2/features/seller/views/pages/coupon_page.dart';
+import 'package:sdp2/features/seller/views/pages/dashboard_page.dart';
+import 'package:sdp2/features/seller/views/pages/products_page.dart';
+import 'package:sdp2/features/seller/views/widget/custom_app_bar_seller.dart';
+
 import 'package:sdp2/utils/global_colors.dart';
+
+import '../controllers/nav_controller.dart';
 
 class MainPage extends StatelessWidget {
   MainPage({Key? key}) : super(key: key);

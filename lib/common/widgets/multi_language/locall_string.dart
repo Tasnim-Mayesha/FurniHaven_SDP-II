@@ -10,7 +10,7 @@ class LocalString extends Translations{
       'Forgot Password':'Forgot Password',
       'Sign In':'Sign In',
       '-Or sign in with-':'-Or sign in with-',
-      "Don't have an account?":"Don't have an account?",
+      "Don't have an account? ":"Don't have an account? ",
       'Sign Up':'Sign Up',
       'Username':'Username',
       'Username is required':'Username is required',

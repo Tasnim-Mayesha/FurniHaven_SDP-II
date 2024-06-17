@@ -2,8 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sdp2/utils/constant.dart';
-import 'package:sdp2/view/widgets/button.dart';
-import 'package:sdp2/view/login_view.dart';
+import 'package:sdp2/features/authentication/screen/login/login_view.dart';
+
+import '../../../../common/widgets/button.dart';
 
 
 class ResetPassword extends StatelessWidget {

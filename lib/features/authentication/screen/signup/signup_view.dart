@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sdp2/view/widgets/custom_appbar_out.dart';
 
-import 'package:sdp2/view/widgets/social_login.dart';
 
-import '../features/authentication/screen/signup/signup_form.dart';
+import '../../../../common/widgets/appbar/custom_appbar_out.dart';
+import '../../../../common/widgets/social_login.dart';
+import 'widgets/signup_form.dart';
 
 
 class SignupView extends StatelessWidget {

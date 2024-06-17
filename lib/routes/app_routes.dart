@@ -1,12 +1,15 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
-import 'package:sdp2/seller/views/main_page.dart';
-import 'package:sdp2/view/login_view.dart';
-import 'package:sdp2/view/password_configuration/forget_password.dart';
-import 'package:sdp2/view/signup_view.dart';
-import 'package:sdp2/view/splash_view.dart';
-import 'package:sdp2/view/verify_email.dart';
+import 'package:sdp2/features/authentication/screen/login/login_view.dart';
 
-import '../view/home_view.dart';
+import 'package:sdp2/features/authentication/screen/signup/signup_view.dart';
+
+import 'package:sdp2/features/authentication/screen/signup/verify_email.dart';
+
+import '../features/authentication/screen/password_configuration/forget_password.dart';
+import '../features/customer/screen/home/home_view.dart';
+import '../features/customer/screen/splash_view.dart';
+import '../features/seller/views/main_page.dart';
+
 
 class AppRoutes {
   static final pages = [
