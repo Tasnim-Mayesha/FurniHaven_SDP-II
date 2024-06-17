@@ -1,53 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../features/seller/controllers/nav_controller.dart';
-import '../../../utils/global_colors.dart';
+import 'package:sdp2/utils/global_colors.dart';
 
-
-AppBar customAppBarIn(BuildContext context) {
-  NavController navController = Get.find<NavController>();
-
-  // Determine if the theme is dark or light
-  bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
-
-  // Set the back button icon based on the theme
-  Icon backButtonIcon = isDarkMode
-      ? const Icon(Icons.arrow_back_ios_new, color: GlobalColors.white)
-      : const Icon(Icons.arrow_back_ios_new, color: GlobalColors.black);
-
-  // Determine the current route
-  String? currentRoute = ModalRoute.of(context)?.settings.name;
-
-  return AppBar(
-    backgroundColor: GlobalColors.mainColor,
-    title: Obx(
-          () => Text(
-        navController.pageTitles[navController.currentIndex.value],
-        textAlign: TextAlign.center,
-      ),
-    ),
-    centerTitle: true,
-    leading: (currentRoute != '/LoginView')
-        ? Builder(
-      builder: (BuildContext context) {
-        return IconButton(
-          icon: backButtonIcon,
-          onPressed: () {
-            if (Scaffold.of(context).hasDrawer) {
-              Scaffold.of(context).openDrawer();
-            } else {
-              Navigator.of(context).pop();
-            }
-          },
-        );
-      },
-    )
-        : null, // Do not show the back button if on the login route
-    actions: [
-      LanguageSelectorButton(),
-    ],
-  );
-}
+import '../bottomnavbar/starting_controller.dart';
 
 class LanguageSelectorButton extends StatelessWidget {
   final List<Map<String, dynamic>> locale = [
@@ -60,7 +15,7 @@ class LanguageSelectorButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton<String>(
-      icon: const Icon(Icons.language),
+      icon: const Icon(Icons.language, color: Colors.white), // Set icon color to white
       onSelected: (String language) {
         // Find the selected locale and update language
         Map<String, dynamic> selectedLocale =
@@ -79,5 +34,68 @@ class LanguageSelectorButton extends StatelessWidget {
 
   void updateLanguage(Locale locale) {
     Get.updateLocale(locale);
+  }
+}
+
+AppBar customAppBarIn(BuildContext context) {
+  CustNavController navController = Get.find<CustNavController>();
+
+  return AppBar(
+    backgroundColor: GlobalColors.mainColor,
+    title: Obx(
+          () => Text(
+        navController.pageTitles[navController.currentIndex.value],
+        textAlign: TextAlign.center,
+        style: TextStyle(color: Colors.white), // Set title color to white
+      ),
+    ),
+    centerTitle: true,
+    leading: Builder(
+      builder: (BuildContext context) {
+        return IconButton(
+          icon: const Icon(Icons.menu, color: Colors.white), // Set icon color to white
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+          },
+        );
+      },
+    ),
+    actions: [
+      LanguageSelectorButton(), // Add the language selector button here
+    ],
+  );
+}
+
+class MyScaffold extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: customAppBarIn(context),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            Container(
+              height: 150.0,
+              width: double.infinity,
+              margin: const EdgeInsets.only(top: 80),
+              padding: EdgeInsets.zero,
+              child: Image.asset('assets/images/furnihaven_logo.png',
+                  fit: BoxFit.contain),
+            ),
+            ListTile(
+              leading: const Icon(Icons.home),
+              title: const Text('Home'),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: const Icon(Icons.settings),
+              title: const Text('Settings'),
+              onTap: () {},
+            ),
+          ],
+        ),
+      ),
+      body: Center(child: Text('Your main content here')),
+    );
   }
 }

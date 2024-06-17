@@ -16,6 +16,11 @@ class LocalString extends Translations{
       'Username is required':'Username is required',
       'Email is required':'Email is required',
       'Password is required':'Password is required',
+      'Home':'Home',
+      'Messages':'Message',
+      'Cart':'Cart',
+      'Wishlist':'Wishlist',
+      'Account':'Account',
     },
     'bn_BD':{
       'Login to your Account' : 'আপনার একাউন্টে লগ ইন করুন',
@@ -30,7 +35,13 @@ class LocalString extends Translations{
       'Username is required':'নাম দিন',
       'Email is required':'ইমেইল দিন',
       'Password is required':'পাসওয়ার্ড দিন',
-    }
+      'Home':'হোম',
+      'Messages':'বার্তা',
+      'Cart':'কার্ট',
+      'Wishlist':'ইচ্ছে তালিকা',
+      'Account':'একাউন্ট',
+
+  }
 
   };
 }

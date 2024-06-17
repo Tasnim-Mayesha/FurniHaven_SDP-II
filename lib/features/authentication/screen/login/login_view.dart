@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:sdp2/features/customer/screen/home/home_view.dart';
+import 'package:sdp2/common/widgets/bottomnavbar/customer_starting.dart';
 import 'package:sdp2/utils/global_colors.dart';
 
 import 'package:sdp2/features/authentication/screen/signup/signup_view.dart';
@@ -80,7 +80,7 @@ class LoginView extends StatelessWidget {
                 CustomButton(
                   text: 'Sign In'.tr,
                   onTap: () {
-                    Get.to(() => HomeView());
+                    Get.to(() => CustMainPage());
                   },
                 ),
                 const SizedBox(height: 25),
