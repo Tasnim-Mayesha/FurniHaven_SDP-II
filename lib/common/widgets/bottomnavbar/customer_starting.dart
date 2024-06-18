@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sdp2/common/widgets/appbar/custom_appbar_in.dart';
+
 import 'package:sdp2/common/widgets/bottomnavbar/bottom_nav_bar.dart';
 import 'package:sdp2/common/widgets/bottomnavbar/starting_controller.dart';
 import 'package:sdp2/features/customer/screen/cart/add_to_cart.dart';
@@ -8,7 +8,9 @@ import 'package:sdp2/features/customer/screen/home/home_view.dart';
 import 'package:sdp2/features/customer/screen/message/message_list.dart';
 import 'package:sdp2/features/customer/screen/wishlist/wishlist.dart';
 import 'package:sdp2/features/personilization/screen/profile/profile.dart';
-import 'package:sdp2/utils/global_colors.dart';
+
+import '../appbar/custom_appbar_in.dart';
+
 
 class CustMainPage extends StatelessWidget {
   CustMainPage({Key? key}) : super(key: key);
@@ -44,7 +46,7 @@ class CustMainPage extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(Icons.settings),
-              title: const Text('Settings'),
+              title:  Text('Settings'.tr),
               onTap: () {},
             ),
           ],

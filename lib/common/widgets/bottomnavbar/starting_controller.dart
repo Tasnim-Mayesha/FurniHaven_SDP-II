@@ -11,6 +11,8 @@ class CustNavController extends GetxController {
 
   var currentIndex = 0.obs;
 
+
+
   List<String> get pageTitles {
     return [
       "Home".tr,

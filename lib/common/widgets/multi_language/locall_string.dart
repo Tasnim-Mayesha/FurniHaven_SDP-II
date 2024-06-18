@@ -21,6 +21,7 @@ class LocalString extends Translations{
       'Cart':'Cart',
       'Wishlist':'Wishlist',
       'Account':'Account',
+      'Search here':'Search here',
     },
     'bn_BD':{
       'Login to your Account' : 'আপনার একাউন্টে লগ ইন করুন',
@@ -40,6 +41,8 @@ class LocalString extends Translations{
       'Cart':'কার্ট',
       'Wishlist':'ইচ্ছে তালিকা',
       'Account':'একাউন্ট',
+      'Search here':'এখানে অনুসন্ধান করুন',
+
 
   }
 
