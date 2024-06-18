@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sdp2/seller/views/widget/dashboard/graphs/monthly_sales.dart';
-import 'package:sdp2/seller/views/widget/dashboard/graphs/today_sales.dart';
-import 'package:sdp2/seller/views/widget/dashboard/graphs/yearly_growth.dart';
-import 'package:sdp2/seller/views/widget/dashboard/total_profit_sales.dart';
+import 'package:sdp2/features/seller/views/widget/dashboard/graphs/monthly_sales.dart';
+import 'package:sdp2/features/seller/views/widget/dashboard/graphs/today_sales.dart';
+import 'package:sdp2/features/seller/views/widget/dashboard/graphs/yearly_growth.dart';
+import 'package:sdp2/features/seller/views/widget/dashboard/total_profit_sales.dart';
 
 class DashboardPage extends StatelessWidget {
   @override
