@@ -23,7 +23,7 @@ class DashboardPage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(15.0),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -61,7 +61,7 @@ class DashboardPage extends StatelessWidget {
                       child: MonthlySalesBarChart(),
                       height: 300,
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 10),
                     _buildDashboardContainer(
                       context: context,
                       iconData: Icons.attach_money,
@@ -69,7 +69,7 @@ class DashboardPage extends StatelessWidget {
                       child: TotalSalesBox(),
                       height: 150,
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 10),
                     _buildDashboardContainer(
                       context: context,
                       iconData: Icons.money_off,
