@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
       title: 'SDP 2',
       themeMode: ThemeMode.system,
       theme: MyAppTheme.lightTheme,
-      // darkTheme: MyAppTheme.darkTheme,
+      darkTheme: MyAppTheme.darkTheme,
       debugShowCheckedModeBanner: false,
       initialBinding: GeneralBindings(),
       getPages: AppRoutes.pages,
