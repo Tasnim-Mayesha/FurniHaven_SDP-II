@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sdp2/common/widgets/bottomnavbar/customer_starting.dart';
 // import 'package:sdp2/features/Filter/filterBy.dart';
 import 'package:sdp2/features/customer/screen/home/home_view.dart';
 import '../widgets/PaginationIndicator/paginationIndicator.dart';
@@ -39,7 +40,7 @@ class Onboarding3 extends StatelessWidget {
           FloatingActionButton(
             onPressed: () {
               // Add your onPressed code here!
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeView()),
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>CustMainPage()),
               );
             },
             child: Padding(
