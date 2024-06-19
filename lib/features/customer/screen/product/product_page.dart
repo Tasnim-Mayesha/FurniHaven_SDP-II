@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:sdp2/features/customer/screen/product/widgets/chat_with_seller_initiation.dart';
 import 'package:sdp2/features/customer/screen/product/widgets/model_view.dart';
 import 'package:sdp2/features/customer/screen/product/widgets/product_detail_card.dart';
@@ -33,7 +34,7 @@ class _ProductPageState extends State<ProductPage> {
         actions: [
           IconButton(
             icon: Icon(
-              Icons.favorite,
+              Iconsax.heart5,
               color: isFavorite ? GlobalColors.mainColor : Colors.grey,
             ),
             onPressed: () {
@@ -118,7 +119,8 @@ class _ProductPageState extends State<ProductPage> {
         ),
       ),
       floatingActionButton: SizedBox(
-        width: 300,
+        width: 320,
+        height: 50,
         child: FloatingActionButton.extended(
           onPressed: () {
             // Add your logic here for adding the item to the cart

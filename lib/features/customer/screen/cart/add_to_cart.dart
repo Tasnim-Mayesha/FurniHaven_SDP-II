@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sdp2/common/widgets/appbar/custom_appbar_in.dart';
+import 'package:sdp2/common/widgets/button.dart';
 import 'package:sdp2/utils/global_colors.dart';
 
 class CartView extends StatelessWidget {
@@ -8,12 +9,11 @@ class CartView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
 
 
       body: Center(
-        child: Text("Cart Page",
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+        child: SizedBox(width: 320,child: CustomButton(text: 'Checkout',))
       ),
 
 

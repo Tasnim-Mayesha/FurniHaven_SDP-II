@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sdp2/common/widgets/PriceRange/priceRange.dart';
-import 'package:sdp2/features/Sort/sortBy.dart';
+import '../Sort/sortBy.dart';
+
 class FilterBy extends StatelessWidget {
   const FilterBy({super.key});
 

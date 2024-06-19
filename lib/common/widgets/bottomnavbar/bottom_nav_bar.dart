@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:sdp2/common/widgets/bottomnavbar/starting_controller.dart';
 import 'package:sdp2/utils/global_colors.dart';
 
@@ -42,7 +43,7 @@ class CustomBottomNavBar extends StatelessWidget {
               label: custNavController.pageTitles[2],
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.favorite),
+              icon: Icon(Iconsax.heart5),
               label: custNavController.pageTitles[3],
             ),
             BottomNavigationBarItem(
