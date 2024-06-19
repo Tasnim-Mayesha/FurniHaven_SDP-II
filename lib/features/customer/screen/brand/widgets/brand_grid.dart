@@ -22,7 +22,7 @@ class PopularBrandsGrid extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Browse Popular Brands',
+            'Browse Popular Brands'.tr,
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 10),

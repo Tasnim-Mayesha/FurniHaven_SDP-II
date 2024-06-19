@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart'; // Import GetX package
 import 'package:sdp2/common/onboarding/Onboarding3.dart';
+
 import '../widgets/PaginationIndicator/paginationIndicator.dart';
+import '../widgets/bottomnavbar/customer_starting.dart';
 
 class Onboarding2 extends StatelessWidget {
   const Onboarding2({super.key});
@@ -9,55 +12,61 @@ class Onboarding2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title:const Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Padding(padding: EdgeInsets.only(top:30.0,right: 14.0),
-                child:Text('Skip',
-                  style: TextStyle(color:Colors.deepOrange),) ,)
-            ],
-          )
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 30.0, right: 14.0),
+              child: TextButton(
+                onPressed: () {
+                  Get.to(CustMainPage());
+                },
+                child: const Text(
+                  'Skip',
+                  style: TextStyle(color: Colors.deepOrange,fontSize: 20),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Padding(
-            padding: const EdgeInsets.only(right:130.0),
+            padding: const EdgeInsets.only(right: 130.0),
             child: PaginationIndicator(
               totalPages: 3,
               currentPage: 1,
             ),
           ),
-          Text(
+          const Text(
             'NEXT',
-            style: TextStyle(color: Colors.deepOrange,fontSize: 16),
+            style: TextStyle(color: Colors.deepOrange, fontSize: 16),
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           FloatingActionButton(
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>Onboarding3()),
-              );
+              Get.to(Onboarding3());
             },
-            child: Padding(
+            child: const Padding(
               padding: EdgeInsets.all(10.0),
-              child: Icon(Icons.arrow_right_alt, size: 30.0,color: Colors.white),
+              child: Icon(Icons.arrow_right_alt, size: 30.0, color: Colors.white),
             ),
             backgroundColor: Colors.deepOrange,
             elevation: 10,
           ),
         ],
       ),
-
-
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-
               Container(
                 padding: const EdgeInsets.all(25.0),
-                child: Image.asset('assets/images/image 76.png',
+                child: Image.asset(
+                  'assets/images/image 76.png',
                   width: double.infinity,
                   fit: BoxFit.cover,
                 ),
@@ -76,7 +85,7 @@ class Onboarding2 extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15.0),
                 child: Text(
-                  'For Seamless Transactions, Choose Your Payment Path \n Your Convenience,Our Priority!',
+                  'For Seamless Transactions, Choose Your Payment Path \n Your Convenience, Our Priority!',
                   style: TextStyle(
                     fontSize: 16.0,
                   ),

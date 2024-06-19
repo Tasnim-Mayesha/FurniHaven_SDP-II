@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart'; // Import GetX package
 import 'package:sdp2/common/onboarding/Onboarding2.dart';
 import '../widgets/PaginationIndicator/paginationIndicator.dart';
+import '../widgets/bottomnavbar/customer_starting.dart';
 
 class Onboarding extends StatelessWidget {
   const Onboarding({super.key});
@@ -8,35 +10,45 @@ class Onboarding extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(
-         title:const Row(
-           mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Padding(padding: EdgeInsets.only(top:30.0,right: 14.0),
-                child:Text('Skip',
-                style: TextStyle(color:Colors.deepOrange),) ,)
-           ],
-         )
-       ),
+      appBar: AppBar(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 30.0, right: 14.0),
+              child: TextButton(
+                onPressed: () {
+                  Get.to(CustMainPage());
+                },
+                child: const Text(
+                  'Skip',
+                  style: TextStyle(color: Colors.deepOrange,fontSize: 20),
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Padding(
-            padding: const EdgeInsets.only(right:130.0),
+            padding: const EdgeInsets.only(right: 130.0),
             child: PaginationIndicator(
               totalPages: 3,
               currentPage: 0,
             ),
           ),
-          Text('NEXT', style: TextStyle(color: Colors.deepOrange,fontSize: 16),
+          const Text(
+            'NEXT',
+            style: TextStyle(color: Colors.deepOrange, fontSize: 16),
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           FloatingActionButton(
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>Onboarding2()),
-              );
+              Get.to(Onboarding2());
             },
-            child: Padding(
+            child: const Padding(
               padding: EdgeInsets.all(10.0),
               child: Icon(Icons.arrow_right_alt, size: 30.0, color: Colors.white),
             ),
@@ -45,22 +57,19 @@ class Onboarding extends StatelessWidget {
           ),
         ],
       ),
-
-
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-
               Container(
                 padding: const EdgeInsets.all(25.0),
-                child: Image.asset('assets/images/image 78.jpg',
+                child: Image.asset(
+                  'assets/images/image 78.jpg',
                   width: double.infinity,
                   fit: BoxFit.cover,
                 ),
               ),
-
               const Padding(
                 padding: EdgeInsets.all(15.0),
                 child: Text(
@@ -81,9 +90,7 @@ class Onboarding extends StatelessWidget {
                   ),
                   textAlign: TextAlign.center,
                 ),
-
               ),
-
             ],
           ),
         ),

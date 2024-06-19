@@ -30,8 +30,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  #banner
   carousel_slider: ^4.0.0
+
+  #review and ratings
+  flutter_rating_bar: ^4.0.0
+  image_picker: ^0.8.4+4
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -96,6 +100,8 @@ flutter:
     - assets/categories/
     - assets/images/
     - assets/products/
+    - assets/product3d/
+    - assets/users/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

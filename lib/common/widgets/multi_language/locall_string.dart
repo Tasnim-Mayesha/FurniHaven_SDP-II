@@ -22,6 +22,17 @@ class LocalString extends Translations{
       'Wishlist':'Wishlist',
       'Account':'Account',
       'Search here':'Search here',
+      'Sofas':'Sofas',
+      'Beds':'Beds',
+      'Dining':'Dining',
+      'Shoe Rack': 'Shoe Rack',
+      'Study Table': 'Study Table',
+      'Chair':'Chair',
+      'Cupboard':'Cupboard',
+      'Book Shelf':'Bookshelf',
+      'Browse Popular Categories':'Browse Popular Categories',
+      'Browse Popular Brands':'Browse Popular Brands'
+
     },
     'bn_BD':{
       'Login to your Account' : 'আপনার একাউন্টে লগ ইন করুন',
@@ -42,9 +53,23 @@ class LocalString extends Translations{
       'Wishlist':'ইচ্ছে তালিকা',
       'Account':'একাউন্ট',
       'Search here':'এখানে অনুসন্ধান করুন',
+      'Sofas':'সোফা',
+      'Beds':'বেড',
+      'Dining':'ডাইনিং',
+      'Shoe Rack': 'শু রাক',
+      'Study Table': 'পড়ার টেবিল',
+      'Chair':'চেয়ার',
+      'Cupboard':'কাপবোর্ড',
+      'Book Shelf':'বুক শেল্ফ',
+      'Browse Popular Categories':'জনপ্রিয় প্রণালি ব্রাউজ করুন',
+      'Browse Popular Brands':'জনপ্রিয় ব্র্যান্ড ব্রাউজ করুন',
 
 
   }
+
+
+
+
 
   };
 }

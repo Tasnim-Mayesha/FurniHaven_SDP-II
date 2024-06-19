@@ -42,7 +42,7 @@ class CustomBottomNavBar extends StatelessWidget {
               label: custNavController.pageTitles[2],
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_bag),
+              icon: Icon(Icons.favorite),
               label: custNavController.pageTitles[3],
             ),
             BottomNavigationBarItem(

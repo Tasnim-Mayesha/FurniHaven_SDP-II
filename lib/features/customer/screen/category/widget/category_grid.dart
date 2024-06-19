@@ -11,14 +11,14 @@ import '../studytable.dart'; // Import the category pages
 
 class CategoryGrid extends StatelessWidget {
   final List<Category> categories = [
-    Category(name: 'Sofas', image: 'assets/categories/sofa.png', page: SofasPage()),
-    Category(name: 'Beds', image: 'assets/categories/bed.png', page: BedsPage()),
-    Category(name: 'Dining', image: 'assets/categories/dining.png', page: DiningPage()),
-    Category(name: 'Shoe Rack', image: 'assets/categories/shoe_rack.png', page: ShoeRackPage()),
-    Category(name: 'Study Table', image: 'assets/categories/study_table.png', page: StudyTablePage()),
-    Category(name: 'Chair', image: 'assets/categories/chair.png', page: ChairPage()),
-    Category(name: 'Cupboard', image: 'assets/categories/cupboard.png', page: CupboardPage()),
-    Category(name: 'Book Shelf', image: 'assets/categories/book_shelf.png', page: BookShelfPage()),
+    Category(name: 'Sofas'.tr, image: 'assets/categories/sofa.png', page: SofasPage()),
+    Category(name: 'Beds'.tr, image: 'assets/categories/bed.png', page: BedsPage()),
+    Category(name: 'Dining'.tr, image: 'assets/categories/dining.png', page: DiningPage()),
+    Category(name: 'Shoe Rack'.tr, image: 'assets/categories/shoe_rack.png', page: ShoeRackPage()),
+    Category(name: 'Study Table'.tr, image: 'assets/categories/study_table.png', page: StudyTablePage()),
+    Category(name: 'Chair'.tr, image: 'assets/categories/chair.png', page: ChairPage()),
+    Category(name: 'Cupboard'.tr, image: 'assets/categories/cupboard.png', page: CupboardPage()),
+    Category(name: 'Book Shelf'.tr, image: 'assets/categories/book_shelf.png', page: BookShelfPage()),
   ];
 
   @override
@@ -29,7 +29,7 @@ class CategoryGrid extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Browse Popular Categories',
+            'Browse Popular Categories'.tr,
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 10),

@@ -10,6 +10,7 @@ class CartView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
 
+
       body: Center(
         child: Text("Cart Page",
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
