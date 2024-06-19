@@ -19,7 +19,7 @@ class PaginationIndicator extends StatelessWidget {
       children: List.generate(totalPages, (index) {
         bool isCurrentPage = index == currentPage;
         return Container(
-          margin: EdgeInsets.symmetric(horizontal: 4.0),
+          margin: const EdgeInsets.symmetric(horizontal: 4.0),
           width:index ==currentPage? 30.0:12.0,
           height:index ==currentPage? 12.0:12.0,
           decoration: BoxDecoration(

@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
 class DiningPage extends StatelessWidget {
+  const DiningPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Dinning'),
+        title: const Text('Dinning'),
       ),
-      body: Center(
+      body: const Center(
         child: Text('Dinning Page'),
       ),
     );

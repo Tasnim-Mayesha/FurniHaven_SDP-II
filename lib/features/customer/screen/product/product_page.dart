@@ -25,12 +25,12 @@ class _ProductPageState extends State<ProductPage> {
       backgroundColor: GlobalColors.softGrey, // Light ash color
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Get.back();
           },
         ),
-        title: Center(child: Text('Product')),
+        title: const Center(child: Text('Product')),
         actions: [
           IconButton(
             icon: Icon(
@@ -49,11 +49,11 @@ class _ProductPageState extends State<ProductPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Product3DViewer(),
+            const Product3DViewer(),
             const SizedBox(height: 10),
-            ActionButtonsRow(),
+            const ActionButtonsRow(),
             const SizedBox(height: 10),
-            ProductDetailsCard(),
+            const ProductDetailsCard(),
             const SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -62,7 +62,7 @@ class _ProductPageState extends State<ProductPage> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(8.0),
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                       color: Colors.black12,
                       blurRadius: 4.0,
@@ -74,13 +74,13 @@ class _ProductPageState extends State<ProductPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       'Quantity',
                       style: TextStyle(fontSize: 16),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     IconButton(
-                      icon: Icon(Icons.remove),
+                      icon: const Icon(Icons.remove),
                       onPressed: () {
                         setState(() {
                           if (quantity > 1) {
@@ -94,11 +94,11 @@ class _ProductPageState extends State<ProductPage> {
                       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                       child: Text(
                         '$quantity',
-                        style: TextStyle(color: Colors.white, fontSize: 16),
+                        style: const TextStyle(color: Colors.white, fontSize: 16),
                       ),
                     ),
                     IconButton(
-                      icon: Icon(Icons.add),
+                      icon: const Icon(Icons.add),
                       onPressed: () {
                         setState(() {
                           quantity++;
@@ -110,8 +110,8 @@ class _ProductPageState extends State<ProductPage> {
               ),
             ),
             const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+             Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: ReviewSection(), // Include the ReviewSection here
             ),
             const SizedBox(height: 80,),
@@ -125,8 +125,8 @@ class _ProductPageState extends State<ProductPage> {
           onPressed: () {
             // Add your logic here for adding the item to the cart
           },
-          label: Text('Add to Cart',style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w600),),
-          icon: Icon(Icons.shopping_cart,color: Colors.white,),
+          label: const Text('Add to Cart',style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w600),),
+          icon: const Icon(Icons.shopping_cart,color: Colors.white,),
           backgroundColor: GlobalColors.mainColor,
         ),
       ),

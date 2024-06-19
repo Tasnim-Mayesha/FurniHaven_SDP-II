@@ -36,8 +36,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
 class LanguageSelectorButton extends StatelessWidget {
   final List<Map<String, dynamic>> locale = [
-    {'name': 'English', 'locale': Locale('en', 'US')},
-    {'name': 'বাংলা', 'locale': Locale('bn', 'BD')},
+    {'name': 'English', 'locale': const Locale('en', 'US')},
+    {'name': 'বাংলা', 'locale': const Locale('bn', 'BD')},
   ];
 
   LanguageSelectorButton({super.key});

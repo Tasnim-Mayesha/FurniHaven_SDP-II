@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 // import 'package:sdp2/common/widgets/appbar/custom_appbar_in.dart';
-import 'package:sdp2/utils/global_colors.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
@@ -15,7 +13,7 @@ class ProfileView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
+            const Row(
               children: [
                 CircleAvatar(
                   radius: 40.0,
@@ -28,32 +26,32 @@ class ProfileView extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 32.0),
+            const SizedBox(height: 32.0),
             Expanded(
               child: ListView(
                 children: [
                   ListTile(
-                    leading: Icon(Icons.email,color:Colors.deepOrange),
-                    title: Text('shitolsadia@gmail.com'),
-                    trailing: Icon(Icons.navigate_next, color: Colors.deepOrange),
+                    leading: const Icon(Icons.email,color:Colors.deepOrange),
+                    title: const Text('shitolsadia@gmail.com'),
+                    trailing: const Icon(Icons.navigate_next, color: Colors.deepOrange),
                     onTap: () {
                       // Handle email tap
                     },
                   ),
-                  Divider(),
+                  const Divider(),
                   ListTile(
-                    leading: Icon(Icons.phone,color:Colors.deepOrange),
-                    title: Text('+8801972130208'),
-                    trailing: Icon(Icons.navigate_next, color: Colors.deepOrange),
+                    leading: const Icon(Icons.phone,color:Colors.deepOrange),
+                    title: const Text('+8801972130208'),
+                    trailing: const Icon(Icons.navigate_next, color: Colors.deepOrange),
                     onTap: () {
                       // Handle email tap
                     },
                   ),
-                  Divider(),
+                  const Divider(),
                   ListTile(
-                    leading: Icon(Icons.lock,color:Colors.deepOrange),
-                    title: Text('********'),
-                    trailing: Icon(Icons.navigate_next, color: Colors.deepOrange),
+                    leading: const Icon(Icons.lock,color:Colors.deepOrange),
+                    title: const Text('********'),
+                    trailing: const Icon(Icons.navigate_next, color: Colors.deepOrange),
                     onTap: () {
                       // Handle change password tap
                     },

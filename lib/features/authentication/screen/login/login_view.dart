@@ -102,7 +102,7 @@ class LoginView extends StatelessWidget {
                 color: GlobalColors.mainColor,
               ),
             ),
-            onTap: () => Get.to(() => SignupView()),
+            onTap: () => Get.to(() => const SignupView()),
           )
         ]),
       ),

@@ -38,9 +38,9 @@ class LoginForm extends StatelessWidget {
                   //controller: controller.password,
                   //obscureText: controller.hidePassword.value,
                   expands: false,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Password',
-                    prefixIcon: const Icon(Iconsax.password_check),
+                    prefixIcon: Icon(Iconsax.password_check),
                     //suffixIcon: //IconButton(
                         //onPressed: () => controller.hidePassword.value =
                         //!controller.hidePassword.value,
@@ -54,7 +54,7 @@ class LoginForm extends StatelessWidget {
 
               const SizedBox(height: 10),
               ///Sign in button
-              CustomButton(text: 'Sign In',onTap: ()=>  HomeView()//controller.emailAndPasswordSignIn(),
+              CustomButton(text: 'Sign In',onTap: ()=>  const HomeView()//controller.emailAndPasswordSignIn(),
               ),
               
             ],

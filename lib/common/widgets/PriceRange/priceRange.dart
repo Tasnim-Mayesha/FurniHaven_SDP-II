@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class PriceRange extends StatefulWidget {
+  const PriceRange({super.key});
+
   @override
   _PriceRangeFieldState createState() => _PriceRangeFieldState();
 }
@@ -30,18 +32,18 @@ class _PriceRangeFieldState extends State<PriceRange> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        const Text(
           'Price Range',
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
-        SizedBox(height: 16.0),
+        const SizedBox(height: 16.0),
         Row(
           children: [
             Expanded(
               child: TextField(
                 controller: _minController,
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   // labelText: 'Min',
                   border: OutlineInputBorder(),
                 ),
@@ -53,12 +55,12 @@ class _PriceRangeFieldState extends State<PriceRange> {
                 },
               ),
             ),
-            SizedBox(width: 16.0),
+            const SizedBox(width: 16.0),
             Expanded(
               child: TextField(
                 controller: _maxController,
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   // labelText: 'Max',
                   border: OutlineInputBorder(),
                 ),
@@ -72,7 +74,7 @@ class _PriceRangeFieldState extends State<PriceRange> {
             ),
           ],
         ),
-        SizedBox(height: 16.0),
+        const SizedBox(height: 16.0),
         RangeSlider(
           values: _currentRangeValues,
           min: 0,
@@ -88,8 +90,8 @@ class _PriceRangeFieldState extends State<PriceRange> {
             _updateRangeValues(values);
           },
         ),
-        SizedBox(height: 8.0),
-        Row(
+        const SizedBox(height: 8.0),
+        const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text('Min'),

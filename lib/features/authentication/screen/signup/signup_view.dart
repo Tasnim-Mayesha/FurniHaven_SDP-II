@@ -14,7 +14,7 @@ class SignupView extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar : CustomAppBar(),
+      appBar : const CustomAppBar(),
       body: SingleChildScrollView(
         child: SafeArea(
             child: Container(

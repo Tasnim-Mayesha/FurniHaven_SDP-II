@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
 class BookShelfPage extends StatelessWidget {
+  const BookShelfPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Bookshelf'),
+        title: const Text('Bookshelf'),
       ),
-      body: Center(
+      body: const Center(
         child: Text('Bookshelf Page'),
       ),
     );

@@ -2,6 +2,8 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class MonthlySalesBarChart extends StatelessWidget {
+  const MonthlySalesBarChart({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BarChart(
@@ -22,9 +24,9 @@ class MonthlySalesBarChart extends StatelessWidget {
           // Continue adding data for up to 12 months
         ],
         alignment: BarChartAlignment.spaceAround,
-        titlesData: FlTitlesData(show: true),
+        titlesData: const FlTitlesData(show: true),
         borderData: FlBorderData(show: false),
-        gridData: FlGridData(show: false),
+        gridData: const FlGridData(show: false),
       ),
     );
   }

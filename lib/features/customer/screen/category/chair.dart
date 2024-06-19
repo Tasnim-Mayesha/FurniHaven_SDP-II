@@ -3,18 +3,20 @@ import 'package:get/get.dart'; // Import GetX package
 import '../product/product_page.dart';
 
 class ChairPage extends StatelessWidget {
+  const ChairPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Chairs'),
+        title: const Text('Chairs'),
       ),
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            Get.to(ProductPage());
+            Get.to(const ProductPage());
           },
-          child: Text('Go to Product Page'),
+          child: const Text('Go to Product Page'),
         ),
       ),
     );

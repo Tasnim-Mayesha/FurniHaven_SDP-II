@@ -17,11 +17,11 @@ class MainPage extends StatelessWidget {
   final NavController navController = Get.put(NavController());
 
   final List<Widget> pages = [
-    DashboardPage(),
-    ChatPage(),
-    ProductsPage(),
-    CouponPage(),
-    AccountPage(),
+    const DashboardPage(),
+    const ChatPage(),
+    const ProductsPage(),
+    const CouponPage(),
+    const AccountPage(),
   ];
 
   @override

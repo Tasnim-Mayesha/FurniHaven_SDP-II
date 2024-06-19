@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 class TotalSalesBox extends StatelessWidget {
+  const TotalSalesBox({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      padding: EdgeInsets.all(16),
-      child: Column(
+      padding: const EdgeInsets.all(16),
+      child: const Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text('Total Sales'),
@@ -21,12 +23,14 @@ class TotalSalesBox extends StatelessWidget {
 }
 
 class TotalProfitBox extends StatelessWidget {
+  const TotalProfitBox({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      padding: EdgeInsets.all(16),
-      child: Column(
+      padding: const EdgeInsets.all(16),
+      child: const Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text('Total Profit'),

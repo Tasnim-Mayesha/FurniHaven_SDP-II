@@ -47,12 +47,12 @@ class Onboarding3 extends StatelessWidget {
             onPressed: () {
               Get.to(CustMainPage());
             },
+            backgroundColor: Colors.deepOrange,
+            elevation: 10,
             child: const Padding(
               padding: EdgeInsets.all(10.0),
               child: Icon(Icons.arrow_right_alt, size: 30.0, color: Colors.white),
             ),
-            backgroundColor: Colors.deepOrange,
-            elevation: 10,
           ),
         ],
       ),

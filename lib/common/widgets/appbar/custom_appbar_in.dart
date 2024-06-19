@@ -6,8 +6,8 @@ import '../bottomnavbar/starting_controller.dart';
 
 class LanguageSelectorButton extends StatelessWidget {
   final List<Map<String, dynamic>> locale = [
-    {'name': 'English', 'locale': Locale('en', 'US')},
-    {'name': 'বাংলা', 'locale': Locale('bn', 'BD')},
+    {'name': 'English', 'locale': const Locale('en', 'US')},
+    {'name': 'বাংলা', 'locale': const Locale('bn', 'BD')},
   ];
 
   LanguageSelectorButton({super.key});
@@ -46,7 +46,7 @@ AppBar customAppBarIn(BuildContext context) {
           () => Text(
         navController.pageTitles[navController.currentIndex.value],
         textAlign: TextAlign.center,
-        style: TextStyle(color: Colors.white), // Set title color to white
+        style: const TextStyle(color: Colors.white), // Set title color to white
       ),
     ),
     centerTitle: true,
@@ -67,6 +67,8 @@ AppBar customAppBarIn(BuildContext context) {
 }
 
 class MyScaffold extends StatelessWidget {
+  const MyScaffold({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,7 +97,7 @@ class MyScaffold extends StatelessWidget {
           ],
         ),
       ),
-      body: Center(child: Text('Your main content here')),
+      body: const Center(child: Text('Your main content here')),
     );
   }
 }

@@ -4,6 +4,8 @@ import 'package:sdp2/common/widgets/button.dart';
 import 'package:sdp2/features/customer/screen/message/message_list.dart';
 
 class ActionButtonsRow extends StatelessWidget {
+  const ActionButtonsRow({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -16,12 +18,12 @@ class ActionButtonsRow extends StatelessWidget {
             child: CustomButton(
               text: 'Chat with Seller',
               onTap: () {
-                Get.to(MessageList());
+                Get.to(const MessageList());
               },
             ),
           ),
-          Spacer(),
-          InkWell(
+          const Spacer(),
+          const InkWell(
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [

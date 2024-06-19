@@ -12,12 +12,12 @@ class SocialLogin extends StatelessWidget {
       children: [
         Container(
           alignment: Alignment.center,
-          child: Text('-Or sign in with-'.tr, style: TextStyle()),
+          child: Text('-Or sign in with-'.tr, style: const TextStyle()),
         ),
         const SizedBox(
           height: 15,
         ),
-        Container(
+        SizedBox(
           width: MediaQuery.of(context).size.width * 0.8,
           child: Row(
             children: [

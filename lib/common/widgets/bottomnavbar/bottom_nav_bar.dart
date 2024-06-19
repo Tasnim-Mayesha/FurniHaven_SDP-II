@@ -31,23 +31,23 @@ class CustomBottomNavBar extends StatelessWidget {
           elevation: 0,
           items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
+              icon: const Icon(Icons.home),
               label: custNavController.pageTitles[0],
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.chat),
+              icon: const Icon(Icons.chat),
               label: custNavController.pageTitles[1],
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart),
+              icon: const Icon(Icons.shopping_cart),
               label: custNavController.pageTitles[2],
             ),
             BottomNavigationBarItem(
-              icon: Icon(Iconsax.heart5),
+              icon: const Icon(Iconsax.heart5),
               label: custNavController.pageTitles[3],
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person),
+              icon: const Icon(Icons.person),
               label: custNavController.pageTitles[4],
             ),
           ],

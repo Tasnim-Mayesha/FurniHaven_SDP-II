@@ -5,11 +5,12 @@ import '../Sort/sortBy.dart';
 class FilterBy extends StatelessWidget {
   const FilterBy({super.key});
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Padding(
-          padding: const EdgeInsets.only(left:0,top: 10.0),
+        title: const Padding(
+          padding: EdgeInsets.only(left:0,top: 10.0),
           child: Text(
             'Filter By',
             style: TextStyle(
@@ -26,26 +27,26 @@ class FilterBy extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
 
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             Expanded(
               child: ListView(
                 children: [
-                  ListTile(
+                  const ListTile(
                     title: PriceRange(),
                   ),
                   ListTile(
                     title: Row(
                       children: [
-                        Expanded(
+                        const Expanded(
                           child: Text('Brand_sortBy'),
                         ),
                         IconButton(
-                          icon: Icon(Icons.navigate_next),
+                          icon: const Icon(Icons.navigate_next),
 
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => SortBy()),
+                              MaterialPageRoute(builder: (context) => const SortBy()),
                             );
                           },
                         ),
@@ -55,11 +56,11 @@ class FilterBy extends StatelessWidget {
                   ListTile(
                     title: Row(
                       children: [
-                        Expanded(
+                        const Expanded(
                             child: Text('Color'),
                         ),
                         IconButton(
-                          icon: Icon(Icons.navigate_next),
+                          icon: const Icon(Icons.navigate_next),
                           onPressed: () {
                             // Navigator.push(
                             //   context,
@@ -73,10 +74,10 @@ class FilterBy extends StatelessWidget {
                   ListTile(
                     title: Row(
                       children: [
-                        Expanded(child: Text('Style'),
+                        const Expanded(child: Text('Style'),
                         ),
                         IconButton(
-                          icon: Icon(Icons.navigate_next),
+                          icon: const Icon(Icons.navigate_next),
                           onPressed: () {
                             // Navigator.push(
                             //   context,
@@ -91,10 +92,10 @@ class FilterBy extends StatelessWidget {
                   ListTile(
                     title: Row(
                       children: [
-                        Expanded(child: Text('Newest'),
+                        const Expanded(child: Text('Newest'),
                         ),
                         IconButton(
-                          icon: Icon(Icons.navigate_next),
+                          icon: const Icon(Icons.navigate_next),
                           onPressed: () {
                             // Navigator.push(
                             //   context,

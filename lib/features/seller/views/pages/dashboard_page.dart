@@ -5,6 +5,8 @@ import 'package:sdp2/features/seller/views/widget/dashboard/graphs/yearly_growth
 import 'package:sdp2/features/seller/views/widget/dashboard/total_profit_sales.dart';
 
 class DashboardPage extends StatelessWidget {
+  const DashboardPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,21 +37,21 @@ class DashboardPage extends StatelessWidget {
                       context: context,
                       iconData: Icons.pie_chart,
                       title: "Today's Sale",
-                      child: TodaySalesPieChart(),
+                      child: const TodaySalesPieChart(),
                       height: 230,
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     _buildDashboardContainer(
                       context: context,
                       iconData: Icons.show_chart,
                       title: "Yearly Growth",
-                      child: YearlyGrowthLineChart(),
+                      child: const YearlyGrowthLineChart(),
                       height: 250,
                     ),
                   ],
                 ),
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,23 +60,23 @@ class DashboardPage extends StatelessWidget {
                       context: context,
                       iconData: Icons.bar_chart,
                       title: "Monthly Sales",
-                      child: MonthlySalesBarChart(),
+                      child: const MonthlySalesBarChart(),
                       height: 300,
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     _buildDashboardContainer(
                       context: context,
                       iconData: Icons.attach_money,
                       title: "Total Sales",
-                      child: TotalSalesBox(),
+                      child: const TotalSalesBox(),
                       height: 150,
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     _buildDashboardContainer(
                       context: context,
                       iconData: Icons.money_off,
                       title: "Total Profit",
-                      child: TotalProfitBox(),
+                      child: const TotalProfitBox(),
                       height: 150,
                     ),
                   ],
@@ -104,7 +106,7 @@ class DashboardPage extends StatelessWidget {
             color: Colors.black.withOpacity(0.1),
             spreadRadius: 1,
             blurRadius: 10,
-            offset: Offset(0, 3),
+            offset: const Offset(0, 3),
           ),
         ],
       ),
@@ -112,12 +114,12 @@ class DashboardPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ListTile(
-            contentPadding: EdgeInsets.symmetric(
+            contentPadding: const EdgeInsets.symmetric(
                 horizontal: 8), // Matching top and left padding
             leading: Container(
-              padding: EdgeInsets.all(4),
+              padding: const EdgeInsets.all(4),
               decoration: BoxDecoration(
-                color: Color(
+                color: const Color(
                     0xFFFAFAFA), // Light grey color for the icon background
                 borderRadius: BorderRadius.circular(4),
                 boxShadow: [
@@ -126,7 +128,7 @@ class DashboardPage extends StatelessWidget {
                     color: Colors.black.withOpacity(0.1),
                     spreadRadius: 1,
                     blurRadius: 3,
-                    offset: Offset(0, 2),
+                    offset: const Offset(0, 2),
                   )
                 ],
               ),

@@ -47,14 +47,14 @@ class Onboarding2 extends StatelessWidget {
           const SizedBox(width: 10),
           FloatingActionButton(
             onPressed: () {
-              Get.to(Onboarding3());
+              Get.to(const Onboarding3());
             },
+            backgroundColor: Colors.deepOrange,
+            elevation: 10,
             child: const Padding(
               padding: EdgeInsets.all(10.0),
               child: Icon(Icons.arrow_right_alt, size: 30.0, color: Colors.white),
             ),
-            backgroundColor: Colors.deepOrange,
-            elevation: 10,
           ),
         ],
       ),

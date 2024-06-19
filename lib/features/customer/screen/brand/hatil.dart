@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
 class HatilPage extends StatelessWidget {
+  const HatilPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Hatil'),
+        title: const Text('Hatil'),
       ),
-      body: Center(
+      body: const Center(
         child: Text('Hatil'),
       ),
     );

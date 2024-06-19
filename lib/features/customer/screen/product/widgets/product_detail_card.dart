@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ProductDetailsCard extends StatelessWidget {
+  const ProductDetailsCard({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -10,7 +12,7 @@ class ProductDetailsCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(8.0),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
               color: Colors.black12,
               blurRadius: 4.0,
@@ -29,7 +31,7 @@ class ProductDetailsCard extends StatelessWidget {
                   width: 50,
                   height: 50,
                 ),
-                Spacer(),
+                const Spacer(),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
@@ -40,7 +42,7 @@ class ProductDetailsCard extends StatelessWidget {
                         color: Colors.grey[600],
                       ),
                     ),
-                    Text(
+                    const Text(
                       '10,000 Tk',
                       style: TextStyle(
                         fontSize: 24,
@@ -52,15 +54,15 @@ class ProductDetailsCard extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 10),
-            Text(
+            const SizedBox(height: 10),
+            const Text(
               'Regal Luxurious Chair',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               'This armchair is an elegant and functional piece of furniture. It is suitable for family visits and parties with friends and perfect for relaxing in front of the TV after hard work.',
               style: TextStyle(

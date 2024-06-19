@@ -18,11 +18,11 @@ class CustMainPage extends StatelessWidget {
   final CustNavController custNavController = Get.put(CustNavController());
 
   final List<Widget> pages = [
-    HomeView(),
-    MessageList(),
-    CartView(),
-    WishlistView(),
-    ProfileView()
+    const HomeView(),
+    const MessageList(),
+    const CartView(),
+    const WishlistView(),
+    const ProfileView()
   ];
 
   @override

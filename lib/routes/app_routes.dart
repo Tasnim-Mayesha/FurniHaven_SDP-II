@@ -14,12 +14,12 @@ import '../features/seller/views/main_page.dart';
 class AppRoutes {
   static final pages = [
     //Customer
-    GetPage(name: '/', page: () =>  HomeView()),
-    GetPage(name: '/signup', page: () => SignupView()),
-    GetPage(name: '/verify-email', page: () => VerifyEmailScreen()),
+    GetPage(name: '/', page: () =>  const HomeView()),
+    GetPage(name: '/signup', page: () => const SignupView()),
+    GetPage(name: '/verify-email', page: () => const VerifyEmailScreen()),
     GetPage(name: '/sign-in', page: () => LoginView()),
     GetPage(name: '/forget-password', page: () => ForgetPassword()),
-    GetPage(name: '/splash-screen', page: () => SplashView()),
+    GetPage(name: '/splash-screen', page: () => const SplashView()),
 
     // Seller
     GetPage(name: '/seller_dashboard', page: () => MainPage()),

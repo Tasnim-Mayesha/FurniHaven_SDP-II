@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:sdp2/utils/global_colors.dart';
 
 class TodaySalesPieChart extends StatelessWidget {
+  const TodaySalesPieChart({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -27,7 +29,7 @@ class TodaySalesPieChart extends StatelessWidget {
             borderData: FlBorderData(show: false),
           ),
         ),
-        Column(
+        const Column(
           mainAxisSize: MainAxisSize.min, // Use min size for the content
           children: <Widget>[
             Text(
