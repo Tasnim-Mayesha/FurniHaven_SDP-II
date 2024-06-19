@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:io';
 
 class ReviewCard extends StatelessWidget {
   final Map<String, dynamic> review;
@@ -31,7 +32,7 @@ class ReviewCard extends StatelessWidget {
                     SizedBox(height: 5),
                     Row(
                       children: List.generate(
-                        review['rating'],
+                        review['rating'].toInt(),
                             (index) => Icon(
                           Icons.star,
                           color: Colors.amber,
@@ -46,9 +47,14 @@ class ReviewCard extends StatelessWidget {
             SizedBox(height: 10),
             Text(review['review']),
             SizedBox(height: 10),
-            if (review['reviewImage'] != null) // Display review image if it exists
-              Image.asset(
+            if (review['reviewImage'] != null && review['reviewImage'].isNotEmpty)
+              review['reviewImage'].startsWith('assets/')
+                  ? Image.asset(
                 review['reviewImage'],
+                fit: BoxFit.cover,
+              )
+                  : Image.file(
+                File(review['reviewImage']),
                 fit: BoxFit.cover,
               ),
             SizedBox(height: 10),
