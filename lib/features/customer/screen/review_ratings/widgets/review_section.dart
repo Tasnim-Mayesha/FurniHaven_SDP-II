@@ -49,12 +49,12 @@ class _ReviewSectionState extends State<ReviewSection> {
 
   void _addReview(String review, double rating, String? imagePath) {
     setState(() {
-      reviews.add({
+      reviews.insert(0, {
         'name': 'New User',
         'review': review,
         'date': DateTime.now().toString().split(' ')[0],
         'rating': rating,
-        'image': 'assets/default_user.png', // Default user image
+        'image': 'assets/users/default.png', // Default user image
         'reviewImage': imagePath,
       });
     });
