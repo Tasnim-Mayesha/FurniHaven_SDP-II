@@ -1,0 +1,85 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../../../utils/global_colors.dart';
+
+class AddAddressPage extends StatefulWidget {
+  @override
+  _AddAddressPageState createState() => _AddAddressPageState();
+}
+
+class _AddAddressPageState extends State<AddAddressPage> {
+  final _formKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
+  final _addressController = TextEditingController();
+  final _phoneController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Add Address'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              TextFormField(
+                controller: _nameController,
+                decoration: InputDecoration(labelText: 'Name'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a name';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 10,),
+              TextFormField(
+                controller: _addressController,
+                decoration: InputDecoration(labelText: 'Address'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter an address';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 10,),
+              TextFormField(
+                controller: _phoneController,
+                decoration: InputDecoration(labelText: 'Phone'),
+                keyboardType: TextInputType.phone,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a phone number';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    Get.back(result: {
+                      'name': _nameController.text,
+                      'address': _addressController.text,
+                      'phone': _phoneController.text,
+                    });
+                  }
+                },
+                child: Text('Save'),
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white, backgroundColor: GlobalColors.mainColor,
+                  minimumSize: Size(double.infinity, 50),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
