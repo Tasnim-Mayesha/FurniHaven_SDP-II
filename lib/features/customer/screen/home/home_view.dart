@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sdp2/features/customer/screen/home/widgets/banner_slider.dart';
+import 'package:sdp2/features/customer/screen/home/widgets/category_grid.dart';
 import 'package:sdp2/utils/global_colors.dart';
 
 import '../../../../common/products/product_cards/card.dart';
 import 'brand/widgets/brand_grid.dart';
-import 'category/widget/category_grid.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -108,8 +108,6 @@ class HomeView extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8,)
-
-
           ],
         ),
       ),

@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../bed.dart';
-import '../bookshelf.dart';
-import '../chair.dart';
-import '../cupboard.dart';
-import '../dining.dart';
-import '../shoerack.dart';
-import '../sofa.dart';
-import '../studytable.dart'; // Import the category pages
+
+import '../../product_suggestion/product_suggestion_category.dart';
+
+
 
 class CategoryGrid extends StatelessWidget {
   final List<Category> categories = [
-    Category(name: 'Sofas'.tr, image: 'assets/categories/sofa.png', page: const SofasPage()),
-    Category(name: 'Beds'.tr, image: 'assets/categories/bed.png', page: const BedsPage()),
-    Category(name: 'Dining'.tr, image: 'assets/categories/dining.png', page: const DiningPage()),
-    Category(name: 'Shoe Rack'.tr, image: 'assets/categories/shoe_rack.png', page: const ShoeRackPage()),
-    Category(name: 'Study Table'.tr, image: 'assets/categories/study_table.png', page: const StudyTablePage()),
-    Category(name: 'Chair'.tr, image: 'assets/categories/chair.png', page: const ChairPage()),
-    Category(name: 'Cupboard'.tr, image: 'assets/categories/cupboard.png', page: const CupboardPage()),
-    Category(name: 'Book Shelf'.tr, image: 'assets/categories/book_shelf.png', page: const BookShelfPage()),
+    Category(name: 'Sofas'.tr, image: 'assets/categories/sofa.png'),
+    Category(name: 'Beds'.tr, image: 'assets/categories/bed.png'),
+    Category(name: 'Dining'.tr, image: 'assets/categories/dining.png'),
+    Category(name: 'Shoe Rack'.tr, image: 'assets/categories/shoe_rack.png'),
+    Category(name: 'Study Table'.tr, image: 'assets/categories/study_table.png'),
+    Category(name: 'Chair'.tr, image: 'assets/categories/chair.png'),
+    Category(name: 'Cupboard'.tr, image: 'assets/categories/cupboard.png'),
+    Category(name: 'Book Shelf'.tr, image: 'assets/categories/book_shelf.png'),
   ];
 
    CategoryGrid({super.key});
@@ -62,7 +58,9 @@ class CategoryGrid extends StatelessWidget {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    Get.to(categories[index].page);
+                    if (categories[index].name == 'Chair'.tr) {
+                      Get.to(() => ProductSuggestionCategory(category: categories[index].name));
+                    }
                   },
                   child: Column(
                     children: [
@@ -88,7 +86,7 @@ class CategoryGrid extends StatelessWidget {
 class Category {
   final String name;
   final String image;
-  final Widget page;
+  final String? page; // Correctly marking 'page' as optional
 
-  Category({required this.name, required this.image, required this.page});
+  Category({required this.name, required this.image, this.page});
 }

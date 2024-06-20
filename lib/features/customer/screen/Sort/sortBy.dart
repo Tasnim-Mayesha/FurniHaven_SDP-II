@@ -14,9 +14,7 @@ class _SortByState extends State<SortBy> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Padding(
-        padding: EdgeInsets.only(left:0.0,top: 10.0),
-        child: Text(
+        title: const Text(
         'Sort By',
           style: TextStyle(
             color: Colors.deepOrange,
@@ -24,7 +22,6 @@ class _SortByState extends State<SortBy> {
             fontWeight: FontWeight.bold,
             ),
           ),
-         ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -35,7 +32,7 @@ class _SortByState extends State<SortBy> {
               padding: EdgeInsets.only(left: 30.0,top: 10.0),
               child: Text(
                 'Best Match',
-                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold,color:Colors.blue),
+                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold,color:Colors.orange),
               ),
             ),
             const SizedBox(height: 16.0),

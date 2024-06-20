@@ -24,7 +24,7 @@ class _AccountPageState extends State<AccountPage> {
     return Scaffold(
 
       body: ListView(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         children: [
           _buildListTile(
             context,
@@ -34,11 +34,11 @@ class _AccountPageState extends State<AccountPage> {
                 () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ProfileView()),
+                MaterialPageRoute(builder: (context) => const ProfileView()),
               );
             },
           ),
-          Divider(),
+          const Divider(),
           _buildListTile(
             context,
             1,
@@ -51,7 +51,7 @@ class _AccountPageState extends State<AccountPage> {
               // );
             },
           ),
-          Divider(),
+          const Divider(),
           _buildListTile(
             context,
             2,
@@ -64,7 +64,7 @@ class _AccountPageState extends State<AccountPage> {
               // );
             },
           ),
-          Divider(),
+          const Divider(),
           _buildListTile(
             context,
             3,
@@ -77,7 +77,7 @@ class _AccountPageState extends State<AccountPage> {
               // );
             },
           ),
-          Divider(),
+          const Divider(),
           _buildListTile(
             context,
             4,

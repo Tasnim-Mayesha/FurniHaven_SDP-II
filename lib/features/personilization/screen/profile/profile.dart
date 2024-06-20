@@ -10,7 +10,7 @@ class ProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile'),
+        title: const Text('Profile'),
       ),
 
       body: Padding(
@@ -37,7 +37,7 @@ class ProfileView extends StatelessWidget {
                 children: [
                   ListTile(
                     leading: const Icon(Icons.email, color: Colors.deepOrange),
-                    title: Row(
+                    title: const Row(
                       children: [
                         Text(
                           'Email:     ',
@@ -56,14 +56,14 @@ class ProfileView extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => EditEmail()),
+                        MaterialPageRoute(builder: (context) => const EditEmail()),
                       );
                     },
                   ),
                   const Divider(),
                   ListTile(
                     leading: const Icon(Icons.phone_android_sharp, color: Colors.deepOrange),
-                    title: Row(
+                    title: const Row(
                       children: [
                         Text(
                           'Add Phone Number    ',
@@ -80,14 +80,14 @@ class ProfileView extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => AddContact()),
+                        MaterialPageRoute(builder: (context) => const AddContact()),
                       );
                     },
                   ),
                   const Divider(),
                   ListTile(
                     leading: const Icon(Icons.lock, color: Colors.deepOrange),
-                    title: Row(
+                    title: const Row(
                       children: [
                         Text(
                           'Password:  ',
@@ -102,7 +102,7 @@ class ProfileView extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => ChangePassword()),
+                        MaterialPageRoute(builder: (context) => const ChangePassword()),
                       );
                     },
                   ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AddContact extends StatefulWidget {
+  const AddContact({super.key});
+
   @override
   _AddContactState createState() => _AddContactState();
 }
@@ -43,8 +45,8 @@ class _AddContactState extends State<AddContact> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Phone Number'),
-        bottom: PreferredSize(
+        title: const Text('Phone Number'),
+        bottom: const PreferredSize(
           preferredSize: Size.fromHeight(60.0),
           child: Column(
             children: [
@@ -53,7 +55,7 @@ class _AddContactState extends State<AddContact> {
                 color: Colors.grey,
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 12.0),
+                padding: EdgeInsets.only(left: 12.0),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -85,12 +87,12 @@ class _AddContactState extends State<AddContact> {
                   Icons.phone_android_sharp,
                   color: _isFocused ? Colors.deepOrange : Colors.grey,
                 ),
-                hintStyle: TextStyle(color: Colors.grey),
-                border: OutlineInputBorder(),
+                hintStyle: const TextStyle(color: Colors.grey),
+                border: const OutlineInputBorder(),
               ),
               keyboardType: TextInputType.phone,
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             if (_isContactValid)
               ButtonTheme(
                 height: 160.0,
@@ -103,11 +105,11 @@ class _AddContactState extends State<AddContact> {
                   }
                       : null,
                   style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(vertical: 14.0),
+                    padding: const EdgeInsets.symmetric(vertical: 14.0),
                     //padding: EdgeInsets.symmetric(horizontal: 150.0),
-                    minimumSize: Size(double.infinity, 50.0),
+                    minimumSize: const Size(double.infinity, 50.0),
                   ),
-                  child: Text('Save'),
+                  child: const Text('Save'),
                 ),
               ),
           ],

@@ -39,7 +39,8 @@ class WishlistView extends StatelessWidget {
     ];
 
     return Scaffold(
-      body: Padding(
+      body:
+      Padding(
         padding: const EdgeInsets.all(8.0),
         child: GridView.builder(
           itemCount: products.length,

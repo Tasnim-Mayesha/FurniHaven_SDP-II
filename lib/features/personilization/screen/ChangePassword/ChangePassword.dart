@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'dart:ui';
 
 class ChangePassword extends StatefulWidget {
+  const ChangePassword({super.key});
+
   @override
   _ChangePasswordState createState() => _ChangePasswordState();
 }
@@ -77,8 +78,8 @@ class _ChangePasswordState extends State<ChangePassword> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Change Password'),
-        bottom: PreferredSize(
+        title: const Text('Change Password'),
+        bottom: const PreferredSize(
           preferredSize: Size.fromHeight(1.0),
           child: Divider(
             height: 1.0,
@@ -103,13 +104,13 @@ class _ChangePasswordState extends State<ChangePassword> {
                   Icons.lock,
                   color: _isCurrentPasswordFocused ? Colors.deepOrange : Colors.grey,
                 ),
-                hintStyle: TextStyle(color: Colors.grey),
-                border: OutlineInputBorder(),
+                hintStyle: const TextStyle(color: Colors.grey),
+                border: const OutlineInputBorder(),
               ),
               keyboardType: TextInputType.text,
               obscureText: true,
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             _buildTextFieldHeader('New Password'),
             TextField(
               controller: _newPasswordController,
@@ -122,16 +123,16 @@ class _ChangePasswordState extends State<ChangePassword> {
                 ),
                 suffixIcon: _newPasswordController.text.isNotEmpty
                     ? _isNewPasswordValid
-                    ? Icon(Icons.check, color: Colors.green)
-                    : Icon(Icons.close, color: Colors.red)
+                    ? const Icon(Icons.check, color: Colors.green)
+                    : const Icon(Icons.close, color: Colors.red)
                     : null,
-                hintStyle: TextStyle(color: Colors.grey),
-                border: OutlineInputBorder(),
+                hintStyle: const TextStyle(color: Colors.grey),
+                border: const OutlineInputBorder(),
               ),
               keyboardType: TextInputType.text,
               obscureText: true,
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             _buildTextFieldHeader('Confirm Password'),
             TextField(
               controller: _confirmPasswordController,
@@ -144,16 +145,16 @@ class _ChangePasswordState extends State<ChangePassword> {
                 ),
                 suffixIcon: _confirmPasswordController.text.isNotEmpty
                     ? _isConfirmPasswordValid
-                    ? Icon(Icons.check, color: Colors.green)
-                    : Icon(Icons.close, color: Colors.red)
+                    ? const Icon(Icons.check, color: Colors.green)
+                    : const Icon(Icons.close, color: Colors.red)
                     : null,
-                hintStyle: TextStyle(color: Colors.grey),
-                border: OutlineInputBorder(),
+                hintStyle: const TextStyle(color: Colors.grey),
+                border: const OutlineInputBorder(),
               ),
               keyboardType: TextInputType.text,
               obscureText: true,
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             if (validateForm())
               ButtonTheme(
                 height: 50.0,
@@ -165,10 +166,10 @@ class _ChangePasswordState extends State<ChangePassword> {
                     Navigator.pop(context);
                   },
                   style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(vertical: 14.0),
-                    minimumSize: Size(double.infinity, 50.0),
+                    padding: const EdgeInsets.symmetric(vertical: 14.0),
+                    minimumSize: const Size(double.infinity, 50.0),
                   ),
-                  child: Text('Save'),
+                  child: const Text('Save'),
                 ),
               ),
           ],
@@ -184,7 +185,7 @@ class _ChangePasswordState extends State<ChangePassword> {
         alignment: Alignment.centerLeft,
         child: Text(
           text,
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 16.0,
             color:Color(0xFF00008B),

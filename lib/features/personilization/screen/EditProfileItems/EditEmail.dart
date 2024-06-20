@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class EditEmail extends StatefulWidget {
+  const EditEmail({super.key});
+
   @override
   _EditEmailState createState() => _EditEmailState();
 }
@@ -45,8 +47,8 @@ class _EditEmailState extends State<EditEmail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Email'),
-        bottom: PreferredSize(
+        title: const Text('Email'),
+        bottom: const PreferredSize(
           preferredSize: Size.fromHeight(60.0),
           child: Column(
             children: [
@@ -55,7 +57,7 @@ class _EditEmailState extends State<EditEmail> {
                 color: Colors.grey,
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 12.0),
+                padding: EdgeInsets.only(left: 12.0),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -86,21 +88,21 @@ class _EditEmailState extends State<EditEmail> {
                       Icons.email,
                       color: _isFocused ? Colors.deepOrange : Colors.grey,
                     ),
-                    hintStyle: TextStyle(color: Colors.grey),
-                    border: OutlineInputBorder(),
+                    hintStyle: const TextStyle(color: Colors.grey),
+                    border: const OutlineInputBorder(),
                   ),
                   keyboardType: TextInputType.emailAddress,
                 ),
-                SizedBox(height: 8.0), // Spacer between TextField and additional text
-                Padding(
-                  padding: const EdgeInsets.only(left:8.0),
+                const SizedBox(height: 8.0), // Spacer between TextField and additional text
+                const Padding(
+                  padding: EdgeInsets.only(left:8.0),
                   child: Text(
                     'We will send verification to your Email address',
                     style: TextStyle(color: Colors.deepOrange),
                   ),
                 ),
 
-                SizedBox(height: 16.0),
+                const SizedBox(height: 16.0),
                 if (_isEmailValid)
         ButtonTheme(
         height: 160.0,
@@ -113,11 +115,11 @@ class _EditEmailState extends State<EditEmail> {
           }
               : null,
           style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.symmetric(vertical: 14.0),
+            padding: const EdgeInsets.symmetric(vertical: 14.0),
             //padding: EdgeInsets.symmetric(horizontal: 150.0),
-            minimumSize: Size(double.infinity, 50.0),
+            minimumSize: const Size(double.infinity, 50.0),
           ),
-               child: Text('Save'),
+               child: const Text('Save'),
                   ),
                ),
              ],
