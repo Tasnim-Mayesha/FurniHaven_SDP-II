@@ -10,21 +10,23 @@ class Onboarding3 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            BackButton(),
             Padding(
-              padding: const EdgeInsets.only(top: 30.0, right: 14.0),
+              padding: const EdgeInsets.only(top: 0.0, right: 14.0),
               child: TextButton(
                 onPressed: () {
                   Get.to(CustMainPage());
                 },
                 child: const Text(
                   'Skip',
-                  style: TextStyle(color: Colors.deepOrange,fontSize: 16),
+                  style: TextStyle(color: Colors.deepOrange, fontSize: 16),
                 ),
               ),
-            ),
+            )
           ],
         ),
       ),
@@ -43,15 +45,20 @@ class Onboarding3 extends StatelessWidget {
             style: TextStyle(color: Colors.deepOrange, fontSize: 16),
           ),
           const SizedBox(width: 12),
-          FloatingActionButton(
-            onPressed: () {
-              Get.to(CustMainPage());
-            },
-            backgroundColor: Colors.deepOrange,
-            elevation: 10,
-            child: const Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Icon(Icons.arrow_right_alt, size: 30.0, color: Colors.white),
+          SizedBox(
+            width: 50.0,
+            height: 50.0,
+            child: FloatingActionButton(
+              onPressed: () {
+                Get.to(CustMainPage());
+              },
+              backgroundColor: Colors.deepOrange,
+              elevation: 4,
+              mini: true, // Set mini to true to make the button smaller
+              child: Icon(Icons.arrow_right_alt, size: 24.0, color: Colors.white),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25.0), // Adjust the circular border radius
+              ),
             ),
           ),
         ],
@@ -63,10 +70,11 @@ class Onboarding3 extends StatelessWidget {
             children: [
               Container(
                 padding: const EdgeInsets.all(24.0),
+                height: 300.0, // Set a fixed height for the image
+                width: double.infinity, // Set the width to fill the container
                 child: Image.asset(
                   'assets/onboarding/3.png',
-                  width: double.infinity,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.cover, // Ensure the image covers the container
                 ),
               ),
               const Padding(

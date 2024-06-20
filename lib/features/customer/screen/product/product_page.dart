@@ -94,7 +94,7 @@ class _ProductPageState extends State<ProductPage> {
                       color: Colors.black,
                       onPressed: () {
                         setState(() {
-                          if (quantity >= 1) {
+                          if (quantity > 1) {
                             quantity--;
                           }
                         });
