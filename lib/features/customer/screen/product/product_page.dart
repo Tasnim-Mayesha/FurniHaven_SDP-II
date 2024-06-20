@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:sdp2/common/circular_icon.dart';
 import 'package:sdp2/features/customer/screen/cart/add_to_cart.dart';
 import 'package:sdp2/features/customer/screen/product/widgets/chat_with_seller_initiation.dart';
 import 'package:sdp2/features/customer/screen/product/widgets/model_view.dart';
@@ -51,15 +52,16 @@ class _ProductPageState extends State<ProductPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Product3DViewer(),
-            const SizedBox(height: 10),
+            const SizedBox(height: 8),
             const ActionButtonsRow(),
-            const SizedBox(height: 10),
+            const SizedBox(height: 8),
             const ProductDetailsCard(),
-            const SizedBox(height: 10),
+            const SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Container(
-                padding: const EdgeInsets.all(16.0),
+                height: 50,
+                padding: const EdgeInsets.only(left: 16,right: 16),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(8.0),
@@ -77,29 +79,46 @@ class _ProductPageState extends State<ProductPage> {
                   children: [
                     const Text(
                       'Quantity',
-                      style: TextStyle(fontSize: 16),
+                      style: TextStyle(fontSize: 16,color: Colors.deepOrange,fontWeight: FontWeight.bold),
                     ),
                     const Spacer(),
-                    IconButton(
-                      icon: const Icon(Icons.remove),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CircularIcon(
+                      icon: Iconsax.minus,
+                      size: 16,
+                      backgroundColor: Colors.grey.shade300,
+                      width: 32,
+                      height: 32,
+                      color: Colors.black,
                       onPressed: () {
                         setState(() {
-                          if (quantity > 1) {
+                          if (quantity >= 1) {
                             quantity--;
                           }
                         });
                       },
+
                     ),
-                    Container(
-                      color: GlobalColors.mainColor,
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                      child: Text(
-                        '$quantity',
-                        style: const TextStyle(color: Colors.white, fontSize: 16),
-                      ),
+                    const SizedBox(
+                      width: 16,
                     ),
-                    IconButton(
-                      icon: const Icon(Icons.add),
+                    Text(
+                      quantity.toString(),
+                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontSize: 18),
+                    ),
+
+                    const SizedBox(
+                      width: 16,
+                    ),
+                    CircularIcon(
+                      icon: Iconsax.add,
+                      size: 16,
+                      backgroundColor: Colors.deepOrange,
+                      width: 32,
+                      height: 32,
+                      color: Colors.white,
                       onPressed: () {
                         setState(() {
                           quantity++;
@@ -108,10 +127,12 @@ class _ProductPageState extends State<ProductPage> {
                     ),
                   ],
                 ),
+                  ],
+                ),
               ),
             ),
             const SizedBox(height: 20),
-             Padding(
+             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: ReviewSection(), // Include the ReviewSection here
             ),
@@ -124,12 +145,15 @@ class _ProductPageState extends State<ProductPage> {
         height: 50,
         child: FloatingActionButton.extended(
           onPressed: () {
-            Get.to(CartView());
+            Get.to(const CartView());
             // Add your logic here for adding the item to the cart
           },
           label: const Text('Add to Cart',style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w600),),
-          icon: const Icon(Icons.shopping_cart,color: Colors.white,),
+          icon: const Icon(Icons.shopping_cart,color: Colors.white),
           backgroundColor: GlobalColors.mainColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(35),
+          ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

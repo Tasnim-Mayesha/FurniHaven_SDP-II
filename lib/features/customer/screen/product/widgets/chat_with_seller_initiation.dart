@@ -13,16 +13,20 @@ class ActionButtonsRow extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          SizedBox(
-            width: 250,
-            child: CustomButton(
-              text: 'Chat with Seller',
-              onTap: () {
-                Get.to(const MessageList());
-              },
-            ),
+        SizedBox(
+        width: 250,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(35),  // Set the radius to half of the width/height
+          child: CustomButton(
+            text: 'Chat with Seller',
+            onTap: () {
+              Get.to(const MessageList());
+            },
           ),
-          const Spacer(),
+        ),
+      ),
+
+        const Spacer(),
           const InkWell(
             child: Row(
               mainAxisSize: MainAxisSize.min,

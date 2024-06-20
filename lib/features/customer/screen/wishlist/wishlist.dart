@@ -29,7 +29,7 @@ class WishlistView extends StatelessWidget {
       },
       {
         "imageUrl": "assets/products/Furnish Modern Chair.png",
-        "productName": "Furnish Modern Chair",
+        "productName": "Furnish White Modern Chair",
         "brandName": "Brothers",
         "discount": 15,
         "originalPrice": 18000,

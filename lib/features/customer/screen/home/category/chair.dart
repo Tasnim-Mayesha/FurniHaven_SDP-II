@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart'; // Import GetX package
-import '../product/product_page.dart';
+import '../../product/product_page.dart';
+
 
 class ChairPage extends StatelessWidget {
   const ChairPage({super.key});

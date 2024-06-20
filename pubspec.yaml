@@ -1,3 +1,4 @@
+
 name: sdp2
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
@@ -102,6 +103,7 @@ flutter:
     - assets/products/
     - assets/product3d/
     - assets/users/
+    - assets/onboarding/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

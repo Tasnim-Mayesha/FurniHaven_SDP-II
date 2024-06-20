@@ -9,7 +9,7 @@ import 'package:sdp2/utils/themes/theme.dart';
 
 import 'common/widgets/multi_language/locall_string.dart';
 import 'data/repositories/authentication/authentication_repository.dart';
-import 'features/customer/screen/splash_view.dart';
+import 'common/splash_view.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {

@@ -22,7 +22,7 @@ class Onboarding extends StatelessWidget {
                 },
                 child: const Text(
                   'Skip',
-                  style: TextStyle(color: Colors.deepOrange,fontSize: 20),
+                  style: TextStyle(color: Colors.deepOrange,fontSize: 16),
                 ),
               ),
             )
@@ -40,10 +40,10 @@ class Onboarding extends StatelessWidget {
             ),
           ),
           const Text(
-            'NEXT',
+            'Next',
             style: TextStyle(color: Colors.deepOrange, fontSize: 16),
           ),
-          const SizedBox(width: 10),
+          const SizedBox(width: 12),
           FloatingActionButton(
             onPressed: () {
               Get.to(const Onboarding2());
@@ -63,15 +63,15 @@ class Onboarding extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                padding: const EdgeInsets.all(25.0),
+                padding: const EdgeInsets.all(24.0),
                 child: Image.asset(
-                  'assets/images/image 78.jpg',
+                  'assets/onboarding/1.png',
                   width: double.infinity,
                   fit: BoxFit.cover,
                 ),
               ),
               const Padding(
-                padding: EdgeInsets.all(15.0),
+                padding: EdgeInsets.all(16.0),
                 child: Text(
                   'Choose your furniture',
                   style: TextStyle(
@@ -82,7 +82,7 @@ class Onboarding extends StatelessWidget {
                 ),
               ),
               const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15.0),
+                padding: EdgeInsets.symmetric(horizontal: 16.0),
                 child: Text(
                   'Welcome to a World of Limitless Choices \n Your Perfect Furniture Awaits!',
                   style: TextStyle(

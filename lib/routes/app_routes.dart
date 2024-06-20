@@ -7,7 +7,7 @@ import 'package:sdp2/features/authentication/screen/signup/verify_email.dart';
 
 import '../features/authentication/screen/password_configuration/forget_password.dart';
 import '../features/customer/screen/home/home_view.dart';
-import '../features/customer/screen/splash_view.dart';
+import '../common/splash_view.dart';
 import '../features/seller/views/main_page.dart';
 
 

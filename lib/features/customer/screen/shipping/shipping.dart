@@ -6,6 +6,8 @@ import '../../../personilization/screen/address/address_page.dart';
 import '../../../personilization/screen/address/widgets/address_card.dart';
 
 class ShippingPage extends StatefulWidget {
+  const ShippingPage({super.key});
+
   @override
   _ShippingPageState createState() => _ShippingPageState();
 }
@@ -55,18 +57,18 @@ class _ShippingPageState extends State<ShippingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Ship To'),
+        title: const Text('Ship To'),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Get.back();
           },
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.add),
+            icon: const Icon(Icons.add),
             onPressed: () async {
-              final newAddress = await Get.to(AddAddressPage());
+              final newAddress = await Get.to(const AddAddressPage());
               if (newAddress != null) {
                 _addAddress(newAddress);
               }
@@ -113,12 +115,12 @@ class _ShippingPageState extends State<ShippingPage> {
                   // Handle next button press
                 }
               },
-              child: Text('Next'),
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
                 backgroundColor: GlobalColors.mainColor,
-                minimumSize: Size(double.infinity, 50),
+                minimumSize: const Size(double.infinity, 50),
               ),
+              child: const Text('Next'),
             ),
           ),
         ],

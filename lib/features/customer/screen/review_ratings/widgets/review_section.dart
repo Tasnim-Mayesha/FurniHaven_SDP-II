@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'dart:io';
 
 import 'package:sdp2/features/customer/screen/review_ratings/widgets/review_card.dart';
 import '../../../../../utils/global_colors.dart';
 import '../review_input.dart';
 
 class ReviewSection extends StatefulWidget {
+  const ReviewSection({super.key});
+
   @override
   _ReviewSectionState createState() => _ReviewSectionState();
 }
@@ -65,14 +65,14 @@ class _ReviewSectionState extends State<ReviewSection> {
     return Column(
       children: [
         // Title for Reviews
-        Align(
+        const Align(
           alignment: Alignment.centerLeft,
           child: Text(
             'Reviews',
             style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
           ),
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
 
         ElevatedButton(
           onPressed: () {
@@ -83,11 +83,14 @@ class _ReviewSectionState extends State<ReviewSection> {
               ),
             );
           },
-          child: Text('Give Review and Ratings'),
           style: ElevatedButton.styleFrom(
             backgroundColor: GlobalColors.mainColor,
-            padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(35),  // Adjust radius to make it circular
+            ),
           ),
+          child: const Text('Give Review and Ratings'),
         ),
 
         // Display Reviews

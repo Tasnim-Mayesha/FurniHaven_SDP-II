@@ -7,7 +7,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:sdp2/features/authentication/screen/login/login_view.dart';
 
 
-import '../../../features/customer/screen/splash_view.dart';
+import '../../../common/splash_view.dart';
 import '../../../utils/exceptions/firebase_auth_exceptions.dart';
 import '../../../utils/exceptions/firebase_exceptions.dart';
 import '../../../utils/exceptions/format_exceptions.dart';
