@@ -15,7 +15,7 @@ class Onboarding2 extends StatelessWidget {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            BackButton(),
+            const BackButton(),
             Padding(
               padding: const EdgeInsets.only(top: 0.0, right: 14.0),
               child: TextButton(
@@ -55,11 +55,11 @@ class Onboarding2 extends StatelessWidget {
               },
               backgroundColor: Colors.deepOrange,
               elevation: 4,
-              mini: true, // Set mini to true to make the button smaller
-              child: Icon(Icons.arrow_right_alt, size: 24.0, color: Colors.white),
+              mini: true,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(25.0), // Adjust the circular border radius
-              ),
+              ), // Set mini to true to make the button smaller
+              child: const Icon(Icons.arrow_right_alt, size: 24.0, color: Colors.white),
             ),
           ),
         ],

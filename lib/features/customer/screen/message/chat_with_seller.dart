@@ -11,7 +11,7 @@ class ChatWithSeller extends StatefulWidget {
 
   final String brandName;
 
-  ChatWithSeller({required this.brandImage, required this.brandName});
+  const ChatWithSeller({super.key, required this.brandImage, required this.brandName});
 
   @override
   _ChatWithSellerState createState() => _ChatWithSellerState();
@@ -52,7 +52,7 @@ class _ChatWithSellerState extends State<ChatWithSeller> {
       appBar: AppBar(
         backgroundColor: GlobalColors.mainColor, // Set the app bar color
         leading: IconButton(
-          icon: Icon(Icons.arrow_back,color: Colors.white,),
+          icon: const Icon(Icons.arrow_back,color: Colors.white,),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -71,8 +71,8 @@ class _ChatWithSellerState extends State<ChatWithSeller> {
                   ),
                 ),
               ),
-              SizedBox(width: 40),
-              Column(
+              const SizedBox(width: 40),
+              const Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
 
@@ -118,7 +118,7 @@ class ChatBubble extends StatelessWidget {
   final bool isMe;
   final String time;
 
-  ChatBubble({required this.message, this.image, required this.isMe, required this.time});
+  const ChatBubble({super.key, required this.message, this.image, required this.isMe, required this.time});
 
   @override
   Widget build(BuildContext context) {
@@ -131,18 +131,18 @@ class ChatBubble extends StatelessWidget {
             Material(
               color: isMe ? Colors.orange[400] : Colors.grey[300],
               borderRadius: isMe
-                  ? BorderRadius.only(
+                  ? const BorderRadius.only(
                 topLeft: Radius.circular(10),
                 bottomLeft: Radius.circular(10),
                 bottomRight: Radius.circular(10),
               )
-                  : BorderRadius.only(
+                  : const BorderRadius.only(
                 topRight: Radius.circular(10),
                 bottomLeft: Radius.circular(10),
                 bottomRight: Radius.circular(10),
               ),
               child: Padding(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 child: Image.file(
                   image!,
                   width: 150,
@@ -158,18 +158,18 @@ class ChatBubble extends StatelessWidget {
               child: Material(
                 color: isMe ? Colors.orange[400] : Colors.grey[300],
                 borderRadius: isMe
-                    ? BorderRadius.only(
+                    ? const BorderRadius.only(
                   topLeft: Radius.circular(10),
                   bottomLeft: Radius.circular(10),
                   bottomRight: Radius.circular(10),
                 )
-                    : BorderRadius.only(
+                    : const BorderRadius.only(
                   topRight: Radius.circular(10),
                   bottomLeft: Radius.circular(10),
                   bottomRight: Radius.circular(10),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                  padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                   child: Text(
                     message,
                     style: TextStyle(
@@ -180,10 +180,10 @@ class ChatBubble extends StatelessWidget {
                 ),
               ),
             ),
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
           Text(
             time,
-            style: TextStyle(
+            style: const TextStyle(
                 color: Colors.grey,
                 fontSize: 12),
           ),
@@ -198,7 +198,7 @@ class ChatInputField extends StatelessWidget {
   final Function(String, [File?]) onSend;
   final Function() onPickImage;
 
-  ChatInputField({
+  const ChatInputField({super.key, 
     required this.controller,
     required this.onSend,
     required this.onPickImage,
@@ -207,24 +207,24 @@ class ChatInputField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 10.0),
+      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10.0),
       color: Colors.white,
       child: Row(
         children: <Widget>[
           IconButton(
-            icon: Icon(Icons.photo_camera),
+            icon: const Icon(Icons.photo_camera),
             onPressed: onPickImage,
           ),
           Expanded(
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 0),
+              padding: const EdgeInsets.symmetric(horizontal: 0),
               decoration: BoxDecoration(
                 color: Colors.grey[200],
                 borderRadius: BorderRadius.circular(12.0),
               ),
               child: TextField(
                 controller: controller,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Write message...',
                   border: InputBorder.none,
                 ),
@@ -234,7 +234,7 @@ class ChatInputField extends StatelessWidget {
             ),
           ),
           IconButton(
-            icon: Icon(Icons.send),
+            icon: const Icon(Icons.send),
             onPressed: () {
               onSend(controller.text);
             },

@@ -13,8 +13,8 @@ class SplashView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Timer(const Duration(seconds: 2), () {
-      Get.off( Onboarding(), transition: Transition.fade);
+    Timer(const Duration(seconds: 5), () {
+      Get.off( const Onboarding(), transition: Transition.fade);
       //Get.off(MainPage(), transition: Transition.fade);
     });
 

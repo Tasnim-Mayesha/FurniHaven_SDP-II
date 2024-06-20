@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:sdp2/features/customer/screen/product/product_page.dart';
 
 class OrderHistoryPage extends StatelessWidget {
+  const OrderHistoryPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Order History'),
+        title: const Text('Order History'),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Get.back();
           },
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
+      body: const Padding(
+        padding: EdgeInsets.all(8.0),
         child: Column(
           children: [
             OrderItem(
@@ -49,7 +50,7 @@ class OrderItem extends StatelessWidget {
   final String orderTime;
   final String status;
 
-  OrderItem({
+  const OrderItem({super.key, 
     required this.imageUrl,
     required this.title,
     required this.brand,
@@ -77,14 +78,14 @@ class OrderItem extends StatelessWidget {
                   width: 80,
                   height: 80,
                 ),
-                SizedBox(width: 8.0),
+                const SizedBox(width: 8.0),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         title,
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                       Text('Brand: $brand'),
                       Text('Quantity: $quantity'),
@@ -92,21 +93,21 @@ class OrderItem extends StatelessWidget {
                         children: [
                           Text(
                             price,
-                            style: TextStyle(fontSize: 16, color: Colors.blue),
+                            style: const TextStyle(fontSize: 16, color: Colors.blue),
                           ),
-                          SizedBox(width: 8.0),
+                          const SizedBox(width: 8.0),
                           Text(
                             oldPrice,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 14,
                               color: Colors.grey,
                               decoration: TextDecoration.lineThrough,
                             ),
                           ),
-                          SizedBox(width: 8.0),
+                          const SizedBox(width: 8.0),
                           Text(
                             discount,
-                            style: TextStyle(fontSize: 14, color: Colors.red),
+                            style: const TextStyle(fontSize: 14, color: Colors.red),
                           ),
                         ],
                       ),
@@ -115,17 +116,17 @@ class OrderItem extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    Get.to(ProductPage());
+                    Get.to(const ProductPage());
                   },
-                  child: Text('Review'),
+                  child: const Text('Review'),
                 ),
               ],
             ),
-            SizedBox(height: 8.0),
+            const SizedBox(height: 8.0),
             Text(orderTime),
             Text(
               'Order Status: $status',
-              style: TextStyle(color: Colors.red),
+              style: const TextStyle(color: Colors.red),
             ),
           ],
         ),

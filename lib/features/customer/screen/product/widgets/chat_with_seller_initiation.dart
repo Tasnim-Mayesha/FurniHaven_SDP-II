@@ -20,7 +20,7 @@ class ActionButtonsRow extends StatelessWidget {
           child: CustomButton(
             text: 'Chat with Seller',
             onTap: () {
-              Get.to( MessageList());
+              Get.to( const MessageList());
             },
           ),
         ),
