@@ -1,11 +1,11 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:sdp2/features/customer/screen/Sort/sortBy.dart';
 import '../../../../common/products/product_cards/card.dart';
 import '../../../../utils/global_colors.dart';
 import '../Filter/filterBy.dart';
+import '../product/product_page.dart';
 
 class ProductSuggestionCategory extends StatelessWidget {
   const ProductSuggestionCategory({super.key, required String category});
@@ -105,14 +105,14 @@ class ProductSuggestionCategory extends StatelessWidget {
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: const Text('25 Results',style: TextStyle(
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text('25 Results',style: TextStyle(
                   color: Colors.grey,
                   fontWeight: FontWeight.bold
                 ),),
               ),
-              SizedBox(height: 8,),
+              const SizedBox(height: 8,),
               Expanded(
                 child: GridView.builder(
                   itemCount: products.length,
@@ -125,14 +125,21 @@ class ProductSuggestionCategory extends StatelessWidget {
                   ),
                   itemBuilder: (_, index) {
                     final product = products[index];
-                    return ProductCard(
-                      imageUrl: product["imageUrl"],
-                      productName: product["productName"],
-                      brandName: product["brandName"],
-                      discount: product["discount"],
-                      originalPrice: product["originalPrice"],
-                      discountedPrice: product["discountedPrice"],
-                      rating: product["rating"],
+
+                    return GestureDetector(
+                      onTap: () {
+                        // Navigate to product page when tapped
+                        Get.to(() => const ProductPage());
+                      },
+                      child: ProductCard(
+                        imageUrl: product["imageUrl"],
+                        productName: product["productName"],
+                        brandName: product["brandName"],
+                        discount: product["discount"],
+                        originalPrice: product["originalPrice"],
+                        discountedPrice: product["discountedPrice"],
+                        rating: product["rating"],
+                      ),
                     );
                   },
                 ),

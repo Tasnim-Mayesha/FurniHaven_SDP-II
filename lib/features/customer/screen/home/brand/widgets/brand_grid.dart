@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../regal.dart';
-import '../brothers.dart';
-import '../otobi.dart';
-import '../hatil.dart'; // Import the brand pages
+import '../../../product_suggestion/product_suggestion_brand.dart';
+
 
 class PopularBrandsGrid extends StatelessWidget {
   final List<Brand> brands = [
-    Brand(name: 'Regal', image: 'assets/brands/regal.png', page: const RegalPage()),
-    Brand(name: 'Brothers', image: 'assets/brands/brothers.png', page: const BrothersPage()),
-    Brand(name: 'Otobi', image: 'assets/brands/otobi.png', page: const OtobiPage()),
-    Brand(name: 'Hatil', image: 'assets/brands/hatil.png', page: const HatilPage()),
+    Brand(name: 'Regal', image: 'assets/brands/regal.png' ),
+    Brand(name: 'Brothers', image: 'assets/brands/brothers.png'),
+    Brand(name: 'Otobi', image: 'assets/brands/otobi.png'),
+    Brand(name: 'Hatil', image: 'assets/brands/hatil.png'),
   ];
 
   PopularBrandsGrid({super.key});
@@ -55,7 +53,9 @@ class PopularBrandsGrid extends StatelessWidget {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    Get.to(brands[index].page);
+                       if (brands[index].name == 'Regal'.tr) {
+                         Get.to(() => const ProductSuggestionBrand());
+                       }
                   },
                   child: Column(
                     children: [
@@ -81,7 +81,7 @@ class PopularBrandsGrid extends StatelessWidget {
 class Brand {
   final String name;
   final String image;
-  final Widget page;
+  final String? page; // Correctly marking 'page' as optional
 
-  Brand({required this.name, required this.image, required this.page});
+  Brand({required this.name, required this.image, this.page});
 }
