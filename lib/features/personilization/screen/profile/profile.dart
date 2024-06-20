@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:sdp2/features/personilization/screen/ChangePassword/ChangePassword.dart';
 // import 'package:sdp2/common/widgets/appbar/custom_appbar_in.dart';
-
+import 'package:sdp2/features/personilization/screen/EditProfileItems/EditEmail.dart';
+import 'package:sdp2/features/personilization/screen/AddContact/AddContact.dart';
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Profile'),
+      ),
 
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -31,31 +36,78 @@ class ProfileView extends StatelessWidget {
               child: ListView(
                 children: [
                   ListTile(
-                    leading: const Icon(Icons.email,color:Colors.deepOrange),
-                    title: const Text('shitolsadia@gmail.com'),
+                    leading: const Icon(Icons.email, color: Colors.deepOrange),
+                    title: Row(
+                      children: [
+                        Text(
+                          'Email:     ',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w900,
+                            color: Color(0xFF00008B),
+
+                          ),
+                        ),
+                        Text('shitolsadia@gmail.com', style: TextStyle(
+                          color: Colors.grey
+                        ),),
+                      ],
+                    ),
                     trailing: const Icon(Icons.navigate_next, color: Colors.deepOrange),
                     onTap: () {
-                      // Handle email tap
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => EditEmail()),
+                      );
                     },
                   ),
                   const Divider(),
                   ListTile(
-                    leading: const Icon(Icons.phone,color:Colors.deepOrange),
-                    title: const Text('+8801972130208'),
+                    leading: const Icon(Icons.phone_android_sharp, color: Colors.deepOrange),
+                    title: Row(
+                      children: [
+                        Text(
+                          'Add Phone Number    ',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w900,
+                              color: Color(0xFF00008B),
+
+                          ),
+                        ),
+
+                      ],
+                    ),
                     trailing: const Icon(Icons.navigate_next, color: Colors.deepOrange),
                     onTap: () {
-                      // Handle email tap
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => AddContact()),
+                      );
                     },
                   ),
                   const Divider(),
                   ListTile(
-                    leading: const Icon(Icons.lock,color:Colors.deepOrange),
-                    title: const Text('********'),
+                    leading: const Icon(Icons.lock, color: Colors.deepOrange),
+                    title: Row(
+                      children: [
+                        Text(
+                          'Password:  ',
+                          style: TextStyle(fontWeight: FontWeight.w900,
+                              color: Color(0xFF00008B),
+                          ),
+                        ),
+                        Text('********',style: TextStyle(color: Colors.grey),),
+                      ],
+                    ),
                     trailing: const Icon(Icons.navigate_next, color: Colors.deepOrange),
                     onTap: () {
-                      // Handle change password tap
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ChangePassword()),
+                      );
                     },
                   ),
+
+
                 ],
               ),
             ),

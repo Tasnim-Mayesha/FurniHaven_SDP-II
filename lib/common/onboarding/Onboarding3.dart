@@ -18,6 +18,7 @@ class Onboarding3 extends StatelessWidget {
               child: TextButton(
                 onPressed: () {
                   Get.to(CustMainPage());
+
                 },
                 child: const Text(
                   'Skip',
