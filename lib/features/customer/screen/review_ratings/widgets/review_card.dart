@@ -4,7 +4,7 @@ import 'dart:io';
 class ReviewCard extends StatelessWidget {
   final Map<String, dynamic> review;
 
-  const ReviewCard({required this.review});
+  const ReviewCard({super.key, required this.review});
 
   @override
   Widget build(BuildContext context) {
@@ -21,19 +21,19 @@ class ReviewCard extends StatelessWidget {
                   backgroundImage: AssetImage(review['image']),
                   radius: 24,
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       review['name'],
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     Row(
                       children: List.generate(
                         review['rating'].toInt(),
-                            (index) => Icon(
+                            (index) => const Icon(
                           Icons.star,
                           color: Colors.amber,
                           size: 16,
@@ -44,9 +44,9 @@ class ReviewCard extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(review['review']),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             if (review['reviewImage'] != null && review['reviewImage'].isNotEmpty)
               review['reviewImage'].startsWith('assets/')
                   ? Image.asset(
@@ -57,10 +57,10 @@ class ReviewCard extends StatelessWidget {
                 File(review['reviewImage']),
                 fit: BoxFit.cover,
               ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               review['date'],
-              style: TextStyle(color: Colors.grey),
+              style: const TextStyle(color: Colors.grey),
             ),
           ],
         ),

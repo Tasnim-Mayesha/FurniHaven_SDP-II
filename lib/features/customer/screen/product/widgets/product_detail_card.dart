@@ -32,21 +32,22 @@ class ProductDetailsCard extends StatelessWidget {
                   height: 50,
                 ),
                 const Spacer(),
-                Column(
+                const Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
                       'Price',
                       style: TextStyle(
                         fontSize: 16,
-                        color: Colors.grey[600],
+                        color: Colors.orange,
+                        fontWeight: FontWeight.bold
                       ),
                     ),
-                    const Text(
+                    Text(
                       '10,000 Tk',
                       style: TextStyle(
                         fontSize: 24,
-                        color: Colors.orange,
+                        color: Colors.deepOrange,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -54,17 +55,17 @@ class ProductDetailsCard extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 8),
             const Text(
               'Regal Luxurious Chair',
               style: TextStyle(
-                fontSize: 20,
+                fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 8),
             Text(
-              'This armchair is an elegant and functional piece of furniture. It is suitable for family visits and parties with friends and perfect for relaxing in front of the TV after hard work.',
+              'This armchair is an elegant piece of furniture. It is suitable for family visits perfect for relaxing in front of the TV after hard work.',
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.grey[700],

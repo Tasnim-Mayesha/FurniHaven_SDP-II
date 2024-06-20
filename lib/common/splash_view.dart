@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sdp2/common/onboarding/Onboarding.dart';
+
 import 'dart:async';
+
+import 'package:sdp2/common/onboarding/Onboarding.dart';
 //don't remove it
 
 //import '../../seller/views/main_page.dart'; //don't remove it
@@ -11,8 +13,8 @@ class SplashView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Timer(const Duration(seconds: 2), () {
-      Get.off(const Onboarding(), transition: Transition.fade);
+    Timer(const Duration(seconds: 5), () {
+      Get.off( const Onboarding(), transition: Transition.fade);
       //Get.off(MainPage(), transition: Transition.fade);
     });
 

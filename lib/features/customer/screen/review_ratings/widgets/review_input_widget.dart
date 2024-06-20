@@ -8,7 +8,7 @@ import '../../../../../utils/global_colors.dart';
 class ReviewInputWidget extends StatefulWidget {
   final Function(String review, double rating, File? imageFile) onSubmit;
 
-  ReviewInputWidget({required this.onSubmit});
+  const ReviewInputWidget({super.key, required this.onSubmit});
 
   @override
   _ReviewInputWidgetState createState() => _ReviewInputWidgetState();
@@ -34,18 +34,18 @@ class _ReviewInputWidgetState extends State<ReviewInputWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        const Text(
           'Write Your Review',
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         RatingBar.builder(
           initialRating: 0,
           minRating: 1,
           direction: Axis.horizontal,
           allowHalfRating: true,
           itemCount: 5,
-          itemBuilder: (context, _) => Icon(
+          itemBuilder: (context, _) => const Icon(
             Icons.star,
             color: Colors.amber,
           ),
@@ -55,22 +55,22 @@ class _ReviewInputWidgetState extends State<ReviewInputWidget> {
             });
           },
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         TextField(
           controller: reviewController,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             border: OutlineInputBorder(),
             hintText: 'Write your review here',
           ),
           maxLines: 3,
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         Row(
           children: [
             Expanded(
               child: OutlinedButton.icon(
-                icon: Icon(Icons.camera_alt),
-                label: Text('Upload Photo'),
+                icon: const Icon(Icons.camera_alt),
+                label: const Text('Upload Photo'),
                 onPressed: _pickImage,
               ),
             ),
@@ -86,7 +86,7 @@ class _ReviewInputWidgetState extends State<ReviewInputWidget> {
               ),
           ],
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         ElevatedButton(
           onPressed: () {
             widget.onSubmit(reviewController.text, rating, _imageFile);
@@ -96,11 +96,11 @@ class _ReviewInputWidgetState extends State<ReviewInputWidget> {
               _imageFile = null;
             });
           },
-          child: Text('SUBMIT REVIEW'),
           style: ElevatedButton.styleFrom(
             backgroundColor: GlobalColors.mainColor,
-            padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
           ),
+          child: const Text('SUBMIT REVIEW'),
         ),
       ],
     );

@@ -8,7 +8,7 @@ import '../../../../utils/global_colors.dart';
 class ReviewInputPage extends StatefulWidget {
   final Function(String, double, String?) onSubmit;
 
-  const ReviewInputPage({required this.onSubmit});
+  const ReviewInputPage({super.key, required this.onSubmit});
 
   @override
   _ReviewInputPageState createState() => _ReviewInputPageState();
@@ -33,7 +33,7 @@ class _ReviewInputPageState extends State<ReviewInputPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Write a Review'),
+        title: const Text('Write a Review'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -41,18 +41,18 @@ class _ReviewInputPageState extends State<ReviewInputPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'Write Your Review',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               RatingBar.builder(
                 initialRating: 0,
                 minRating: 1,
                 direction: Axis.horizontal,
                 allowHalfRating: true,
                 itemCount: 5,
-                itemBuilder: (context, _) => Icon(
+                itemBuilder: (context, _) => const Icon(
                   Icons.star,
                   color: Colors.amber,
                 ),
@@ -62,22 +62,22 @@ class _ReviewInputPageState extends State<ReviewInputPage> {
                   });
                 },
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextField(
                 controller: reviewController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Write your review here',
                 ),
                 maxLines: 3,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Row(
                 children: [
                   Expanded(
                     child: OutlinedButton.icon(
-                      icon: Icon(Icons.camera_alt),
-                      label: Text('Upload Photo'),
+                      icon: const Icon(Icons.camera_alt),
+                      label: const Text('Upload Photo'),
                       onPressed: _pickImage,
                     ),
                   ),
@@ -93,7 +93,7 @@ class _ReviewInputPageState extends State<ReviewInputPage> {
                     ),
                 ],
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               ElevatedButton(
                 onPressed: () {
                   widget.onSubmit(
@@ -103,11 +103,11 @@ class _ReviewInputPageState extends State<ReviewInputPage> {
                   );
                   Navigator.pop(context);
                 },
-                child: Text('SUBMIT REVIEW'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: GlobalColors.mainColor,
-                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                 ),
+                child: const Text('SUBMIT REVIEW'),
               ),
             ],
           ),

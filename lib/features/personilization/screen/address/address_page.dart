@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import '../../../../utils/global_colors.dart';
 
 class AddAddressPage extends StatefulWidget {
+  const AddAddressPage({super.key});
+
   @override
   _AddAddressPageState createState() => _AddAddressPageState();
 }
@@ -18,7 +20,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Address'),
+        title: const Text('Add Address'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -28,7 +30,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
             children: [
               TextFormField(
                 controller: _nameController,
-                decoration: InputDecoration(labelText: 'Name'),
+                decoration: const InputDecoration(labelText: 'Name'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter a name';
@@ -39,7 +41,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
               const SizedBox(height: 10,),
               TextFormField(
                 controller: _addressController,
-                decoration: InputDecoration(labelText: 'Address'),
+                decoration: const InputDecoration(labelText: 'Address'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter an address';
@@ -50,7 +52,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
               const SizedBox(height: 10,),
               TextFormField(
                 controller: _phoneController,
-                decoration: InputDecoration(labelText: 'Phone'),
+                decoration: const InputDecoration(labelText: 'Phone'),
                 keyboardType: TextInputType.phone,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -59,7 +61,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
                   return null;
                 },
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
@@ -70,11 +72,11 @@ class _AddAddressPageState extends State<AddAddressPage> {
                     });
                   }
                 },
-                child: Text('Save'),
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white, backgroundColor: GlobalColors.mainColor,
-                  minimumSize: Size(double.infinity, 50),
+                  minimumSize: const Size(double.infinity, 50),
                 ),
+                child: const Text('Save'),
               ),
             ],
           ),

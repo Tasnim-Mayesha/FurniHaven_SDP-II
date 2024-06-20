@@ -49,7 +49,7 @@ class ProductCard extends StatelessWidget {
             // Thumbnail, wishlist button, and discount tag
             Container(
               height: 180,
-              padding: const EdgeInsets.all(2),
+              padding: const EdgeInsets.only(left: 2,right: 2),
               child: Stack(
                 children: [
                   // Thumbnail image
@@ -58,7 +58,7 @@ class ProductCard extends StatelessWidget {
                   ),
                   // Sale tag
                   Positioned(
-                    top: 12,
+                    top: 14,
                     left: 5,
                     child: Container(
                       decoration: BoxDecoration(

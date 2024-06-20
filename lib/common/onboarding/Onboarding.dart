@@ -11,21 +11,22 @@ class Onboarding extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false, // Remove default back button
         title: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 30.0, right: 14.0),
+              padding: const EdgeInsets.only(top: 0.0, right: 14.0),
               child: TextButton(
                 onPressed: () {
                   Get.to(CustMainPage());
                 },
                 child: const Text(
                   'Skip',
-                  style: TextStyle(color: Colors.deepOrange,fontSize: 20),
+                  style: TextStyle(color: Colors.deepOrange, fontSize: 16),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -40,19 +41,24 @@ class Onboarding extends StatelessWidget {
             ),
           ),
           const Text(
-            'NEXT',
+            'Next',
             style: TextStyle(color: Colors.deepOrange, fontSize: 16),
           ),
-          const SizedBox(width: 10),
-          FloatingActionButton(
-            onPressed: () {
-              Get.to(const Onboarding2());
-            },
-            backgroundColor: Colors.deepOrange,
-            elevation: 4,
-            child: const Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Icon(Icons.arrow_right_alt, size: 30.0, color: Colors.white),
+          const SizedBox(width: 12),
+          SizedBox(
+            width: 50.0,
+            height: 50.0,
+            child: FloatingActionButton(
+              onPressed: () {
+                Get.to(const Onboarding2());
+              },
+              backgroundColor: Colors.deepOrange,
+              elevation: 4,
+              mini: true,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25.0), // Adjust the circular border radius
+              ), // Set mini to true to make the button smaller
+              child: const Icon(Icons.arrow_right_alt, size: 24.0, color: Colors.white),
             ),
           ),
         ],
@@ -63,15 +69,16 @@ class Onboarding extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                padding: const EdgeInsets.all(25.0),
+                padding: const EdgeInsets.all(24.0),
+                height: 300.0, // Set a fixed height for the image
+                width: double.infinity, // Set the width to fill the container
                 child: Image.asset(
-                  'assets/images/image 78.jpg',
-                  width: double.infinity,
-                  fit: BoxFit.cover,
+                  'assets/onboarding/1.png',
+                  fit: BoxFit.cover, // Ensure the image covers the container
                 ),
               ),
               const Padding(
-                padding: EdgeInsets.all(15.0),
+                padding: EdgeInsets.all(16.0),
                 child: Text(
                   'Choose your furniture',
                   style: TextStyle(
@@ -82,7 +89,7 @@ class Onboarding extends StatelessWidget {
                 ),
               ),
               const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15.0),
+                padding: EdgeInsets.symmetric(horizontal: 16.0),
                 child: Text(
                   'Welcome to a World of Limitless Choices \n Your Perfect Furniture Awaits!',
                   style: TextStyle(

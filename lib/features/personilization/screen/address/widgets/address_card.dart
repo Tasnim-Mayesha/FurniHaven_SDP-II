@@ -7,7 +7,7 @@ class AddressCard extends StatelessWidget {
   final VoidCallback onSelect;
   final VoidCallback onDelete;
 
-  AddressCard({
+  const AddressCard({super.key, 
     required this.address,
     required this.isSelected,
     required this.onSelect,
@@ -17,7 +17,7 @@ class AddressCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
       shape: RoundedRectangleBorder(
         side: BorderSide(
           color: isSelected ? GlobalColors.mainColor : Colors.transparent,
@@ -30,7 +30,7 @@ class AddressCard extends StatelessWidget {
         subtitle: Text('${address['address']}\n${address['phone']}'),
         isThreeLine: true,
         trailing: IconButton(
-          icon: Icon(Icons.delete),
+          icon: const Icon(Icons.delete),
           onPressed: onDelete,
         ),
         onTap: onSelect,

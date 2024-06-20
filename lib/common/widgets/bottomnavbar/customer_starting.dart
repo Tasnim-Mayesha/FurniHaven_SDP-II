@@ -18,7 +18,7 @@ class CustMainPage extends StatelessWidget {
 
   final List<Widget> pages = [
     const HomeView(),
-    const MessageList(),
+     const MessageList(),
     const CartView(),
     const WishlistView(),
     const AccountPage()
