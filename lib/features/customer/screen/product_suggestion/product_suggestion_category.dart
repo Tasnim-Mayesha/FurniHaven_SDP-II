@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sdp2/features/customer/screen/Sort/sortBy.dart';
@@ -8,11 +7,12 @@ import '../Filter/filterBy.dart';
 import '../product/product_page.dart';
 
 class ProductSuggestionCategory extends StatelessWidget {
-  const ProductSuggestionCategory({super.key, required String category});
+  final String category;
+
+  const ProductSuggestionCategory({super.key, required this.category});
 
   @override
   Widget build(BuildContext context) {
-
     final List<Map<String, dynamic>> products = [
       {
         "imageUrl": "assets/products/ar_chair.png",
@@ -62,23 +62,23 @@ class ProductSuggestionCategory extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: SizedBox(
             height: 40.0,
-            width: MediaQuery.of(context).size.width * 0.65,// Set the desired height
+            width: MediaQuery.of(context).size.width * 0.65,
             child: TextField(
               decoration: InputDecoration(
                 hintText: "Chairs".tr,
                 prefixIcon: Icon(Icons.search, color: GlobalColors.mainColor),
-                contentPadding: const EdgeInsets.symmetric(vertical: 12.0), // Adjust vertical padding
+                contentPadding: const EdgeInsets.symmetric(vertical: 12.0),
                 border: const OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                  borderSide: BorderSide(color: Colors.grey), // Customize the border color
+                  borderSide: BorderSide(color: Colors.grey),
                 ),
                 enabledBorder: const OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                  borderSide: BorderSide(color: Colors.grey), // Border color when the TextField is not focused
+                  borderSide: BorderSide(color: Colors.grey),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-                  borderSide: BorderSide(color: GlobalColors.mainColor), // Border color when the TextField is focused
+                  borderSide: BorderSide(color: GlobalColors.mainColor),
                 ),
               ),
             ),
@@ -98,54 +98,56 @@ class ProductSuggestionCategory extends StatelessWidget {
             },
           ),
         ],
-
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text('25 Results',style: TextStyle(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                '25 Results',
+                style: TextStyle(
                   color: Colors.grey,
-                  fontWeight: FontWeight.bold
-                ),),
-              ),
-              const SizedBox(height: 8,),
-              Expanded(
-                child: GridView.builder(
-                  itemCount: products.length,
-                  shrinkWrap: true,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 8,
-                    crossAxisSpacing: 8,
-                    mainAxisExtent: 335,
-                  ),
-                  itemBuilder: (_, index) {
-                    final product = products[index];
-
-                    return GestureDetector(
-                      onTap: () {
-                        // Navigate to product page when tapped
-                        Get.to(() => const ProductPage());
-                      },
-                      child: ProductCard(
-                        imageUrl: product["imageUrl"],
-                        productName: product["productName"],
-                        brandName: product["brandName"],
-                        discount: product["discount"],
-                        originalPrice: product["originalPrice"],
-                        discountedPrice: product["discountedPrice"],
-                        rating: product["rating"],
-                      ),
-                    );
-                  },
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-            ],
-          ),
+            ),
+            const SizedBox(height: 8),
+            Expanded(
+              child: GridView.builder(
+                itemCount: products.length,
+                shrinkWrap: true,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 8,
+                  crossAxisSpacing: 8,
+                  mainAxisExtent: 335,
+                ),
+                itemBuilder: (_, index) {
+                  final product = products[index];
+
+                  return GestureDetector(
+                    onTap: () {
+                      print("Tapped on product: ${product['productName']}");
+                      Get.to(() => const ProductPage());
+                    },
+                    child: ProductCard(
+                      imageUrl: product["imageUrl"],
+                      productName: product["productName"],
+                      brandName: product["brandName"],
+                      discount: product["discount"],
+                      originalPrice: product["originalPrice"],
+                      discountedPrice: product["discountedPrice"],
+                      rating: product["rating"],
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

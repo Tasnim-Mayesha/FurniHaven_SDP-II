@@ -71,7 +71,7 @@ class _ChatWithSellerState extends State<ChatWithSeller> {
                   ),
                 ),
               ),
-              const SizedBox(width: 40),
+              const SizedBox(width: 20),
               const Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [

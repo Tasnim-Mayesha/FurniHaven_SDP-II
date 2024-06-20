@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:sdp2/features/personilization/screen/ChangePassword/ChangePassword.dart';
-// import 'package:sdp2/common/widgets/appbar/custom_appbar_in.dart';
-import 'package:sdp2/features/personilization/screen/EditProfileItems/EditEmail.dart';
-import 'package:sdp2/features/personilization/screen/AddContact/AddContact.dart';
+import 'package:get/get.dart';
+import '../../../../utils/global_colors.dart';
+import '../AddContact/AddContact.dart';
+import '../ChangePassword/ChangePassword.dart';
+import '../EditProfileItems/EditEmail.dart';
+
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
 
@@ -10,10 +12,18 @@ class ProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile'),
+        title: const Text(
+          'Profile',
+          style: TextStyle(color: Colors.white),
+        ),
+        centerTitle: true, // Center the title
+        backgroundColor: GlobalColors.mainColor, // Set the AppBar color
+        iconTheme: const IconThemeData(
+          color: Colors.white, // Set the back button color to white
+        ),
       ),
-
       body: Padding(
+
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,77 +47,72 @@ class ProfileView extends StatelessWidget {
                 children: [
                   ListTile(
                     leading: const Icon(Icons.email, color: Colors.deepOrange),
-                    title: const Row(
-                      children: [
-                        Text(
-                          'Email:     ',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w900,
-                            color: Color(0xFF00008B),
-
+                    title: RichText(
+                      text: const TextSpan(
+                        children: [
+                          TextSpan(
+                            text: 'Email: ',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w900,
+                              color: Color(0xFF00008B),
+                            ),
                           ),
-                        ),
-                        Text('shitolsadia@gmail.com', style: TextStyle(
-                          color: Colors.grey
-                        ),),
-                      ],
+                          TextSpan(
+                            text: 'shitolsadia@gmail.com',
+                            style: TextStyle(
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                     trailing: const Icon(Icons.navigate_next, color: Colors.deepOrange),
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const EditEmail()),
-                      );
+                      Get.to(() => EditEmail());
                     },
                   ),
                   const Divider(),
                   ListTile(
                     leading: const Icon(Icons.phone_android_sharp, color: Colors.deepOrange),
-                    title: const Row(
-                      children: [
-                        Text(
-                          'Add Phone Number    ',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w900,
-                              color: Color(0xFF00008B),
-
-                          ),
-                        ),
-
-                      ],
+                    title: const Text(
+                      'Add Phone Number',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w900,
+                        color: Color(0xFF00008B),
+                      ),
                     ),
                     trailing: const Icon(Icons.navigate_next, color: Colors.deepOrange),
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const AddContact()),
-                      );
+                      Get.to(() => AddContact());
                     },
                   ),
                   const Divider(),
                   ListTile(
                     leading: const Icon(Icons.lock, color: Colors.deepOrange),
-                    title: const Row(
-                      children: [
-                        Text(
-                          'Password:  ',
-                          style: TextStyle(fontWeight: FontWeight.w900,
+                    title: RichText(
+                      text: const TextSpan(
+                        children: [
+                          TextSpan(
+                            text: 'Password: ',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w900,
                               color: Color(0xFF00008B),
+                            ),
                           ),
-                        ),
-                        Text('********',style: TextStyle(color: Colors.grey),),
-                      ],
+                          TextSpan(
+                            text: '********',
+                            style: TextStyle(
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                     trailing: const Icon(Icons.navigate_next, color: Colors.deepOrange),
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const ChangePassword()),
-                      );
+                      Get.to(() => ChangePassword());
                     },
                   ),
-
-
                 ],
               ),
             ),
