@@ -29,6 +29,7 @@ class _SellerAccountPageState extends State<SellerAccountPage> {
             Icons.person,
             'Profile',
                 () {
+              //next
               // Navigator.push(
               //   context,
               //   MaterialPageRoute(builder: (context) => const ProfileView()),
@@ -36,7 +37,7 @@ class _SellerAccountPageState extends State<SellerAccountPage> {
             },
             trailing: CircleAvatar(
               radius: 35.0,
-              backgroundImage: AssetImage('assets/users/Seller.jpg'), // Replace with your image path
+              backgroundImage: AssetImage('assets/users/Seller.jpg'),
             ),
           ),
           const Divider(),
@@ -44,7 +45,7 @@ class _SellerAccountPageState extends State<SellerAccountPage> {
             context,
             1,
             Icons.message_sharp,
-            'Promotional Message',
+            'Promotional Messages',
                 () {
               // Navigator.push(
               //   context,
@@ -59,6 +60,7 @@ class _SellerAccountPageState extends State<SellerAccountPage> {
             Icons.location_on,
             'Stores',
                 () {
+              //Stores
               // Navigator.push(
               //   context,
               //   MaterialPageRoute(builder: (context) => AddressPage()),
