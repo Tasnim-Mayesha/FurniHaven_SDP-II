@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sdp2/features/personilization/screen/profile/profile.dart';
+import 'package:sdp2/features/personilization/screen/Login/login_option.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
@@ -83,10 +84,10 @@ class _AccountPageState extends State<AccountPage> {
             'Log Out',
                 () {
               // Handle logout
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => LogoutPage()),
-              // );
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LoginOption()),
+              );
             },
           ),
         ],

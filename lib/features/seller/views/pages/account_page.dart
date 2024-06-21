@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sdp2/features/personilization/screen/Login/login_option.dart';
 class SellerAccountPage extends StatefulWidget {
   const SellerAccountPage({super.key});
 
@@ -81,10 +82,10 @@ class _SellerAccountPageState extends State<SellerAccountPage> {
             'LogOut',
                 () {
               // Handle logout
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => LogoutPage()),
-              // );
+               Navigator.push(
+                context,
+               MaterialPageRoute(builder: (context) =>LoginOption()),
+              );
             },
           ),
         ],
