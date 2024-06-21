@@ -68,7 +68,7 @@ class ProfileView extends StatelessWidget {
                     ),
                     trailing: const Icon(Icons.navigate_next, color: Colors.deepOrange),
                     onTap: () {
-                      Get.to(() => EditEmail());
+                      Get.to(() => const EditEmail());
                     },
                   ),
                   const Divider(),
@@ -83,7 +83,7 @@ class ProfileView extends StatelessWidget {
                     ),
                     trailing: const Icon(Icons.navigate_next, color: Colors.deepOrange),
                     onTap: () {
-                      Get.to(() => AddContact());
+                      Get.to(() => const AddContact());
                     },
                   ),
                   const Divider(),
@@ -110,7 +110,7 @@ class ProfileView extends StatelessWidget {
                     ),
                     trailing: const Icon(Icons.navigate_next, color: Colors.deepOrange),
                     onTap: () {
-                      Get.to(() => ChangePassword());
+                      Get.to(() => const ChangePassword());
                     },
                   ),
                 ],

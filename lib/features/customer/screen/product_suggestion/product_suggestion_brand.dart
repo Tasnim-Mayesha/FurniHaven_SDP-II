@@ -16,8 +16,8 @@ class ProductSuggestionBrand extends StatelessWidget {
     final List<Map<String, dynamic>> products = [
 
       {
-        "imageUrl": "assets/products/Eve Fabric Dhouble Chair.png",
-        "productName": "Eve Fabric Double Chair",
+        "imageUrl": "assets/products/ar_chair.png",
+        "productName": "Aesthetic Fabric Blue Chair",
         "brandName": "Regal",
         "discount": 20,
         "originalPrice": 150000,
@@ -43,8 +43,8 @@ class ProductSuggestionBrand extends StatelessWidget {
         "rating": 3,
       },
       {
-        "imageUrl": "assets/products/almirah.png",
-        "productName": "Aesthetic Fabric Blue Almirah",
+        "imageUrl": "assets/products/Eve Fabric Dhouble Chair.png",
+        "productName": "Eve Fabric Dhouble Chair",
         "brandName": "Regal",
         "discount": 25,
         "originalPrice": 24000,

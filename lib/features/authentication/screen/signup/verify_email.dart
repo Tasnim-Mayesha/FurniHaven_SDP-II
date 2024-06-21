@@ -46,6 +46,7 @@ class VerifyEmailScreen extends StatelessWidget{
                       title: 'Your account successfully created!',
                       subTitle: 'Your Account is Created, Unleash the Joy of Seamless Online Shopping!',
                       onPressed: () => Get.to(() =>  LoginView()),
+                      buttonTitle: 'Continue',
                     ),
                     ),
                     child: Container(
