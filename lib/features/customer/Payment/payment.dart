@@ -69,7 +69,7 @@ class Payment extends StatelessWidget {
 
               },
             ),
-            SizedBox(height: 200,),
+            const SizedBox(height: 200,),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(

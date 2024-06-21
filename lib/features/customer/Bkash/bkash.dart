@@ -32,16 +32,16 @@ class _BkashState extends State<Bkash> {
                 child: Column(
                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(height: 40,),
+                    const SizedBox(height: 40,),
                     Image.asset(
                       'assets/payment/bkash.png',
                       width: 50,
                       height: 50,
                       fit: BoxFit.contain,
                     ),
-                    SizedBox(height: 20,),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
+                    const SizedBox(height: 20,),
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
                       child: SizedBox(height: 50,
                         child: TextField(
                           decoration: InputDecoration(
@@ -65,8 +65,8 @@ class _BkashState extends State<Bkash> {
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             hintText: 'Enter your pin',
-                            hintStyle: TextStyle(color: Color(0xFF979797)),
-                            prefixIcon: Icon(Icons.pin, color: Colors.orange),
+                            hintStyle: const TextStyle(color: Color(0xFF979797)),
+                            prefixIcon: const Icon(Icons.pin, color: Colors.orange),
                             suffixIcon: IconButton(
                               icon: Icon(
                                 _isObscured ? Icons.visibility_off : Icons.visibility,
@@ -80,7 +80,7 @@ class _BkashState extends State<Bkash> {
                             ),
                             filled: true,
                             fillColor: Colors.white,
-                            contentPadding: EdgeInsets.symmetric(vertical: 4.0),  // Adjust padding as needed
+                            contentPadding: const EdgeInsets.symmetric(vertical: 4.0),  // Adjust padding as needed
 
                           ),
                           keyboardType: TextInputType.number,
