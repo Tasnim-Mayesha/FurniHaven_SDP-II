@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sdp2/features/seller/views/pages/controllers/SellerAddPhoneNumber/SellerAddPhoneNumber.dart';
 // import '../../../../utils/global_colors.dart';
-// import '../AddContact/AddContact.dart';
 // import '../ChangePassword/ChangePassword.dart';
 // import '../EditProfileItems/EditEmail.dart';
 
@@ -59,7 +59,7 @@ class SellerProfileView extends StatelessWidget {
                             ),
                           ),
                           TextSpan(
-                            text: 'shitolsadia@gmail.com',
+                            text: 'shovoyamin@gmail.com',
                             style: TextStyle(
                               color: Colors.grey,
                               fontSize: 16.0,
@@ -85,9 +85,9 @@ class SellerProfileView extends StatelessWidget {
                       ),
                     ),
                     trailing: const Icon(Icons.navigate_next, color: Colors.deepOrange),
-                    // onTap: () {
-                    //   Get.to(() => const AddContact());
-                    // },
+                    onTap: () {
+                      Get.to(() => const SellerAddContact());
+                    },
                   ),
                   const Divider(),
                   ListTile(
