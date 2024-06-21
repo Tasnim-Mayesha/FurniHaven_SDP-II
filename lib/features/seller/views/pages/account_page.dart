@@ -28,7 +28,7 @@ class _SellerAccountPageState extends State<SellerAccountPage> {
             context,
             0,
             Icons.person,
-            'Seller Profile',
+            'Profile',
                 () {
               Navigator.push(
                 context,
@@ -120,7 +120,7 @@ class _SellerAccountPageState extends State<SellerAccountPage> {
             children: [
               Text(title),
               if (index == 0) ...[
-                SizedBox(width: 8.0,), // Space between the text and the profile picture
+                SizedBox(width: 8.0,),
               ],
             ],
           ),

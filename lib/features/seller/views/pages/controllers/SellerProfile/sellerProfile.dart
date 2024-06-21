@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sdp2/features/seller/views/pages/controllers/SellerAddPhoneNumber/SellerAddPhoneNumber.dart';
 import 'package:sdp2/features/seller/views/pages/controllers/SellerEditEmail/SellerEditEmail.dart';
+import 'package:sdp2/features/seller/views/pages/controllers/SellerPasswordChange/SellerPasswordChange.dart';
 // import '../../../../utils/global_colors.dart';
-// import '../ChangePassword/ChangePassword.dart';
 
 class SellerProfileView extends StatelessWidget {
   const SellerProfileView({super.key});
@@ -114,9 +114,9 @@ class SellerProfileView extends StatelessWidget {
                       ),
                     ),
                     trailing: const Icon(Icons.navigate_next, color: Colors.deepOrange),
-                    // onTap: () {
-                    //   Get.to(() => const ChangePassword());
-                    // },
+                    onTap: () {
+                      Get.to(() => const SellerChangePassword());
+                    },
                   ),
                 ],
               ),
