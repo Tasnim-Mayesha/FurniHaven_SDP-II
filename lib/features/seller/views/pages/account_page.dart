@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sdp2/features/personilization/screen/Login/login_option.dart';
+import 'package:sdp2/features/seller/views/pages/controllers/SellerProfile/sellerProfile.dart';
 
 class SellerAccountPage extends StatefulWidget {
   const SellerAccountPage({super.key});
@@ -27,17 +28,16 @@ class _SellerAccountPageState extends State<SellerAccountPage> {
             context,
             0,
             Icons.person,
-            'Profile',
+            'Seller Profile',
                 () {
-              //next
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => const ProfileView()),
-              // );
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SellerProfileView()),
+              );
             },
             trailing: CircleAvatar(
               radius: 35.0,
-              backgroundImage: AssetImage('assets/users/Seller.jpg'),
+              backgroundImage: AssetImage('assets/users/default.png'),
             ),
           ),
           const Divider(),
@@ -120,7 +120,7 @@ class _SellerAccountPageState extends State<SellerAccountPage> {
             children: [
               Text(title),
               if (index == 0) ...[
-                SizedBox(width: 8.0), // Space between the text and the profile picture
+                SizedBox(width: 8.0,), // Space between the text and the profile picture
               ],
             ],
           ),
