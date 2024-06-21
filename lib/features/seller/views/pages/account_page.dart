@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sdp2/features/personilization/screen/Login/login_option.dart';
 import 'package:sdp2/features/seller/views/pages/controllers/SellerProfile/sellerProfile.dart';
 
@@ -30,15 +31,8 @@ class _SellerAccountPageState extends State<SellerAccountPage> {
             Icons.person,
             'Profile',
                 () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const SellerProfileView()),
-              );
+              Get.to(()=> const SellerProfileView());
             },
-            trailing: CircleAvatar(
-              radius: 35.0,
-              backgroundImage: AssetImage('assets/users/default.png'),
-            ),
           ),
           const Divider(),
           _buildListTile(
@@ -90,7 +84,7 @@ class _SellerAccountPageState extends State<SellerAccountPage> {
               // Handle logout
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => LoginOption()),
+                MaterialPageRoute(builder: (context) => const LoginOption()),
               );
             },
           ),
@@ -120,7 +114,7 @@ class _SellerAccountPageState extends State<SellerAccountPage> {
             children: [
               Text(title),
               if (index == 0) ...[
-                SizedBox(width: 8.0,),
+                const SizedBox(width: 8.0,),
               ],
             ],
           ),

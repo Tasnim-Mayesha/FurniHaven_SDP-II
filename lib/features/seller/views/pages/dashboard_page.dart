@@ -19,9 +19,9 @@ class DashboardPage extends StatelessWidget {
               Container(
                 padding:
                     const EdgeInsets.only(bottom: 20.0), // Add some padding
-                child: Column(
+                child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
                       'Welcome Back!',
                       style: TextStyle(

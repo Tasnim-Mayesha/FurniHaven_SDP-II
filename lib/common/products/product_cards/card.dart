@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../../../utils/global_colors.dart';
+
 class ProductCard extends StatelessWidget {
   final String imageUrl;
   final String productName;
@@ -57,7 +59,7 @@ class ProductCard extends StatelessWidget {
                   left: 5,
                   child: Container(
                     decoration: BoxDecoration(
-                      color: const Color(0xFFFFE24B).withOpacity(0.8),
+                      color: GlobalColors.mainColor.withOpacity(0.6),
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     padding: const EdgeInsets.all(6.0),

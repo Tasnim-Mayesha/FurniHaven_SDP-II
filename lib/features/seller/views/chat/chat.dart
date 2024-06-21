@@ -20,7 +20,7 @@ class ChatWithCustomer extends StatelessWidget {
         backgroundColor: Colors.blue, // Example color
         title: Text('Chat with $brandName'),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () => Get.back(),
         ),
       ),

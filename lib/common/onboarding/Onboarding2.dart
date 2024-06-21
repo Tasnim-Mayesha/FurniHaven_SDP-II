@@ -20,7 +20,7 @@ class Onboarding2 extends StatelessWidget {
               padding: const EdgeInsets.only(top: 0.0, right: 14.0),
               child: TextButton(
                 onPressed: () {
-                  Get.to(LoginOption());
+                  Get.to(const LoginOption());
                 },
                 child: const Text(
                   'Skip',

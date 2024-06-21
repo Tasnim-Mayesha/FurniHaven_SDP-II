@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sdp2/features/customer/screen/cart/widget/add_remove_button.dart';
 import 'package:sdp2/features/customer/screen/cart/widget/cart_item.dart';
-import '../../../../common/widgets/button.dart';
 import '../../../../utils/global_colors.dart';
 import '../shipping/shipping.dart';
 

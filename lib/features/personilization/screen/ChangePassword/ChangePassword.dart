@@ -79,13 +79,6 @@ class _ChangePasswordState extends State<ChangePassword> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Change Password'),
-        bottom: const PreferredSize(
-          preferredSize: Size.fromHeight(1.0),
-          child: Divider(
-            height: 1.0,
-            color: Colors.grey,
-          ),
-        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -188,7 +181,7 @@ class _ChangePasswordState extends State<ChangePassword> {
           style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 16.0,
-            color:Color(0xFF00008B),
+            color:Colors.black,
           ),
         ),
       ),

@@ -6,6 +6,8 @@ import 'package:sdp2/features/seller/views/pages/controllers/products_controller
 class ProductsPage extends StatelessWidget {
   final ProductsController controller = Get.put(ProductsController());
 
+  ProductsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,14 +24,14 @@ class ProductsPage extends StatelessWidget {
                       decoration: InputDecoration(
                         hintText: 'Search...',
                         fillColor:
-                            Color(0xFFF09C39).withOpacity(0.3), // 30% opacity
+                            const Color(0xFFF09C39).withOpacity(0.3), // 30% opacity
                         filled: true,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
                           borderSide: BorderSide.none,
                         ),
-                        contentPadding: EdgeInsets.only(left: 10, right: 20),
-                        prefixIcon: Padding(
+                        contentPadding: const EdgeInsets.only(left: 10, right: 20),
+                        prefixIcon: const Padding(
                           padding: EdgeInsets.only(left: 15), // Icon position
                           child: Icon(Icons.search, color: Color(0xFFB47730)),
                         ),
@@ -37,17 +39,17 @@ class ProductsPage extends StatelessWidget {
                       onChanged: (value) => controller.searchProducts(value),
                     ),
                   ),
-                  SizedBox(width: 8), // Space between search box and button
+                  const SizedBox(width: 8), // Space between search box and button
                   Container(
                     decoration: BoxDecoration(
                       color: Theme.of(context).primaryColor, // Primary color
                       shape: BoxShape.circle, // Fully rounded
                     ),
                     margin:
-                        EdgeInsets.only(left: 8), // Adjust based on your need
+                        const EdgeInsets.only(left: 8), // Adjust based on your need
                     child: IconButton(
                       iconSize: 24, // Smaller icon
-                      icon: Icon(Icons.add, color: Colors.white),
+                      icon: const Icon(Icons.add, color: Colors.white),
                       onPressed: () {
                         // Actions when the + icon is pressed
                       },
@@ -56,14 +58,14 @@ class ProductsPage extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                padding:  const EdgeInsets.symmetric(horizontal: 10.0),
                 child: Obx(
                   () => GridView.builder(
                     itemCount: controller.products.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate:  const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10,

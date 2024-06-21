@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sdp2/common/widgets/bottomnavbar/customer_starting.dart';
+import 'package:sdp2/features/authentication/screen/login/login_view.dart';
 import 'package:sdp2/features/seller/views/main_page.dart';
 
 class LoginOption extends StatelessWidget {
@@ -20,7 +20,7 @@ class LoginOption extends StatelessWidget {
                       .infinity, // Ensures the container takes the full width
                   height:
                       200, // Adjust based on your logo aspect ratio and desired size
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage(
                           'assets/images/furnihaven_logo.png'), // Path to your logo asset
@@ -29,25 +29,25 @@ class LoginOption extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
-                Text(
+                const SizedBox(height: 20),
+                const Text(
                   'Welcome To FurniHaven',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(height: 20),
-                Text(
+                const SizedBox(height: 20),
+                const Text(
                   'Log In As',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Column(
                   children: <Widget>[
                     ExpandedButton(
                         label: 'Customer',
                         onPressed: () {
-                          Get.to(CustMainPage());
+                          Get.to(LoginView());
                         }),
-                    SizedBox(height: 20), // Spacing between the buttons
+                    const SizedBox(height: 20), // Spacing between the buttons
                     ExpandedButton(
                         label: 'Seller',
                         onPressed: () {
@@ -78,11 +78,11 @@ class ExpandedButton extends StatelessWidget {
         Expanded(
           child: ElevatedButton(
             onPressed: onPressed,
-            child: Text(label),
             style: ElevatedButton.styleFrom(
-              padding: EdgeInsets.symmetric(vertical: 20),
-              textStyle: TextStyle(fontSize: 16),
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              textStyle: const TextStyle(fontSize: 16),
             ),
+            child: Text(label),
           ),
         ),
       ],

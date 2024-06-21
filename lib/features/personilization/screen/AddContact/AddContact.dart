@@ -45,32 +45,7 @@ class _AddContactState extends State<AddContact> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Phone Number'),
-        bottom: const PreferredSize(
-          preferredSize: Size.fromHeight(60.0),
-          child: Column(
-            children: [
-              Divider(
-                height: 1.0,
-                color: Colors.grey,
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 12.0),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Phone Number',
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                      color:Color(0xFF00008B),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+        title: const Text('Add Phone Number'),
       ),
 
       body: Padding(

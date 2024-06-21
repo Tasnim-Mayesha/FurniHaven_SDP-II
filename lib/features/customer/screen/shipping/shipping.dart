@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sdp2/features/customer/screen/Payment/payment.dart';
 import 'package:sdp2/utils/global_colors.dart';
 
 import '../../../personilization/screen/address/address_page.dart';
@@ -112,7 +113,7 @@ class _ShippingPageState extends State<ShippingPage> {
                     colorText: Colors.white,
                   );
                 } else {
-                  // Handle next button press
+                  Get.to(()=> const Payment());
                 }
               },
               style: ElevatedButton.styleFrom(

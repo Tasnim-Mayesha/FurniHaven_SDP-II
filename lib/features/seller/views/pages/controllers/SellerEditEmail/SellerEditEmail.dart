@@ -47,32 +47,7 @@ class _SellerEditEmailState extends State<SellerEditEmail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Email'),
-        bottom: const PreferredSize(
-          preferredSize: Size.fromHeight(60.0),
-          child: Column(
-            children: [
-              Divider(
-                height: 1.0,
-                color: Colors.grey,
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 12.0),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Change Email',
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                      color:Color(0xFF00008B),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+        title: const Text('Change Email'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),

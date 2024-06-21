@@ -100,7 +100,7 @@ class _BkashState extends State<Bkash> {
                 child: CustomButton(
                     text: 'Pay',
                     onTap: () => Get.to(()=> SuccessScreen(
-                      image: 'assets/images/Eo_circle_deep-orange_white_checkmark.svg.png',
+                      image: 'assets/images/success.png',
                       title: 'Payment Successful',
                       subTitle: 'Your payment was successfully competed.your Product will get delivered at your door',
                       onPressed: (){

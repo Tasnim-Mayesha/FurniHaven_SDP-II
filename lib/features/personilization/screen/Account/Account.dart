@@ -86,7 +86,7 @@ class _AccountPageState extends State<AccountPage> {
               // Handle logout
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => LoginOption()),
+                MaterialPageRoute(builder: (context) => const LoginOption()),
               );
             },
           ),

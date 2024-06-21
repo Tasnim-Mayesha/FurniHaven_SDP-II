@@ -20,7 +20,7 @@ class Onboarding extends StatelessWidget {
               child: TextButton(
                 onPressed: () {
                   // Get.to(CustMainPage());
-                  Get.to(LoginOption());
+                  Get.to(const LoginOption());
                 },
                 child: const Text(
                   'Skip',
