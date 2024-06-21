@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sdp2/features/customer/screen/Sort/sortBy.dart';
 import '../../../../common/products/product_cards/card.dart';
 import '../../../../utils/global_colors.dart';
-import '../Filter/filterBy.dart';
 import '../product/product_page.dart';
+import 'Filter/filterBy.dart';
+import 'Sort/sortBy.dart';
 
 class ProductSuggestionCategory extends StatelessWidget {
   final String category;
