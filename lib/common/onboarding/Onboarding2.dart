@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart'; // Import GetX package
 import 'package:sdp2/common/onboarding/Onboarding3.dart';
+import 'package:sdp2/features/personilization/screen/Login/login_option.dart';
 import '../widgets/PaginationIndicator/paginationIndicator.dart';
-import '../widgets/bottomnavbar/customer_starting.dart';
 
 class Onboarding2 extends StatelessWidget {
   const Onboarding2({super.key});
@@ -20,7 +20,7 @@ class Onboarding2 extends StatelessWidget {
               padding: const EdgeInsets.only(top: 0.0, right: 14.0),
               child: TextButton(
                 onPressed: () {
-                  Get.to(CustMainPage());
+                  Get.to(LoginOption());
                 },
                 child: const Text(
                   'Skip',
@@ -57,9 +57,11 @@ class Onboarding2 extends StatelessWidget {
               elevation: 4,
               mini: true,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(25.0), // Adjust the circular border radius
+                borderRadius: BorderRadius.circular(
+                    25.0), // Adjust the circular border radius
               ), // Set mini to true to make the button smaller
-              child: const Icon(Icons.arrow_right_alt, size: 24.0, color: Colors.white),
+              child: const Icon(Icons.arrow_right_alt,
+                  size: 24.0, color: Colors.white),
             ),
           ),
         ],

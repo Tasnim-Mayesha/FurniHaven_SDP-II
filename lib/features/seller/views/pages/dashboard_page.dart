@@ -10,77 +10,92 @@ class DashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text('Welcome Back!'),
-            Text(
-              'Hi, Mr. Shovo',
-              style: TextStyle(fontWeight: FontWeight.w300),
-            ),
-          ],
-        ),
-      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(15.0),
-          child: Row(
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
+              Container(
+                padding:
+                    const EdgeInsets.only(bottom: 20.0), // Add some padding
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildDashboardContainer(
-                      context: context,
-                      iconData: Icons.pie_chart,
-                      title: "Today's Sale",
-                      child: const TodaySalesPieChart(),
-                      height: 230,
+                  children: const [
+                    Text(
+                      'Welcome Back!',
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                    const SizedBox(height: 10),
-                    _buildDashboardContainer(
-                      context: context,
-                      iconData: Icons.show_chart,
-                      title: "Yearly Growth",
-                      child: const YearlyGrowthLineChart(),
-                      height: 250,
+                    Text(
+                      'Hi, Mr. Shovo',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w300,
+                      ),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildDashboardContainer(
-                      context: context,
-                      iconData: Icons.bar_chart,
-                      title: "Monthly Sales",
-                      child: const MonthlySalesBarChart(),
-                      height: 300,
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildDashboardContainer(
+                          context: context,
+                          iconData: Icons.pie_chart,
+                          title: "Today's Sale",
+                          child: const TodaySalesPieChart(),
+                          height: 230,
+                        ),
+                        const SizedBox(height: 10),
+                        _buildDashboardContainer(
+                          context: context,
+                          iconData: Icons.show_chart,
+                          title: "Yearly Growth",
+                          child: const YearlyGrowthLineChart(),
+                          height: 250,
+                        ),
+                      ],
                     ),
-                    const SizedBox(height: 10),
-                    _buildDashboardContainer(
-                      context: context,
-                      iconData: Icons.attach_money,
-                      title: "Total Sales",
-                      child: const TotalSalesBox(),
-                      height: 150,
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildDashboardContainer(
+                          context: context,
+                          iconData: Icons.bar_chart,
+                          title: "Monthly Sales",
+                          child: const MonthlySalesBarChart(),
+                          height: 300,
+                        ),
+                        const SizedBox(height: 10),
+                        _buildDashboardContainer(
+                          context: context,
+                          iconData: Icons.attach_money,
+                          title: "Total Sales",
+                          child: const TotalSalesBox(),
+                          height: 150,
+                        ),
+                        const SizedBox(height: 10),
+                        _buildDashboardContainer(
+                          context: context,
+                          iconData: Icons.money_off,
+                          title: "Total Profit",
+                          child: const TotalProfitBox(),
+                          height: 150,
+                        ),
+                      ],
                     ),
-                    const SizedBox(height: 10),
-                    _buildDashboardContainer(
-                      context: context,
-                      iconData: Icons.money_off,
-                      title: "Total Profit",
-                      child: const TotalProfitBox(),
-                      height: 150,
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ],
           ),

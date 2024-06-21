@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sdp2/features/seller/views/chat/chat_list.dart';
 import 'package:sdp2/features/seller/views/pages/account_page.dart';
-import 'package:sdp2/features/seller/views/pages/chat_page.dart';
 import 'package:sdp2/features/seller/views/pages/coupon_page.dart';
 import 'package:sdp2/features/seller/views/pages/dashboard_page.dart';
 import 'package:sdp2/features/seller/views/pages/products_page.dart';
@@ -18,8 +18,8 @@ class MainPage extends StatelessWidget {
 
   final List<Widget> pages = [
     const DashboardPage(),
-    const ChatPage(),
-    const ProductsPage(),
+    const SellerMessageList(),
+    ProductsPage(),
     const CouponPage(),
     const AccountPage(),
   ];
