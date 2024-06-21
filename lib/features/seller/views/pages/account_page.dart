@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sdp2/features/personilization/screen/Login/login_option.dart';
+
 class SellerAccountPage extends StatefulWidget {
   const SellerAccountPage({super.key});
 
@@ -19,7 +20,6 @@ class _SellerAccountPageState extends State<SellerAccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
@@ -34,6 +34,10 @@ class _SellerAccountPageState extends State<SellerAccountPage> {
               //   MaterialPageRoute(builder: (context) => const ProfileView()),
               // );
             },
+            trailing: CircleAvatar(
+              radius: 35.0,
+              backgroundImage: AssetImage('assets/users/Seller.jpg'), // Replace with your image path
+            ),
           ),
           const Divider(),
           _buildListTile(
@@ -82,9 +86,9 @@ class _SellerAccountPageState extends State<SellerAccountPage> {
             'LogOut',
                 () {
               // Handle logout
-               Navigator.push(
+              Navigator.push(
                 context,
-               MaterialPageRoute(builder: (context) =>LoginOption()),
+                MaterialPageRoute(builder: (context) => LoginOption()),
               );
             },
           ),
@@ -98,8 +102,9 @@ class _SellerAccountPageState extends State<SellerAccountPage> {
       int index,
       IconData icon,
       String title,
-      VoidCallback onTap,
-      ) {
+      VoidCallback onTap, {
+        Widget? trailing,
+      }) {
     return InkWell(
       onTap: () {
         _onTap(index);
@@ -109,10 +114,17 @@ class _SellerAccountPageState extends State<SellerAccountPage> {
         color: _selectedIndex == index ? Colors.blue.withOpacity(0.1) : null,
         child: ListTile(
           leading: Icon(icon, color: Colors.deepOrange),
-          title: Text(title),
+          title: Row(
+            children: [
+              Text(title),
+              if (index == 0) ...[
+                SizedBox(width: 8.0), // Space between the text and the profile picture
+              ],
+            ],
+          ),
+          trailing: trailing,
         ),
       ),
     );
   }
 }
-
