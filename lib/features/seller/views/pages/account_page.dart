@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-//import 'package:sdp2/features/personilization/screen/profile/profile.dart';
 class SellerAccountPage extends StatefulWidget {
   const SellerAccountPage({super.key});
 
