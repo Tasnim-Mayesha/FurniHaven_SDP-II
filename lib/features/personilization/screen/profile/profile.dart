@@ -54,6 +54,7 @@ class ProfileView extends StatelessWidget {
                             text: 'Email: ',
                             style: TextStyle(
                               fontWeight: FontWeight.w900,
+                              fontSize: 16.0,
                               color: Color(0xFF00008B),
                             ),
                           ),
@@ -61,6 +62,7 @@ class ProfileView extends StatelessWidget {
                             text: 'shitolsadia@gmail.com',
                             style: TextStyle(
                               color: Colors.grey,
+                              fontSize: 16.0,
                             ),
                           ),
                         ],
@@ -79,6 +81,7 @@ class ProfileView extends StatelessWidget {
                       style: TextStyle(
                         fontWeight: FontWeight.w900,
                         color: Color(0xFF00008B),
+                        fontSize: 16.0,
                       ),
                     ),
                     trailing: const Icon(Icons.navigate_next, color: Colors.deepOrange),
@@ -96,6 +99,7 @@ class ProfileView extends StatelessWidget {
                             text: 'Password: ',
                             style: TextStyle(
                               fontWeight: FontWeight.w900,
+                              fontSize: 16.0,
                               color: Color(0xFF00008B),
                             ),
                           ),
@@ -103,6 +107,7 @@ class ProfileView extends StatelessWidget {
                             text: '********',
                             style: TextStyle(
                               color: Colors.grey,
+                              fontSize: 16.0,
                             ),
                           ),
                         ],

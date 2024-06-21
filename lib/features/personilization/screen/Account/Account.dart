@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sdp2/features/personilization/screen/profile/profile.dart';
-// import 'package:get/get.dart'; // Assuming you're not using this in the current snippet
-// import 'package:sdp2/common/widgets/bottomnavbar/customer_starting.dart'; // Assuming you're not using this in the current snippet
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
@@ -82,7 +80,7 @@ class _AccountPageState extends State<AccountPage> {
             context,
             4,
             Icons.logout,
-            'LogOut',
+            'Log Out',
                 () {
               // Handle logout
               // Navigator.push(

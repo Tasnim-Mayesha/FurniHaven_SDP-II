@@ -21,7 +21,7 @@ class MainPage extends StatelessWidget {
     const SellerMessageList(),
     ProductsPage(),
     const CouponPage(),
-    const AccountPage(),
+    const SellerAccountPage(),
   ];
 
   @override
