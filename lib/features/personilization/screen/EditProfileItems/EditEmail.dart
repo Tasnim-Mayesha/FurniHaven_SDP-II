@@ -49,56 +49,61 @@ class _EditEmailState extends State<EditEmail> {
       appBar: AppBar(
         title: const Text('Change Email'),
       ),
-          body: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextField(
-                  controller: _emailController,
-                  focusNode: _focusNode,
-                  decoration: InputDecoration(
-                    hintText: 'Enter your email',
-                    prefixIcon: Icon(
-                      Icons.email,
-                      color: _isFocused ? Colors.deepOrange : Colors.grey,
-                    ),
-                    hintStyle: const TextStyle(color: Colors.grey),
-                    border: const OutlineInputBorder(),
-                  ),
-                  keyboardType: TextInputType.emailAddress,
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TextField(
+              controller: _emailController,
+              focusNode: _focusNode,
+              decoration: InputDecoration(
+                hintText: 'Enter your email',
+                prefixIcon: Icon(
+                  Icons.email,
+                  color: _isFocused ? Colors.deepOrange : Colors.grey,
                 ),
-                const SizedBox(height: 8.0), // Spacer between TextField and additional text
-                const Padding(
-                  padding: EdgeInsets.only(left:8.0),
-                  child: Text(
-                    'We will send verification to your Email address',
-                    style: TextStyle(color: Colors.deepOrange),
-                  ),
-                ),
-
-                const SizedBox(height: 16.0),
-                if (_isEmailValid)
-        ButtonTheme(
-        height: 160.0,
-        child: ElevatedButton(
-          onPressed: _isEmailValid
-              ? () {
-            // Handle update action
-            print('New Email: ${_emailController.text}');
-            Navigator.pop(context);
-          }
-              : null,
-          style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.symmetric(vertical: 14.0),
-            //padding: EdgeInsets.symmetric(horizontal: 150.0),
-            minimumSize: const Size(double.infinity, 50.0),
-          ),
-               child: const Text('Save'),
-                  ),
-               ),
-             ],
+                hintStyle: const TextStyle(color: Colors.grey),
+                border: const OutlineInputBorder(),
+              ),
+              keyboardType: TextInputType.emailAddress,
             ),
+            const SizedBox(height: 8.0), // Spacer between TextField and additional text
+            const Padding(
+              padding: EdgeInsets.only(left: 8.0),
+              child: Text(
+                'We will send verification to your Email address',
+                style: TextStyle(color: Colors.deepOrange),
+              ),
+            ),
+            const SizedBox(height: 16.0),
+            if (_isEmailValid)
+              ButtonTheme(
+                height: 160.0,
+                child: ElevatedButton(
+                  onPressed: _isEmailValid
+                      ? () {
+                    // Handle update action
+                    print('New Email: ${_emailController.text}');
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Your Email has been Updated Successfully'),
+                        duration: Duration(seconds: 3),
+                        backgroundColor: Colors.grey,
+                      ),
+                    );
+                    Navigator.pop(context);
+                  }
+                      : null,
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 14.0),
+                    minimumSize: const Size(double.infinity, 50.0),
+                  ),
+                  child: const Text('Save'),
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }
