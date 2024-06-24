@@ -68,15 +68,14 @@ class _SellerEditEmailState extends State<SellerEditEmail> {
               ),
               keyboardType: TextInputType.emailAddress,
             ),
-            const SizedBox(height: 8.0), // Spacer between TextField and additional text
+            const SizedBox(height: 8.0),
             const Padding(
-              padding: EdgeInsets.only(left:8.0),
+              padding: EdgeInsets.only(left: 8.0),
               child: Text(
                 'We will send verification to your Email address',
                 style: TextStyle(color: Colors.deepOrange),
               ),
             ),
-
             const SizedBox(height: 16.0),
             if (_isEmailValid)
               ButtonTheme(
@@ -86,12 +85,18 @@ class _SellerEditEmailState extends State<SellerEditEmail> {
                       ? () {
                     // Handle update action
                     print('New Email: ${_emailController.text}');
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Your Email has been Updated Successfully'),
+                        duration: Duration(seconds: 3),
+                        backgroundColor: Colors.grey,
+                      ),
+                    );
                     Navigator.pop(context);
                   }
                       : null,
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 14.0),
-                    //padding: EdgeInsets.symmetric(horizontal: 150.0),
                     minimumSize: const Size(double.infinity, 50.0),
                   ),
                   child: const Text('Save'),

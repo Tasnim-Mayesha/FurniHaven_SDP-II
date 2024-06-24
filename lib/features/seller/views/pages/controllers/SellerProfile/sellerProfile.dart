@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:sdp2/features/seller/views/pages/controllers/SellerAddPhoneNumber/SellerAddPhoneNumber.dart';
 import 'package:sdp2/features/seller/views/pages/controllers/SellerEditEmail/SellerEditEmail.dart';
 import 'package:sdp2/features/seller/views/pages/controllers/SellerPasswordChange/SellerPasswordChange.dart';
-// import '../../../../utils/global_colors.dart';
+
 
 class SellerProfileView extends StatelessWidget {
   const SellerProfileView({super.key});
