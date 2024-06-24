@@ -94,7 +94,6 @@ class _SellerChangePasswordState extends State<SellerChangePassword> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildTextFieldHeader('Current Password'),
-
             TextField(
               controller: _currentPasswordController,
               focusNode: _currentPasswordFocus,
@@ -163,6 +162,13 @@ class _SellerChangePasswordState extends State<SellerChangePassword> {
                   onPressed: () {
                     // Handle update action
                     print('Changed Password: ${_newPasswordController.text}');
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Your Password has been Changed'),
+                        duration: Duration(seconds: 3),
+                        backgroundColor: Colors.grey,
+                      ),
+                    );
                     Navigator.pop(context);
                   },
                   style: ElevatedButton.styleFrom(
@@ -188,7 +194,7 @@ class _SellerChangePasswordState extends State<SellerChangePassword> {
           style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 16.0,
-            color:Color(0xFF00008B),
+            color: Color(0xFF00008B),
           ),
         ),
       ),
