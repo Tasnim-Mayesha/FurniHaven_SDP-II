@@ -47,7 +47,6 @@ class _AddContactState extends State<AddContact> {
       appBar: AppBar(
         title: const Text('Add Phone Number'),
       ),
-
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -76,12 +75,18 @@ class _AddContactState extends State<AddContact> {
                       ? () {
                     // Handle update action
                     print('Phone Number: ${_addContactController.text}');
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Your Contact Number has been Added'),
+                        duration: Duration(seconds: 3),
+                        backgroundColor: Colors.grey,
+                      ),
+                    );
                     Navigator.pop(context);
                   }
                       : null,
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 14.0),
-                    //padding: EdgeInsets.symmetric(horizontal: 150.0),
                     minimumSize: const Size(double.infinity, 50.0),
                   ),
                   child: const Text('Save'),
