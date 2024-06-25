@@ -3,24 +3,51 @@ import 'package:get/get.dart';
 import 'package:sdp2/features/seller/views/chat/controller/chat_controller.dart';
 import 'dart:io';
 
+import 'package:sdp2/utils/global_colors.dart';
+
 class ChatWithCustomer extends StatelessWidget {
-  final String brandImage;
-  final String brandName;
+  final String customerImage;
+  final String customerName;
 
   const ChatWithCustomer(
-      {super.key, required this.brandImage, required this.brandName});
+      {super.key, required this.customerImage, required this.customerName});
 
   @override
   Widget build(BuildContext context) {
-    final SellerChatController controller =
-        Get.put(SellerChatController()); // Initialize the controller
+    final SellerChatController controller = Get.put(SellerChatController());
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue, // Example color
-        title: Text('Chat with $brandName'),
+        backgroundColor: GlobalColors.mainColor,
+        title: Center(
+          child: Row(
+            children: [
+              Container(
+                width: 50,
+                height: 40,
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  image: DecorationImage(
+                    image: AssetImage(customerImage),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 20),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    customerName,
+                    style: const TextStyle(fontSize: 16, color: Colors.white),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Get.back(),
         ),
       ),

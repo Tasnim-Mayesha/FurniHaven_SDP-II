@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sdp2/features/customer/screen/message/chat_with_seller.dart';
+import 'package:sdp2/features/seller/views/chat/chat.dart';
 import 'package:sdp2/features/seller/views/chat/controller/chat_list_controller.dart';
 
 class SellerMessageList extends StatelessWidget {
@@ -8,7 +8,8 @@ class SellerMessageList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final SellerMessageListController controller = Get.put(SellerMessageListController());
+    final SellerMessageListController controller =
+        Get.put(SellerMessageListController());
 
     return Scaffold(
       body: Padding(
@@ -22,13 +23,13 @@ class SellerMessageList extends StatelessWidget {
                     backgroundImage: AssetImage(
                         brand['image'] ?? 'assets/default_image.png'),
                   ),
-                  title: Text(brand['name'] ?? 'Unknown Brand'),
+                  title: Text(brand['name'] ?? 'Unknown'),
                   trailing: Text(brand['time'] ?? 'N/A'),
                   onTap: () {
-                    Get.to(() => ChatWithSeller(
-                          brandImage:
+                    Get.to(() => ChatWithCustomer(
+                          customerImage:
                               brand['image'] ?? 'assets/default_image.png',
-                          brandName: brand['name'] ?? 'Unknown Brand',
+                          customerName: brand['name'] ?? 'Unknown',
                         ));
                   },
                 );
