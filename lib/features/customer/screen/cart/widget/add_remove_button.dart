@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-
 import '../../../../../common/circular_icon.dart';
 
 class AddRemoveButton extends StatelessWidget {
+  final VoidCallback onAdd;
+  final VoidCallback onRemove;
+  final int count;
+
   const AddRemoveButton({
     super.key,
+    required this.onAdd,
+    required this.onRemove,
+    required this.count,
   });
 
   @override
@@ -13,35 +19,41 @@ class AddRemoveButton extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CircularIcon(
-          icon: Iconsax.minus,
-          size: 16,
-          backgroundColor: Colors.grey.shade300,
-          width: 32,
-          height: 32,
-          color: Colors.black,
+        GestureDetector(
+          onTap: onRemove,
+          child: CircularIcon(
+            icon: Iconsax.minus,
+            size: 16,
+            backgroundColor: Colors.grey.shade300,
+            width: 32,
+            height: 32,
+            color: Colors.black,
+          ),
         ),
         const SizedBox(
           width: 16,
         ),
         Container(
-          height: 32,  // Match the height of CircularIcon
-          alignment: Alignment.center,  // Center the text vertically
+          height: 32,
+          alignment: Alignment.center,
           child: Text(
-            '2',
+            '$count',
             style: Theme.of(context).textTheme.titleSmall,
           ),
         ),
         const SizedBox(
           width: 16,
         ),
-        const CircularIcon(
-          icon: Iconsax.add,
-          size: 16,
-          backgroundColor: Colors.deepOrange,
-          width: 32,
-          height: 32,
-          color: Colors.white,
+        GestureDetector(
+          onTap: onAdd,
+          child: const CircularIcon(
+            icon: Iconsax.add,
+            size: 16,
+            backgroundColor: Colors.deepOrange,
+            width: 32,
+            height: 32,
+            color: Colors.white,
+          ),
         ),
       ],
     );
