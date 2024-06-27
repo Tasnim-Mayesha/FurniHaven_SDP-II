@@ -6,8 +6,8 @@ import '../../../../../../utils/global_colors.dart';
 import '../../../../../../validators/validation.dart';
 import '../../../controller/signup/signup_controller.dart';
 
-class SignupForm extends StatelessWidget {
-  const SignupForm({
+class SellerSignupForm extends StatelessWidget {
+  const SellerSignupForm({
     super.key,
   });
 

@@ -24,7 +24,7 @@ class SignupView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 10,),
-                  SignupForm(),
+                  CustSignupForm(),
                   SizedBox(height: 25),
                   SizedBox(height: 25),
                   SocialLogin(),

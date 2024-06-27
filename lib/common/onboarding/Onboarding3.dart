@@ -51,7 +51,7 @@ class Onboarding3 extends StatelessWidget {
             height: 50.0,
             child: FloatingActionButton(
               onPressed: () {
-                Get.to(const LoginOption());
+                Get.to( CustMainPage());
               },
               backgroundColor: Colors.deepOrange,
               elevation: 4,

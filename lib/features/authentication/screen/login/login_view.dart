@@ -2,17 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:sdp2/common/widgets/bottomnavbar/customer_starting.dart';
-import 'package:sdp2/features/customer/screen/product/product_page.dart';
-import 'package:sdp2/features/customer/screen/wishlist/wishlist.dart';
 import 'package:sdp2/utils/global_colors.dart';
 
 
 import '../../../../common/widgets/appbar/custom_appbar_out.dart';
 import '../../../../common/widgets/button.dart';
 import '../../../../common/widgets/social_login.dart';
-import '../../../seller/authentication/screen/signup/signup_view.dart';
-import '../../../seller/views/main_page.dart';
 import '../password_configuration/forget_password.dart';
+import '../signup/signup_view.dart';
 
 class LoginView extends StatelessWidget {
   LoginView({super.key});
@@ -83,7 +80,7 @@ class LoginView extends StatelessWidget {
                 CustomButton(
                   text: 'Sign In'.tr,
                   onTap: () {
-                    Get.to(() => MainPage());
+                    Get.to(() => CustMainPage());
                   },
                 ),
                 const SizedBox(height: 25),

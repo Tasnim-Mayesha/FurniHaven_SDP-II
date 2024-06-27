@@ -4,8 +4,8 @@ import '../../../../../common/widgets/social_login.dart';
 import 'widgets/signup_form.dart';
 
 
-class SignupView extends StatelessWidget {
-  const SignupView({super.key});
+class SellerSignupView extends StatelessWidget {
+  const SellerSignupView({super.key});
 
 
   @override
@@ -22,7 +22,7 @@ class SignupView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 10,),
-                  SignupForm(),
+                  SellerSignupForm(),
                   SizedBox(height: 25),
                   SizedBox(height: 25),
                   SocialLogin(),

@@ -8,10 +8,12 @@ import 'package:sdp2/features/authentication/screen/signup/signup_view.dart';
 import '../../../../../common/widgets/appbar/custom_appbar_out.dart';
 import '../../../../../common/widgets/button.dart';
 import '../../../../../common/widgets/social_login.dart';
+import '../../../views/main_page.dart';
 import '../password_configuration/forget_password.dart';
+import '../signup/signup_view.dart';
 
-class LoginView extends StatelessWidget {
-  LoginView({super.key});
+class SellerLoginView extends StatelessWidget {
+  SellerLoginView({super.key});
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -79,7 +81,7 @@ class LoginView extends StatelessWidget {
                 CustomButton(
                   text: 'Sign In'.tr,
                   onTap: () {
-                    Get.to(() => CustMainPage());
+                    Get.to(() => MainPage());
                   },
                 ),
                 const SizedBox(height: 25),
@@ -101,7 +103,7 @@ class LoginView extends StatelessWidget {
                 color: GlobalColors.mainColor,
               ),
             ),
-            onTap: () => Get.to(() => const SignupView()),
+            onTap: () => Get.to(() => const SellerSignupView()),
           )
         ]),
       ),
