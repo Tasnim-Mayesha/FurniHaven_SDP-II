@@ -4,7 +4,6 @@ import 'package:sdp2/features/seller/views/pages/controllers/SellerAddPhoneNumbe
 import 'package:sdp2/features/seller/views/pages/controllers/SellerEditEmail/SellerEditEmail.dart';
 import 'package:sdp2/features/seller/views/pages/controllers/SellerPasswordChange/SellerPasswordChange.dart';
 
-
 class SellerProfileView extends StatelessWidget {
   const SellerProfileView({super.key});
 
@@ -17,13 +16,12 @@ class SellerProfileView extends StatelessWidget {
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true, // Center the title
-       // backgroundColor: GlobalColors.mainColor, // Set the AppBar color
+        // backgroundColor: GlobalColors.mainColor, // Set the AppBar color
         iconTheme: const IconThemeData(
-          color: Colors.white, // Set the back button color to white
+          color: Colors.black, // Set the back button color to white
         ),
       ),
       body: Padding(
-
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,14 +66,16 @@ class SellerProfileView extends StatelessWidget {
                         ],
                       ),
                     ),
-                    trailing: const Icon(Icons.navigate_next, color: Colors.deepOrange),
+                    trailing: const Icon(Icons.navigate_next,
+                        color: Colors.deepOrange),
                     onTap: () {
                       Get.to(() => const SellerEditEmail());
                     },
                   ),
                   const Divider(),
                   ListTile(
-                    leading: const Icon(Icons.phone_android_sharp, color: Colors.deepOrange),
+                    leading: const Icon(Icons.phone_android_sharp,
+                        color: Colors.deepOrange),
                     title: const Text(
                       'Add Phone Number',
                       style: TextStyle(
@@ -84,7 +84,8 @@ class SellerProfileView extends StatelessWidget {
                         fontSize: 16.0,
                       ),
                     ),
-                    trailing: const Icon(Icons.navigate_next, color: Colors.deepOrange),
+                    trailing: const Icon(Icons.navigate_next,
+                        color: Colors.deepOrange),
                     onTap: () {
                       Get.to(() => const SellerAddContact());
                     },
@@ -113,7 +114,8 @@ class SellerProfileView extends StatelessWidget {
                         ],
                       ),
                     ),
-                    trailing: const Icon(Icons.navigate_next, color: Colors.deepOrange),
+                    trailing: const Icon(Icons.navigate_next,
+                        color: Colors.deepOrange),
                     onTap: () {
                       Get.to(() => const SellerChangePassword());
                     },
