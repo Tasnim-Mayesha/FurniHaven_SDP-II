@@ -6,6 +6,8 @@ import 'package:sdp2/features/customer/screen/cart/add_to_cart.dart';
 import 'package:sdp2/features/customer/screen/product/widgets/chat_with_seller_initiation.dart';
 import 'package:sdp2/features/customer/screen/product/widgets/model_view.dart';
 import 'package:sdp2/features/customer/screen/product/widgets/product_detail_card.dart';
+import 'package:sdp2/features/customer/screen/wishlist/wishlist.dart';
+import 'package:sdp2/features/personilization/screen/Login/login_option.dart';
 import '../review_ratings/widgets/review_section.dart';
 
 import '../../../../utils/global_colors.dart'; // Make sure this path is correct
@@ -43,6 +45,7 @@ class _ProductPageState extends State<ProductPage> {
               setState(() {
                 isFavorite = !isFavorite;
               });
+              Get.to(()=> LoginOption());
             },
           ),
         ],

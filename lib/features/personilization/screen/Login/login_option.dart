@@ -36,7 +36,7 @@ class LoginOption extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 const Text(
-                  'Log In As',
+                  'Continue As',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(height: 20),

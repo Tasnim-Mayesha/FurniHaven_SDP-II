@@ -3,6 +3,7 @@ import 'package:get/get.dart'; // Import GetX package
 import 'package:sdp2/common/onboarding/Onboarding2.dart';
 import 'package:sdp2/features/personilization/screen/Login/login_option.dart';
 import '../widgets/PaginationIndicator/paginationIndicator.dart';
+import '../widgets/bottomnavbar/customer_starting.dart';
 
 class Onboarding extends StatelessWidget {
   const Onboarding({super.key});
@@ -19,8 +20,8 @@ class Onboarding extends StatelessWidget {
               padding: const EdgeInsets.only(top: 0.0, right: 14.0),
               child: TextButton(
                 onPressed: () {
-                  // Get.to(CustMainPage());
-                  Get.to(const LoginOption());
+                   Get.to(CustMainPage());
+                  //Get.to(const LoginOption());
                 },
                 child: const Text(
                   'Skip',

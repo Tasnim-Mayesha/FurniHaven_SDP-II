@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart'; // Import GetX package
 import 'package:sdp2/common/onboarding/Onboarding3.dart';
+import 'package:sdp2/common/widgets/bottomnavbar/customer_starting.dart';
 import 'package:sdp2/features/personilization/screen/Login/login_option.dart';
 import '../widgets/PaginationIndicator/paginationIndicator.dart';
 
@@ -20,7 +21,7 @@ class Onboarding2 extends StatelessWidget {
               padding: const EdgeInsets.only(top: 0.0, right: 14.0),
               child: TextButton(
                 onPressed: () {
-                  Get.to(const LoginOption());
+                  Get.to(()=> CustMainPage());
                 },
                 child: const Text(
                   'Skip',
