@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sdp2/features/customer/screen/Payment/payment.dart';
 import 'package:sdp2/utils/global_colors.dart';
 
 import '../../../personilization/screen/address/address_page.dart';
 import '../../../personilization/screen/address/widgets/address_card.dart';
+import '../Payment/payment.dart';
 
 class ShippingPage extends StatefulWidget {
   const ShippingPage({super.key});
@@ -113,7 +113,7 @@ class _ShippingPageState extends State<ShippingPage> {
                     colorText: Colors.white,
                   );
                 } else {
-                  Get.to(()=> const Payment());
+                  Get.to(() => Payment());
                 }
               },
               style: ElevatedButton.styleFrom(

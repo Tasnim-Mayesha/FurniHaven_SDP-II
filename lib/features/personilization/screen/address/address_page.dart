@@ -22,7 +22,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
       appBar: AppBar(
         title: const Text('Add Address'),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
@@ -38,7 +38,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
                   return null;
                 },
               ),
-              const SizedBox(height: 10,),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _addressController,
                 decoration: const InputDecoration(labelText: 'Address'),
@@ -49,7 +49,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
                   return null;
                 },
               ),
-              const SizedBox(height: 10,),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _phoneController,
                 decoration: const InputDecoration(labelText: 'Phone'),
@@ -73,7 +73,8 @@ class _AddAddressPageState extends State<AddAddressPage> {
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white, backgroundColor: GlobalColors.mainColor,
+                  foregroundColor: Colors.white,
+                  backgroundColor: GlobalColors.mainColor,
                   minimumSize: const Size(double.infinity, 50),
                 ),
                 child: const Text('Save'),

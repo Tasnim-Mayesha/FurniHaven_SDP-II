@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:sdp2/common/widgets/bottomnavbar/customer_starting.dart';
+import 'package:sdp2/features/customer/screen/product/product_page.dart';
+import 'package:sdp2/features/customer/screen/wishlist/wishlist.dart';
 import 'package:sdp2/utils/global_colors.dart';
 
 import 'package:sdp2/features/authentication/screen/signup/signup_view.dart';
