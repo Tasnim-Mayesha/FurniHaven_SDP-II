@@ -51,7 +51,7 @@ class LoginOption extends StatelessWidget {
                     ExpandedButton(
                         label: 'Seller',
                         onPressed: () {
-                          Get.to(MainPage());
+                          Get.to(LoginView());
                         }),
                   ],
                 ),
