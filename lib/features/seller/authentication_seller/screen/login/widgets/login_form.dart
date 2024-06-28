@@ -53,7 +53,7 @@ class SellerLoginForm extends StatelessWidget {
 
               const SizedBox(height: 10),
               ///Sign in button
-              CustomButton(text: 'Sign In',onTap: ()=>  const HomeView()//controller.emailAndPasswordSignIn(),
+              CustomButton(text: 'Sign In',onTap: ()=>   HomeView()//controller.emailAndPasswordSignIn(),
               ),
               
             ],
