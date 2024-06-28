@@ -7,6 +7,8 @@ import 'package:sdp2/features/customer/screen/product/widgets/chat_with_seller_i
 import 'package:sdp2/features/customer/screen/product/widgets/model_view.dart';
 import 'package:sdp2/features/customer/screen/product/widgets/product_detail_card.dart';
 import 'package:sdp2/features/personilization/screen/Login/login_option.dart';
+import '../../../../common/widgets/bottomnavbar/customer_starting.dart';
+import '../../../../common/widgets/bottomnavbar/starting_controller.dart';
 import '../review_ratings/widgets/review_section.dart';
 
 import '../../../../utils/global_colors.dart'; // Make sure this path is correct
@@ -147,8 +149,9 @@ class _ProductPageState extends State<ProductPage> {
         height: 50,
         child: FloatingActionButton.extended(
           onPressed: () {
-            Get.to(const CartView());
-            // Add your logic here for adding the item to the cart
+            final controller = Get.find<CustNavController>();
+            controller.changePage(2);
+            Get.to(() => CustMainPage());
           },
           label: const Text('Add to Cart',style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w600),),
           icon: const Icon(Icons.shopping_cart,color: Colors.white),

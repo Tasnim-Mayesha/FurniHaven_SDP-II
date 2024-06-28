@@ -66,38 +66,3 @@ AppBar customAppBarIn(BuildContext context) {
   );
 }
 
-class MyScaffold extends StatelessWidget {
-  const MyScaffold({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: customAppBarIn(context),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            Container(
-              height: 150.0,
-              width: double.infinity,
-              margin: const EdgeInsets.only(top: 80),
-              padding: EdgeInsets.zero,
-              child: Image.asset('assets/images/furnihaven_logo.png',
-                  fit: BoxFit.contain),
-            ),
-            ListTile(
-              leading: const Icon(Icons.home),
-              title: const Text('Home'),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text('Settings'),
-              onTap: () {},
-            ),
-          ],
-        ),
-      ),
-      body: const Center(child: Text('Your main content here')),
-    );
-  }
-}
