@@ -14,7 +14,7 @@ import '../features/seller/views/main_page.dart';
 class AppRoutes {
   static final pages = [
     //Customer
-    GetPage(name: '/', page: () =>  const HomeView()),
+    GetPage(name: '/', page: () =>   HomeView()),
     GetPage(name: '/signup', page: () => const SignupView()),
     GetPage(name: '/verify-email', page: () => const VerifyEmailScreen()),
     GetPage(name: '/sign-in', page: () => LoginView()),

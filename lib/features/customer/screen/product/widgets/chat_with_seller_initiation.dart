@@ -3,6 +3,9 @@ import 'package:get/get.dart';
 import 'package:sdp2/common/widgets/button.dart';
 import 'package:sdp2/features/customer/screen/message/message_list.dart';
 
+import '../../../../../common/widgets/bottomnavbar/customer_starting.dart';
+import '../../../../../common/widgets/bottomnavbar/starting_controller.dart';
+
 class ActionButtonsRow extends StatelessWidget {
   const ActionButtonsRow({super.key});
 
@@ -20,7 +23,9 @@ class ActionButtonsRow extends StatelessWidget {
           child: CustomButton(
             text: 'Chat with Seller',
             onTap: () {
-              Get.to( const MessageList());
+              final controller = Get.find<CustNavController>();
+              controller.changePage(1);
+              Get.to(() => CustMainPage());
             },
           ),
         ),
