@@ -23,7 +23,6 @@ class ProfileView extends StatelessWidget {
         ),
       ),
       body: Padding(
-
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,7 +30,7 @@ class ProfileView extends StatelessWidget {
             const Row(
               children: [
                 CircleAvatar(
-                  radius: 40.0,
+                  radius: 35.0,
                   backgroundImage: AssetImage('assets/images/profile_cust.png'),
                 ),
                 SizedBox(width: 16.0),
@@ -47,40 +46,43 @@ class ProfileView extends StatelessWidget {
                 children: [
                   ListTile(
                     leading: const Icon(Icons.email, color: Colors.deepOrange),
-                    title: RichText(
-                      text: const TextSpan(
-                        children: [
-                          TextSpan(
-                            text: 'Email: ',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontSize: 16.0,
-                              color: Color(0xFF00008B),
-                            ),
+                    title: Row(
+                      children: [
+                        const Text(
+                          'Email: ',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16.0,
+                            color: Colors.orange,
                           ),
-                          TextSpan(
-                            text: 'shitolsadia@gmail.com',
-                            style: TextStyle(
+                        ),
+                        const SizedBox(width: 4.0), // Optional: add some spacing between the label and email
+                        Expanded(
+                          child: Text(
+                            'shitolsadia@gmail.com',
+                            style: const TextStyle(
                               color: Colors.grey,
                               fontSize: 16.0,
                             ),
+                            overflow: TextOverflow.ellipsis,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                     trailing: const Icon(Icons.navigate_next, color: Colors.deepOrange),
                     onTap: () {
                       Get.to(() => const EditEmail());
                     },
                   ),
+
                   const Divider(),
                   ListTile(
                     leading: const Icon(Icons.phone_android_sharp, color: Colors.deepOrange),
                     title: const Text(
                       'Add Phone Number',
                       style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        color: Color(0xFF00008B),
+                        fontWeight: FontWeight.w500,
+                        color: Colors.orange,
                         fontSize: 16.0,
                       ),
                     ),
@@ -92,26 +94,28 @@ class ProfileView extends StatelessWidget {
                   const Divider(),
                   ListTile(
                     leading: const Icon(Icons.lock, color: Colors.deepOrange),
-                    title: RichText(
-                      text: const TextSpan(
-                        children: [
-                          TextSpan(
-                            text: 'Password: ',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontSize: 16.0,
-                              color: Color(0xFF00008B),
-                            ),
+                    title: Row(
+                      children: [
+                        const Text(
+                          'Password: ',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16.0,
+                            color: Colors.orange,
                           ),
-                          TextSpan(
-                            text: '********',
-                            style: TextStyle(
+                        ),
+                        const SizedBox(width: 4.0),
+                        Expanded(
+                          child: Text(
+                            '********',
+                            style: const TextStyle(
                               color: Colors.grey,
                               fontSize: 16.0,
                             ),
+                            overflow: TextOverflow.ellipsis, // Ensure text does not overflow
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                     trailing: const Icon(Icons.navigate_next, color: Colors.deepOrange),
                     onTap: () {

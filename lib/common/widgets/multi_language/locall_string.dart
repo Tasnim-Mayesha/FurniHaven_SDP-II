@@ -30,8 +30,17 @@ class LocalString extends Translations{
       'Chair':'Chair',
       'Cupboard':'Cupboard',
       'Book Shelf':'Bookshelf',
+      'Regal': 'Regal',
+      'Brothers': 'Brothers',
+      'Otobi': 'Otobi',
+      'Hatil': 'Hatil',
       'Browse Popular Categories':'Browse Popular Categories',
-      'Browse Popular Brands':'Browse Popular Brands'
+      'Browse Popular Brands':'Browse Popular Brands',
+      'Recommendation for you' : 'Recommendation for you',
+      'Based on your Activity' : 'Based on your Activity',
+      'Brand: ' : 'Brand: ',
+      'Profile' : 'Profile'
+
 
     },
     'bn_BD':{
@@ -61,14 +70,16 @@ class LocalString extends Translations{
       'Chair':'চেয়ার',
       'Cupboard':'কাপবোর্ড',
       'Book Shelf':'বুক শেল্ফ',
+      'Regal': 'রিগ্যাল',
+      'Brothers': 'ব্রাদার্স',
+      'Otobi': 'অটবি',
+      'Hatil': 'হাতিল',
       'Browse Popular Categories':'জনপ্রিয় প্রণালি ব্রাউজ করুন',
       'Browse Popular Brands':'জনপ্রিয় ব্র্যান্ড ব্রাউজ করুন',
-
-  }
-
-
-
-
-
+      'Recommendation for you' : 'আপনার জন্য',
+      'Based on your Activity' : 'আপনার কার্যকলাপ উপর ভিত্তি করে',
+      'Brand: ' : 'ব্র্যান্ড: ',
+      'Profile' : 'প্রোফাইল'
+    }
   };
 }

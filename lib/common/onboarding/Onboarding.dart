@@ -41,8 +41,8 @@ class Onboarding extends StatelessWidget {
               currentPage: 0,
             ),
           ),
-          const Text(
-            'Next',
+          Text(
+            'Next'.tr,
             style: TextStyle(color: Colors.deepOrange, fontSize: 16),
           ),
           const SizedBox(width: 12),
@@ -80,10 +80,10 @@ class Onboarding extends StatelessWidget {
                   fit: BoxFit.cover, // Ensure the image covers the container
                 ),
               ),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.all(16.0),
                 child: Text(
-                  'Choose your furniture',
+                  'Choose your furniture'.tr,
                   style: TextStyle(
                     fontSize: 24.0,
                     fontWeight: FontWeight.bold,

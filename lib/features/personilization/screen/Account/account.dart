@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:sdp2/common/widgets/appbar/custom_appbar_in.dart';
 import 'package:sdp2/features/customer/screen/order_history/order_history.dart';
 import 'package:sdp2/features/personilization/screen/profile/profile.dart';
@@ -26,7 +27,7 @@ class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     // appBar: customAppBarIn(context),
+      // appBar: customAppBarIn(context),
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
@@ -34,19 +35,9 @@ class _AccountPageState extends State<AccountPage> {
             context,
             0,
             Icons.person,
-            'Profile',
+            'Profile'.tr,
                 () {
-              Get.to(()=> const ProfileView());
-            },
-          ),
-          const Divider(),
-          _buildListTile(
-            context,
-            1,
-            Icons.shopping_bag,
-            'Order',
-                () {
-              Get.to(()=> const OrderHistoryPage());
+              Get.to(() => const ProfileView());
             },
           ),
           const Divider(),
@@ -54,7 +45,37 @@ class _AccountPageState extends State<AccountPage> {
             context,
             2,
             Icons.location_on,
-            'Address',
+            'My Address'.tr,
+                () {
+              //
+            },
+          ),
+          const Divider(),
+          _buildListTile(
+            context,
+            2,
+            Iconsax.heart5,
+            'My Wishlist'.tr,
+                () {
+              //
+            },
+          ),
+          const Divider(),
+          _buildListTile(
+            context,
+            2,
+            Icons.shopping_cart,
+            'My Cart'.tr,
+                () {
+              //
+            },
+          ),
+          const Divider(),
+          _buildListTile(
+            context,
+            2,
+            Icons.shopping_bag,
+            'My Order List',
                 () {
               //
             },
@@ -67,12 +88,12 @@ class _AccountPageState extends State<AccountPage> {
             'Log Out',
                 () {
               // Handle logout
-              Get.to(()=> const LoginOption());
+              Get.to(() => const LoginOption());
             },
           ),
         ],
       ),
-     // bottomNavigationBar: CustomBottomNavBar(),
+      // bottomNavigationBar: CustomBottomNavBar(),
     );
   }
 
@@ -92,11 +113,13 @@ class _AccountPageState extends State<AccountPage> {
         color: _selectedIndex == index ? Colors.blue.withOpacity(0.1) : null,
         child: ListTile(
           leading: Icon(icon, color: Colors.deepOrange),
-          title: Text(title),
+          title: Text(
+            title,
+            style: const TextStyle(fontWeight: FontWeight.w500),
+          ),
           // trailing: Icon(Icons.navigate_next, color: Colors.deepOrange),
         ),
       ),
     );
   }
 }
-

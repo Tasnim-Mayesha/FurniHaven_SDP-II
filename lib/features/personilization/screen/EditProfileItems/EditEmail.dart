@@ -47,8 +47,13 @@ class _EditEmailState extends State<EditEmail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Change Email'),
+        title: const Text(
+          'Change Email',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.deepOrange,
       ),
+
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
