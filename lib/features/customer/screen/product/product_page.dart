@@ -13,6 +13,7 @@ import '../review_ratings/widgets/review_section.dart';
 
 import '../../../../utils/global_colors.dart'; // Make sure this path is correct
 
+
 class ProductPage extends StatefulWidget {
   const ProductPage({super.key});
 
