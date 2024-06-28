@@ -11,8 +11,8 @@ import '../../../../../utils/popups/full_screen_loader.dart';
 import '../../../../personilization/model/user_models.dart';
 
 
-class SignupController extends GetxController{
-  static SignupController get instance => Get.find();
+class SellerSignupController extends GetxController{
+  static SellerSignupController get instance => Get.find();
 
   ///variables
   final hidePassword = true.obs;

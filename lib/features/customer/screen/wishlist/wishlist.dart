@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sdp2/common/widgets/appbar/custom_appbar_in.dart';
 
 import '../../../../common/products/product_cards/card.dart';
+import '../../../../common/widgets/bottomnavbar/bottom_nav_bar.dart';
+import '../product/product_page.dart';
 
 class WishlistView extends StatelessWidget {
   const WishlistView({super.key});
@@ -39,8 +43,8 @@ class WishlistView extends StatelessWidget {
     ];
 
     return Scaffold(
-      body:
-      Padding(
+      //appBar: customAppBarIn(context),
+      body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: GridView.builder(
           itemCount: products.length,
@@ -61,10 +65,14 @@ class WishlistView extends StatelessWidget {
               originalPrice: product["originalPrice"],
               discountedPrice: product["discountedPrice"],
               rating: product["rating"],
+              onTap: () {
+                Get.to(()=> const ProductPage());
+              },
             );
           },
         ),
       ),
+      //bottomNavigationBar: CustomBottomNavBar(),
     );
   }
 }

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sdp2/features/authentication/screen/login/login_view.dart';
-import 'package:sdp2/features/seller/views/main_page.dart';
 
-import '../../../seller/authentication/screen/login/login_view.dart';
+import '../../../seller/authentication_seller/screen/login/login_view.dart';
 
 class LoginOption extends StatelessWidget {
   const LoginOption({Key? key}) : super(key: key);
@@ -53,7 +52,7 @@ class LoginOption extends StatelessWidget {
                     ExpandedButton(
                         label: 'Seller',
                         onPressed: () {
-                          Get.to(SellerLoginView());
+                          Get.to(()=>SellerLoginView());
                         }),
                   ],
                 ),

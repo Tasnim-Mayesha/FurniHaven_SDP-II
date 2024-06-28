@@ -113,7 +113,7 @@ class _ShippingPageState extends State<ShippingPage> {
                     colorText: Colors.white,
                   );
                 } else {
-                  Get.to(() => Payment());
+                  Get.to(() => const Payment());
                 }
               },
               style: ElevatedButton.styleFrom(

@@ -20,10 +20,11 @@ class CustSignupForm extends StatelessWidget {
     return Form(
       key: controller.signupFormKey,
       child: Column(
-        children: [
-          Center(
-            child: Text('Logo',style: TextStyle(color: GlobalColors.mainColor,fontSize: 25,fontWeight: FontWeight.bold),),
-          ),
+        children: [ Image.asset(
+          'assets/images/furnihaven_logo.png',
+          width: 100,
+          height: 100,
+        ),
 
           const SizedBox(height: 50),
           ///Username

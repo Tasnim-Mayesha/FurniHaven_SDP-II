@@ -128,20 +128,16 @@ class ProductSuggestionBrand extends StatelessWidget {
                 itemBuilder: (_, index) {
                   final product = products[index];
 
-                  return GestureDetector(
-                    onTap: () {
-                      // Navigate to product page when tapped
-                      Get.to(() => const ProductPage());
-                    },
-                    child: ProductCard(
-                      imageUrl: product["imageUrl"],
-                      productName: product["productName"],
-                      brandName: product["brandName"],
-                      discount: product["discount"],
-                      originalPrice: product["originalPrice"],
-                      discountedPrice: product["discountedPrice"],
-                      rating: product["rating"],
-                    ),
+                  return ProductCard(
+                    imageUrl: product["imageUrl"],
+                    productName: product["productName"],
+                    brandName: product["brandName"],
+                    discount: product["discount"],
+                    originalPrice: product["originalPrice"],
+                    discountedPrice: product["discountedPrice"],
+                    rating: product["rating"], onTap: () {
+                    Get.to(() => const ProductPage());
+                  },
                   );
                 },
               ),

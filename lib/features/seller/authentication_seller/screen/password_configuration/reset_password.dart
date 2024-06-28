@@ -2,13 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sdp2/utils/constant.dart';
-import 'package:sdp2/features/authentication/screen/login/login_view.dart';
 
 import '../../../../../common/widgets/button.dart';
+import '../login/login_view.dart';
 
 
-class ResetPassword extends StatelessWidget {
-  const ResetPassword ({super.key});
+class SellerResetPassword extends StatelessWidget {
+  const SellerResetPassword ({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class ResetPassword extends StatelessWidget {
                 width: double.infinity,
                 child: CustomButton(
                   text: 'Done',
-                  onTap: () => Get.offAll(() =>  LoginView()),
+                  onTap: () => Get.offAll(() =>  SellerLoginView()),
                 )
               ),
               const SizedBox(height: 16),

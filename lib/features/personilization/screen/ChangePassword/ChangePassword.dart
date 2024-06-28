@@ -156,9 +156,9 @@ class _ChangePasswordState extends State<ChangePassword> {
                     // Handle update action
                     print('Changed Password: ${_newPasswordController.text}');
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: const Text('Your Password has been Changed'),
-                        duration: const Duration(seconds: 3),
+                      const SnackBar(
+                        content: Text('Your Password has been Changed'),
+                        duration: Duration(seconds: 3),
                         backgroundColor: Colors.grey,
                       ),
                     );

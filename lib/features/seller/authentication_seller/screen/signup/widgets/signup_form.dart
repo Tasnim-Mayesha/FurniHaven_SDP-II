@@ -16,7 +16,7 @@ class SellerSignupForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //final dark = HelperFunctions.isDarkMode(context);
-    final controller=Get.put(SignupController());
+    final controller=Get.put(SellerSignupController());
     return Form(
       key: controller.signupFormKey,
       child: Column(

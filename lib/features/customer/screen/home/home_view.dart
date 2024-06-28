@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sdp2/common/widgets/appbar/custom_appbar_in.dart';
 import 'package:sdp2/features/customer/screen/home/widgets/banner_slider.dart';
 import 'package:sdp2/features/customer/screen/home/widgets/category_grid.dart';
 import 'package:sdp2/utils/global_colors.dart';
 
 import '../../../../common/products/product_cards/card.dart';
+import '../../../../common/widgets/bottomnavbar/bottom_nav_bar.dart';
+import '../product/product_page.dart';
 import 'brand/widgets/brand_grid.dart';
 
 class HomeView extends StatelessWidget {
@@ -33,7 +36,7 @@ class HomeView extends StatelessWidget {
       },
     ];
     return Scaffold(
-
+      //appBar: customAppBarIn(context),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -99,7 +102,9 @@ class HomeView extends StatelessWidget {
                           discount: product["discount"],
                           originalPrice: product["originalPrice"],
                           discountedPrice: product["discountedPrice"],
-                          rating: product["rating"],
+                          rating: product["rating"], onTap: () {
+                          Get.to(() => const ProductPage());
+                        },
                         );
                       },
                     ),
@@ -111,6 +116,7 @@ class HomeView extends StatelessWidget {
           ],
         ),
       ),
+      //bottomNavigationBar: CustomBottomNavBar(),
     );
   }
 }

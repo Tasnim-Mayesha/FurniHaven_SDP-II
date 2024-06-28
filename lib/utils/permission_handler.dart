@@ -38,7 +38,7 @@ class _Permission extends State<permission> {
     return Scaffold(
       appBar: AppBar(
           backgroundColor: Colors.blue,
-          title: Text(
+          title: const Text(
             'Storage Permission in Android(11,12 and 13)',
             style: TextStyle(fontSize: 16),
           )),
@@ -51,7 +51,7 @@ class _Permission extends State<permission> {
             print("permission is not granted");
           }
         },
-        child: Text('click'),
+        child: const Text('click'),
       )),
     );
   }

@@ -9,7 +9,7 @@ class AddEditProductPage extends StatelessWidget {
       Get.put(AddEditProductController());
   final Product? product;
 
-  AddEditProductPage({this.product}) {
+  AddEditProductPage({super.key, this.product}) {
     if (product != null) {
       controller.setInitialValues(product);
     }
@@ -21,40 +21,40 @@ class AddEditProductPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(product == null ? 'Add Product' : 'Edit Product'),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () => Get.back(),
         ),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Form(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildTitleField(),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               _buildImageField(),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               _buildPriceAndQuantityFields(),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               _buildMake3DCheckbox(),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Obx(() => controller.is3DEnabled.value
                   ? _build3DModelUploader()
-                  : SizedBox.shrink()),
-              SizedBox(height: 10),
+                  : const SizedBox.shrink()),
+              const SizedBox(height: 10),
               _buildCategoryDropdown(),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               ElevatedButton(
                 onPressed: () {
                   // Assume saveOrUpdateProduct() is defined in the controller
                   controller.saveOrUpdateProduct(product);
                 },
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                ),
                 child:
                     Text(product == null ? 'Save Product' : 'Update Product'),
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                ),
               ),
             ],
           ),
@@ -67,13 +67,13 @@ class AddEditProductPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Title',
+        const Text('Title',
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-        SizedBox(height: 5),
+        const SizedBox(height: 5),
         Obx(() => TextField(
               onChanged: (value) => controller.title.value = value,
               controller: TextEditingController(text: controller.title.value),
-              decoration: InputDecoration(hintText: 'Enter product title'),
+              decoration: const InputDecoration(hintText: 'Enter product title'),
             )),
       ],
     );
@@ -83,9 +83,9 @@ class AddEditProductPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Add Image',
+        const Text('Add Image',
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-        SizedBox(height: 5),
+        const SizedBox(height: 5),
         Row(
           children: [
             Obx(() => Container(
@@ -101,16 +101,16 @@ class AddEditProductPage extends StatelessWidget {
                           child: Image.file(controller.imageFile.value!,
                               fit: BoxFit.cover),
                         )
-                      : Center(child: Text('No Image')),
+                      : const Center(child: Text('No Image')),
                 )),
-            SizedBox(width: 5),
+            const SizedBox(width: 5),
             ElevatedButton(
               onPressed: controller.pickImage,
               style: ElevatedButton.styleFrom(
                 backgroundColor: GlobalColors.mainColor,
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               ),
-              child: Icon(Icons.file_upload),
+              child: const Icon(Icons.file_upload),
             ),
           ],
         ),
@@ -126,31 +126,31 @@ class AddEditProductPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Price',
+              const Text('Price',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Obx(() => TextField(
                     onChanged: (value) => controller.price.value = value,
                     controller:
                         TextEditingController(text: controller.price.value),
-                    decoration: InputDecoration(hintText: 'Enter price'),
+                    decoration: const InputDecoration(hintText: 'Enter price'),
                   )),
             ],
           ),
         ),
-        SizedBox(width: 10),
+        const SizedBox(width: 10),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Quantity',
+              const Text('Quantity',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Obx(() => TextField(
                     onChanged: (value) => controller.quantity.value = value,
                     controller:
                         TextEditingController(text: controller.quantity.value),
-                    decoration: InputDecoration(hintText: 'Enter quantity'),
+                    decoration: const InputDecoration(hintText: 'Enter quantity'),
                   )),
             ],
           ),
@@ -161,7 +161,7 @@ class AddEditProductPage extends StatelessWidget {
 
   Widget _buildMake3DCheckbox() {
     return Obx(() => CheckboxListTile(
-          title: Text("Enable 3D Model"),
+          title: const Text("Enable 3D Model"),
           value: controller.is3DEnabled.value,
           onChanged: controller.toggle3DEnabled,
         ));
@@ -171,22 +171,22 @@ class AddEditProductPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Upload 3D Model',
+        const Text('Upload 3D Model',
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-        SizedBox(height: 5),
+        const SizedBox(height: 5),
         ElevatedButton(
           onPressed: controller.pickModelFile,
           style: ElevatedButton.styleFrom(
             backgroundColor: GlobalColors.mainColor,
-            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
           ),
-          child: Text('Upload 3D Model'),
+          child: const Text('Upload 3D Model'),
         ),
-        SizedBox(height: 5),
+        const SizedBox(height: 5),
         Obx(() => controller.modelFile.value != null
             ? Text('Model: ${controller.modelFile.value!.path}')
-            : Text('No model uploaded')),
-        SizedBox(height: 10),
+            : const Text('No model uploaded')),
+        const SizedBox(height: 10),
       ],
     );
   }
@@ -196,7 +196,7 @@ class AddEditProductPage extends StatelessWidget {
           value: controller.category.value.isNotEmpty
               ? controller.category.value
               : null,
-          hint: Text('Select category'),
+          hint: const Text('Select category'),
           items: <String>['Electronics', 'Clothing', 'Books', 'Other']
               .map((String value) => DropdownMenuItem<String>(
                     value: value,

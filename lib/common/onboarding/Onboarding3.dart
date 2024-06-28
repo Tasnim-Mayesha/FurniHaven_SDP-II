@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sdp2/common/widgets/bottomnavbar/customer_starting.dart';
-import 'package:sdp2/features/personilization/screen/Login/login_option.dart';
 import '../widgets/PaginationIndicator/paginationIndicator.dart';
 
 class Onboarding3 extends StatelessWidget {

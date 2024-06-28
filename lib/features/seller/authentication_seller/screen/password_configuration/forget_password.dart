@@ -1,13 +1,13 @@
 import "package:flutter/material.dart";
 import "package:get/get.dart";
 import "package:iconsax/iconsax.dart";
-import "package:sdp2/features/authentication/screen/password_configuration/reset_password.dart";
+import "package:sdp2/features/seller/authentication_seller/screen/password_configuration/reset_password.dart";
 import "package:sdp2/utils/global_colors.dart";
 
 import "../../../../../common/widgets/button.dart";
 
-class ForgetPassword extends StatelessWidget {
-  ForgetPassword({super.key});
+class SellerForgetPassword extends StatelessWidget {
+  SellerForgetPassword({super.key});
   final TextEditingController emailController=TextEditingController();
 
 
@@ -53,7 +53,7 @@ class ForgetPassword extends StatelessWidget {
             ),
             const SizedBox(height: 24,),
             CustomButton(text: 'Submit',
-              onTap: ()=>Get.to(() => const ResetPassword()))
+              onTap: ()=>Get.to(() => const SellerResetPassword()))
           ],
         ),
       ),

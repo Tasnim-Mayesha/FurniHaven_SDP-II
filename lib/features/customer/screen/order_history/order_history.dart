@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:sdp2/features/customer/screen/product/product_page.dart';
 
 class OrderHistoryPage extends StatelessWidget {
@@ -50,10 +49,10 @@ class OrderItem extends StatelessWidget {
                   height: 80,
                 ),
                 const SizedBox(width: 8.0),
-                Expanded(
+                const Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text(
                         'Luxury Chair',
                         style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -97,7 +96,7 @@ class OrderItem extends StatelessWidget {
               alignment: Alignment.bottomRight,
               child: ElevatedButton(
                 onPressed: () {
-                  Get.to(()=> ProductPage());
+                  Get.to(()=> const ProductPage());
                   // Navigate to ProductPage or any other page as needed
                 },
                 child: const Text('Review'),

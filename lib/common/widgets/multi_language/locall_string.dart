@@ -64,7 +64,6 @@ class LocalString extends Translations{
       'Browse Popular Categories':'জনপ্রিয় প্রণালি ব্রাউজ করুন',
       'Browse Popular Brands':'জনপ্রিয় ব্র্যান্ড ব্রাউজ করুন',
 
-
   }
 
 

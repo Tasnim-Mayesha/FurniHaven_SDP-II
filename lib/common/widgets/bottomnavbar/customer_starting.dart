@@ -7,7 +7,7 @@ import 'package:sdp2/features/customer/screen/cart/add_to_cart.dart';
 import 'package:sdp2/features/customer/screen/home/home_view.dart';
 import 'package:sdp2/features/customer/screen/message/message_list.dart';
 import 'package:sdp2/features/customer/screen/wishlist/wishlist.dart';
-import 'package:sdp2/features/personilization/screen/Account/Account.dart';
+import 'package:sdp2/features/personilization/screen/Account/account.dart';
 import '../appbar/custom_appbar_in.dart';
 
 

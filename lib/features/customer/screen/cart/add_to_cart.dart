@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sdp2/features/customer/screen/cart/widget/add_remove_button.dart';
 import 'package:sdp2/features/customer/screen/cart/widget/cart_item.dart';
+import '../../../../common/widgets/appbar/custom_appbar_in.dart';
+import '../../../../common/widgets/bottomnavbar/bottom_nav_bar.dart';
 import '../../../../utils/global_colors.dart';
 import '../shipping/shipping.dart';
 
@@ -67,6 +69,7 @@ class CartView extends StatelessWidget {
     final CartController controller = Get.put(CartController());
 
     return Scaffold(
+      //appBar: customAppBarIn(context),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Obx(() {
@@ -114,6 +117,7 @@ class CartView extends StatelessWidget {
           );
         }),
       ),
+      //bottomNavigationBar: CustomBottomNavBar(),
       floatingActionButton: Obx(() {
         return SizedBox(
           width: 320,

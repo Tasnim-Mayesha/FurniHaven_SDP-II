@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../utils/global_colors.dart';
-import '../AddContact/AddContact.dart';
+import '../AddContact/addContact.dart';
 import '../ChangePassword/ChangePassword.dart';
 import '../EditProfileItems/EditEmail.dart';
 

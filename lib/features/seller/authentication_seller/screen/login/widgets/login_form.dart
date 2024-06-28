@@ -7,8 +7,8 @@ import '../../../../../../utils/global_colors.dart';
 import '../../../../../../validators/validation.dart';
 import '../../../../../customer/screen/home/home_view.dart';
 
-class LoginForm extends StatelessWidget {
-  const LoginForm({
+class SellerLoginForm extends StatelessWidget {
+  const SellerLoginForm({
     super.key,
   });
 

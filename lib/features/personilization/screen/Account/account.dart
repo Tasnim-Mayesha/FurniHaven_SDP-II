@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sdp2/common/widgets/appbar/custom_appbar_in.dart';
+import 'package:sdp2/features/customer/screen/order_history/order_history.dart';
 import 'package:sdp2/features/personilization/screen/profile/profile.dart';
 import 'package:sdp2/features/personilization/screen/Login/login_option.dart';
+
+import '../../../../common/widgets/bottomnavbar/bottom_nav_bar.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
@@ -21,7 +26,7 @@ class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+     // appBar: customAppBarIn(context),
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
@@ -31,10 +36,7 @@ class _AccountPageState extends State<AccountPage> {
             Icons.person,
             'Profile',
                 () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const ProfileView()),
-              );
+              Get.to(()=> const ProfileView());
             },
           ),
           const Divider(),
@@ -44,10 +46,7 @@ class _AccountPageState extends State<AccountPage> {
             Icons.shopping_bag,
             'Order',
                 () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => OrderPage()),
-              // );
+              Get.to(()=> const OrderHistoryPage());
             },
           ),
           const Divider(),
@@ -57,23 +56,7 @@ class _AccountPageState extends State<AccountPage> {
             Icons.location_on,
             'Address',
                 () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => AddressPage()),
-              // );
-            },
-          ),
-          const Divider(),
-          _buildListTile(
-            context,
-            3,
-            Icons.payment,
-            'Payment',
-                () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => PaymentPage()),
-              // );
+              //
             },
           ),
           const Divider(),
@@ -84,14 +67,12 @@ class _AccountPageState extends State<AccountPage> {
             'Log Out',
                 () {
               // Handle logout
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const LoginOption()),
-              );
+              Get.to(()=> const LoginOption());
             },
           ),
         ],
       ),
+     // bottomNavigationBar: CustomBottomNavBar(),
     );
   }
 

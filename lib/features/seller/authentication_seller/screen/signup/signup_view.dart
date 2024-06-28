@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sdp2/features/seller/authentication_seller/screen/signup/widgets/signup_form.dart';
 import '../../../../../common/widgets/appbar/custom_appbar_out.dart';
 import '../../../../../common/widgets/social_login.dart';
-import 'widgets/signup_form.dart';
-
 
 class SellerSignupView extends StatelessWidget {
   const SellerSignupView({super.key});

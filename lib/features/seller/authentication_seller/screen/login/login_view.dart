@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:sdp2/common/widgets/bottomnavbar/customer_starting.dart';
 import 'package:sdp2/utils/global_colors.dart';
 
-import 'package:sdp2/features/authentication/screen/signup/signup_view.dart';
 import '../../../../../common/widgets/appbar/custom_appbar_out.dart';
 import '../../../../../common/widgets/button.dart';
 import '../../../../../common/widgets/social_login.dart';
 import '../../../views/main_page.dart';
 import '../password_configuration/forget_password.dart';
 import '../signup/signup_view.dart';
+
 
 class SellerLoginView extends StatelessWidget {
   SellerLoginView({super.key});
@@ -72,7 +71,7 @@ class SellerLoginView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     TextButton(
-                      onPressed: () => Get.to(() => ForgetPassword()),
+                      onPressed: () => Get.to(() => SellerForgetPassword()),
                       child: Text('Forgot Password ?'.tr),
                     )
                   ],

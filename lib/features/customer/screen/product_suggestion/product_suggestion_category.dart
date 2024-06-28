@@ -128,20 +128,17 @@ class ProductSuggestionCategory extends StatelessWidget {
                 itemBuilder: (_, index) {
                   final product = products[index];
 
-                  return GestureDetector(
+                  return ProductCard(
+                    imageUrl: product["imageUrl"],
+                    productName: product["productName"],
+                    brandName: product["brandName"],
+                    discount: product["discount"],
+                    originalPrice: product["originalPrice"],
+                    discountedPrice: product["discountedPrice"],
+                    rating: product["rating"],
                     onTap: () {
-                      print("Tapped on product: ${product['productName']}");
                       Get.to(() => const ProductPage());
                     },
-                    child: ProductCard(
-                      imageUrl: product["imageUrl"],
-                      productName: product["productName"],
-                      brandName: product["brandName"],
-                      discount: product["discount"],
-                      originalPrice: product["originalPrice"],
-                      discountedPrice: product["discountedPrice"],
-                      rating: product["rating"],
-                    ),
                   );
                 },
               ),

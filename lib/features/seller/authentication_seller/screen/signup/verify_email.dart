@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sdp2/utils/constant.dart';
 import 'package:sdp2/utils/global_colors.dart';
-import 'package:sdp2/features/authentication/screen/login/login_view.dart';
 
 import '../../../../../common/widgets/success_screen.dart';
+import '../login/login_view.dart';
 
-class VerifyEmailScreen extends StatelessWidget{
-  const VerifyEmailScreen({super.key});
+class SellerVerifyEmailScreen extends StatelessWidget{
+  const SellerVerifyEmailScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class VerifyEmailScreen extends StatelessWidget{
         automaticallyImplyLeading: false,
         actions: [
           //always start from right side
-          IconButton(onPressed: () => Get.offAll(()=> LoginView()), icon:const Icon(CupertinoIcons.clear))
+          IconButton(onPressed: () => Get.offAll(()=> SellerLoginView()), icon:const Icon(CupertinoIcons.clear))
         ],
       ),
       body:  SingleChildScrollView(
@@ -44,7 +44,7 @@ class VerifyEmailScreen extends StatelessWidget{
                       image: AppImages.success,
                       title: 'Your account successfully created!',
                       subTitle: 'Your Account is Created, Unleash the Joy of Seamless Online Shopping!',
-                      onPressed: () => Get.to(() =>  LoginView()),
+                      onPressed: () => Get.to(() =>  SellerLoginView()),
                       buttonTitle: 'Continue',
                     ),
                     ),

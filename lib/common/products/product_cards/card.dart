@@ -11,6 +11,7 @@ class ProductCard extends StatelessWidget {
   final int originalPrice;
   final int discountedPrice;
   final int rating;
+  final VoidCallback onTap;
 
   const ProductCard({
     super.key,
@@ -21,6 +22,7 @@ class ProductCard extends StatelessWidget {
     required this.originalPrice,
     required this.discountedPrice,
     required this.rating,
+    required this.onTap,
   });
 
   @override
@@ -44,151 +46,162 @@ class ProductCard extends StatelessWidget {
           width: 1,
         ),
       ),
-      child: Column(
+      child: Stack(
         children: [
-          Container(
-            height: 180,
-            padding: const EdgeInsets.only(left: 2, right: 2),
-            child: Stack(
+          GestureDetector(
+            onTap: onTap,
+            child: Column(
               children: [
-                Center(
-                  child: Image.asset(imageUrl),
-                ),
-                Positioned(
-                  top: 14,
-                  left: 5,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: GlobalColors.mainColor.withOpacity(0.6),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    padding: const EdgeInsets.all(6.0),
-                    child: Text(
-                      '${discount.toInt()}%',
-                      style: Theme.of(context)
-                          .textTheme
-                          .labelLarge!
-                          .apply(color: Colors.black),
-                    ),
+                Container(
+                  height: 180,
+                  padding: const EdgeInsets.only(left: 2, right: 2),
+                  child: Stack(
+                    children: [
+                      Center(
+                        child: Image.asset(imageUrl),
+                      ),
+                      Positioned(
+                        top: 14,
+                        left: 5,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: GlobalColors.mainColor.withOpacity(0.6),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          padding: const EdgeInsets.all(6.0),
+                          child: Text(
+                            '${discount.toInt()}%',
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelLarge!
+                                .apply(color: Colors.black),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        top: 0,
+                        right: 0,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                          ),
+                          child: IconButton(
+                            onPressed: () {},
+                            icon: const Icon(Iconsax.heart5),
+                            color: Colors.red,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                Positioned(
-                  top: 0,
-                  right: 0,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
+                const SizedBox(height: 2),
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8, right: 8),
+                      child: Text(
+                        productName,
+                        style: Theme.of(context).textTheme.bodyLarge,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                      ),
                     ),
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Iconsax.heart5),
-                      color: Colors.red,
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8, right: 8),
+                      child: Row(
+                        children: [
+                          const Text(
+                            'Brand: ',
+                            style: TextStyle(
+                                color: Colors.deepOrange,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            brandName,
+                            style: const TextStyle(
+                                color: Colors.deepOrange,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
                     ),
+                  ],
+                ),
+                const SizedBox(height: 2),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8, right: 8),
+                  child: Row(
+                    children: List.generate(5, (index) {
+                      return Icon(
+                        Icons.star,
+                        size: 20.0,
+                        color: index < rating ? Colors.amber : Colors.grey,
+                      );
+                    }),
                   ),
+                ),
+                const SizedBox(height: 4),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8, right: 8),
+                      child: Text(
+                        '${discountedPrice.toInt()} Tk',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          color: Colors.deepOrange,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8, right: 8),
+                      child: Text(
+                        '${originalPrice.toInt()} Tk',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          color: Colors.grey,
+                          fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.lineThrough,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 2),
-          Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 8, right: 8),
-                child: Text(
-                  productName,
-                  style: Theme.of(context).textTheme.bodyLarge,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Colors.deepOrange,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(12),
+                  bottomRight: Radius.circular(16),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 8, right: 8),
-                child: Row(
-                  children: [
-                    const Text(
-                      'Brand: ',
-                      style: TextStyle(
-                          color: Colors.deepOrange,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      brandName,
-                      style: const TextStyle(
-                          color: Colors.deepOrange,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ],
+              child: const SizedBox(
+                width: 32 * 1.2,
+                height: 32 * 1.2,
+                child: Center(
+                  child: Icon(
+                    Iconsax.add,
+                    color: Colors.white,
+                  ),
                 ),
               ),
-            ],
-          ),
-          const SizedBox(height: 2),
-          Padding(
-            padding: const EdgeInsets.only(left: 8, right: 8),
-            child: Row(
-              children: List.generate(5, (index) {
-                return Icon(
-                  Icons.star,
-                  size: 20.0,
-                  color: index < rating ? Colors.amber : Colors.grey,
-                );
-              }),
             ),
-          ),
-          const SizedBox(height: 4),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(left: 8, right: 8),
-                child: Text(
-                  '${discountedPrice.toInt()} Tk',
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Colors.deepOrange,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 8, right: 8),
-                child: Text(
-                  '${originalPrice.toInt()} Tk',
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Colors.grey,
-                    fontWeight: FontWeight.bold,
-                    decoration: TextDecoration.lineThrough,
-                  ),
-                ),
-              ),
-              Container(
-                decoration: const BoxDecoration(
-                  color: Colors.deepOrange,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(12),
-                    bottomRight: Radius.circular(16),
-                  ),
-                ),
-                child: const SizedBox(
-                  width: 32 * 1.2,
-                  height: 32 * 1.2,
-                  child: Center(
-                    child: Icon(
-                      Iconsax.add,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              )
-            ],
           ),
         ],
       ),
