@@ -51,19 +51,21 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBXlakmEUlsUItYkkQSLf263vKjcM8S6H0',
-    appId: '1:904762934858:android:573349119ec1e21c9088b3',
-    messagingSenderId: '904762934858',
-    projectId: 'furnihaven-bd36e',
-    storageBucket: 'furnihaven-bd36e.appspot.com',
+    apiKey: 'AIzaSyDUIT4mgRw1Acw7xHhavuWjpC3HEShxXJQ',
+    appId: '1:893072319984:android:ce09fd8a9af593b49ce935',
+    messagingSenderId: '893072319984',
+    projectId: 'sdp2-bf09c',
+    storageBucket: 'sdp2-bf09c.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDjaFRBrF4fPlSWbu5v58UJaRF_wzqkm34',
-    appId: '1:904762934858:ios:9c10edd84e8917159088b3',
-    messagingSenderId: '904762934858',
-    projectId: 'furnihaven-bd36e',
-    storageBucket: 'furnihaven-bd36e.appspot.com',
+    apiKey: 'AIzaSyCverPsgHQIP7fjcatLvvGyPgSFmavzSQ8',
+    appId: '1:893072319984:ios:1d0ecb32f83826679ce935',
+    messagingSenderId: '893072319984',
+    projectId: 'sdp2-bf09c',
+    storageBucket: 'sdp2-bf09c.appspot.com',
+    androidClientId: '893072319984-0mv09u5ifrotauusqsultr9ko5rl6qvf.apps.googleusercontent.com',
+    iosClientId: '893072319984-1q5oglvh2ktu1nreu2gvieppoadqo6fe.apps.googleusercontent.com',
     iosBundleId: 'com.example.sdp2',
   );
 
