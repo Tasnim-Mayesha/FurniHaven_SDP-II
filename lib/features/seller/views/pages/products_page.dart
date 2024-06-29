@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sdp2/common/products/product_cards/seller_product_card.dart';
 import 'package:sdp2/features/seller/views/pages/add_edit_product.dart';
 import 'package:sdp2/features/seller/views/pages/controllers/products_controller.dart';
+import 'package:sdp2/common/products/product_cards/seller_product_card.dart';
+import 'package:sdp2/features/seller/models/Product.dart';
 
 class ProductsPage extends StatelessWidget {
   final ProductsController controller = Get.put(ProductsController());
@@ -24,8 +25,8 @@ class ProductsPage extends StatelessWidget {
                     child: TextField(
                       decoration: InputDecoration(
                         hintText: 'Search...',
-                        fillColor: const Color(0xFFF09C39)
-                            .withOpacity(0.3), // 30% opacity
+                        fillColor:
+                            Colors.orange.withOpacity(0.3), // 30% opacity
                         filled: true,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
@@ -35,7 +36,7 @@ class ProductsPage extends StatelessWidget {
                             const EdgeInsets.only(left: 10, right: 20),
                         prefixIcon: const Padding(
                           padding: EdgeInsets.only(left: 15), // Icon position
-                          child: Icon(Icons.search, color: Color(0xFFB47730)),
+                          child: Icon(Icons.search, color: Colors.deepOrange),
                         ),
                       ),
                       onChanged: (value) => controller.searchProducts(value),
@@ -85,6 +86,24 @@ class ProductsPage extends StatelessWidget {
                         originalPrice: product["originalPrice"],
                         discountedPrice: product["discountedPrice"],
                         rating: product["rating"],
+                        onTap: () {
+                          // Assuming your product has a unique identifier like 'id'
+                          Product editableProduct = Product(
+                              // id: product["id"],
+                              title: product["productName"],
+                              imageFile:
+                                  null, // Handle file differently if necessary
+                              price: product["discountedPrice"].toDouble(),
+                              quantity:
+                                  1, // Set default or derive from existing data
+                              is3DEnabled:
+                                  false, // Default or derive from existing data
+                              category:
+                                  'Electronics' // Default or derive from existing data
+                              );
+                          Get.to(() =>
+                              AddEditProductPage(product: editableProduct));
+                        },
                       );
                     },
                   ),

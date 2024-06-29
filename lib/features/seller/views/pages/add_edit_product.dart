@@ -47,11 +47,12 @@ class AddEditProductPage extends StatelessWidget {
               const SizedBox(height: 10),
               ElevatedButton(
                 onPressed: () {
-                  // Assume saveOrUpdateProduct() is defined in the controller
                   controller.saveOrUpdateProduct(product);
                 },
                 style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  backgroundColor: GlobalColors.mainColor,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 ),
                 child:
                     Text(product == null ? 'Save Product' : 'Update Product'),
@@ -70,11 +71,10 @@ class AddEditProductPage extends StatelessWidget {
         const Text('Title',
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         const SizedBox(height: 5),
-        Obx(() => TextField(
-              onChanged: (value) => controller.title.value = value,
-              controller: TextEditingController(text: controller.title.value),
-              decoration: const InputDecoration(hintText: 'Enter product title'),
-            )),
+        TextField(
+          controller: controller.titleController,
+          decoration: const InputDecoration(hintText: 'Enter product title'),
+        ),
       ],
     );
   }
@@ -108,7 +108,8 @@ class AddEditProductPage extends StatelessWidget {
               onPressed: controller.pickImage,
               style: ElevatedButton.styleFrom(
                 backgroundColor: GlobalColors.mainColor,
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               ),
               child: const Icon(Icons.file_upload),
             ),
@@ -129,12 +130,10 @@ class AddEditProductPage extends StatelessWidget {
               const Text('Price',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               const SizedBox(height: 5),
-              Obx(() => TextField(
-                    onChanged: (value) => controller.price.value = value,
-                    controller:
-                        TextEditingController(text: controller.price.value),
-                    decoration: const InputDecoration(hintText: 'Enter price'),
-                  )),
+              TextField(
+                controller: controller.priceController,
+                decoration: const InputDecoration(hintText: 'Enter price'),
+              ),
             ],
           ),
         ),
@@ -146,12 +145,10 @@ class AddEditProductPage extends StatelessWidget {
               const Text('Quantity',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               const SizedBox(height: 5),
-              Obx(() => TextField(
-                    onChanged: (value) => controller.quantity.value = value,
-                    controller:
-                        TextEditingController(text: controller.quantity.value),
-                    decoration: const InputDecoration(hintText: 'Enter quantity'),
-                  )),
+              TextField(
+                controller: controller.quantityController,
+                decoration: const InputDecoration(hintText: 'Enter quantity'),
+              ),
             ],
           ),
         ),

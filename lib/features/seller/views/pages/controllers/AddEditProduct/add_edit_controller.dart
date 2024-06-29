@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:file_picker/file_picker.dart';
@@ -6,21 +7,23 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:sdp2/features/seller/models/Product.dart';
 
 class AddEditProductController extends GetxController {
-  var title = ''.obs;
+  // var title = ''.obs;
+  TextEditingController titleController = TextEditingController();
+  TextEditingController priceController = TextEditingController();
+  TextEditingController quantityController = TextEditingController();
   var imageFile = Rx<File?>(null);
   var modelFile = Rx<File?>(null); // To handle 3D model file
-  var price = ''.obs;
-  var quantity = ''.obs;
   var is3DEnabled = false.obs;
   var category = ''.obs;
   final ImagePicker picker = ImagePicker();
 
   void setInitialValues(Product? product) {
     if (product != null) {
-      title.value = product.title;
+      // title.value = product.title;
+      titleController.text = product.title;
       imageFile.value = product.imageFile;
-      price.value = product.price.toString();
-      quantity.value = product.quantity.toString();
+      priceController.text = product.price.toString();
+      quantityController.text = product.quantity.toString();
       is3DEnabled.value = product.is3DEnabled;
       category.value = product.category;
       modelFile.value = product.modelFile; // Set the 3D model file if available
@@ -35,30 +38,26 @@ class AddEditProductController extends GetxController {
   }
 
   void pickModelFile() async {
-    try {
-      // Check storage permission
-      var status = await Permission.storage.status;
-      if (!status.isGranted) {
-        // Request permission
-        var result = await Permission.storage.request();
-        if (!result.isGranted) {
-          print("Storage permission not granted");
-          return;
-        }
+    // Check storage permission
+    var status = await Permission.storage.status;
+    if (!status.isGranted) {
+      // Request permission
+      var result = await Permission.storage.request();
+      if (!result.isGranted) {
+        print("Storage permission not granted");
+        return;
       }
+    }
 
-      FilePickerResult? result = await FilePicker.platform.pickFiles(
-        type: FileType.any,
-      );
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.any,
+    );
 
-      if (result != null) {
-        File file = File(result.files.single.path!);
-        modelFile.value = file;
-      } else {
-        print("No file selected");
-      }
-    } catch (e) {
-      print("Failed to pick file: $e");
+    if (result != null) {
+      File file = File(result.files.single.path!);
+      modelFile.value = file;
+    } else {
+      print("No file selected");
     }
   }
 
@@ -68,7 +67,15 @@ class AddEditProductController extends GetxController {
     }
   }
 
+  @override
+  void onClose() {
+    titleController.dispose();
+    priceController.dispose();
+    quantityController.dispose();
+    super.onClose();
+  }
+
   void saveOrUpdateProduct(Product? product) {
-    // Save or update product
+    // Save or update product logic here
   }
 }

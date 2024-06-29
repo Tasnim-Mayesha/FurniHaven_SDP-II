@@ -13,6 +13,7 @@ class ProductsController extends GetxController {
   void fetchProducts() {
     var fetchedProducts = [
       {
+        "id": "1",
         "imageUrl": "assets/products/almirah.png",
         "productName": "Round 4 Seater Dining Table",
         "brandName": "Regal",
@@ -22,6 +23,7 @@ class ProductsController extends GetxController {
         "rating": 5,
       },
       {
+        "id": "2",
         "imageUrl": "assets/products/study table.png",
         "productName": "Furnish White Modern Chair",
         "brandName": "Brothers",
@@ -44,6 +46,14 @@ class ProductsController extends GetxController {
         allProducts.where((product) =>
             product["productName"].toLowerCase().contains(query.toLowerCase())),
       );
+    }
+  }
+
+  Map<String, dynamic>? getProductById(String id) {
+    try {
+      return allProducts.firstWhere((product) => product['id'] == id);
+    } catch (e) {
+      return null;
     }
   }
 }
