@@ -41,12 +41,12 @@ class MainPage extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(Icons.home),
-              title: const Text('Home'),
+              title: Text('Home'.tr),
               onTap: () {},
             ),
             ListTile(
               leading: const Icon(Icons.settings),
-              title: const Text('Settings'),
+              title: Text('Settings'.tr),
               onTap: () {},
             ),
           ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class RegalPage extends StatelessWidget {
   const RegalPage({super.key});
@@ -7,10 +8,10 @@ class RegalPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Regal'),
+        title: Text('Regal'.tr),
       ),
-      body: const Center(
-        child: Text('Regal'),
+      body: Center(
+        child: Text('Regal'.tr),
       ),
     );
   }

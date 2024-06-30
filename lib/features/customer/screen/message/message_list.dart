@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sdp2/common/widgets/appbar/custom_appbar_in.dart';
 import '../../../../common/widgets/bottomnavbar/bottom_nav_bar.dart';
 import 'chat_with_seller.dart';
@@ -18,15 +19,15 @@ class MessageList extends StatelessWidget {
               leading: const CircleAvatar(
                 backgroundImage: AssetImage('assets/brands/otobi.png'), // Replace with your image asset
               ),
-              title: const Text('Otobi'),
-              trailing: const Text('12:20'),
+              title: Text('Otobi'.tr),
+              trailing: Text('12:20'.tr),
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const ChatWithSeller(
+                    builder: (context) => ChatWithSeller(
                       brandImage: 'assets/brands/otobi.png', // Pass the image asset
-                      brandName: 'Otobi', // Pass the brand name
+                      brandName: 'Otobi'.tr, // Pass the brand name
                     ),
                   ),
                 );
@@ -36,8 +37,8 @@ class MessageList extends StatelessWidget {
               leading: const CircleAvatar(
                 backgroundImage: AssetImage('assets/brands/regal.png'), // Replace with your image asset
               ),
-              title: const Text('regal'),
-              trailing: const Text('12:20'),
+              title: Text('regal'.tr),
+              trailing: Text('12:20'.tr),
               onTap: () {
                 Navigator.push(
                   context,
@@ -54,15 +55,15 @@ class MessageList extends StatelessWidget {
               leading: const CircleAvatar(
                 backgroundImage: AssetImage('assets/brands/hatil.png'), // Replace with your image asset
               ),
-              title: const Text('Hatil'),
-              trailing: const Text('12:20'),
+              title: Text('Hatil'.tr),
+              trailing: Text('12:20'.tr),
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const ChatWithSeller(
+                    builder: (context) => ChatWithSeller(
                       brandImage: 'assets/brands/hatil.png', // Pass the image asset
-                      brandName: 'Hatil', // Pass the brand name
+                      brandName: 'Hatil'.tr, // Pass the brand name
                     ),
                   ),
                 );

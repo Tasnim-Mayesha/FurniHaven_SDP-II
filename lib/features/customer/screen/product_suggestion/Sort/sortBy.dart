@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SortBy extends StatefulWidget {
   const SortBy({super.key});
@@ -14,8 +15,8 @@ class _SortByState extends State<SortBy> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-        'Sort By',
+        title: Text(
+        'Sort By'.tr,
           style: TextStyle(
             color: Colors.deepOrange,
             fontSize: 24.0,
@@ -28,10 +29,10 @@ class _SortByState extends State<SortBy> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(left: 30.0,top: 10.0),
               child: Text(
-                'Best Match',
+                'Best Match'.tr,
                 style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold,color:Colors.orange),
               ),
             ),
@@ -40,7 +41,7 @@ class _SortByState extends State<SortBy> {
               child: ListView(
                 children: [
                   RadioListTile<String>(
-                    title: const Text('New arrivals'),
+                    title: Text('New arrivals'.tr),
                     value: 'New arrivals',
                     groupValue: _selectedOption,
                     activeColor: Colors.grey,
@@ -51,8 +52,8 @@ class _SortByState extends State<SortBy> {
                     },
                   ),
                   RadioListTile<String>(
-                    title: const Text('Discount'),
-                    value: 'Discount',
+                    title: Text('Discount'.tr),
+                    value: 'Discount'.tr,
                     groupValue: _selectedOption,
                     activeColor: Colors.grey,
                     onChanged: (value) {
@@ -62,7 +63,7 @@ class _SortByState extends State<SortBy> {
                     },
                   ),
                   RadioListTile<String>(
-                    title: const Text('Price: Low to High'),
+                    title: Text('Price: Low to High'.tr),
                     value: 'PriceLtH',
                     groupValue: _selectedOption,
                     activeColor: Colors.grey,
@@ -84,7 +85,7 @@ class _SortByState extends State<SortBy> {
                     },
                   ),
                   RadioListTile<String>(
-                    title: const Text('Relevance'),
+                    title: Text('Relevance'.tr),
                     value: 'Relevance',
                     groupValue: _selectedOption,
                     activeColor: Colors.grey,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class HatilPage extends StatelessWidget {
   const HatilPage({super.key});
@@ -7,10 +8,10 @@ class HatilPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Hatil'),
+        title: Text('Hatil'.tr),
       ),
-      body: const Center(
-        child: Text('Hatil'),
+      body: Center(
+        child: Text('Hatil'.tr),
       ),
     );
   }

@@ -107,9 +107,9 @@ class ProductSuggestionBrand extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Padding(
+            Padding(
               padding: EdgeInsets.all(8.0),
-              child: Text('25 Results',style: TextStyle(
+              child: Text('25 Results'.tr,style: TextStyle(
                   color: Colors.grey,
                   fontWeight: FontWeight.bold
               ),),

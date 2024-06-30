@@ -114,7 +114,7 @@ class _AccountPageState extends State<AccountPage> {
         child: ListTile(
           leading: Icon(icon, color: Colors.deepOrange),
           title: Text(
-            title,
+            title.tr,
             style: const TextStyle(fontWeight: FontWeight.w500),
           ),
           // trailing: Icon(Icons.navigate_next, color: Colors.deepOrange),

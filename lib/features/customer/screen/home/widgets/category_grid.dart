@@ -67,7 +67,7 @@ class CategoryGrid extends StatelessWidget {
                       Image.asset(categories[index].image, height: 50),
                       const SizedBox(height: 5),
                       Text(
-                        categories[index].name,
+                        categories[index].name.tr,
                         textAlign: TextAlign.center,
                         style: const TextStyle(fontSize: 12),
                       ),

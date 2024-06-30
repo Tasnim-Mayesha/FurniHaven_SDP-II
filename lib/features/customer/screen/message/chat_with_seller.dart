@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:intl/intl.dart';
@@ -72,12 +73,12 @@ class _ChatWithSellerState extends State<ChatWithSeller> {
                 ),
               ),
               const SizedBox(width: 20),
-              const Column(
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
 
                   Text(
-                    'Chat with Seller', // Use the passed brand name
+                    'Chat with Seller'.tr, // Use the passed brand name
                     style: TextStyle(fontSize: 16,color: Colors.white),
                   ),
                 ],
@@ -171,7 +172,7 @@ class ChatBubble extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                   child: Text(
-                    message,
+                    message.tr,
                     style: TextStyle(
                       color: isMe ? Colors.white : Colors.black,
                       fontSize: 15,
@@ -182,7 +183,7 @@ class ChatBubble extends StatelessWidget {
             ),
           const SizedBox(height: 5),
           Text(
-            time,
+            time.tr,
             style: const TextStyle(
                 color: Colors.grey,
                 fontSize: 12),

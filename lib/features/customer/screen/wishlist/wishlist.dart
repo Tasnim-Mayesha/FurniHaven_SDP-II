@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sdp2/common/widgets/appbar/custom_appbar_in.dart';
 
+
 import '../../../../common/products/product_cards/card.dart';
 import '../../../../common/widgets/bottomnavbar/bottom_nav_bar.dart';
 import '../product/product_page.dart';

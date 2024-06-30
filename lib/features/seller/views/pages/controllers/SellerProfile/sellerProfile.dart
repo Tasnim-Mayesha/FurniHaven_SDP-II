@@ -11,8 +11,8 @@ class SellerProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Profile',
+        title: Text(
+          'Profile'.tr,
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true, // Center the title
@@ -26,7 +26,7 @@ class SellerProfileView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Row(
+            Row(
               children: [
                 CircleAvatar(
                   radius: 40.0,
@@ -34,7 +34,7 @@ class SellerProfileView extends StatelessWidget {
                 ),
                 SizedBox(width: 16.0),
                 Text(
-                  'Yamin Shovo',
+                  'Yamin Shovo'.tr,
                   style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
                 ),
               ],
@@ -46,10 +46,10 @@ class SellerProfileView extends StatelessWidget {
                   ListTile(
                     leading: const Icon(Icons.email, color: Colors.deepOrange),
                     title: RichText(
-                      text: const TextSpan(
+                      text: TextSpan(
                         children: [
                           TextSpan(
-                            text: 'Email: ',
+                            text: 'Email: '.tr,
                             style: TextStyle(
                               fontWeight: FontWeight.w900,
                               fontSize: 16.0,
@@ -57,7 +57,7 @@ class SellerProfileView extends StatelessWidget {
                             ),
                           ),
                           TextSpan(
-                            text: 'shovoyamin@gmail.com',
+                            text: 'shovoyamin@gmail.com'.tr,
                             style: TextStyle(
                               color: Colors.grey,
                               fontSize: 16.0,
@@ -76,8 +76,8 @@ class SellerProfileView extends StatelessWidget {
                   ListTile(
                     leading: const Icon(Icons.phone_android_sharp,
                         color: Colors.deepOrange),
-                    title: const Text(
-                      'Add Phone Number',
+                    title: Text(
+                      'Add Phone Number'.tr,
                       style: TextStyle(
                         fontWeight: FontWeight.w900,
                         color: Color(0xFF00008B),
@@ -94,10 +94,10 @@ class SellerProfileView extends StatelessWidget {
                   ListTile(
                     leading: const Icon(Icons.lock, color: Colors.deepOrange),
                     title: RichText(
-                      text: const TextSpan(
+                      text: TextSpan(
                         children: [
                           TextSpan(
-                            text: 'Password: ',
+                            text: 'Password: '.tr,
                             style: TextStyle(
                               fontWeight: FontWeight.w900,
                               fontSize: 16.0,

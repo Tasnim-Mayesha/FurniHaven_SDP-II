@@ -10,7 +10,7 @@ AppBar customAppBar(BuildContext context) {
   return AppBar(
     title: Obx(
       () => Text(
-        navController.pageTitles[navController.currentIndex.value],
+        navController.pageTitles[navController.currentIndex.value].tr,
         textAlign: TextAlign.center,
       ),
     ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class permission extends StatefulWidget {
@@ -38,8 +39,8 @@ class _Permission extends State<permission> {
     return Scaffold(
       appBar: AppBar(
           backgroundColor: Colors.blue,
-          title: const Text(
-            'Storage Permission in Android(11,12 and 13)',
+          title: Text(
+            'Storage Permission in Android(11,12 and 13)'.tr,
             style: TextStyle(fontSize: 16),
           )),
       body: Center(
@@ -51,7 +52,7 @@ class _Permission extends State<permission> {
             print("permission is not granted");
           }
         },
-        child: const Text('click'),
+        child: Text('click'.tr),
       )),
     );
   }

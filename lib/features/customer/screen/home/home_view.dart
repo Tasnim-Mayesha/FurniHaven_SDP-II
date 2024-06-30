@@ -79,8 +79,8 @@ class HomeView extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Recommendation for you Mayesha', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
-                  const Text('Based on your Activity', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold,color: Colors.grey),),
+                  Text('Recommendation for you Mayesha'.tr, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+                  Text('Based on your Activity'.tr, style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold,color: Colors.grey),),
                   const SizedBox(height: 8,),
                   Padding(
                     padding: const EdgeInsets.only(right: 8),

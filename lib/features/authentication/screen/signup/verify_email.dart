@@ -7,7 +7,6 @@ import 'package:sdp2/features/authentication/screen/login/login_view.dart';
 
 import '../../../../common/widgets/success_screen.dart';
 
-
 class VerifyEmailScreen extends StatelessWidget{
   const VerifyEmailScreen({super.key});
 
@@ -32,11 +31,11 @@ class VerifyEmailScreen extends StatelessWidget{
                 const SizedBox(height: 32),
 
                 ///Title & SubTitle
-                Text('Verify your email address!',style: Theme.of(context).textTheme.headlineMedium,textAlign: TextAlign.center,),
+                Text('Verify your email address!'.tr,style: Theme.of(context).textTheme.headlineMedium,textAlign: TextAlign.center,),
                 const SizedBox(height: 16),
-                Text('support@codingwitht.com',style: Theme.of(context).textTheme.labelLarge, textAlign: TextAlign.center,),
+                Text('support@codingwitht.com'.tr,style: Theme.of(context).textTheme.labelLarge, textAlign: TextAlign.center,),
                 const SizedBox(height: 16),
-                Text('Verify Your Email to Start Exploring and Experience a World of Unrivaled Deals and Personalized Offers.',style: Theme.of(context).textTheme.labelMedium,textAlign: TextAlign.center,),
+                Text('Verify Your Email to Start Exploring and Experience a World of Unrivaled Deals and Personalized Offers.'.tr,style: Theme.of(context).textTheme.labelMedium,textAlign: TextAlign.center,),
                 const SizedBox(height: 32),
 
                 ///Buttons

@@ -31,11 +31,11 @@ class SellerVerifyEmailScreen extends StatelessWidget{
                 const SizedBox(height: 32),
 
                 ///Title & SubTitle
-                Text('Verify your email address!',style: Theme.of(context).textTheme.headlineMedium,textAlign: TextAlign.center,),
+                Text('Verify your email address!'.tr,style: Theme.of(context).textTheme.headlineMedium,textAlign: TextAlign.center,),
                 const SizedBox(height: 16),
-                Text('support@codingwitht.com',style: Theme.of(context).textTheme.labelLarge, textAlign: TextAlign.center,),
+                Text('support@codingwitht.com'.tr,style: Theme.of(context).textTheme.labelLarge, textAlign: TextAlign.center,),
                 const SizedBox(height: 16),
-                Text('Verify Your Email to Start Exploring and Experience a World of Unrivaled Deals and Personalized Offers.',style: Theme.of(context).textTheme.labelMedium,textAlign: TextAlign.center,),
+                Text('Verify Your Email to Start Exploring and Experience a World of Unrivaled Deals and Personalized Offers.'.tr,style: Theme.of(context).textTheme.labelMedium,textAlign: TextAlign.center,),
                 const SizedBox(height: 32),
 
                 ///Buttons
@@ -62,8 +62,8 @@ class SellerVerifyEmailScreen extends StatelessWidget{
                               ),
                             ]
                         ),
-                        child: const Text(
-                            'Continue',
+                        child: Text(
+                            'Continue'.tr,
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w600,
@@ -73,7 +73,7 @@ class SellerVerifyEmailScreen extends StatelessWidget{
                   ),
 
                 const SizedBox(height: 16),
-                SizedBox(width: double.infinity,child:TextButton(onPressed: (){},child: const Text('Resend Email'),),),
+                SizedBox(width: double.infinity,child:TextButton(onPressed: (){},child: Text('Resend Email'.tr),),),
               ],
             ),
           )

@@ -22,9 +22,9 @@ class SuccessScreen extends StatelessWidget {
               Image(image: AssetImage(image),width: MediaQuery.of(Get.context!).size.width * 0.6,),
               const SizedBox(height: 32),
               ///Title & SubTitle
-              Text(title,style: Theme.of(context).textTheme.headlineMedium,textAlign: TextAlign.center,),
+              Text(title.tr,style: Theme.of(context).textTheme.headlineMedium,textAlign: TextAlign.center,),
               const SizedBox(height: 16),
-              Text(subTitle,style: Theme.of(context).textTheme.labelLarge,textAlign: TextAlign.center,),
+              Text(subTitle.tr,style: Theme.of(context).textTheme.labelLarge,textAlign: TextAlign.center,),
               const SizedBox(height: 64),
 
               ///Button

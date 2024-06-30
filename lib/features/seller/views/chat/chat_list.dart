@@ -23,8 +23,8 @@ class SellerMessageList extends StatelessWidget {
                     backgroundImage: AssetImage(
                         brand['image'] ?? 'assets/default_image.png'),
                   ),
-                  title: Text(brand['name'] ?? 'Unknown'),
-                  trailing: Text(brand['time'] ?? 'N/A'),
+                  title: Text(brand['name'.tr] ?? 'Unknown'.tr),
+                  trailing: Text(brand['time'.tr] ?? 'N/A'.tr),
                   onTap: () {
                     Get.to(() => ChatWithCustomer(
                           customerImage:

@@ -12,8 +12,8 @@ class ProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Profile',
+        title: Text(
+          'Profile'.tr,
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true, // Center the title
@@ -27,7 +27,7 @@ class ProfileView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Row(
+            Row(
               children: [
                 CircleAvatar(
                   radius: 35.0,
@@ -35,7 +35,7 @@ class ProfileView extends StatelessWidget {
                 ),
                 SizedBox(width: 16.0),
                 Text(
-                  'Sadia Shitol',
+                  'Sadia Shitol'.tr,
                   style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
                 ),
               ],
@@ -48,8 +48,8 @@ class ProfileView extends StatelessWidget {
                     leading: const Icon(Icons.email, color: Colors.deepOrange),
                     title: Row(
                       children: [
-                        const Text(
-                          'Email: ',
+                        Text(
+                          'Email: '.tr,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 16.0,
@@ -59,7 +59,7 @@ class ProfileView extends StatelessWidget {
                         const SizedBox(width: 4.0), // Optional: add some spacing between the label and email
                         Expanded(
                           child: Text(
-                            'shitolsadia@gmail.com',
+                            'shitolsadia@gmail.com'.tr,
                             style: const TextStyle(
                               color: Colors.grey,
                               fontSize: 16.0,
@@ -78,8 +78,8 @@ class ProfileView extends StatelessWidget {
                   const Divider(),
                   ListTile(
                     leading: const Icon(Icons.phone_android_sharp, color: Colors.deepOrange),
-                    title: const Text(
-                      'Add Phone Number',
+                    title: Text(
+                      'Add Phone Number'.tr,
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         color: Colors.orange,
@@ -96,8 +96,8 @@ class ProfileView extends StatelessWidget {
                     leading: const Icon(Icons.lock, color: Colors.deepOrange),
                     title: Row(
                       children: [
-                        const Text(
-                          'Password: ',
+                        Text(
+                          'Password: '.tr,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 16.0,

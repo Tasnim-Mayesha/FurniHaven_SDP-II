@@ -20,7 +20,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Address'),
+        title: Text('Add Address'.tr),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -77,7 +77,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
                   backgroundColor: GlobalColors.mainColor,
                   minimumSize: const Size(double.infinity, 50),
                 ),
-                child: const Text('Save'),
+                child: Text('Save'.tr),
               ),
             ],
           ),

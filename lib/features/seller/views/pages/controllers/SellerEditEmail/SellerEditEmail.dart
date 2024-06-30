@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SellerEditEmail extends StatefulWidget {
   const SellerEditEmail({super.key});
@@ -47,7 +48,7 @@ class _SellerEditEmailState extends State<SellerEditEmail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Change Email'),
+        title: Text('Change Email'.tr),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -69,10 +70,10 @@ class _SellerEditEmailState extends State<SellerEditEmail> {
               keyboardType: TextInputType.emailAddress,
             ),
             const SizedBox(height: 8.0),
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(left: 8.0),
               child: Text(
-                'We will send verification to your Email address',
+                'We will send verification to your Email address'.tr,
                 style: TextStyle(color: Colors.deepOrange),
               ),
             ),
@@ -86,8 +87,8 @@ class _SellerEditEmailState extends State<SellerEditEmail> {
                     // Handle update action
                     print('New Email: ${_emailController.text}');
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Your Email has been Updated Successfully'),
+                      SnackBar(
+                        content: Text('Your Email has been Updated Successfully'.tr),
                         duration: Duration(seconds: 3),
                         backgroundColor: Colors.grey,
                       ),
@@ -99,7 +100,7 @@ class _SellerEditEmailState extends State<SellerEditEmail> {
                     padding: const EdgeInsets.symmetric(vertical: 14.0),
                     minimumSize: const Size(double.infinity, 50.0),
                   ),
-                  child: const Text('Save'),
+                  child: Text('Save'.tr),
                 ),
               ),
           ],

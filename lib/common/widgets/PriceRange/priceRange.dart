@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class PriceRange extends StatefulWidget {
   const PriceRange({super.key});
@@ -32,8 +33,8 @@ class _PriceRangeFieldState extends State<PriceRange> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Price Range',
+        Text(
+          'Price Range'.tr,
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 16.0),
@@ -91,11 +92,11 @@ class _PriceRangeFieldState extends State<PriceRange> {
           },
         ),
         const SizedBox(height: 8.0),
-        const Row(
+       Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('Min'),
-            Text('Max'),
+            Text('Min'.tr),
+            Text('Max'.tr),
           ],
         ),
       ],

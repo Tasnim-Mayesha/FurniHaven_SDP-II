@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ChangePassword extends StatefulWidget {
   const ChangePassword({super.key});
@@ -78,8 +79,8 @@ class _ChangePasswordState extends State<ChangePassword> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Change Password',
+        title: Text(
+          'Change Password'.tr,
           style: TextStyle(color: Colors.white), // Set the text color to white
         ),
         backgroundColor: Colors.deepOrange, // Set the background color to deep orange
@@ -161,8 +162,8 @@ class _ChangePasswordState extends State<ChangePassword> {
                     // Handle update action
                     print('Changed Password: ${_newPasswordController.text}');
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Your Password has been Changed'),
+                      SnackBar(
+                        content: Text('Your Password has been Changed'.tr),
                         duration: Duration(seconds: 3),
                         backgroundColor: Colors.grey,
                       ),
@@ -173,7 +174,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                     padding: const EdgeInsets.symmetric(vertical: 14.0),
                     minimumSize: const Size(double.infinity, 50.0),
                   ),
-                  child: const Text('Save'),
+                  child: Text('Save'.tr),
                 ),
               ),
           ],
@@ -188,7 +189,7 @@ class _ChangePasswordState extends State<ChangePassword> {
       child: Align(
         alignment: Alignment.centerLeft,
         child: Text(
-          text,
+          text.tr,
           style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 16.0,

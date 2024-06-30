@@ -38,7 +38,7 @@ class ChatWithCustomer extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    customerName,
+                    customerName.tr,
                     style: const TextStyle(fontSize: 16, color: Colors.white),
                   ),
                 ],
@@ -127,7 +127,7 @@ class ChatBubble extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                 child: Text(
-                  message,
+                  message.tr,
                   style: TextStyle(
                     color: isMe ? Colors.white : Colors.black,
                     fontSize: 15,
@@ -137,7 +137,7 @@ class ChatBubble extends StatelessWidget {
             ),
           const SizedBox(height: 5),
           Text(
-            time,
+            time.tr,
             style: const TextStyle(
               color: Colors.grey,
               fontSize: 12,

@@ -22,8 +22,8 @@ class Onboarding extends StatelessWidget {
                    Get.to(CustMainPage());
                   //Get.to(const LoginOption());
                 },
-                child: const Text(
-                  'Skip',
+                child: Text(
+                  'Skip'.tr,
                   style: TextStyle(color: Colors.deepOrange, fontSize: 16),
                 ),
               ),
@@ -91,10 +91,10 @@ class Onboarding extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
               ),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.0),
                 child: Text(
-                  'Welcome to a World of Limitless Choices \n Your Perfect Furniture Awaits!',
+                  'Welcome to a World of Limitless Choices \n Your Perfect Furniture Awaits!'.tr,
                   style: TextStyle(
                     fontSize: 16.0,
                   ),

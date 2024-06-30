@@ -41,7 +41,7 @@ class HelperFunctions {
 
   static void showSnackBar(String message) {
     ScaffoldMessenger.of(Get.context!).showSnackBar(
-      SnackBar(content: Text(message)),
+      SnackBar(content: Text(message.tr)),
     );
   }
 
@@ -50,12 +50,12 @@ class HelperFunctions {
       context: Get.context!,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(title),
-          content: Text(message),
+          title: Text(title.tr),
+          content: Text(message.tr),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: const Text('OK'),
+              child: Text('OK'.tr),
             ),
           ],
         );

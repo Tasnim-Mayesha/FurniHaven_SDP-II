@@ -9,7 +9,7 @@ class OrderHistoryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Order History'),
+        title: Text('Order History'.tr),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -49,25 +49,25 @@ class OrderItem extends StatelessWidget {
                   height: 80,
                 ),
                 const SizedBox(width: 8.0),
-                const Expanded(
+                Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Luxury Chair',
+                        'Luxury Chair'.tr,
                         style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                       ),
-                      Text('Brand: Regal'),
-                      Text('Quantity: 1'),
+                      Text('Brand: Regal'.tr),
+                      Text('Quantity: 1'.tr),
                       Row(
                         children: [
                           Text(
-                            '10,000 tk',
+                            '10,000 tk'.tr,
                             style: TextStyle(fontSize: 16, color: Colors.blue),
                           ),
                           SizedBox(width: 8.0),
                           Text(
-                            '12,400 tk',
+                            '12,400 tk'.tr,
                             style: TextStyle(
                               fontSize: 14,
                               color: Colors.grey,
@@ -76,7 +76,7 @@ class OrderItem extends StatelessWidget {
                           ),
                           SizedBox(width: 8.0),
                           Text(
-                            '24% Off',
+                            '24% Off'.tr,
                             style: TextStyle(fontSize: 14, color: Colors.red),
                           ),
                         ],
@@ -87,9 +87,9 @@ class OrderItem extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 8.0),
-            const Text('11:40 A.M. 23/05/2024'),
-            const Text(
-              'Order Status: Processing',
+            Text('11:40 A.M. 23/05/2024'.tr),
+            Text(
+              'Order Status: Processing'.tr,
               style: TextStyle(color: Colors.red),
             ),
             Align(
@@ -99,7 +99,7 @@ class OrderItem extends StatelessWidget {
                   Get.to(()=> const ProductPage());
                   // Navigate to ProductPage or any other page as needed
                 },
-                child: const Text('Review'),
+                child: Text('Review'.tr),
               ),
             ),
           ],

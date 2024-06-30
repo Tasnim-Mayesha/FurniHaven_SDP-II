@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SellerAddContact extends StatefulWidget {
   const SellerAddContact({super.key});
@@ -45,7 +46,7 @@ class _SellerAddContactState extends State<SellerAddContact> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Phone Number'),
+        title: Text('Add Phone Number'.tr),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -76,8 +77,8 @@ class _SellerAddContactState extends State<SellerAddContact> {
                     // Handle update action
                     print('Phone Number: ${_addContactController.text}');
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Phone Number has been Added'),
+                      SnackBar(
+                        content: Text('Phone Number has been Added'.tr),
                         duration: Duration(seconds: 3),
                         backgroundColor: Colors.grey,
                       ),
@@ -89,7 +90,7 @@ class _SellerAddContactState extends State<SellerAddContact> {
                     padding: const EdgeInsets.symmetric(vertical: 14.0),
                     minimumSize: const Size(double.infinity, 50.0),
                   ),
-                  child: const Text('Save'),
+                  child: Text('Save'.tr),
                 ),
               ),
           ],

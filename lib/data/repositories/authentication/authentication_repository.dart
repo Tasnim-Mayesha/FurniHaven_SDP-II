@@ -59,7 +59,7 @@ class AuthenticationRepository extends GetxController {
     } on PlatformException catch (e) {
       throw MyPlatformException(e.code).message;
     } catch (e) {
-      throw "Something Went Wrong.Please try again.";
+      throw "Something Went Wrong.Please try again.".tr;
     }
   }
 

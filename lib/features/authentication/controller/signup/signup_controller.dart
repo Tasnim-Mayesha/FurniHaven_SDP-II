@@ -61,8 +61,9 @@ class SignupController extends GetxController{
       FullScreenLoader.stopLoading();
       //show success message
       Loaders.successSnackBar(
-          title: 'Congratulations',
-          message: 'Your Account has been created! Verify email and continue.');
+          title: 'Congratulations'.tr,
+          message: 'Your Account has been created! Verify email and continue.'.tr
+      );
 
       //move to verify email screen
       Get.to(() =>const  VerifyEmailScreen());
@@ -70,7 +71,7 @@ class SignupController extends GetxController{
 
     } catch (e) {
       //show some generic error to the user
-      Loaders.errorSnackBar(title: 'Something Went Wrong!', message: e.toString());
+      Loaders.errorSnackBar(title: 'Something Went Wrong!'.tr, message: e.toString());
 
     }finally{
       //remove loader

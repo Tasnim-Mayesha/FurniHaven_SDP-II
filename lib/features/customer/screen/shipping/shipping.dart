@@ -58,7 +58,7 @@ class _ShippingPageState extends State<ShippingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Ship To'),
+        title: Text('Ship To'.tr),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -121,7 +121,7 @@ class _ShippingPageState extends State<ShippingPage> {
                 backgroundColor: GlobalColors.mainColor,
                 minimumSize: const Size(double.infinity, 50),
               ),
-              child: const Text('Next'),
+              child: Text('Next'.tr),
             ),
           ),
         ],

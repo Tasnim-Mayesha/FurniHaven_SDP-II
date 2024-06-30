@@ -103,7 +103,7 @@ class CartView extends StatelessWidget {
                         ],
                       ),
                       Text(
-                        '${(item['price'] as double?)! * (item['quantity'] as int?)!} Tk',
+                        '${(item['price'.tr] as double?)! * (item['quantity'.tr] as int?)!} Tk'.tr,
                         style: const TextStyle(
                           color: Colors.deepOrange,
                           fontWeight: FontWeight.bold,
@@ -127,7 +127,7 @@ class CartView extends StatelessWidget {
               Get.to(const ShippingPage());
             },
             label: Text(
-              'Checkout (${controller.totalAmount} Tk)',
+              'Checkout (${controller.totalAmount} Tk)'.tr,
               style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
             ),
             backgroundColor: GlobalColors.mainColor,

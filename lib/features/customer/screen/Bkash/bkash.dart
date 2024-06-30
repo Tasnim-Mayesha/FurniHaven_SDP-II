@@ -19,7 +19,7 @@ class _BkashState extends State<Bkash> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Bkash'),
+        title: Text('Bkash'.tr),
       ),
       body: SingleChildScrollView(
         child: Column(

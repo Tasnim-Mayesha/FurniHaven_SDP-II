@@ -31,13 +31,13 @@ class LoginOption extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-                const Text(
-                  'Welcome To FurniHaven',
+                Text(
+                  'Welcome To FurniHaven'.tr,
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 20),
-                const Text(
-                  'Continue As',
+                Text(
+                  'Continue As'.tr,
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(height: 20),
@@ -83,7 +83,7 @@ class ExpandedButton extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 20),
               textStyle: const TextStyle(fontSize: 16),
             ),
-            child: Text(label),
+            child: Text(label.tr),
           ),
         ),
       ],

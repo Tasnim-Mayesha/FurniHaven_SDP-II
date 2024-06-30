@@ -112,7 +112,7 @@ class _SellerAccountPageState extends State<SellerAccountPage> {
           leading: Icon(icon, color: Colors.deepOrange),
           title: Row(
             children: [
-              Text(title),
+              Text(title.tr),
               if (index == 0) ...[
                 const SizedBox(width: 8.0,),
               ],

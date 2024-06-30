@@ -22,8 +22,8 @@ class Onboarding2 extends StatelessWidget {
                 onPressed: () {
                   Get.to(()=> CustMainPage());
                 },
-                child: const Text(
-                  'Skip',
+                child:  Text(
+                  'Skip'.tr,
                   style: TextStyle(color: Colors.deepOrange, fontSize: 16),
                 ),
               ),
@@ -41,8 +41,8 @@ class Onboarding2 extends StatelessWidget {
               currentPage: 1,
             ),
           ),
-          const Text(
-            'Next',
+           Text(
+            'Next'.tr,
             style: TextStyle(color: Colors.deepOrange, fontSize: 16),
           ),
           const SizedBox(width: 12),
@@ -80,10 +80,10 @@ class Onboarding2 extends StatelessWidget {
                   fit: BoxFit.cover, // Ensure the image covers the container
                 ),
               ),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.all(16.0),
                 child: Text(
-                  'Select Payment Method',
+                  'Select Payment Method'.tr,
                   style: TextStyle(
                     fontSize: 24.0,
                     fontWeight: FontWeight.bold,
@@ -91,10 +91,10 @@ class Onboarding2 extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
               ),
-              const Padding(
+               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.0),
                 child: Text(
-                  'For Seamless Transactions, Choose Your Payment Path \n Your Convenience, Our Priority!',
+                  'For Seamless Transactions, Choose Your Payment Path \n Your Convenience, Our Priority!'.tr,
                   style: TextStyle(
                     fontSize: 16.0,
                   ),

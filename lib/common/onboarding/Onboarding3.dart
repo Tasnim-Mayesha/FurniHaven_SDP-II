@@ -21,8 +21,8 @@ class Onboarding3 extends StatelessWidget {
                 onPressed: () {
                   Get.to(()=> CustMainPage());
                 },
-                child: const Text(
-                  'Skip',
+                child:  Text(
+                  'Skip'.tr,
                   style: TextStyle(color: Colors.deepOrange, fontSize: 16),
                 ),
               ),
@@ -40,8 +40,8 @@ class Onboarding3 extends StatelessWidget {
               currentPage: 2,
             ),
           ),
-          const Text(
-            'Next',
+           Text(
+            'Next'.tr,
             style: TextStyle(color: Colors.deepOrange, fontSize: 16),
           ),
           const SizedBox(width: 12),
@@ -79,10 +79,10 @@ class Onboarding3 extends StatelessWidget {
                   fit: BoxFit.cover, // Ensure the image covers the container
                 ),
               ),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.all(16.0),
                 child: Text(
-                  'Deliver at your door step',
+                  'Deliver at your door step'.tr,
                   style: TextStyle(
                     fontSize: 24.0,
                     fontWeight: FontWeight.bold,
@@ -90,10 +90,10 @@ class Onboarding3 extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
               ),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.0),
                 child: Text(
-                  'From Our Doorstep to Yours-Swift, Secure, \n and Contactless Delivery',
+                  'From Our Doorstep to Yours-Swift, Secure, \n and Contactless Delivery'.tr,
                   style: TextStyle(
                     fontSize: 16.0,
                   ),

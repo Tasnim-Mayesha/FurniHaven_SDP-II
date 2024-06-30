@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
@@ -33,7 +34,7 @@ class _ReviewInputPageState extends State<ReviewInputPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Write a Review'),
+        title: Text('Write a Review'.tr),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -41,8 +42,8 @@ class _ReviewInputPageState extends State<ReviewInputPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Write Your Review',
+               Text(
+                'Write Your Review'.tr,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 10),
@@ -77,7 +78,7 @@ class _ReviewInputPageState extends State<ReviewInputPage> {
                   Expanded(
                     child: OutlinedButton.icon(
                       icon: const Icon(Icons.camera_alt),
-                      label: const Text('Upload Photo'),
+                      label: Text('Upload Photo'.tr),
                       onPressed: _pickImage,
                     ),
                   ),
@@ -107,7 +108,7 @@ class _ReviewInputPageState extends State<ReviewInputPage> {
                   backgroundColor: GlobalColors.mainColor,
                   padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                 ),
-                child: const Text('SUBMIT REVIEW'),
+                child: Text('SUBMIT REVIEW'.tr),
               ),
             ],
           ),

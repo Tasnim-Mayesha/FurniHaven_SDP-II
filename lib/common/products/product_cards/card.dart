@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../utils/global_colors.dart';
@@ -70,7 +71,7 @@ class ProductCard extends StatelessWidget {
                           ),
                           padding: const EdgeInsets.all(6.0),
                           child: Text(
-                            '${discount.toInt()}%',
+                            '${discount.toInt()}%'.tr,
                             style: Theme.of(context)
                                 .textTheme
                                 .labelLarge!
@@ -101,7 +102,7 @@ class ProductCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 8, right: 8),
                       child: Text(
-                        productName,
+                        productName.tr,
                         style: Theme.of(context).textTheme.bodyLarge,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
@@ -111,14 +112,14 @@ class ProductCard extends StatelessWidget {
                       padding: const EdgeInsets.only(left: 8, right: 8),
                       child: Row(
                         children: [
-                          const Text(
-                            'Brand: ',
+                          Text(
+                            'Brand: '.tr,
                             style: TextStyle(
                                 color: Colors.deepOrange,
                                 fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            brandName,
+                            brandName.tr,
                             style: const TextStyle(
                                 color: Colors.deepOrange,
                                 fontWeight: FontWeight.bold),
@@ -148,7 +149,7 @@ class ProductCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 8, right: 8),
                       child: Text(
-                        '${discountedPrice.toInt()} Tk',
+                        '${discountedPrice.toInt()} Tk'.tr,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
@@ -165,7 +166,7 @@ class ProductCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 8, right: 8),
                       child: Text(
-                        '${originalPrice.toInt()} Tk',
+                        '${originalPrice.toInt()} Tk'.tr,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(

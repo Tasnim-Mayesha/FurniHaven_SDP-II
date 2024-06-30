@@ -28,7 +28,7 @@ class UserRepository extends GetxController{
     } on PlatformException catch (e) {
       throw MyPlatformException(e.code).message;
     }catch(e){
-      throw "Something Went Wrong";
+      throw "Something Went Wrong".tr;
     }
   }
 }

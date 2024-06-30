@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class OtobiPage extends StatelessWidget {
   const OtobiPage({super.key});
@@ -7,10 +8,10 @@ class OtobiPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Otobi'),
+        title: Text('Otobi'.tr),
       ),
-      body: const Center(
-        child: Text('Otobi'),
+      body: Center(
+        child: Text('Otobi'.tr),
       ),
     );
   }

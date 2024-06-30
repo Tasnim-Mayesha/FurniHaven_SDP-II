@@ -20,13 +20,13 @@ class ForgetPassword extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Forget Password',style: TextStyle(
+             Text('Forget Password'.tr,style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
             ),),
             const SizedBox(height: 8,),
             Text(
-              'Don\'t worry sometimes people can forget too,enter your email and we will send you a password reset link.',
+              'Don\'t worry sometimes people can forget too,enter your email and we will send you a password reset link.'.tr,
               style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w600,

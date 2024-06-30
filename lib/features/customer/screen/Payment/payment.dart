@@ -36,7 +36,7 @@ class Payment extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Payment'),
+        title: Text('Payment'.tr),
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 16),
@@ -46,7 +46,7 @@ class Payment extends StatelessWidget {
               leading: const CircleAvatar(
                 backgroundImage: AssetImage('assets/payment/bkash.png'),
               ),
-              title: const Text('Bkash'),
+              title: Text('Bkash'.tr),
               onTap: () {
                 Get.to( const Bkash());
               },
@@ -55,7 +55,7 @@ class Payment extends StatelessWidget {
               leading: const CircleAvatar(
                 backgroundImage: AssetImage('assets/payment/nagad.png'), // Replace with your image asset
               ),
-              title: const Text('Nagad'),
+              title: Text('Nagad'.tr),
               onTap: () {
 
               },
@@ -64,7 +64,7 @@ class Payment extends StatelessWidget {
               leading: const CircleAvatar(
                 backgroundImage: AssetImage('assets/payment/cash-on-delivery.png'), // Replace with your image asset
               ),
-              title: const Text('Cash on Delivery'),
+              title: Text('Cash on Delivery'.tr),
               onTap: () {
 
               },
@@ -83,43 +83,43 @@ class Payment extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    const Row(
+                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween, // To space out the texts
                       children: [
                         Text(
-                          'Items(3)',
+                          'Items(3)'.tr,
                           style: TextStyle(color: Color(0xFF9098B1)),
                         ),
                         Text(
-                          '20000 Tk',
+                          '20000 Tk'.tr,
                           style: TextStyle(color: Colors.black),
                         ),
                       ],
                     ),
                     const SizedBox(height: 8,),
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Shipping',
+                          'Shipping'.tr,
                           style: TextStyle(color: Color(0xFF9098B1)),
                         ),
                         Text(
-                          '40 Tk',
+                          '40 Tk'.tr,
                           style: TextStyle(color: Colors.black),
                         ),
                       ],
                     ),
                     const SizedBox(height: 8,),
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Import Charges',
+                          'Import Charges'.tr,
                           style: TextStyle(color: Color(0xFF9098B1)),
                         ),
                         Text(
-                          '200 Tk',
+                          '200 Tk'.tr,
                           style: TextStyle(color:Colors.black),
                         ),
                       ],
@@ -131,15 +131,15 @@ class Payment extends StatelessWidget {
                     ),
                     const SizedBox(height: 16,),
 
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Total Price',
+                          'Total Price'.tr,
                           style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          '20240 Tk',
+                          '20240 Tk'.tr,
                           style: TextStyle(color: Colors.deepOrange,fontWeight: FontWeight.bold),
                         ),
                       ],

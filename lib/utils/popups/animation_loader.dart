@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
 import '../global_colors.dart';
@@ -31,7 +32,7 @@ class AnimationLoaderWidget extends StatelessWidget {
             height: 24.0,
           ),
           Text(
-            text,
+            text.tr,
             style: Theme.of(context).textTheme.bodyMedium,
             textAlign: TextAlign.center,
           ),
@@ -46,7 +47,7 @@ class AnimationLoaderWidget extends StatelessWidget {
               style: OutlinedButton.styleFrom(
                   backgroundColor: GlobalColors.dark),
               child: Text(
-                actionText!,
+                actionText!.tr,
                 style: Theme.of(context).textTheme.bodyMedium!.apply(
                   color: GlobalColors.white,
                 ),

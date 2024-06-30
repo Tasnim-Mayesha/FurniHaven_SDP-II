@@ -10,8 +10,8 @@ class FilterBy extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Filter By',
+        title: Text(
+          'Filter By'.tr,
           style: TextStyle(
             color: Colors.deepOrange,
             fontSize: 24.0,
@@ -34,8 +34,8 @@ class FilterBy extends StatelessWidget {
                   ListTile(
                     title: Row(
                       children: [
-                        const Expanded(
-                          child: Text('Brand_sortBy'),
+                         Expanded(
+                          child: Text('Brand_sortBy'.tr),
                         ),
                         IconButton(
                           icon: const Icon(Icons.navigate_next),
@@ -49,8 +49,8 @@ class FilterBy extends StatelessWidget {
                   ListTile(
                     title: Row(
                       children: [
-                        const Expanded(
-                            child: Text('Color'),
+                        Expanded(
+                            child: Text('Color'.tr),
                         ),
                         IconButton(
                           icon: const Icon(Icons.navigate_next),
@@ -67,7 +67,7 @@ class FilterBy extends StatelessWidget {
                   ListTile(
                     title: Row(
                       children: [
-                        const Expanded(child: Text('Style'),
+                        Expanded(child: Text('Style'.tr),
                         ),
                         IconButton(
                           icon: const Icon(Icons.navigate_next),
@@ -85,7 +85,7 @@ class FilterBy extends StatelessWidget {
                   ListTile(
                     title: Row(
                       children: [
-                        const Expanded(child: Text('Newest'),
+                        Expanded(child: Text('Newest'.tr),
                         ),
                         IconButton(
                           icon: const Icon(Icons.navigate_next),

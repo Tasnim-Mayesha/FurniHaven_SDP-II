@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class AddContact extends StatefulWidget {
   const AddContact({super.key});
@@ -45,8 +46,8 @@ class _AddContactState extends State<AddContact> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Add Phone Number',
+        title: Text(
+          'Add Phone Number'.tr,
           style: TextStyle(color: Colors.white), // Set the text color to white
         ),
         backgroundColor: Colors.deepOrange, // Set the background color to deep orange
@@ -81,8 +82,8 @@ class _AddContactState extends State<AddContact> {
                     // Handle update action
                     print('Phone Number: ${_addContactController.text}');
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Your Contact Number has been Added'),
+                      SnackBar(
+                        content: Text('Your Contact Number has been Added'.tr),
                         duration: Duration(seconds: 3),
                         backgroundColor: Colors.grey,
                       ),
@@ -94,7 +95,7 @@ class _AddContactState extends State<AddContact> {
                     padding: const EdgeInsets.symmetric(vertical: 14.0),
                     minimumSize: const Size(double.infinity, 50.0),
                   ),
-                  child: const Text('Save'),
+                  child: Text('Save'.tr),
                 ),
               ),
           ],

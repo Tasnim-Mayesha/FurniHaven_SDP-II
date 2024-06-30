@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sdp2/features/seller/views/widget/dashboard/graphs/monthly_sales.dart';
 import 'package:sdp2/features/seller/views/widget/dashboard/graphs/today_sales.dart';
 import 'package:sdp2/features/seller/views/widget/dashboard/graphs/yearly_growth.dart';
@@ -19,18 +20,18 @@ class DashboardPage extends StatelessWidget {
               Container(
                 padding:
                     const EdgeInsets.only(bottom: 20.0), // Add some padding
-                child: const Column(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Welcome Back!',
+                      'Welcome Back!'.tr,
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
-                      'Hi, Mr. Shovo',
+                      'Hi, Mr. Shovo'.tr,
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w300,
@@ -149,7 +150,7 @@ class DashboardPage extends StatelessWidget {
               ),
               child: Icon(iconData, color: Theme.of(context).primaryColor),
             ),
-            title: Text(title),
+            title: Text(title.tr),
             horizontalTitleGap: 10,
           ),
           Expanded(child: child),

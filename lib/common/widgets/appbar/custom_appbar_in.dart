@@ -25,8 +25,8 @@ class LanguageSelectorButton extends StatelessWidget {
       itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
         for (var lang in locale)
           PopupMenuItem<String>(
-            value: lang['name'],
-            child: Text(lang['name']),
+            value: lang['name'.tr],
+            child: Text(lang['name'.tr]),
           ),
       ],
     );

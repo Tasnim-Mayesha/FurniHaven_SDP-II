@@ -28,22 +28,22 @@ class ResetPassword extends StatelessWidget {
               const SizedBox(height: 24),
 
               ///Title & SubTitle
-              const Text('Password Reset Email Sent',style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
+              Text('Password Reset Email Sent'.tr,style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
               const SizedBox(height: 16),
-              Text('Your Account Security is Our Priority! We\'ve Sent You a Secure Link to Safely Change Your Password and Keep Your Account Protected.',style: Theme.of(context).textTheme.labelMedium,textAlign: TextAlign.center,),
+              Text('Your Account Security is Our Priority! We\'ve Sent You a Secure Link to Safely Change Your Password and Keep Your Account Protected.'.tr,style: Theme.of(context).textTheme.labelMedium,textAlign: TextAlign.center,),
               const SizedBox(height: 32),
               /// Buttons
               SizedBox(
                 width: double.infinity,
                 child: CustomButton(
-                  text: 'Done',
+                  text: 'Done'.tr,
                   onTap: () => Get.offAll(() =>  LoginView()),
                 )
               ),
               const SizedBox(height: 16),
               SizedBox(
                 width: double.infinity,
-                child: TextButton(onPressed: (){}, child: const Text('Resend Email')),
+                child: TextButton(onPressed: (){}, child:  Text('Resend Email'.tr)),
               ),
             ],
           ),

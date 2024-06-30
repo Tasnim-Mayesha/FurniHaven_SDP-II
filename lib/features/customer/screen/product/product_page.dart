@@ -36,7 +36,7 @@ class _ProductPageState extends State<ProductPage> {
             Get.back();
           },
         ),
-        title: const Center(child: Text('Product')),
+        title: Center(child: Text('Product'.tr)),
         actions: [
           IconButton(
             icon: Icon(
@@ -82,8 +82,8 @@ class _ProductPageState extends State<ProductPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Quantity',
+                    Text(
+                      'Quantity'.tr,
                       style: TextStyle(fontSize: 16,color: Colors.deepOrange,fontWeight: FontWeight.bold),
                     ),
                     const Spacer(),
@@ -110,7 +110,7 @@ class _ProductPageState extends State<ProductPage> {
                       width: 16,
                     ),
                     Text(
-                      quantity.toString(),
+                      quantity.toString().tr,
                       style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontSize: 18),
                     ),
 
@@ -139,7 +139,7 @@ class _ProductPageState extends State<ProductPage> {
             const SizedBox(height: 20),
              const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: ReviewSection(), // Include the ReviewSection here
+              child: ReviewSection(),
             ),
             const SizedBox(height: 80,),
           ],
@@ -154,7 +154,7 @@ class _ProductPageState extends State<ProductPage> {
             controller.changePage(2);
             Get.to(() => CustMainPage());
           },
-          label: const Text('Add to Cart',style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w600),),
+          label: Text('Add to Cart'.tr,style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w600),),
           icon: const Icon(Icons.shopping_cart,color: Colors.white),
           backgroundColor: GlobalColors.mainColor,
           shape: RoundedRectangleBorder(

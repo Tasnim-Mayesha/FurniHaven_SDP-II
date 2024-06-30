@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class EditEmail extends StatefulWidget {
   const EditEmail({super.key});
@@ -47,8 +48,8 @@ class _EditEmailState extends State<EditEmail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Change Email',
+        title: Text(
+          'Change Email'.tr,
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.deepOrange,
@@ -74,10 +75,10 @@ class _EditEmailState extends State<EditEmail> {
               keyboardType: TextInputType.emailAddress,
             ),
             const SizedBox(height: 8.0), // Spacer between TextField and additional text
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(left: 8.0),
               child: Text(
-                'We will send verification to your Email address',
+                'We will send verification to your Email address'.tr,
                 style: TextStyle(color: Colors.deepOrange),
               ),
             ),
@@ -91,8 +92,8 @@ class _EditEmailState extends State<EditEmail> {
                     // Handle update action
                     print('New Email: ${_emailController.text}');
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Your Email has been Updated Successfully'),
+                      SnackBar(
+                        content: Text('Your Email has been Updated Successfully'.tr),
                         duration: Duration(seconds: 3),
                         backgroundColor: Colors.grey,
                       ),
@@ -104,7 +105,7 @@ class _EditEmailState extends State<EditEmail> {
                     padding: const EdgeInsets.symmetric(vertical: 14.0),
                     minimumSize: const Size(double.infinity, 50.0),
                   ),
-                  child: const Text('Save'),
+                  child: Text('Save'.tr),
                 ),
               ),
           ],
