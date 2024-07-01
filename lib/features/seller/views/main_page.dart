@@ -20,7 +20,7 @@ class MainPage extends StatelessWidget {
     const DashboardPage(),
     const SellerMessageList(),
     ProductsPage(),
-    const CouponPage(),
+    CouponPage(),
     const SellerAccountPage(),
   ];
 
