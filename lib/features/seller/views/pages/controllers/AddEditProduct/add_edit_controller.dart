@@ -7,26 +7,24 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:sdp2/features/seller/models/Product.dart';
 
 class AddEditProductController extends GetxController {
-  // var title = ''.obs;
   TextEditingController titleController = TextEditingController();
   TextEditingController priceController = TextEditingController();
   TextEditingController quantityController = TextEditingController();
   var imageFile = Rx<File?>(null);
-  var modelFile = Rx<File?>(null); // To handle 3D model file
+  var modelFile = Rx<File?>(null);
   var is3DEnabled = false.obs;
   var category = ''.obs;
   final ImagePicker picker = ImagePicker();
 
   void setInitialValues(Product? product) {
     if (product != null) {
-      // title.value = product.title;
       titleController.text = product.title;
       imageFile.value = product.imageFile;
       priceController.text = product.price.toString();
       quantityController.text = product.quantity.toString();
       is3DEnabled.value = product.is3DEnabled;
       category.value = product.category;
-      modelFile.value = product.modelFile; // Set the 3D model file if available
+      modelFile.value = product.modelFile;
     }
   }
 
@@ -38,10 +36,8 @@ class AddEditProductController extends GetxController {
   }
 
   void pickModelFile() async {
-    // Check storage permission
     var status = await Permission.storage.status;
     if (!status.isGranted) {
-      // Request permission
       var result = await Permission.storage.request();
       if (!result.isGranted) {
         print("Storage permission not granted");
