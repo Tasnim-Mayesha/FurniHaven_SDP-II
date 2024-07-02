@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:sdp2/features/seller/models/Product.dart';
 
 class AddEditProductController extends GetxController {
@@ -36,18 +35,7 @@ class AddEditProductController extends GetxController {
   }
 
   void pickModelFile() async {
-    var status = await Permission.storage.status;
-    if (!status.isGranted) {
-      var result = await Permission.storage.request();
-      if (!result.isGranted) {
-        print("Storage permission not granted");
-        return;
-      }
-    }
-
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.any,
-    );
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
 
     if (result != null) {
       File file = File(result.files.single.path!);
