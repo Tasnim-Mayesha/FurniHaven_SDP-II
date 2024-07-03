@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sdp2/data/repositories/seller/seller_repository.dart';
 import 'package:sdp2/features/authentication/screen/login/login_view.dart';
+import 'package:sdp2/features/seller/views/main_page.dart';
 
 import '../../../seller/authentication_seller/screen/login/login_view.dart';
 
@@ -50,10 +52,22 @@ class LoginOption extends StatelessWidget {
                         }),
                     const SizedBox(height: 20), // Spacing between the buttons
                     ExpandedButton(
-                        label: 'Seller',
-                        onPressed: () {
-                          Get.to(()=>SellerLoginView());
-                        }),
+                      label: 'Seller',
+                      onPressed: () async {
+                        final sellerRepository = SellerRepository.instance;
+                        final uid = await sellerRepository.getCachedSellerUid();
+
+                        if (uid != null) {
+                          // Fetch seller data
+                          // SellerModel seller = await sellerRepository.getSellerData(uid);
+                          // Navigate to MainPage
+                          Get.off(() => MainPage());
+                        } else {
+                          // Navigate to Login Page
+                          Get.to(() => SellerLoginView());
+                        }
+                      },
+                    )
                   ],
                 ),
               ],

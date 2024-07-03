@@ -11,12 +11,10 @@ class SellerSignupForm extends StatelessWidget {
     super.key,
   });
 
-
-
   @override
   Widget build(BuildContext context) {
     //final dark = HelperFunctions.isDarkMode(context);
-    final controller=Get.put(SellerSignupController());
+    final controller = Get.put(SellerSignupController());
     return Form(
       key: controller.signupFormKey,
       child: Column(
@@ -28,46 +26,68 @@ class SellerSignupForm extends StatelessWidget {
           ),
 
           const SizedBox(height: 50),
+
           ///Username
           TextFormField(
             controller: controller.userName,
-            validator: (value) => Validator.validateEmptyText('Username'.tr, value),
-
+            validator: (value) =>
+                Validator.validateEmptyText('Username'.tr, value),
             expands: false,
-            decoration:  InputDecoration(labelText: 'Username'.tr,prefixIcon: const Icon(Iconsax.user_edit,color: GlobalColors.mainColorHex,)),
+            decoration: InputDecoration(
+                labelText: 'Username'.tr,
+                prefixIcon: const Icon(
+                  Iconsax.user_edit,
+                  color: GlobalColors.mainColorHex,
+                )),
           ),
           const SizedBox(height: 10),
 
           ///company
           TextFormField(
-            controller: controller.userName,
-            validator: (value) => Validator.validateEmptyText('Company Name'.tr, value),
+            controller: controller.companyName,
+            validator: (value) =>
+                Validator.validateEmptyText('Company Name'.tr, value),
             expands: false,
-            decoration:  InputDecoration(labelText: 'Company Name'.tr,prefixIcon: const Icon(Icons.house,color: GlobalColors.mainColorHex,)),
+            decoration: InputDecoration(
+                labelText: 'Company Name'.tr,
+                prefixIcon: const Icon(
+                  Icons.house,
+                  color: GlobalColors.mainColorHex,
+                )),
           ),
+
           ///Email
           const SizedBox(height: 10),
           TextFormField(
             validator: (value) => Validator.validateEmail(value),
             controller: controller.email,
             expands: false,
-            decoration:  InputDecoration(labelText: 'Email'.tr,prefixIcon: const Icon(Iconsax.direct,color: GlobalColors.mainColorHex,), ),
+            decoration: InputDecoration(
+              labelText: 'Email'.tr,
+              prefixIcon: const Icon(
+                Iconsax.direct,
+                color: GlobalColors.mainColorHex,
+              ),
+            ),
           ),
 
           ///Password
           const SizedBox(height: 10),
           Obx(
-                () => TextFormField(
+            () => TextFormField(
               validator: (value) => Validator.validatePassword(value),
               controller: controller.password,
               obscureText: controller.hidePassword.value,
               expands: false,
               decoration: InputDecoration(
                 labelText: 'Password'.tr,
-                prefixIcon: const Icon(Iconsax.password_check,color: GlobalColors.mainColorHex,),
+                prefixIcon: const Icon(
+                  Iconsax.password_check,
+                  color: GlobalColors.mainColorHex,
+                ),
                 suffixIcon: IconButton(
                     onPressed: () => controller.hidePassword.value =
-                    !controller.hidePassword.value,
+                        !controller.hidePassword.value,
                     icon: Icon(controller.hidePassword.value
                         ? Iconsax.eye_slash
                         : Iconsax.eye)),
@@ -75,10 +95,9 @@ class SellerSignupForm extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          CustomButton(text: 'Sign Up'.tr,onTap: () => controller.signup()),
+          CustomButton(text: 'Sign Up'.tr, onTap: () => controller.signup()),
         ],
       ),
     );
   }
 }
-

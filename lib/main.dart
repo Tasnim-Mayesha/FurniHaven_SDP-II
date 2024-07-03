@@ -4,6 +4,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:sdp2/bindings/general_bindings.dart';
+import 'package:sdp2/data/repositories/seller/seller_repository.dart';
 import 'package:sdp2/routes/app_routes.dart';
 import 'package:sdp2/utils/themes/theme.dart';
 
@@ -15,7 +16,7 @@ import 'firebase_options.dart';
 Future<void> main() async {
   /// Widgets Binding
   final WidgetsBinding widgetsBinding =
-  WidgetsFlutterBinding.ensureInitialized();
+      WidgetsFlutterBinding.ensureInitialized();
 
   /// -- GetX Local Storage
   await GetStorage.init();
@@ -28,9 +29,9 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
     name: 'sdp2-bf09c',
   ).then(
-        (FirebaseApp value) => Get.put(AuthenticationRepository()),
+    (FirebaseApp value) => Get.put(AuthenticationRepository()),
   );
-
+  Get.put(SellerRepository());
   runApp(const MyApp());
 }
 

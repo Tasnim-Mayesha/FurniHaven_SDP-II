@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:sdp2/data/repositories/seller/seller_repository.dart';
 import 'package:sdp2/utils/global_colors.dart';
 
 import '../../../../../common/widgets/appbar/custom_appbar_out.dart';
@@ -10,11 +12,35 @@ import '../../../views/main_page.dart';
 import '../password_configuration/forget_password.dart';
 import '../signup/signup_view.dart';
 
-
 class SellerLoginView extends StatelessWidget {
   SellerLoginView({super.key});
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+  // Method to handle login
+  Future<void> _login(BuildContext context) async {
+    final sellerRepository = SellerRepository.instance;
+    final email = emailController.text.trim();
+    final password = passwordController.text.trim();
+
+    if (email.isEmpty || password.isEmpty) {
+      Get.snackbar("Error", "Email and Password cannot be empty");
+      return;
+    }
+
+    try {
+      User? user =
+          await sellerRepository.loginUser(email: email, password: password);
+      if (user != null) {
+        // Fetch seller data
+        // SellerModel seller = await sellerRepository.getSellerData(user.uid);
+        // Navigate to MainPage
+        Get.off(() => MainPage());
+      }
+    } catch (e) {
+      Get.snackbar("Login Failed", e.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +92,7 @@ class SellerLoginView extends StatelessWidget {
                     prefixIcon: const Icon(Iconsax.password_check,
                         color: GlobalColors.mainColorHex),
                   ),
+                  obscureText: true,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -79,9 +106,7 @@ class SellerLoginView extends StatelessWidget {
                 const SizedBox(height: 10),
                 CustomButton(
                   text: 'Sign In'.tr,
-                  onTap: () {
-                    Get.to(() => MainPage());
-                  },
+                  onTap: () => _login(context),
                 ),
                 const SizedBox(height: 25),
                 const SocialLogin(),

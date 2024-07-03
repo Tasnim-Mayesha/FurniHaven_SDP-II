@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sdp2/features/personilization/screen/Login/login_option.dart';
 import 'package:sdp2/features/seller/views/pages/controllers/SellerProfile/sellerProfile.dart';
+import 'package:sdp2/data/repositories/seller/seller_repository.dart';
 
 class SellerAccountPage extends StatefulWidget {
   const SellerAccountPage({super.key});
@@ -19,6 +20,12 @@ class _SellerAccountPageState extends State<SellerAccountPage> {
     });
   }
 
+  void _logout() async {
+    final sellerRepository = SellerRepository.instance;
+    await sellerRepository.clearCachedSellerUid();
+    Get.offAll(() => const LoginOption());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,8 +37,8 @@ class _SellerAccountPageState extends State<SellerAccountPage> {
             0,
             Icons.person,
             'Profile',
-                () {
-              Get.to(()=> const SellerProfileView());
+            () {
+              Get.to(() => const SellerProfileView());
             },
           ),
           const Divider(),
@@ -40,7 +47,7 @@ class _SellerAccountPageState extends State<SellerAccountPage> {
             1,
             Icons.message_sharp,
             'Promotional Messages',
-                () {
+            () {
               // Navigator.push(
               //   context,
               //   MaterialPageRoute(builder: (context) => OrderPage()),
@@ -53,7 +60,7 @@ class _SellerAccountPageState extends State<SellerAccountPage> {
             2,
             Icons.location_on,
             'Stores',
-                () {
+            () {
               //Stores
               // Navigator.push(
               //   context,
@@ -67,7 +74,7 @@ class _SellerAccountPageState extends State<SellerAccountPage> {
             3,
             Icons.payment,
             'Payment Methods',
-                () {
+            () {
               // Navigator.push(
               //   context,
               //   MaterialPageRoute(builder: (context) => PaymentPage()),
@@ -80,13 +87,7 @@ class _SellerAccountPageState extends State<SellerAccountPage> {
             4,
             Icons.logout,
             'LogOut',
-                () {
-              // Handle logout
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const LoginOption()),
-              );
-            },
+            _logout,
           ),
         ],
       ),
@@ -94,13 +95,13 @@ class _SellerAccountPageState extends State<SellerAccountPage> {
   }
 
   Widget _buildListTile(
-      BuildContext context,
-      int index,
-      IconData icon,
-      String title,
-      VoidCallback onTap, {
-        Widget? trailing,
-      }) {
+    BuildContext context,
+    int index,
+    IconData icon,
+    String title,
+    VoidCallback onTap, {
+    Widget? trailing,
+  }) {
     return InkWell(
       onTap: () {
         _onTap(index);
@@ -114,7 +115,7 @@ class _SellerAccountPageState extends State<SellerAccountPage> {
             children: [
               Text(title.tr),
               if (index == 0) ...[
-                const SizedBox(width: 8.0,),
+                const SizedBox(width: 8.0),
               ],
             ],
           ),

@@ -69,6 +69,7 @@ dependencies:
 
   #graph & chart
   fl_chart:
+  shared_preferences: ^2.2.3
 
 dev_dependencies:
   flutter_test:
