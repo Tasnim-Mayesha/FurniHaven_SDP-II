@@ -25,40 +25,59 @@ class AddEditProductPage extends StatelessWidget {
           onPressed: () => Get.back(),
         ),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
-        child: Form(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildTitleField(),
-              const SizedBox(height: 10),
-              _buildImageField(),
-              const SizedBox(height: 10),
-              _buildPriceAndQuantityFields(),
-              const SizedBox(height: 10),
-              _buildMake3DCheckbox(),
-              const SizedBox(height: 10),
-              Obx(() => controller.is3DEnabled.value
-                  ? _build3DModelUploader()
-                  : const SizedBox.shrink()),
-              const SizedBox(height: 10),
-              _buildCategoryDropdown(),
-              const SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: () {
-                  controller.saveOrUpdateProduct(product);
-                },
-                style: ElevatedButton.styleFrom(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                ),
-                child:
-                    Text(product == null ? 'Save Product' : 'Update Product'),
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            padding: const EdgeInsets.all(20),
+            child: Form(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildTitleField(),
+                  const SizedBox(height: 10),
+                  _buildImageField(),
+                  const SizedBox(height: 10),
+                  _buildPriceAndQuantityFields(),
+                  const SizedBox(height: 10),
+                  _buildDescriptionField(),
+                  const SizedBox(height: 10),
+                  _buildMake3DCheckbox(),
+                  const SizedBox(height: 10),
+                  Obx(() => controller.is3DEnabled.value
+                      ? _build3DModelUploader()
+                      : const SizedBox.shrink()),
+                  const SizedBox(height: 10),
+                  _buildCategoryDropdown(),
+                  const SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: () async {
+                      await controller.saveOrUpdateProduct(product);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
+                    ),
+                    child: Text(
+                        product == null ? 'Save Product' : 'Update Product'),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
+          Obx(() {
+            if (controller.isLoading.value) {
+              return Center(
+                child: Container(
+                  child: const CircularProgressIndicator(
+                    backgroundColor: Colors.orange,
+                  ),
+                ),
+              );
+            } else {
+              return const SizedBox.shrink();
+            }
+          }),
+        ],
       ),
     );
   }
@@ -150,6 +169,23 @@ class AddEditProductPage extends StatelessWidget {
               ),
             ],
           ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDescriptionField() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text('Description',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        const SizedBox(height: 5),
+        TextField(
+          controller: controller.descriptionController,
+          maxLines: 3,
+          decoration:
+              const InputDecoration(hintText: 'Enter product description'),
         ),
       ],
     );

@@ -89,10 +89,10 @@ class ProductsPage extends StatelessWidget {
                         onTap: () {
                           // Assuming your product has a unique identifier like 'id'
                           Product editableProduct = Product(
-                              // id: product["id"],
+                              id: product["id"],
                               title: product["productName"],
-                              imageFile:
-                                  null, // Handle file differently if necessary
+                              sellerEmail: "shovo",
+                              description: product["description"],
                               price: product["discountedPrice"].toDouble(),
                               quantity:
                                   1, // Set default or derive from existing data

@@ -3,27 +3,33 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:sdp2/data/repositories/seller/product_repository.dart';
+import 'package:sdp2/data/repositories/seller/seller_repository.dart';
 import 'package:sdp2/features/seller/models/Product.dart';
 
 class AddEditProductController extends GetxController {
+  final ProductRepository repository = ProductRepository();
+  final SellerRepository sellerRepository = SellerRepository();
+
   TextEditingController titleController = TextEditingController();
   TextEditingController priceController = TextEditingController();
   TextEditingController quantityController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
   var imageFile = Rx<File?>(null);
   var modelFile = Rx<File?>(null);
   var is3DEnabled = false.obs;
   var category = ''.obs;
+  var isLoading = false.obs;
   final ImagePicker picker = ImagePicker();
 
   void setInitialValues(Product? product) {
     if (product != null) {
       titleController.text = product.title;
-      imageFile.value = product.imageFile;
       priceController.text = product.price.toString();
       quantityController.text = product.quantity.toString();
+      descriptionController.text = product.description;
       is3DEnabled.value = product.is3DEnabled;
       category.value = product.category;
-      modelFile.value = product.modelFile;
     }
   }
 
@@ -56,10 +62,47 @@ class AddEditProductController extends GetxController {
     titleController.dispose();
     priceController.dispose();
     quantityController.dispose();
+    descriptionController.dispose();
     super.onClose();
   }
 
-  void saveOrUpdateProduct(Product? product) {
-    // Save or update product logic here
+  Future<void> saveOrUpdateProduct(Product? product) async {
+    isLoading.value = true;
+    String? sellerEmail = await sellerRepository.getCachedSellerEmail();
+
+    if (sellerEmail == null) {
+      isLoading.value = false;
+      Get.snackbar('Error', 'No seller email found');
+      return;
+    }
+
+    Product newProduct = Product(
+      id: product?.id ?? '',
+      title: titleController.text,
+      imageUrl: '',
+      price: double.tryParse(priceController.text) ?? 0.0,
+      quantity: int.tryParse(quantityController.text) ?? 0,
+      description: descriptionController.text,
+      is3DEnabled: is3DEnabled.value,
+      category: category.value,
+      modelUrl: '',
+      sellerEmail: sellerEmail,
+    );
+
+    try {
+      if (product != null) {
+        await repository.updateProduct(
+            newProduct, imageFile.value, modelFile.value);
+      } else {
+        await repository.addProduct(
+            newProduct, imageFile.value, modelFile.value);
+      }
+      Get.back();
+      Get.snackbar('Success', 'Product saved successfully');
+    } catch (e) {
+      Get.snackbar('Error', 'Failed to save or update product');
+    } finally {
+      isLoading.value = false;
+    }
   }
 }

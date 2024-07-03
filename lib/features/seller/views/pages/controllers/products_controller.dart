@@ -16,6 +16,8 @@ class ProductsController extends GetxController {
         "id": "1",
         "imageUrl": "assets/products/almirah.png",
         "productName": "Round 4 Seater Dining Table",
+        "description":
+            "This is a round 4 seater dining table with a glass top. It is made of high-quality wood and is very durable. It is perfect for a small family.",
         "brandName": "Regal",
         "discount": 20,
         "originalPrice": 150000,
@@ -26,6 +28,8 @@ class ProductsController extends GetxController {
         "id": "2",
         "imageUrl": "assets/products/study table.png",
         "productName": "Furnish White Modern Chair",
+        "description":
+            "This is a white modern chair made of high-quality plastic.",
         "brandName": "Brothers",
         "discount": 15,
         "originalPrice": 18000,

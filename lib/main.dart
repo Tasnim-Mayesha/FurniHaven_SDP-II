@@ -31,6 +31,8 @@ Future<void> main() async {
   ).then(
     (FirebaseApp value) => Get.put(AuthenticationRepository()),
   );
+  //cloudinary
+  
   Get.put(SellerRepository());
   runApp(const MyApp());
 }

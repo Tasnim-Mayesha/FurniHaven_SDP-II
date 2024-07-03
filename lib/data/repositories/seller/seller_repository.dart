@@ -16,6 +16,7 @@ class SellerRepository extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   static const String _sellerUidKey = 'seller_uid';
+  static const String _sellerEmailKey = 'seller_email';
 
   // Function to save user data to Firestore
   Future<void> saveUserRecord(SellerModel seller) async {
@@ -42,7 +43,7 @@ class SellerRepository extends GetxController {
     try {
       final UserCredential userCredential = await _auth
           .signInWithEmailAndPassword(email: email, password: password);
-      await _cacheSellerUid(userCredential.user?.uid);
+      await _cacheSellerCredentials(userCredential.user?.uid, email);
       return userCredential.user;
     } on FirebaseAuthException catch (e) {
       throw MyFirebaseAuthException(e.code).message;
@@ -52,6 +53,20 @@ class SellerRepository extends GetxController {
       throw MyPlatformException(e.code).message;
     } catch (e) {
       throw "Something Went Wrong".tr;
+    }
+  }
+
+  Future<void> _cacheSellerCredentials(String? uid, String? email) async {
+    final prefs = await SharedPreferences.getInstance();
+    if (uid != null) {
+      await prefs.setString(_sellerUidKey, uid);
+    } else {
+      await prefs.remove(_sellerUidKey);
+    }
+    if (email != null) {
+      await prefs.setString(_sellerEmailKey, email);
+    } else {
+      await prefs.remove(_sellerEmailKey);
     }
   }
 
@@ -69,6 +84,11 @@ class SellerRepository extends GetxController {
     return prefs.getString(_sellerUidKey);
   }
 
+  Future<String?> getCachedSellerEmail() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(_sellerEmailKey);
+  }
+
   // Function to fetch seller data from Firestore
   Future<SellerModel> getSellerData(String uid) async {
     try {
@@ -82,7 +102,21 @@ class SellerRepository extends GetxController {
     }
   }
 
+  Future<void> clearCachedSellerCredentials() async {
+    await _cacheSellerCredentials(null, null);
+  }
+
   Future<void> clearCachedSellerUid() async {
     await _cacheSellerUid(null);
+  }
+
+  // Function to logout user
+  Future<void> logoutUser() async {
+    try {
+      await _auth.signOut();
+      await clearCachedSellerCredentials();
+    } catch (e) {
+      throw "Something Went Wrong".tr;
+    }
   }
 }
