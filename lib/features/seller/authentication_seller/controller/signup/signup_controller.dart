@@ -26,7 +26,7 @@ class SellerSignupController extends GetxController {
     try {
       //start loading
       FullScreenLoader.openLoadingDialog(
-          "We are processing your information", AppImages.docerAnimation);
+          "We are processing your information", AppImages.loadingAnimation);
 
       //check internet connectivity
       final isConnected = await NetworkManager.instance.isConnected();

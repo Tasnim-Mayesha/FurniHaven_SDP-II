@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sdp2/common/onboarding/Onboarding.dart';
+
 import 'dart:async';
+
+import 'package:sdp2/common/onboarding/onboarding_view.dart';
 
 class SplashView extends StatelessWidget {
   const SplashView({super.key});
@@ -9,7 +11,7 @@ class SplashView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Timer(const Duration(seconds: 5), () {
-      Get.off(() => const Onboarding(), transition: Transition.fade);
+      Get.off(() => const OnBoardingScreen(), transition: Transition.fade);
     });
 
     return Scaffold(
