@@ -67,7 +67,10 @@ dependencies:
   #firebase
   firebase_core:
   firebase_auth: ^4.19.2
-  cloud_firestore: ^4.17.0
+  cloud_firestore: ^4.13.1
+  google_sign_in: ^6.2.1
+  firebase_storage: ^11.6.7
+  cached_network_image: ^3.3.1
   firebase_storage:
 
   #graph & chart

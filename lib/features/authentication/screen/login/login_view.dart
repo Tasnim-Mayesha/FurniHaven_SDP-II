@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:sdp2/common/widgets/bottomnavbar/customer_starting.dart';
+import 'package:sdp2/features/authentication/screen/login/widgets/login_form.dart';
 import 'package:sdp2/utils/global_colors.dart';
 
 
@@ -46,27 +47,9 @@ class LoginView extends StatelessWidget {
                       fontSize: 16, fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(height: 15),
-                // Email Input
-                TextFormField(
-                  controller: emailController,
-                  expands: false,
-                  decoration: InputDecoration(
-                    labelText: 'Email'.tr,
-                    prefixIcon: const Icon(Iconsax.direct,
-                        color: GlobalColors.mainColorHex),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                // Password Input
-                TextFormField(
-                  controller: passwordController,
-                  expands: false,
-                  decoration: InputDecoration(
-                    labelText: 'Password'.tr,
-                    prefixIcon: const Icon(Iconsax.password_check,
-                        color: GlobalColors.mainColorHex),
-                  ),
-                ),
+
+                LoginForm(),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -76,13 +59,7 @@ class LoginView extends StatelessWidget {
                     )
                   ],
                 ),
-                const SizedBox(height: 10),
-                CustomButton(
-                  text: 'Sign In'.tr,
-                  onTap: () {
-                    Get.to(() => CustMainPage());
-                  },
-                ),
+
                 const SizedBox(height: 25),
                 const SocialLogin(),
               ],

@@ -1,10 +1,11 @@
 import "package:flutter/material.dart";
 import "package:get/get.dart";
 import "package:iconsax/iconsax.dart";
-import "package:sdp2/features/authentication/screen/password_configuration/reset_password.dart";
 import "package:sdp2/utils/global_colors.dart";
 
 import "../../../../common/widgets/button.dart";
+import "../../../../validators/validation.dart";
+import "../../controller/forget_password/forget_password_controller.dart";
 
 class ForgetPassword extends StatelessWidget {
   ForgetPassword({super.key});
@@ -13,6 +14,7 @@ class ForgetPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(ForgetPasswordController());
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
@@ -34,26 +36,17 @@ class ForgetPassword extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 48,),
-            TextFormField(
-              controller: emailController,
-              keyboardType: TextInputType.emailAddress,
-              obscureText: false,
-              decoration: InputDecoration(
-                labelText: 'Email',
-                prefixIcon: Icon(Iconsax.direct_right, color: GlobalColors.mainColor),
-                border: const OutlineInputBorder(),
+            Form(
+              key: controller.forgetPasswordFormKey,
+              child: TextFormField(
+                controller: controller.email,
+                validator: Validator.validateEmail,
+                decoration: InputDecoration(labelText: "Email", prefixIcon: Icon(Iconsax.direct_right,color: GlobalColors.mainColor,)),
               ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter your email';
-                }
-                // Add more validation logic if needed
-                return null;
-              },
             ),
             const SizedBox(height: 24,),
             CustomButton(text: 'Submit',
-              onTap: ()=>Get.to(() => const ResetPassword()))
+              onTap: ()=> controller.sendPasswordResetEmail(),)
           ],
         ),
       ),
