@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-
 import '../../../utils/global_colors.dart';
 
 class ProductCard extends StatelessWidget {
@@ -47,19 +46,28 @@ class ProductCard extends StatelessWidget {
           width: 1,
         ),
       ),
-      child: Stack(
+      child: Column(
         children: [
           GestureDetector(
             onTap: onTap,
             child: Column(
               children: [
+                SizedBox(height: 10,),
                 Container(
                   height: 180,
                   padding: const EdgeInsets.only(left: 2, right: 2),
                   child: Stack(
                     children: [
                       Center(
-                        child: Image.asset(imageUrl),
+                        child: Image.network(
+                          imageUrl,
+                          fit: BoxFit.cover,
+                          width: double.infinity,
+                          height: double.infinity,
+                          errorBuilder: (context, error, stackTrace) {
+                            return const Icon(Icons.image, size: 50, color: Colors.grey);
+                          },
+                        ),
                       ),
                       Positioned(
                         top: 14,
@@ -75,7 +83,7 @@ class ProductCard extends StatelessWidget {
                             style: Theme.of(context)
                                 .textTheme
                                 .labelLarge!
-                                .apply(color: Colors.black),
+                                .apply(color: Colors.white),
                           ),
                         ),
                       ),
@@ -97,41 +105,43 @@ class ProductCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 2),
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8, right: 8),
-                      child: Text(
-                        productName.tr,
-                        style: Theme.of(context).textTheme.bodyLarge,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                      ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      productName.tr,
+                      style: Theme.of(context).textTheme.bodyLarge,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8, right: 8),
-                      child: Row(
-                        children: [
-                          Text(
-                            'Brand: '.tr,
-                            style: TextStyle(
-                                color: Colors.deepOrange,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            brandName.tr,
-                            style: const TextStyle(
-                                color: Colors.deepOrange,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Row(
+                    children: [
+                      Text(
+                        'Brand: '.tr,
+                        style: TextStyle(
+                            color: Colors.deepOrange,
+                            fontWeight: FontWeight.bold),
                       ),
-                    ),
-                  ],
+                      Expanded(
+                        child: Text(
+                          brandName.tr,
+                          style: const TextStyle(
+                              color: Colors.deepOrange,
+                              fontWeight: FontWeight.bold),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 2),
                 Padding(
-                  padding: const EdgeInsets.only(left: 8, right: 8),
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: Row(
                     children: List.generate(5, (index) {
                       return Icon(
@@ -143,12 +153,12 @@ class ProductCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 4),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8, right: 8),
-                      child: Text(
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
                         '${discountedPrice.toInt()} Tk'.tr,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -157,15 +167,15 @@ class ProductCard extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8, right: 8),
-                      child: Text(
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
                         '${originalPrice.toInt()} Tk'.tr,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -175,33 +185,24 @@ class ProductCard extends StatelessWidget {
                           decoration: TextDecoration.lineThrough,
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          Positioned(
-            bottom: 0,
-            right: 0,
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.deepOrange,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(12),
-                  bottomRight: Radius.circular(16),
-                ),
-              ),
-              child: const SizedBox(
-                width: 32 * 1.2,
-                height: 32 * 1.2,
-                child: Center(
-                  child: Icon(
-                    Iconsax.add,
-                    color: Colors.white,
+                      Container(
+                        decoration: BoxDecoration(
+                          color: GlobalColors.mainColor,
+                          borderRadius: const BorderRadius.only(
+                            bottomRight: Radius.circular(15.0),
+                            topLeft: Radius.circular(15.0),
+                          ),
+                        ),
+                        child: IconButton(
+                          onPressed: onTap,
+                          icon: const Icon(Iconsax.add),
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ),
+              ],
             ),
           ),
         ],

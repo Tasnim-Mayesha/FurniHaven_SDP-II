@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sdp2/common/widgets/appbar/custom_appbar_in.dart';
+import 'package:sdp2/features/customer/screen/home/home_controller/home_controller.dart';
 import 'package:sdp2/features/customer/screen/home/widgets/banner_slider.dart';
 import 'package:sdp2/features/customer/screen/home/widgets/category_grid.dart';
 import 'package:sdp2/utils/global_colors.dart';
@@ -15,26 +16,8 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, dynamic>> products = [
-      {
-        "imageUrl": "assets/products/almirah.png",
-        "productName": "Round 4 Seater Dining Table",
-        "brandName": "Regal",
-        "discount": 20,
-        "originalPrice": 150000,
-        "discountedPrice": 120000,
-        "rating": 5,
-      },
-      {
-        "imageUrl": "assets/products/study table.png",
-        "productName": "Furnish White Modern Chair",
-        "brandName": "Brothers",
-        "discount": 15,
-        "originalPrice": 18000,
-        "discountedPrice": 12750,
-        "rating": 4,
-      },
-    ];
+    final HomeController controller = Get.put(HomeController());
+
     return Scaffold(
       //appBar: customAppBarIn(context),
       body: SingleChildScrollView(
@@ -64,7 +47,7 @@ class HomeView extends StatelessWidget {
                     ),
                   ),
                 ),
-              )
+              ),
             ),
             //const SizedBox(height: 10),
             BannerSlider(), // The banner slider
@@ -79,40 +62,59 @@ class HomeView extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Recommendation for you Mayesha'.tr, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
-                  Text('Based on your Activity'.tr, style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold,color: Colors.grey),),
-                  const SizedBox(height: 8,),
+                  Text(
+                    'Recommendation for you Mayesha'.tr,
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    'Based on your Activity'.tr,
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey),
+                  ),
+                  const SizedBox(height: 8),
                   Padding(
                     padding: const EdgeInsets.only(right: 8),
-                    child: GridView.builder(
-                      itemCount: products.length,
-                      shrinkWrap: true,
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 8,
-                        crossAxisSpacing: 8,
-                        mainAxisExtent: 335,
+                    child: Obx(
+                          () => Column(
+                        children: [
+                          GridView.builder(
+                            itemCount: controller.products.length,
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 8,
+                              crossAxisSpacing: 8,
+                              mainAxisExtent: 335,
+                            ),
+                            itemBuilder: (_, index) {
+                              final product = controller.products[index];
+                              final originalPrice = product["price"] is int
+                                  ? product["price"]
+                                  : (product["price"] as double).toInt();
+                              final discount = product["discount"] ?? 0;
+
+                              return ProductCard(
+                                imageUrl: product["imageUrl"] ?? '',
+                                productName: product["title"] ?? '',
+                                brandName: product["brandName"] ?? 'Unknown',
+                                discount: discount,
+                                originalPrice: originalPrice,
+                                discountedPrice: (originalPrice * (1 - (discount / 100))).round(),
+                                rating: product["rating"] ?? 0,
+                                onTap: () {
+                                  Get.to(() => const ProductPage());
+                                },
+                              );
+                            },
+                          ),
+                        ],
                       ),
-                      itemBuilder: (_, index) {
-                        final product = products[index];
-                        return ProductCard(
-                          imageUrl: product["imageUrl"],
-                          productName: product["productName"],
-                          brandName: product["brandName"],
-                          discount: product["discount"],
-                          originalPrice: product["originalPrice"],
-                          discountedPrice: product["discountedPrice"],
-                          rating: product["rating"], onTap: () {
-                          Get.to(() => const ProductPage());
-                        },
-                        );
-                      },
                     ),
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 8,)
+            const SizedBox(height: 8),
           ],
         ),
       ),

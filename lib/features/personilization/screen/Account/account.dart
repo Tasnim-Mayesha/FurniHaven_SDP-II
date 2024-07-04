@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:sdp2/common/widgets/appbar/custom_appbar_in.dart';
-import 'package:sdp2/features/customer/screen/order_history/order_history.dart';
 import 'package:sdp2/features/personilization/screen/profile/profile.dart';
 import 'package:sdp2/features/personilization/screen/Login/login_option.dart';
 
-import '../../../../common/widgets/bottomnavbar/bottom_nav_bar.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
