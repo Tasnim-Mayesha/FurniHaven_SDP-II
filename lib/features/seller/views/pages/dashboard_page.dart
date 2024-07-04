@@ -5,6 +5,10 @@ import 'package:sdp2/features/seller/views/widget/dashboard/graphs/today_sales.d
 import 'package:sdp2/features/seller/views/widget/dashboard/graphs/yearly_growth.dart';
 import 'package:sdp2/features/seller/views/widget/dashboard/total_profit_sales.dart';
 
+import 'package:sdp2/features/seller/views/widget/dashboard/graphs/today_sales_dialog.dart';
+import 'package:sdp2/features/seller/views/widget/dashboard/graphs/yearly_growth_dialog.dart';
+import 'package:sdp2/features/seller/views/widget/dashboard/graphs/monthly_sales_dialog.dart';
+
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
 
@@ -19,20 +23,20 @@ class DashboardPage extends StatelessWidget {
             children: [
               Container(
                 padding:
-                    const EdgeInsets.only(bottom: 20.0), // Add some padding
+                const EdgeInsets.only(bottom: 20.0), // Add some padding
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       'Welcome Back!'.tr,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
                       'Hi, Mr. Shovo'.tr,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w300,
                       ),
@@ -51,7 +55,17 @@ class DashboardPage extends StatelessWidget {
                           context: context,
                           iconData: Icons.pie_chart,
                           title: "Today's Sale",
-                          child: const TodaySalesPieChart(),
+                          child: GestureDetector(
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return const TodaySalesDialog();
+                                },
+                              );
+                            },
+                            child: const TodaySalesPieChart(),
+                          ),
                           height: 230,
                         ),
                         const SizedBox(height: 10),
@@ -59,7 +73,17 @@ class DashboardPage extends StatelessWidget {
                           context: context,
                           iconData: Icons.show_chart,
                           title: "Yearly Growth",
-                          child: const YearlyGrowthLineChart(),
+                          child: GestureDetector(
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return const YearlyGrowthDialog();
+                                },
+                              );
+                            },
+                            child: const YearlyGrowthLineChart(),
+                          ),
                           height: 250,
                         ),
                       ],
@@ -74,7 +98,17 @@ class DashboardPage extends StatelessWidget {
                           context: context,
                           iconData: Icons.bar_chart,
                           title: "Monthly Sales",
-                          child: const MonthlySalesBarChart(),
+                          child: GestureDetector(
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return const MonthlySalesDialog();
+                                },
+                              );
+                            },
+                            child: const MonthlySalesBarChart(),
+                          ),
                           height: 300,
                         ),
                         const SizedBox(height: 10),
