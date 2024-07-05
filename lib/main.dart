@@ -31,10 +31,13 @@ Future<void> main() async {
   ).then(
     (FirebaseApp value) => Get.put(AuthenticationRepository()),
   );
-  //cloudinary
-  
+
   Get.put(SellerRepository());
+
   runApp(const MyApp());
+
+  // Remove splash screen once everything is initialized
+  FlutterNativeSplash.remove();
 }
 
 class MyApp extends StatelessWidget {

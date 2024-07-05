@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:sdp2/common/splash_view.dart';
 import 'package:sdp2/common/widgets/bottomnavbar/customer_starting.dart';
 import 'package:sdp2/features/personilization/screen/Login/login_option.dart';
 import 'package:sdp2/common/onboarding/onboarding_view.dart';
@@ -29,19 +29,29 @@ class AuthenticationRepository extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    FlutterNativeSplash.remove();
+    _showSplashAndRedirect();
+  }
+
+  void _showSplashAndRedirect() async {
+    // Show the SplashView
+    Get.offAll(() => const SplashView());
+
+    // Wait for 2 seconds
+    await Future.delayed(const Duration(seconds: 2));
+
+    // Then call screenRedirect to handle the rest of the logic
     screenRedirect();
   }
 
   void screenRedirect() async {
     final user = _auth.currentUser;
     final isFirstTime = deviceStorage.read('isFirstTime') ?? true;
-    print('isFirstTime: $isFirstTime');
-    print(user);
     if (user != null) {
       if (user.emailVerified) {
         await LocalStorage.init(user.uid);
         Get.offAll(() => CustMainPage());
+      } else {
+        Get.offAll(() => const LoginOption());
       }
     } else {
       if (isFirstTime) {
@@ -207,19 +217,14 @@ class AuthenticationRepository extends GetxController {
   Future<void> logout() async {
     try {
       // Sign out from Google
-      final curUsr = _auth.currentUser;
-      print('before Google SignOut: $curUsr');
       await GoogleSignIn().signOut();
       // Sign out from Firebase
       await FirebaseAuth.instance.signOut();
-
       // Clear all user-specific data in GetStorage except isFirstTime
       final storage = GetStorage();
       bool isFirstTime = storage.read('isFirstTime') ?? true;
       await storage.erase(); // Clears all data
       storage.write('isFirstTime', isFirstTime); // Restore isFirstTime
-      final userrr = _auth.currentUser;
-      print('after Google SignOut: $userrr');
       // Redirect to login option
       Get.offAll(() => const LoginOption());
     } on FirebaseAuthException catch (e) {
