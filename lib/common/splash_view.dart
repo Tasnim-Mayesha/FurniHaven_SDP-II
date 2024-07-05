@@ -10,11 +10,6 @@ class SplashView extends StatelessWidget {
     // Ensure the AuthenticationRepository is initialized
     Get.put(AuthenticationRepository());
 
-    // Remove the splash screen after a delay
-    Future.delayed(const Duration(seconds: 5), () {
-      AuthenticationRepository.instance.screenRedirect();
-    });
-
     return Scaffold(
       body: Center(
         child: Column(
