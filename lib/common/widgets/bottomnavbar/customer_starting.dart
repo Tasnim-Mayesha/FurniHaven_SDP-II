@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:iconsax/iconsax.dart';
 
 import 'package:sdp2/common/widgets/bottomnavbar/bottom_nav_bar.dart';
@@ -13,19 +14,21 @@ import '../appbar/custom_appbar_in.dart';
 
 class CustMainPage extends StatelessWidget {
   CustMainPage({Key? key}) : super(key: key);
-
   final CustNavController custNavController = Get.put(CustNavController());
+  final GetStorage storage = GetStorage();
 
   final List<Widget> pages = [
     const HomeView(),
     const MessageList(),
     const CartView(),
     const WishlistView(),
-    const AccountPage()
+    AccountPage()
   ];
 
   @override
   Widget build(BuildContext context) {
+    bool isFirstTime = storage.read('IsFirstTime') ?? true;
+    print('isFirstTime on cust start: $isFirstTime');
     return Scaffold(
       appBar: customAppBarIn(context),
       drawer: Drawer(
@@ -36,7 +39,8 @@ class CustMainPage extends StatelessWidget {
               width: double.infinity,
               margin: const EdgeInsets.only(top: 80),
               padding: EdgeInsets.zero,
-              child: Image.asset('assets/images/furnihaven_logo.png', fit: BoxFit.contain),
+              child: Image.asset('assets/images/furnihaven_logo.png',
+                  fit: BoxFit.contain),
             ),
             ListTile(
               leading: const Icon(Icons.home, color: Colors.deepOrange),
@@ -66,7 +70,8 @@ class CustMainPage extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.shopping_cart, color: Colors.deepOrange),
+              leading:
+                  const Icon(Icons.shopping_cart, color: Colors.deepOrange),
               title: Text('Cart'.tr),
               onTap: () {
                 final controller = Get.find<CustNavController>();
@@ -80,7 +85,7 @@ class CustMainPage extends StatelessWidget {
               onTap: () {
                 final controller = Get.find<CustNavController>();
                 controller.changePage(4);
-                Get.to(() => const AccountPage());
+                Get.to(() => AccountPage());
               },
             ),
           ],

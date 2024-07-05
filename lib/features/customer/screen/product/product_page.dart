@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:sdp2/common/circular_icon.dart';
-import 'package:sdp2/features/customer/screen/cart/add_to_cart.dart';
 import 'package:sdp2/features/customer/screen/product/widgets/chat_with_seller_initiation.dart';
 import 'package:sdp2/features/customer/screen/product/widgets/model_view.dart';
 import 'package:sdp2/features/customer/screen/product/widgets/product_detail_card.dart';
@@ -12,7 +11,6 @@ import '../../../../common/widgets/bottomnavbar/starting_controller.dart';
 import '../review_ratings/widgets/review_section.dart';
 
 import '../../../../utils/global_colors.dart'; // Make sure this path is correct
-
 
 class ProductPage extends StatefulWidget {
   const ProductPage({super.key});
@@ -47,7 +45,7 @@ class _ProductPageState extends State<ProductPage> {
               setState(() {
                 isFavorite = !isFavorite;
               });
-              Get.to(()=> const LoginOption());
+              Get.to(() => const LoginOption());
             },
           ),
         ],
@@ -66,7 +64,7 @@ class _ProductPageState extends State<ProductPage> {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Container(
                 height: 50,
-                padding: const EdgeInsets.only(left: 16,right: 16),
+                padding: const EdgeInsets.only(left: 16, right: 16),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(8.0),
@@ -84,64 +82,70 @@ class _ProductPageState extends State<ProductPage> {
                   children: [
                     Text(
                       'Quantity'.tr,
-                      style: TextStyle(fontSize: 16,color: Colors.deepOrange,fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.deepOrange,
+                          fontWeight: FontWeight.bold),
                     ),
                     const Spacer(),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    CircularIcon(
-                      icon: Iconsax.minus,
-                      size: 16,
-                      backgroundColor: Colors.grey.shade300,
-                      width: 32,
-                      height: 32,
-                      color: Colors.black,
-                      onPressed: () {
-                        setState(() {
-                          if (quantity > 1) {
-                            quantity--;
-                          }
-                        });
-                      },
-
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        CircularIcon(
+                          icon: Iconsax.minus,
+                          size: 16,
+                          backgroundColor: Colors.grey.shade300,
+                          width: 32,
+                          height: 32,
+                          color: Colors.black,
+                          onPressed: () {
+                            setState(() {
+                              if (quantity > 1) {
+                                quantity--;
+                              }
+                            });
+                          },
+                        ),
+                        const SizedBox(
+                          width: 16,
+                        ),
+                        Text(
+                          quantity.toString().tr,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall
+                              ?.copyWith(fontSize: 18),
+                        ),
+                        const SizedBox(
+                          width: 16,
+                        ),
+                        CircularIcon(
+                          icon: Iconsax.add,
+                          size: 16,
+                          backgroundColor: Colors.deepOrange,
+                          width: 32,
+                          height: 32,
+                          color: Colors.white,
+                          onPressed: () {
+                            setState(() {
+                              quantity++;
+                            });
+                          },
+                        ),
+                      ],
                     ),
-                    const SizedBox(
-                      width: 16,
-                    ),
-                    Text(
-                      quantity.toString().tr,
-                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontSize: 18),
-                    ),
-
-                    const SizedBox(
-                      width: 16,
-                    ),
-                    CircularIcon(
-                      icon: Iconsax.add,
-                      size: 16,
-                      backgroundColor: Colors.deepOrange,
-                      width: 32,
-                      height: 32,
-                      color: Colors.white,
-                      onPressed: () {
-                        setState(() {
-                          quantity++;
-                        });
-                      },
-                    ),
-                  ],
-                ),
                   ],
                 ),
               ),
             ),
             const SizedBox(height: 20),
-             const Padding(
+            const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: ReviewSection(),
             ),
-            const SizedBox(height: 80,),
+            const SizedBox(
+              height: 80,
+            ),
           ],
         ),
       ),
@@ -154,8 +158,12 @@ class _ProductPageState extends State<ProductPage> {
             controller.changePage(2);
             Get.to(() => CustMainPage());
           },
-          label: Text('Add to Cart'.tr,style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w600),),
-          icon: const Icon(Icons.shopping_cart,color: Colors.white),
+          label: Text(
+            'Add to Cart'.tr,
+            style: TextStyle(
+                color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
+          ),
+          icon: const Icon(Icons.shopping_cart, color: Colors.white),
           backgroundColor: GlobalColors.mainColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(35),
@@ -163,7 +171,6 @@ class _ProductPageState extends State<ProductPage> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-
     );
   }
 }

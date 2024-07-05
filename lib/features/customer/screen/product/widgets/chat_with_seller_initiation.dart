@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sdp2/common/widgets/button.dart';
-import 'package:sdp2/features/customer/screen/message/message_list.dart';
 
 import '../../../../../common/widgets/bottomnavbar/customer_starting.dart';
 import '../../../../../common/widgets/bottomnavbar/starting_controller.dart';
@@ -16,27 +15,29 @@ class ActionButtonsRow extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-        SizedBox(
-        width: 250,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(35),  // Set the radius to half of the width/height
-          child: CustomButton(
-            text: 'Chat with Seller',
-            onTap: () {
-              final controller = Get.find<CustNavController>();
-              controller.changePage(1);
-              Get.to(() => CustMainPage());
-            },
+          SizedBox(
+            width: 250,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(
+                  35), // Set the radius to half of the width/height
+              child: CustomButton(
+                text: 'Chat with Seller',
+                onTap: () {
+                  final controller = Get.find<CustNavController>();
+                  controller.changePage(1);
+                  Get.to(() => CustMainPage());
+                },
+              ),
+            ),
           ),
-        ),
-      ),
-
-        const Spacer(),
+          const Spacer(),
           const InkWell(
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text('AR', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900)),
+                Text('AR',
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.w900)),
                 SizedBox(width: 5),
                 Icon(Icons.arrow_upward),
               ],

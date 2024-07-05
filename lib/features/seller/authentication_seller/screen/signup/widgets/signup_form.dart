@@ -44,12 +44,12 @@ class SellerSignupForm extends StatelessWidget {
 
           ///company
           TextFormField(
-            controller: controller.companyName,
+            controller: controller.brandName,
             validator: (value) =>
-                Validator.validateEmptyText('Company Name'.tr, value),
+                Validator.validateEmptyText('Brand Name'.tr, value),
             expands: false,
             decoration: InputDecoration(
-                labelText: 'Company Name'.tr,
+                labelText: 'Brand Name'.tr,
                 prefixIcon: const Icon(
                   Icons.house,
                   color: GlobalColors.mainColorHex,

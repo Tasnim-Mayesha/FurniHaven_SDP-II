@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
-import 'package:sdp2/common/widgets/bottomnavbar/customer_starting.dart';
 import 'package:sdp2/features/authentication/screen/login/widgets/login_form.dart';
 import 'package:sdp2/utils/global_colors.dart';
 
-
 import '../../../../common/widgets/appbar/custom_appbar_out.dart';
-import '../../../../common/widgets/button.dart';
 import '../../../../common/widgets/social_login.dart';
 import '../password_configuration/forget_password.dart';
 import '../signup/signup_view.dart';
@@ -47,9 +43,7 @@ class LoginView extends StatelessWidget {
                       fontSize: 16, fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(height: 15),
-
                 LoginForm(),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -59,7 +53,6 @@ class LoginView extends StatelessWidget {
                     )
                   ],
                 ),
-
                 const SizedBox(height: 25),
                 const SocialLogin(),
               ],

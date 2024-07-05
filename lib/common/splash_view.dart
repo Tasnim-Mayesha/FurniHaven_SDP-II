@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'dart:async';
-
-import 'package:sdp2/common/onboarding/onboarding_view.dart';
+import 'package:sdp2/data/repositories/authentication/authentication_repository.dart';
 
 class SplashView extends StatelessWidget {
   const SplashView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Timer(const Duration(seconds: 5), () {
-      Get.off(() => const OnBoardingScreen(), transition: Transition.fade);
+    // Ensure the AuthenticationRepository is initialized
+    Get.put(AuthenticationRepository());
+
+    // Remove the splash screen after a delay
+    Future.delayed(const Duration(seconds: 5), () {
+      AuthenticationRepository.instance.screenRedirect();
     });
 
     return Scaffold(

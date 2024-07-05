@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sdp2/common/widgets/appbar/custom_appbar_in.dart';
 import 'package:sdp2/features/customer/screen/home/home_controller/home_controller.dart';
 import 'package:sdp2/features/customer/screen/home/widgets/banner_slider.dart';
 import 'package:sdp2/features/customer/screen/home/widgets/category_grid.dart';
 import 'package:sdp2/utils/global_colors.dart';
 
 import '../../../../common/products/product_cards/card.dart';
-import '../../../../common/widgets/bottomnavbar/bottom_nav_bar.dart';
 import '../product/product_page.dart';
 import 'brand/widgets/brand_grid.dart';
 
@@ -27,23 +25,32 @@ class HomeView extends StatelessWidget {
               padding: const EdgeInsets.only(top: 12),
               child: Container(
                 height: 50.0, // Set the desired height
-                padding: const EdgeInsets.symmetric(horizontal: 8.0), // Add padding around the search bar
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 8.0), // Add padding around the search bar
                 child: TextField(
                   decoration: InputDecoration(
                     hintText: "Search here".tr,
-                    prefixIcon: Icon(Icons.search, color: GlobalColors.mainColor),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 12.0), // Adjust vertical padding
+                    prefixIcon:
+                        Icon(Icons.search, color: GlobalColors.mainColor),
+                    contentPadding: const EdgeInsets.symmetric(
+                        vertical: 12.0), // Adjust vertical padding
                     border: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                      borderSide: BorderSide(color: Colors.grey), // Customize the border color
+                      borderSide: BorderSide(
+                          color: Colors.grey), // Customize the border color
                     ),
                     enabledBorder: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                      borderSide: BorderSide(color: Colors.grey), // Border color when the TextField is not focused
+                      borderSide: BorderSide(
+                          color: Colors
+                              .grey), // Border color when the TextField is not focused
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-                      borderSide: BorderSide(color: GlobalColors.mainColor), // Border color when the TextField is focused
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(8.0)),
+                      borderSide: BorderSide(
+                          color: GlobalColors
+                              .mainColor), // Border color when the TextField is focused
                     ),
                   ),
                 ),
@@ -58,7 +65,8 @@ class HomeView extends StatelessWidget {
             const SizedBox(height: 8),
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.only(left: 12), // Adjust the padding value as needed
+              padding: const EdgeInsets.only(
+                  left: 12), // Adjust the padding value as needed
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -68,19 +76,23 @@ class HomeView extends StatelessWidget {
                   ),
                   Text(
                     'Based on your Activity'.tr,
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey),
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey),
                   ),
                   const SizedBox(height: 8),
                   Padding(
                     padding: const EdgeInsets.only(right: 8),
                     child: Obx(
-                          () => Column(
+                      () => Column(
                         children: [
                           GridView.builder(
                             itemCount: controller.products.length,
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
-                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
                               mainAxisSpacing: 8,
                               crossAxisSpacing: 8,
@@ -99,7 +111,9 @@ class HomeView extends StatelessWidget {
                                 brandName: product["brandName"] ?? 'Unknown',
                                 discount: discount,
                                 originalPrice: originalPrice,
-                                discountedPrice: (originalPrice * (1 - (discount / 100))).round(),
+                                discountedPrice:
+                                    (originalPrice * (1 - (discount / 100)))
+                                        .round(),
                                 rating: product["rating"] ?? 0,
                                 onTap: () {
                                   Get.to(() => const ProductPage());

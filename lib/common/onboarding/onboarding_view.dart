@@ -8,10 +8,6 @@ import 'package:sdp2/utils/constant.dart';
 
 import 'onboarding_controller.dart';
 
-
-
-
-
 class OnBoardingScreen extends StatelessWidget {
   const OnBoardingScreen({super.key});
 
@@ -25,21 +21,24 @@ class OnBoardingScreen extends StatelessWidget {
           PageView(
             controller: controller.pageController,
             onPageChanged: controller.updatePageIndicator,
-            children:  const [
+            children: const [
               OnBoardingPage(
                 image: AppImages.onboarding1,
                 title: "Choose your furniture",
-                subTitle: "Welcome to a World of Limitless Choices - Your Perfect Furniture Awaits!",
+                subTitle:
+                    "Welcome to a World of Limitless Choices - Your Perfect Furniture Awaits!",
               ),
               OnBoardingPage(
                 image: AppImages.onboarding2,
                 title: "Select Payment Method",
-                subTitle: "For Seamless Transactions, Choose Your Payment Path - Your Convenience, Our Priority!",
+                subTitle:
+                    "For Seamless Transactions, Choose Your Payment Path - Your Convenience, Our Priority!",
               ),
               OnBoardingPage(
                 image: AppImages.onboarding3,
                 title: "Deliver at your door step",
-                subTitle: "From Our Doorstep to Yours - Swift, Secure, and Contactless Delivery",
+                subTitle:
+                    "From Our Doorstep to Yours - Swift, Secure, and Contactless Delivery",
               ),
             ],
           ),
@@ -52,11 +51,8 @@ class OnBoardingScreen extends StatelessWidget {
 
           ///Circular Button
           const OnBoardingNextButton()
-
         ],
       ),
     );
   }
 }
-
-

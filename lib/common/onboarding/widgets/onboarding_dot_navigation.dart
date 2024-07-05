@@ -3,7 +3,6 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../utils/device/device_utility.dart';
 import '../../../utils/global_colors.dart';
-import '../../../utils/helpers/helper_functions.dart';
 import '../onboarding_controller.dart';
 
 class OnBoardingDotNavigation extends StatelessWidget {
@@ -13,7 +12,7 @@ class OnBoardingDotNavigation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dark = HelperFunctions.isDarkMode(context);
+    // final dark = HelperFunctions.isDarkMode(context);
     final controller = OnBoardingController.instance;
     return Positioned(
       bottom: DeviceUtils.getBottomNavigationBarHeight() + 25,
@@ -23,7 +22,7 @@ class OnBoardingDotNavigation extends StatelessWidget {
         onDotClicked: controller.dotNavigationClick,
         count: 3,
         effect: ExpandingDotsEffect(
-            activeDotColor:  GlobalColors.mainColor, dotHeight: 10),
+            activeDotColor: GlobalColors.mainColor, dotHeight: 10),
       ),
     );
   }

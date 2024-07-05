@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sdp2/features/customer/screen/cart/widget/add_remove_button.dart';
 import 'package:sdp2/features/customer/screen/cart/widget/cart_item.dart';
-import '../../../../common/widgets/appbar/custom_appbar_in.dart';
-import '../../../../common/widgets/bottomnavbar/bottom_nav_bar.dart';
 import '../../../../utils/global_colors.dart';
 import '../shipping/shipping.dart';
 
@@ -40,8 +38,8 @@ class CartController extends GetxController {
   ].obs;
 
   double get totalAmount => cartItems.fold(0, (sum, item) {
-    return sum + (item['price'] as double?)! * (item['quantity'] as int?)!;
-  });
+        return sum + (item['price'] as double?)! * (item['quantity'] as int?)!;
+      });
 
   void addItem(int index) {
     cartItems[index]['quantity'] = (cartItems[index]['quantity'] as int?)! + 1;
@@ -50,7 +48,8 @@ class CartController extends GetxController {
 
   void removeItem(int index) {
     if ((cartItems[index]['quantity'] as int?)! > 0) {
-      cartItems[index]['quantity'] = (cartItems[index]['quantity'] as int?)! - 1;
+      cartItems[index]['quantity'] =
+          (cartItems[index]['quantity'] as int?)! - 1;
     }
     cartItems.refresh();
   }
@@ -103,7 +102,8 @@ class CartView extends StatelessWidget {
                         ],
                       ),
                       Text(
-                        '${(item['price'.tr] as double?)! * (item['quantity'.tr] as int?)!} Tk'.tr,
+                        '${(item['price'.tr] as double?)! * (item['quantity'.tr] as int?)!} Tk'
+                            .tr,
                         style: const TextStyle(
                           color: Colors.deepOrange,
                           fontWeight: FontWeight.bold,
@@ -128,7 +128,10 @@ class CartView extends StatelessWidget {
             },
             label: Text(
               'Checkout (${controller.totalAmount} Tk)'.tr,
-              style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600),
             ),
             backgroundColor: GlobalColors.mainColor,
             shape: RoundedRectangleBorder(

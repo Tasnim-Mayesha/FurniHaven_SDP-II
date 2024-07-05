@@ -5,26 +5,26 @@ class SellerModel {
   final String id;
   final String username;
   final String email;
-  String companyName;
+  String brandName;
 
   ///constructor for user model
   SellerModel({
     required this.id,
     required this.username,
     required this.email,
-    required this.companyName,
+    required this.brandName,
   });
 
   ///static function to create an empty user model
   static SellerModel empty() =>
-      SellerModel(id: '', username: '', email: '', companyName: '');
+      SellerModel(id: '', username: '', email: '', brandName: '');
 
   ///convert model to JSON structure for storing data in Firebase
   Map<String, dynamic> toJson() {
     return {
       'userName': username,
       'email': email,
-      'companyName': companyName,
+      'brandName': brandName,
     };
   }
 
@@ -37,7 +37,7 @@ class SellerModel {
           id: document.id,
           username: data['userName'] ?? '',
           email: data['email'] ?? '',
-          companyName: data['companyName'] ?? '');
+          brandName: data['brandName'] ?? '');
     }
     return SellerModel.empty();
   }

@@ -1,25 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:sdp2/features/personilization/screen/Account/account_controller.dart';
 import 'package:sdp2/features/personilization/screen/profile/profile.dart';
 import 'package:sdp2/features/personilization/screen/Login/login_option.dart';
 
+class AccountPage extends StatelessWidget {
+  AccountPage({super.key});
 
-class AccountPage extends StatefulWidget {
-  const AccountPage({super.key});
-
-  @override
-  _AccountPageState createState() => _AccountPageState();
-}
-
-class _AccountPageState extends State<AccountPage> {
-  int _selectedIndex = -1;
-
-  void _onTap(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+  final AccountController _accountController = Get.put(AccountController());
 
   @override
   Widget build(BuildContext context) {
@@ -33,17 +22,17 @@ class _AccountPageState extends State<AccountPage> {
             0,
             Icons.person,
             'Profile'.tr,
-                () {
+            () {
               Get.to(() => const ProfileView());
             },
           ),
           const Divider(),
           _buildListTile(
             context,
-            2,
+            1,
             Icons.location_on,
             'My Address'.tr,
-                () {
+            () {
               //
             },
           ),
@@ -53,27 +42,17 @@ class _AccountPageState extends State<AccountPage> {
             2,
             Iconsax.heart5,
             'My Wishlist'.tr,
-                () {
+            () {
               //
             },
           ),
           const Divider(),
           _buildListTile(
             context,
-            2,
+            3,
             Icons.shopping_cart,
             'My Cart'.tr,
-                () {
-              //
-            },
-          ),
-          const Divider(),
-          _buildListTile(
-            context,
-            2,
-            Icons.shopping_bag,
-            'My Order List',
-                () {
+            () {
               //
             },
           ),
@@ -81,11 +60,21 @@ class _AccountPageState extends State<AccountPage> {
           _buildListTile(
             context,
             4,
+            Icons.shopping_bag,
+            'My Order List',
+            () {
+              //
+            },
+          ),
+          const Divider(),
+          _buildListTile(
+            context,
+            5,
             Icons.logout,
             'Log Out',
-                () {
-              // Handle logout
-              Get.to(() => const LoginOption());
+            () async {
+              await _accountController.logout();
+              Get.offAll(() => const LoginOption());
             },
           ),
         ],
@@ -95,28 +84,32 @@ class _AccountPageState extends State<AccountPage> {
   }
 
   Widget _buildListTile(
-      BuildContext context,
-      int index,
-      IconData icon,
-      String title,
-      VoidCallback onTap,
-      ) {
-    return InkWell(
-      onTap: () {
-        _onTap(index);
-        onTap();
-      },
-      child: Container(
-        color: _selectedIndex == index ? Colors.blue.withOpacity(0.1) : null,
-        child: ListTile(
-          leading: Icon(icon, color: Colors.deepOrange),
-          title: Text(
-            title.tr,
-            style: const TextStyle(fontWeight: FontWeight.w500),
+    BuildContext context,
+    int index,
+    IconData icon,
+    String title,
+    VoidCallback onTap,
+  ) {
+    return Obx(() {
+      return InkWell(
+        onTap: () {
+          _accountController.setSelectedIndex(index);
+          onTap();
+        },
+        child: Container(
+          color: _accountController.selectedIndex.value == index
+              ? Colors.blue.withOpacity(0.1)
+              : null,
+          child: ListTile(
+            leading: Icon(icon, color: Colors.deepOrange),
+            title: Text(
+              title.tr,
+              style: const TextStyle(fontWeight: FontWeight.w500),
+            ),
+            // trailing: Icon(Icons.navigate_next, color: Colors.deepOrange),
           ),
-          // trailing: Icon(Icons.navigate_next, color: Colors.deepOrange),
         ),
-      ),
-    );
+      );
+    });
   }
 }

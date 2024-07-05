@@ -18,7 +18,7 @@ class SellerSignupController extends GetxController {
   final email = TextEditingController();
   final password = TextEditingController();
   final userName = TextEditingController();
-  final companyName = TextEditingController();
+  final brandName = TextEditingController();
   GlobalKey<FormState> signupFormKey = GlobalKey<FormState>();
 
   ///SIGNUP
@@ -51,7 +51,7 @@ class SellerSignupController extends GetxController {
         id: userCredential.user!.uid,
         username: userName.text.trim(),
         email: email.text.trim(),
-        companyName: companyName.text.trim(),
+        brandName: brandName.text.trim(),
       );
 
       final sellerRepository = Get.put(SellerRepository());
