@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:sdp2/common/circular_icon.dart';
+import 'package:sdp2/features/customer/screen/cart/add_to_cart.dart';
 import 'package:sdp2/features/customer/screen/product/widgets/chat_with_seller_initiation.dart';
 import 'package:sdp2/features/customer/screen/product/widgets/model_view.dart';
 import 'package:sdp2/features/customer/screen/product/widgets/product_detail_card.dart';
@@ -12,8 +13,28 @@ import '../review_ratings/widgets/review_section.dart';
 
 import '../../../../utils/global_colors.dart'; // Make sure this path is correct
 
+
 class ProductPage extends StatefulWidget {
-  const ProductPage({super.key});
+  final String imageUrl;
+  final String productName;
+  final String brandName;
+  final int discount;
+  final int originalPrice;
+  final int discountedPrice;
+  final double rating;
+  final String modelUrl;
+
+  const ProductPage({
+    Key? key,
+    required this.imageUrl,
+    required this.productName,
+    required this.brandName,
+    required this.discount,
+    required this.originalPrice,
+    required this.discountedPrice,
+    required this.rating,
+    required this.modelUrl,
+  }) : super(key: key);
 
   @override
   _ProductPageState createState() => _ProductPageState();
@@ -45,7 +66,7 @@ class _ProductPageState extends State<ProductPage> {
               setState(() {
                 isFavorite = !isFavorite;
               });
-              Get.to(() => const LoginOption());
+              Get.to(()=> const LoginOption());
             },
           ),
         ],
@@ -54,17 +75,23 @@ class _ProductPageState extends State<ProductPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Product3DViewer(),
+            Product3DViewer(modelUrl: widget.modelUrl), // Pass the modelUrl here
             const SizedBox(height: 8),
             const ActionButtonsRow(),
             const SizedBox(height: 8),
-            const ProductDetailsCard(),
+            ProductDetailsCard(
+              brandLogoPath: 'assets/brands/regal.png', // Assuming this path for demo purposes
+              productName: widget.productName,
+              productDescription: 'This armchair is an elegant piece of furniture. It is suitable for family visits perfect for relaxing in front of the TV after hard work.', // Example description
+              originalPrice: widget.originalPrice,
+              discountedPrice: widget.discountedPrice,
+            ),
             const SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Container(
                 height: 50,
-                padding: const EdgeInsets.only(left: 16, right: 16),
+                padding: const EdgeInsets.only(left: 16,right: 16),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(8.0),
@@ -82,10 +109,7 @@ class _ProductPageState extends State<ProductPage> {
                   children: [
                     Text(
                       'Quantity'.tr,
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.deepOrange,
-                          fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 16,color: Colors.deepOrange,fontWeight: FontWeight.bold),
                     ),
                     const Spacer(),
                     Row(
@@ -105,17 +129,16 @@ class _ProductPageState extends State<ProductPage> {
                               }
                             });
                           },
+
                         ),
                         const SizedBox(
                           width: 16,
                         ),
                         Text(
                           quantity.toString().tr,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineSmall
-                              ?.copyWith(fontSize: 18),
+                          style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontSize: 18),
                         ),
+
                         const SizedBox(
                           width: 16,
                         ),
@@ -143,9 +166,7 @@ class _ProductPageState extends State<ProductPage> {
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: ReviewSection(),
             ),
-            const SizedBox(
-              height: 80,
-            ),
+            const SizedBox(height: 80,),
           ],
         ),
       ),
@@ -158,12 +179,8 @@ class _ProductPageState extends State<ProductPage> {
             controller.changePage(2);
             Get.to(() => CustMainPage());
           },
-          label: Text(
-            'Add to Cart'.tr,
-            style: TextStyle(
-                color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
-          ),
-          icon: const Icon(Icons.shopping_cart, color: Colors.white),
+          label: Text('Add to Cart'.tr,style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w600),),
+          icon: const Icon(Icons.shopping_cart,color: Colors.white),
           backgroundColor: GlobalColors.mainColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(35),
@@ -171,6 +188,7 @@ class _ProductPageState extends State<ProductPage> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+
     );
   }
 }

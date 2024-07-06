@@ -44,6 +44,7 @@ class AuthenticationRepository extends GetxController {
   }
 
   void screenRedirect() async {
+    print("babu");
     final user = _auth.currentUser;
     final isFirstTime = deviceStorage.read('isFirstTime') ?? true;
     if (user != null) {
@@ -53,6 +54,7 @@ class AuthenticationRepository extends GetxController {
       } else {
         Get.offAll(() => const LoginOption());
       }
+
     } else {
       if (isFirstTime) {
         Get.offAll(() => const OnBoardingScreen());

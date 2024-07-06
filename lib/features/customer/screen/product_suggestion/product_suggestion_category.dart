@@ -137,7 +137,7 @@ class ProductSuggestionCategory extends StatelessWidget {
                     discountedPrice: product["discountedPrice"],
                     rating: product["rating"],
                     onTap: () {
-                      Get.to(() => const ProductPage());
+                      Get.to(() =>  ProductPage(imageUrl: '', productName: 'Chair', brandName: 'Regal', discount: 10, originalPrice: 10000, discountedPrice: 8000, rating: 4, modelUrl: 'assets/product3d/office_chair.glb',));
                     },
                   );
                 },

@@ -104,6 +104,7 @@ class HomeView extends StatelessWidget {
                                   ? product["price"]
                                   : (product["price"] as double).toInt();
                               final discount = product["discount"] ?? 0;
+                              final modelUrl = product["modelUrl"] ?? '';
 
                               return ProductCard(
                                 imageUrl: product["imageUrl"] ?? '',
@@ -116,7 +117,16 @@ class HomeView extends StatelessWidget {
                                         .round(),
                                 rating: product["rating"] ?? 0,
                                 onTap: () {
-                                  Get.to(() => const ProductPage());
+                                  Get.to(() => ProductPage(
+                                    imageUrl: product["imageUrl"] ?? '',
+                                    productName: product["title"] ?? '',
+                                    brandName: product["brandName"] ?? 'Unknown',
+                                    discount: discount,
+                                    originalPrice: originalPrice,
+                                    discountedPrice: (originalPrice * (1 - (discount / 100))).round(),
+                                    rating: product["rating"] ?? 0,
+                                    modelUrl: modelUrl,
+                                  ));
                                 },
                               );
                             },
