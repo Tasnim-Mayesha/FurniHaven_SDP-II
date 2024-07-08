@@ -1,12 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'dart:io';
 import '../../../../utils/global_colors.dart';
 import '../AddContact/addContact.dart';
 import '../ChangePassword/ChangePassword.dart';
 import '../EditProfileItems/EditEmail.dart';
+import 'package:image_picker/image_picker.dart'; // Import the image picker package
 
-class ProfileView extends StatelessWidget {
+class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
+
+  @override
+  _ProfileViewState createState() => _ProfileViewState();
+}
+
+class _ProfileViewState extends State<ProfileView> {
+  final ImagePicker _picker = ImagePicker();
+  XFile? _image;
+
+  Future<void> _pickImage() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _image = pickedFile;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +48,32 @@ class ProfileView extends StatelessWidget {
           children: [
             Row(
               children: [
-                CircleAvatar(
-                  radius: 35.0,
-                  backgroundImage: AssetImage('assets/images/profile_cust.png'),
+                Stack(
+                  children: [
+                    CircleAvatar(
+                      radius: 35.0,
+                      backgroundImage: _image != null
+                          ? FileImage(File(_image!.path))
+                          : AssetImage('assets/images/profile.jpg')
+                      as ImageProvider,
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: GestureDetector(
+                        onTap: _pickImage,
+                        child: CircleAvatar(
+                          radius: 12.0,
+                          backgroundColor: Colors.white,
+                          child: Icon(
+                            Icons.add,
+                            color: Colors.deepOrange,
+                            size: 16.0,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 SizedBox(width: 16.0),
                 Text(
@@ -74,7 +116,6 @@ class ProfileView extends StatelessWidget {
                       Get.to(() => const EditEmail());
                     },
                   ),
-
                   const Divider(),
                   ListTile(
                     leading: const Icon(Icons.phone_android_sharp, color: Colors.deepOrange),
