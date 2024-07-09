@@ -10,17 +10,29 @@ class ProductRepository {
   Future<void> addProduct(
       Product product, File? imageFile, File? modelFile) async {
     try {
+      // Upload the image file if provided
       if (imageFile != null) {
         product.imageUrl = await _uploadFile(
             imageFile, 'product_images/${imageFile.path.split('/').last}');
       }
 
+      // Upload the model file if provided
       if (modelFile != null) {
         product.modelUrl = await _uploadFile(
             modelFile, '3d_models/${modelFile.path.split('/').last}');
       }
 
-      await _firestore.collection('Products').add(product.toMap());
+      // Generate a new document ID
+      String newDocId = _firestore.collection('Products').doc().id;
+
+      // Set this ID to the product object
+      product.id = newDocId;
+
+      // Create the document with the new ID
+      await _firestore
+          .collection('Products')
+          .doc(newDocId)
+          .set(product.toMap());
     } catch (e) {
       rethrow;
     }
