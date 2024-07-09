@@ -6,7 +6,7 @@ import 'package:sdp2/common/products/product_cards/seller_product_card.dart';
 import 'package:sdp2/features/seller/models/Product.dart';
 
 class ProductsPage extends StatelessWidget {
-  final ProductsController controller = Get.put(ProductsController());
+  final ProductsController controller = Get.put(ProductsController());//Controller add
 
   ProductsPage({super.key});
 
