@@ -1,57 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../../common/products/product_cards/card.dart';
 import '../../../../utils/global_colors.dart';
+import '../../../../utils/global_variables/tap_count.dart';
 import '../product/product_page.dart';
 import 'Filter/filterBy.dart';
 import 'Sort/sortBy.dart';
 
-class ProductSuggestionCategory extends StatelessWidget {
+
+class ProductSuggestionCategory extends StatefulWidget {
   final String category;
 
   const ProductSuggestionCategory({super.key, required this.category});
 
   @override
-  Widget build(BuildContext context) {
-    final List<Map<String, dynamic>> products = [
-      {
-        "imageUrl": "assets/products/ar_chair.png",
-        "productName": "Aesthetic Fabric Blue Chair",
-        "brandName": "Hatil",
-        "discount": 25,
-        "originalPrice": 24000,
-        "discountedPrice": 17000,
-        "rating": 4,
-      },
-      {
-        "imageUrl": "assets/products/Eve Fabric Dhouble Chair.png",
-        "productName": "Eve Fabric Double Chair",
-        "brandName": "Regal",
-        "discount": 20,
-        "originalPrice": 150000,
-        "discountedPrice": 120000,
-        "rating": 5,
-      },
-      {
-        "imageUrl": "assets/products/Furnish Modern Chair.png",
-        "productName": "Furnish White Modern Chair",
-        "brandName": "Brothers",
-        "discount": 15,
-        "originalPrice": 18000,
-        "discountedPrice": 12750,
-        "rating": 4,
-      },
-      {
-        "imageUrl": "assets/products/Full house sell orange chair.png",
-        "productName": "Full house sell orange chair",
-        "brandName": "Otobi",
-        "discount": 15,
-        "originalPrice": 18000,
-        "discountedPrice": 12750,
-        "rating": 3,
-      },
-    ];
+  _ProductSuggestionCategoryState createState() => _ProductSuggestionCategoryState();
+}
 
+class _ProductSuggestionCategoryState extends State<ProductSuggestionCategory> {
+  late Future<List<Map<String, dynamic>>> _productsFuture;
+  final GlobalController globalController = Get.find();
+
+  Future<List<Map<String, dynamic>>> _fetchProducts() async {
+    final querySnapshot = await FirebaseFirestore.instance.collection('Products').get();
+    final products = querySnapshot.docs.map((doc) => doc.data()).toList();
+
+    return products.where((product) => product['category'] == widget.category).toList();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _productsFuture = _fetchProducts();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
@@ -65,7 +50,7 @@ class ProductSuggestionCategory extends StatelessWidget {
             width: MediaQuery.of(context).size.width * 0.65,
             child: TextField(
               decoration: InputDecoration(
-                hintText: "Chairs".tr,
+                hintText: widget.category.tr,
                 prefixIcon: Icon(Icons.search, color: GlobalColors.mainColor),
                 contentPadding: const EdgeInsets.symmetric(vertical: 12.0),
                 border: const OutlineInputBorder(
@@ -86,65 +71,82 @@ class ProductSuggestionCategory extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.sort, color: Colors.deepOrange),
-            onPressed: () {
-              Get.to(() => const SortBy());
-            },
+            icon: const Icon(Icons.filter_list, color: Colors.grey),
+            onPressed: () => Get.to(() => FilterBy()),
           ),
           IconButton(
-            icon: const Icon(Icons.filter, color: Colors.deepOrange),
-            onPressed: () {
-              Get.to(() => const FilterBy());
-            },
+            icon: const Icon(Icons.sort, color: Colors.grey),
+            onPressed: () => Get.to(() => SortBy()),
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                '25 Results'.tr,
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            const SizedBox(height: 8),
-            Expanded(
-              child: GridView.builder(
-                itemCount: products.length,
-                shrinkWrap: true,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 8,
-                  crossAxisSpacing: 8,
-                  mainAxisExtent: 335,
-                ),
-                itemBuilder: (_, index) {
-                  final product = products[index];
+      body: FutureBuilder<List<Map<String, dynamic>>>(
+        future: _productsFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return Center(child: Text('No products found'.tr));
+          } else {
+            final products = snapshot.data!;
 
-                  return ProductCard(
-                    imageUrl: product["imageUrl"],
-                    productName: product["productName"],
-                    brandName: product["brandName"],
-                    discount: product["discount"],
-                    originalPrice: product["originalPrice"],
-                    discountedPrice: product["discountedPrice"],
-                    rating: product["rating"],
-                    onTap: () {
-                      Get.to(() =>  ProductPage(imageUrl: '', productName: 'Chair', brandName: 'Regal', discount: 10, originalPrice: 10000, discountedPrice: 8000, rating: 4, modelUrl: 'assets/product3d/office_chair.glb',));
-                    },
-                  );
-                },
+            products.sort((a, b) {
+              var countA = globalController.tapCount[a['id']] ?? 0;
+              var countB = globalController.tapCount[b['id']] ?? 0;
+              return countB.compareTo(countA);
+            });
+
+            return GridView.builder(
+              itemCount: products.length,
+              padding: const EdgeInsets.all(8),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 8,
+                crossAxisSpacing: 8,
+                mainAxisExtent: 335,
               ),
-            ),
-          ],
-        ),
+              itemBuilder: (_, index) {
+                final product = products[index];
+                final originalPrice = product["price"] is int
+                    ? product["price"]
+                    : (product["price"] as double).toInt();
+                final discount = product["discount"] ?? 0;
+                final modelUrl = product["modelUrl"] ?? '';
+
+                return ProductCard(
+                  imageUrl: product["imageUrl"] ?? '',
+                  productName: product["title"] ?? '',
+                  brandName: product["brandName"] ?? 'Unknown',
+                  discount: discount,
+                  originalPrice: originalPrice,
+                  discountedPrice: (originalPrice * (1 - (discount / 100))).round(),
+                  rating: product["rating"] ?? 0,
+                  onTap: () {
+                    // Increment tap count
+                    var id = product["id"];
+                    if (globalController.tapCount.containsKey(id)) {
+                      globalController.tapCount[id] += 1;
+                    } else {
+                      globalController.tapCount[id] = 1;
+                    }
+                    Get.to(() => ProductPage(
+                      imageUrl: product["imageUrl"] ?? '',
+                      productName: product["title"] ?? '',
+                      brandName: product["brandName"] ?? 'Unknown',
+                      discount: discount,
+                      originalPrice: originalPrice,
+                      discountedPrice: (originalPrice * (1 - (discount / 100))).round(),
+                      rating: product["rating"] ?? 0,
+                      modelUrl: modelUrl,
+                    ));
+                  },
+                );
+              },
+            );
+          }
+        },
       ),
     );
   }

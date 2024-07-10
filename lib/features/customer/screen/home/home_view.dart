@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sdp2/features/customer/screen/home/home_controller/home_controller.dart';
 import 'package:sdp2/features/customer/screen/home/widgets/banner_slider.dart';
 import 'package:sdp2/features/customer/screen/home/widgets/category_grid.dart';
-import 'package:sdp2/utils/global_colors.dart';
-
 import '../../../../common/products/product_cards/card.dart';
+import '../../../../utils/global_colors.dart';
+import '../../../../utils/global_variables/tap_count.dart';
 import '../product/product_page.dart';
 import 'brand/widgets/brand_grid.dart';
+import 'home_controller/home_controller.dart'; // Replace with the actual path
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -15,9 +15,9 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final HomeController controller = Get.put(HomeController());
+    final GlobalController globalController = Get.find();
 
     return Scaffold(
-      //appBar: customAppBarIn(context),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -85,64 +85,77 @@ class HomeView extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 8),
                     child: Obx(
-                      () => Column(
-                        children: [
-                          GridView.builder(
-                            itemCount: controller.products.length,
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              mainAxisSpacing: 8,
-                              crossAxisSpacing: 8,
-                              mainAxisExtent: 335,
-                            ),
-                            itemBuilder: (_, index) {
-                              final product = controller.products[index];
-                              final originalPrice = product["price"] is int
-                                  ? product["price"]
-                                  : (product["price"] as double).toInt();
-                              final discount = product["discount"] ?? 0;
-                              final modelUrl = product["modelUrl"] ?? '';
+                      () {
+                        // Sort products by tap count in descending order
+                        controller.products.sort((a, b) {
+                          var countA = globalController.tapCount[a['id']] ?? 0;
+                          var countB = globalController.tapCount[b['id']] ?? 0;
+                          return countB.compareTo(countA);
+                        });
 
-                              return ProductCard(
-                                imageUrl: product["imageUrl"] ?? '',
-                                productName: product["title"] ?? '',
-                                brandName: product["brandName"] ?? 'Unknown',
-                                discount: discount,
-                                originalPrice: originalPrice,
-                                discountedPrice:
-                                    (originalPrice * (1 - (discount / 100)))
-                                        .round(),
-                                rating: product["rating"] ?? 0,
-                                onTap: () {
-                                  Get.to(() => ProductPage(
-                                    imageUrl: product["imageUrl"] ?? '',
-                                    productName: product["title"] ?? '',
-                                    brandName: product["brandName"] ?? 'Unknown',
-                                    discount: discount,
-                                    originalPrice: originalPrice,
-                                    discountedPrice: (originalPrice * (1 - (discount / 100))).round(),
-                                    rating: product["rating"] ?? 0,
-                                    modelUrl: modelUrl,
-                                  ));
-                                },
-                              );
-                            },
+                        return GridView.builder(
+                          itemCount: controller.products.length,
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 8,
+                            crossAxisSpacing: 8,
+                            mainAxisExtent: 335,
                           ),
-                        ],
-                      ),
+                          itemBuilder: (_, index) {
+                            final product = controller.products[index];
+                            final originalPrice = product["price"] is int
+                                ? product["price"]
+                                : (product["price"] as double).toInt();
+                            final discount = product["discount"] ?? 0;
+                            final modelUrl = product["modelUrl"] ?? '';
+
+                            return ProductCard(
+                              imageUrl: product["imageUrl"] ?? '',
+                              productName: product["title"] ?? '',
+                              brandName: product["brandName"] ?? 'Unknown',
+                              discount: discount,
+                              originalPrice: originalPrice,
+                              discountedPrice:
+                                  (originalPrice * (1 - (discount / 100)))
+                                      .round(),
+                              rating: product["rating"] ?? 0,
+                              onTap: () {
+                                // Increment tap count
+                                var id = product["id"];
+                                if (globalController.tapCount.containsKey(id)) {
+                                  globalController.tapCount[id] += 1;
+                                } else {
+                                  globalController.tapCount[id] = 1;
+                                }
+                                Get.to(() => ProductPage(
+                                      imageUrl: product["imageUrl"] ?? '',
+                                      productName: product["title"] ?? '',
+                                      brandName:
+                                          product["brandName"] ?? 'Unknown',
+                                      discount: discount,
+                                      originalPrice: originalPrice,
+                                      discountedPrice: (originalPrice *
+                                              (1 - (discount / 100)))
+                                          .round(),
+                                      rating: product["rating"] ?? 0,
+                                      modelUrl: modelUrl,
+                                    ));
+                              },
+                            );
+                          },
+                        );
+                      },
                     ),
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 8),
           ],
         ),
       ),
-      //bottomNavigationBar: CustomBottomNavBar(),
     );
   }
 }

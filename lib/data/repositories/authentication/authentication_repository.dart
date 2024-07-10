@@ -44,25 +44,31 @@ class AuthenticationRepository extends GetxController {
   }
 
   void screenRedirect() async {
-    print("babu");
     final user = _auth.currentUser;
     final isFirstTime = deviceStorage.read('isFirstTime') ?? true;
+
+    print("User: ${user?.uid}, Email Verified: ${user?.emailVerified}, First Time: $isFirstTime");
+
     if (user != null) {
       if (user.emailVerified) {
         await LocalStorage.init(user.uid);
+        print("Navigating to CustMainPage");
         Get.offAll(() => CustMainPage());
       } else {
+        print("Email not verified, navigating to LoginOption");
         Get.offAll(() => const LoginOption());
       }
-
     } else {
       if (isFirstTime) {
+        print("First time user, navigating to OnBoardingScreen");
         Get.offAll(() => const OnBoardingScreen());
       } else {
+        print("Navigating to LoginOption");
         Get.offAll(() => const LoginOption());
       }
     }
   }
+
 
   /// Email login authentication
   Future<UserCredential> loginWithEmailAndPassword(
@@ -151,7 +157,7 @@ class AuthenticationRepository extends GetxController {
       String email, String password) async {
     try {
       AuthCredential credential =
-          EmailAuthProvider.credential(email: email, password: password);
+      EmailAuthProvider.credential(email: email, password: password);
       await _auth.currentUser!.reauthenticateWithCredential(credential);
     } on FirebaseAuthException catch (e) {
       throw MyFirebaseAuthException(e.code).message;
@@ -174,7 +180,7 @@ class AuthenticationRepository extends GetxController {
 
       // Obtain the auth details from the request
       final GoogleSignInAuthentication? googleAuth =
-          await userAccount?.authentication;
+      await userAccount?.authentication;
 
       // Create a new credential
       final credentials = GoogleAuthProvider.credential(
@@ -182,7 +188,7 @@ class AuthenticationRepository extends GetxController {
 
       // Once signed in, return the UserCredential
       UserCredential userCredential =
-          await _auth.signInWithCredential(credentials);
+      await _auth.signInWithCredential(credentials);
 
       // Store additional user information in Firestore
       await _storeUserInfo(userCredential.user, userAccount);

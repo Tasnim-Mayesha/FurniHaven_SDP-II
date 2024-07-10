@@ -229,7 +229,7 @@ class AddEditProductPage extends StatelessWidget {
               ? controller.category.value
               : null,
           hint: const Text('Select category'),
-          items: <String>['Electronics', 'Clothing', 'Books', 'Other']
+          items: <String>['Sofas','Beds','Dining','Shoe Rack','Study Table','Chair','Cupboard','Bookshelf']
               .map((String value) {
             return DropdownMenuItem<String>(
               value: value,

@@ -61,6 +61,27 @@ class CategoryGrid extends StatelessWidget {
                     if (categories[index].name == 'Chair'.tr) {
                       Get.to(() => ProductSuggestionCategory(category: categories[index].name));
                     }
+                    else if (categories[index].name == 'Beds'.tr) {
+                      Get.to(() => ProductSuggestionCategory(category: categories[index].name));
+                    }
+                    else if (categories[index].name == 'Sofas'.tr) {
+                      Get.to(() => ProductSuggestionCategory(category: categories[index].name));
+                    }
+                    else if (categories[index].name == 'Dining'.tr) {
+                      Get.to(() => ProductSuggestionCategory(category: categories[index].name));
+                    }
+                    else if (categories[index].name == 'Shoe Rack'.tr) {
+                      Get.to(() => ProductSuggestionCategory(category: categories[index].name));
+                    }
+                    else if (categories[index].name == 'Study Table'.tr) {
+                      Get.to(() => ProductSuggestionCategory(category: categories[index].name));
+                    }
+                    else if (categories[index].name == 'Cupboard'.tr) {
+                      Get.to(() => ProductSuggestionCategory(category: categories[index].name));
+                    }
+                    else if (categories[index].name == 'Bookshelf'.tr) {
+                      Get.to(() => ProductSuggestionCategory(category: categories[index].name));
+                    }
                   },
                   child: Column(
                     children: [

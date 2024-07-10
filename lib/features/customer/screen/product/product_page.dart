@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -11,8 +12,7 @@ import '../../../../common/widgets/bottomnavbar/customer_starting.dart';
 import '../../../../common/widgets/bottomnavbar/starting_controller.dart';
 import '../review_ratings/widgets/review_section.dart';
 
-import '../../../../utils/global_colors.dart'; // Make sure this path is correct
-
+import '../../../../utils/global_colors.dart';
 
 class ProductPage extends StatefulWidget {
   final String imageUrl;
@@ -44,6 +44,21 @@ class _ProductPageState extends State<ProductPage> {
   bool isFavorite = false;
   int quantity = 1;
 
+  Future<void> _toggleWishlist() async {
+    User? user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      // User is logged in, add the product to the wishlist
+      setState(() {
+        isFavorite = !isFavorite;
+      });
+      // Add logic to add the product to the wishlist in Firestore or local storage
+    } else {
+      // User is not logged in, navigate to LoginOption
+      Get.to(() => const LoginOption());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,12 +77,7 @@ class _ProductPageState extends State<ProductPage> {
               Iconsax.heart5,
               color: isFavorite ? GlobalColors.mainColor : Colors.grey,
             ),
-            onPressed: () {
-              setState(() {
-                isFavorite = !isFavorite;
-              });
-              Get.to(()=> const LoginOption());
-            },
+            onPressed: _toggleWishlist,
           ),
         ],
       ),
@@ -129,7 +139,6 @@ class _ProductPageState extends State<ProductPage> {
                               }
                             });
                           },
-
                         ),
                         const SizedBox(
                           width: 16,
@@ -138,7 +147,6 @@ class _ProductPageState extends State<ProductPage> {
                           quantity.toString().tr,
                           style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontSize: 18),
                         ),
-
                         const SizedBox(
                           width: 16,
                         ),
@@ -188,7 +196,6 @@ class _ProductPageState extends State<ProductPage> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-
     );
   }
 }
