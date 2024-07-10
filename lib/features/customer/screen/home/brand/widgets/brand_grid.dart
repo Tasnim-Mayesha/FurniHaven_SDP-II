@@ -54,16 +54,16 @@ class PopularBrandsGrid extends StatelessWidget {
                 return GestureDetector(
                   onTap: () {
                        if (brands[index].name == 'Regal'.tr) {
-                         Get.to(() =>  ProductSuggestionBrand(brand: brands[index].name,));
+                         Get.to(() =>  ProductSuggestionBrand(brandName: brands[index].name,));
                        }
                        else if (brands[index].name == 'Brothers'.tr) {
-                         Get.to(() =>  ProductSuggestionBrand(brand: brands[index].name,));
+                         Get.to(() =>  ProductSuggestionBrand(brandName: brands[index].name,));
                        }
                        else if (brands[index].name == 'Otobi'.tr) {
-                         Get.to(() =>  ProductSuggestionBrand(brand: brands[index].name,));
+                         Get.to(() =>  ProductSuggestionBrand(brandName: brands[index].name,));
                        }
                        else if (brands[index].name == 'Hatil'.tr) {
-                         Get.to(() =>  ProductSuggestionBrand(brand: brands[index].name,));
+                         Get.to(() =>  ProductSuggestionBrand(brandName: brands[index].name,));
                        }
 
                   },

@@ -10,9 +10,9 @@ import 'Sort/sortBy.dart';
 
 
 class ProductSuggestionBrand extends StatefulWidget {
-  final String brand;
+  final String brandName;
 
-  const ProductSuggestionBrand({super.key, required this.brand});
+  const ProductSuggestionBrand({super.key, required this.brandName});
 
   @override
   _ProductSuggestionBrandState createState() => _ProductSuggestionBrandState();
@@ -26,7 +26,25 @@ class _ProductSuggestionBrandState extends State<ProductSuggestionBrand> {
     final querySnapshot = await FirebaseFirestore.instance.collection('Products').get();
     final products = querySnapshot.docs.map((doc) => doc.data()).toList();
 
-    return products.where((product) => product['brandName'] == widget.brand).toList();
+    for (var product in products) {
+      final sellerEmail = product['sellerEmail'];
+      if (sellerEmail != null) {
+        final sellerSnapshot = await FirebaseFirestore.instance
+            .collection('Sellers')
+            .where('email', isEqualTo: sellerEmail)
+            .get();
+
+        if (sellerSnapshot.docs.isNotEmpty) {
+          product['brandName'] = sellerSnapshot.docs.first.data()['brandName'];
+        } else {
+          product['brandName'] = 'Unknown';
+        }
+      }
+    }
+
+    final filteredProducts = products.where((product) => product['brandName'] == widget.brandName).toList();
+
+    return filteredProducts;
   }
 
   @override
@@ -50,7 +68,7 @@ class _ProductSuggestionBrandState extends State<ProductSuggestionBrand> {
             width: MediaQuery.of(context).size.width * 0.65,
             child: TextField(
               decoration: InputDecoration(
-                hintText: widget.brand.tr,
+                hintText: widget.brandName.tr,
                 prefixIcon: Icon(Icons.search, color: GlobalColors.mainColor),
                 contentPadding: const EdgeInsets.symmetric(vertical: 12.0),
                 border: const OutlineInputBorder(
