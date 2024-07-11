@@ -1,25 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:sdp2/features/seller/models/Product.dart';
 import 'package:sdp2/utils/global_colors.dart';
 
 class SellerProductCard extends StatelessWidget {
-  final String imageUrl;
-  final String productName;
-  final String brandName;
-  final int discount;
-  final int originalPrice;
-  final int discountedPrice;
-  final int rating;
+  final Product product;
   final VoidCallback onTap;
 
   const SellerProductCard({
     super.key,
-    required this.imageUrl,
-    required this.productName,
-    required this.brandName,
-    required this.discount,
-    required this.originalPrice,
-    required this.discountedPrice,
-    required this.rating,
+    required this.product,
     required this.onTap,
   });
 
@@ -48,17 +37,20 @@ class SellerProductCard extends StatelessWidget {
         ),
         child: SingleChildScrollView(
           child: Column(
-            mainAxisSize: MainAxisSize.min, // Adjusts to content
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Stack(
                 children: [
                   AspectRatio(
-                    aspectRatio:
-                        1, // This keeps the image square but you can adjust the ratio
-                    child: Image.asset(
-                      imageUrl,
+                    aspectRatio: 1,
+                    child: Image.network(
+                      product.imageUrl,
                       fit: BoxFit.contain,
+                      errorBuilder: (context, error, stackTrace) => Icon(
+                        Icons.error,
+                        color: Colors.red,
+                      ), // Handle loading errors gracefully
                     ),
                   ),
                   Positioned(
@@ -72,7 +64,7 @@ class SellerProductCard extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8.0, vertical: 4.0),
                       child: Text(
-                        '$discount%',
+                        '${20}%',
                         style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -82,36 +74,34 @@ class SellerProductCard extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(
-                  height:
-                      8), // Add spacing between the image and the text content
+              const SizedBox(height: 8),
               Text(
-                productName,
+                product.title,
                 style: Theme.of(context).textTheme.bodyLarge,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
               ),
-              const SizedBox(height: 4), // Add spacing between elements
+              const SizedBox(height: 4),
               Wrap(
                 children: List.generate(
                   5,
                   (index) => Icon(
                     Icons.star,
                     size: 20.0,
-                    color: index < rating ? Colors.amber : Colors.grey,
+                    color: index < 4 ? Colors.amber : Colors.grey,
                   ),
                 ),
               ),
               const SizedBox(height: 4),
               Text(
-                '$discountedPrice Tk',
+                '${product.price} Tk',
                 style: const TextStyle(
                   color: Colors.deepOrange,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               Text(
-                '$originalPrice Tk',
+                '${product.price} Tk',
                 style: const TextStyle(
                   color: Colors.grey,
                   fontWeight: FontWeight.bold,

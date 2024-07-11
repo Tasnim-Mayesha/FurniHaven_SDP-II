@@ -1,11 +1,14 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:get/get.dart';
 import 'package:sdp2/features/seller/models/Product.dart';
+import 'package:sdp2/features/seller/views/pages/controllers/products_controller.dart';
 
 class ProductRepository {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
+  final ProductsController productsController = Get.find<ProductsController>();
 
   Future<void> addProduct(
       Product product, File? imageFile, File? modelFile) async {
@@ -33,6 +36,7 @@ class ProductRepository {
           .collection('Products')
           .doc(newDocId)
           .set(product.toMap());
+      productsController.addProductToList(product);
     } catch (e) {
       rethrow;
     }
@@ -50,11 +54,11 @@ class ProductRepository {
         product.modelUrl = await _uploadFile(
             modelFile, '3d_models/${modelFile.path.split('/').last}');
       }
-
       await _firestore
-          .collection('products')
+          .collection('Products')
           .doc(product.id)
           .update(product.toMap());
+      productsController.updateProductInList(product);
     } catch (e) {
       rethrow;
     }

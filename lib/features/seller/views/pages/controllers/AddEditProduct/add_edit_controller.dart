@@ -15,6 +15,8 @@ class AddEditProductController extends GetxController {
   TextEditingController priceController = TextEditingController();
   TextEditingController quantityController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
+  String? imageUrl;
+  String? modelUrl;
   var imageFile = Rx<File?>(null);
   var modelFile = Rx<File?>(null);
   var is3DEnabled = false.obs;
@@ -30,6 +32,8 @@ class AddEditProductController extends GetxController {
       descriptionController.text = product.description;
       is3DEnabled.value = product.is3DEnabled;
       category.value = product.category;
+      imageUrl = product.imageUrl;
+      modelUrl = product.modelUrl;
     }
   }
 
@@ -79,13 +83,13 @@ class AddEditProductController extends GetxController {
     Product newProduct = Product(
       id: product?.id ?? '',
       title: titleController.text,
-      imageUrl: '',
+      imageUrl: imageUrl ?? '',
       price: double.tryParse(priceController.text) ?? 0.0,
       quantity: int.tryParse(quantityController.text) ?? 0,
       description: descriptionController.text,
       is3DEnabled: is3DEnabled.value,
       category: category.value,
-      modelUrl: '',
+      modelUrl: modelUrl ?? '',
       sellerEmail: sellerEmail,
     );
 

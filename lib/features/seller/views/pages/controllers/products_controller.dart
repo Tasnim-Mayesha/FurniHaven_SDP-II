@@ -1,63 +1,80 @@
 import 'package:get/get.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:sdp2/features/seller/models/Product.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProductsController extends GetxController {
-  var products = <Map<String, dynamic>>[].obs;
-  var allProducts = <Map<String, dynamic>>[].obs; // To keep the original list
+  var products = <Product>[].obs;
+  var allProducts = <Product>[].obs;
+
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
   void onInit() {
     super.onInit();
-    fetchProducts();
+    fetchProducts(); // Initial fetch
   }
 
-  void fetchProducts() {
-    var fetchedProducts = [
-      {
-        "id": "1",
-        "imageUrl": "assets/products/almirah.png",
-        "productName": "Round 4 Seater Dining Table",
-        "description":
-            "This is a round 4 seater dining table with a glass top. It is made of high-quality wood and is very durable. It is perfect for a small family.",
-        "brandName": "Regal",
-        "discount": 20,
-        "originalPrice": 150000,
-        "discountedPrice": 120000,
-        "rating": 5,
-      },
-      {
-        "id": "2",
-        "imageUrl": "assets/products/study table.png",
-        "productName": "Furnish White Modern Chair",
-        "description":
-            "This is a white modern chair made of high-quality plastic.",
-        "brandName": "Brothers",
-        "discount": 15,
-        "originalPrice": 18000,
-        "discountedPrice": 12750,
-        "rating": 4,
-      },
-    ];
-    products.assignAll(fetchedProducts);
-    allProducts.assignAll(fetchedProducts); // Keep the original list
+  @override
+  void onReady() {
+    super.onReady();
+    fetchProducts(); // Fetch every time the controller is used
+  }
+
+  void fetchProducts() async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? sellerEmail = prefs.getString('seller_email');
+      print("Seller Email from prod control: $sellerEmail");
+      if (sellerEmail == null) {
+        return;
+      }
+      QuerySnapshot snapshot = await _firestore.collection('Products').get();
+      var fetchedProducts = snapshot.docs
+          .map((doc) =>
+              Product.fromMap(doc.data() as Map<String, dynamic>, doc.id))
+          .toList();
+
+      products.assignAll(fetchedProducts);
+      allProducts.assignAll(fetchedProducts);
+    } catch (e) {
+      Get.snackbar("Error", "Failed to fetch products: ${e.toString()}");
+    }
+  }
+
+  void addProductToList(Product newProduct) {
+    products.add(newProduct);
+    allProducts.add(newProduct);
   }
 
   void searchProducts(String query) {
     if (query.isEmpty) {
-      products
-          .assignAll(allProducts); // Reset to original list if query is empty
+      products.assignAll(allProducts);
     } else {
       products.assignAll(
-        allProducts.where((product) =>
-            product["productName"].toLowerCase().contains(query.toLowerCase())),
+        allProducts
+            .where((product) =>
+                product.title.toLowerCase().contains(query.toLowerCase()))
+            .toList(),
       );
     }
   }
 
-  Map<String, dynamic>? getProductById(String id) {
+  Product? getProductById(String id) {
     try {
-      return allProducts.firstWhere((product) => product['id'] == id);
+      return allProducts.firstWhere((product) => product.id == id);
     } catch (e) {
+      Get.snackbar("Error", "Product not found: ${e.toString()}");
       return null;
+    }
+  }
+
+  void updateProductInList(Product updatedProduct) {
+    int index =
+        products.indexWhere((product) => product.id == updatedProduct.id);
+    if (index != -1) {
+      products[index] = updatedProduct;
+      products.refresh();
     }
   }
 }
