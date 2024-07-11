@@ -8,7 +8,6 @@ import 'package:sdp2/data/repositories/seller/seller_repository.dart';
 import 'package:sdp2/routes/app_routes.dart';
 import 'package:sdp2/utils/global_variables/tap_count.dart';
 import 'package:sdp2/utils/themes/theme.dart';
-
 import 'common/widgets/multi_language/locall_string.dart';
 import 'data/repositories/authentication/authentication_repository.dart';
 import 'common/splash_view.dart';

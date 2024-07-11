@@ -84,7 +84,6 @@ class _SortByState extends State<SortBy> {
                       });
                     },
                   ),
-
                 ],
               ),
             ),

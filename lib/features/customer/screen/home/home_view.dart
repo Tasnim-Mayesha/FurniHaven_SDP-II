@@ -34,7 +34,7 @@ class HomeView extends StatelessWidget {
                   decoration: InputDecoration(
                     hintText: "Search here".tr,
                     prefixIcon:
-                    Icon(Icons.search, color: GlobalColors.mainColor),
+                        Icon(Icons.search, color: GlobalColors.mainColor),
                     contentPadding: const EdgeInsets.symmetric(
                         vertical: 12.0), // Adjust vertical padding
                     border: const OutlineInputBorder(
@@ -50,7 +50,7 @@ class HomeView extends StatelessWidget {
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius:
-                      const BorderRadius.all(Radius.circular(8.0)),
+                          const BorderRadius.all(Radius.circular(8.0)),
                       borderSide: BorderSide(
                           color: GlobalColors
                               .mainColor), // Border color when the TextField is focused
@@ -93,7 +93,7 @@ class HomeView extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 8),
                     child: Obx(
-                          () {
+                      () {
                         // Sort products by tap count in descending order
                         controller.products.sort((a, b) {
                           var countA = globalController.tapCount[a['id']] ?? 0;
@@ -106,7 +106,7 @@ class HomeView extends StatelessWidget {
                           shrinkWrap: true,
                           physics: NeverScrollableScrollPhysics(),
                           gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             mainAxisSpacing: 8,
                             crossAxisSpacing: 8,
@@ -127,8 +127,8 @@ class HomeView extends StatelessWidget {
                               discount: discount,
                               originalPrice: originalPrice,
                               discountedPrice:
-                              (originalPrice * (1 - (discount / 100)))
-                                  .round(),
+                                  (originalPrice * (1 - (discount / 100)))
+                                      .round(),
                               rating: product["rating"] ?? 0,
                               onTap: () {
                                 // Increment tap count
@@ -139,19 +139,19 @@ class HomeView extends StatelessWidget {
                                   globalController.tapCount[id] = 1;
                                 }
                                 Get.to(() => ProductPage(
-                                  imageUrl: product["imageUrl"] ?? '',
-                                  productName: product["title"] ?? '',
-                                  brandName:
-                                  product["brandName"] ?? 'Unknown',
-                                  discount: discount,
-                                  originalPrice: originalPrice,
-                                  discountedPrice: (originalPrice *
-                                      (1 - (discount / 100)))
-                                      .round(),
-                                  rating: product["rating"] ?? 0,
-                                  description: product["description"],
-                                  modelUrl: modelUrl,
-                                ));
+                                      imageUrl: product["imageUrl"] ?? '',
+                                      productName: product["title"] ?? '',
+                                      brandName:
+                                          product["brandName"] ?? 'Unknown',
+                                      discount: discount,
+                                      originalPrice: originalPrice,
+                                      discountedPrice: (originalPrice *
+                                              (1 - (discount / 100)))
+                                          .round(),
+                                      rating: product["rating"] ?? 0,
+                                      description: product["description"],
+                                      modelUrl: modelUrl,
+                                    ));
                               },
                             );
                           },

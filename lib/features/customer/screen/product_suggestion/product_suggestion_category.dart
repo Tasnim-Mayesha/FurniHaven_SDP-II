@@ -5,9 +5,8 @@ import '../../../../common/products/product_cards/card.dart';
 import '../../../../utils/global_colors.dart';
 import '../../../../utils/global_variables/tap_count.dart';
 import '../product/product_page.dart';
-import 'Filter/filterBy.dart';
-import 'Sort/sortBy.dart';
-
+import 'Filter/category_filter.dart';
+import 'Sort/category_sort.dart';
 
 class ProductSuggestionCategory extends StatefulWidget {
   final String category;
@@ -23,10 +22,32 @@ class _ProductSuggestionCategoryState extends State<ProductSuggestionCategory> {
   final GlobalController globalController = Get.find();
 
   Future<List<Map<String, dynamic>>> _fetchProducts() async {
-    final querySnapshot = await FirebaseFirestore.instance.collection('Products').get();
+    final querySnapshot = await FirebaseFirestore.instance
+        .collection('Products')
+        .where('category', isEqualTo: widget.category)
+        .get();
+
     final products = querySnapshot.docs.map((doc) => doc.data()).toList();
 
-    return products.where((product) => product['category'] == widget.category).toList();
+    for (var product in products) {
+      final email = product['sellerEmail'];
+      if (email != null) {
+        final sellerSnapshot = await FirebaseFirestore.instance
+            .collection('Sellers')
+            .where('email', isEqualTo: email)
+            .get();
+
+        if (sellerSnapshot.docs.isNotEmpty) {
+          product['brandName'] = sellerSnapshot.docs.first.data()['brandName'];
+        } else {
+          product['brandName'] = 'Unknown';
+        }
+      } else {
+        product['brandName'] = 'Unknown';
+      }
+    }
+
+    return products;
   }
 
   @override
@@ -72,11 +93,11 @@ class _ProductSuggestionCategoryState extends State<ProductSuggestionCategory> {
         actions: [
           IconButton(
             icon: const Icon(Icons.filter_list, color: Colors.grey),
-            onPressed: () => Get.to(() => FilterBy()),
+            onPressed: () => Get.to(() => CategoryFilterBy()),
           ),
           IconButton(
             icon: const Icon(Icons.sort, color: Colors.grey),
-            onPressed: () => Get.to(() => SortBy()),
+            onPressed: () => Get.to(() => CategorySortBy()),
           ),
         ],
       ),
@@ -140,7 +161,7 @@ class _ProductSuggestionCategoryState extends State<ProductSuggestionCategory> {
                       discountedPrice: (originalPrice * (1 - (discount / 100))).round(),
                       rating: product["rating"] ?? 0,
                       modelUrl: modelUrl,
-                      description: product["description"],
+                      description: product["description"]?? '',
                     ));
                   },
                 );

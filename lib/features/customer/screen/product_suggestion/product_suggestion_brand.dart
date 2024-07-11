@@ -5,7 +5,9 @@ import '../../../../common/products/product_cards/card.dart';
 import '../../../../utils/global_colors.dart';
 import '../../../../utils/global_variables/tap_count.dart';
 import '../product/product_page.dart';
+import 'Filter/brand_filter.dart';
 import 'Filter/filterBy.dart';
+import 'Sort/brand_sort.dart';
 import 'Sort/sortBy.dart';
 
 
@@ -90,11 +92,11 @@ class _ProductSuggestionBrandState extends State<ProductSuggestionBrand> {
         actions: [
           IconButton(
             icon: const Icon(Icons.filter_list, color: Colors.grey),
-            onPressed: () => Get.to(() => FilterBy()),
+            onPressed: () => Get.to(() => BrandFilterBy()),
           ),
           IconButton(
             icon: const Icon(Icons.sort, color: Colors.grey),
-            onPressed: () => Get.to(() => SortBy()),
+            onPressed: () => Get.to(() => BrandSortBy()),
           ),
         ],
       ),
@@ -158,7 +160,7 @@ class _ProductSuggestionBrandState extends State<ProductSuggestionBrand> {
                       discountedPrice: (originalPrice * (1 - (discount / 100))).round(),
                       rating: product["rating"] ?? 0,
                       modelUrl: modelUrl,
-                      description: product["description"],
+                      description: product["description"] ?? '',
                     ));
                   },
                 );
