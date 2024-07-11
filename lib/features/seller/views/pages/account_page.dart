@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sdp2/features/personilization/screen/Login/login_option.dart';
+import 'package:sdp2/features/seller/controllers/nav_controller.dart';
 import 'package:sdp2/features/seller/views/pages/controllers/SellerProfile/sellerProfile.dart';
 import 'package:sdp2/data/repositories/seller/seller_repository.dart';
 
@@ -12,6 +13,8 @@ class SellerAccountPage extends StatefulWidget {
 }
 
 class _SellerAccountPageState extends State<SellerAccountPage> {
+  final NavController navController = Get.find<NavController>();
+
   int _selectedIndex = -1;
 
   void _onTap(int index) {
@@ -23,6 +26,7 @@ class _SellerAccountPageState extends State<SellerAccountPage> {
   void _logout() async {
     final sellerRepository = SellerRepository.instance;
     await sellerRepository.clearCachedSellerUid();
+    navController.currentIndex.value = 0;
     Get.offAll(() => const LoginOption());
   }
 
