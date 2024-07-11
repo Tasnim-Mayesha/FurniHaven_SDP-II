@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sdp2/common/widgets/PriceRange/priceRange.dart';
+import '../Sort/sortBy.dart';
 
-class FilterBy extends StatelessWidget {
-  const FilterBy({super.key});
+class CategoryFilterBy extends StatelessWidget {
+  const CategoryFilterBy({super.key});
 
   @override
   Widget build(BuildContext context) {

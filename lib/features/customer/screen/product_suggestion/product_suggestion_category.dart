@@ -140,6 +140,7 @@ class _ProductSuggestionCategoryState extends State<ProductSuggestionCategory> {
                       discountedPrice: (originalPrice * (1 - (discount / 100))).round(),
                       rating: product["rating"] ?? 0,
                       modelUrl: modelUrl,
+                      description: product["description"],
                     ));
                   },
                 );

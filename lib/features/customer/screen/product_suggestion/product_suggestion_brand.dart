@@ -158,6 +158,7 @@ class _ProductSuggestionBrandState extends State<ProductSuggestionBrand> {
                       discountedPrice: (originalPrice * (1 - (discount / 100))).round(),
                       rating: product["rating"] ?? 0,
                       modelUrl: modelUrl,
+                      description: product["description"],
                     ));
                   },
                 );

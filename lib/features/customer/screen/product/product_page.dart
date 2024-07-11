@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:sdp2/common/circular_icon.dart';
-import 'package:sdp2/features/customer/screen/cart/add_to_cart.dart';
 import 'package:sdp2/features/customer/screen/product/widgets/chat_with_seller_initiation.dart';
 import 'package:sdp2/features/customer/screen/product/widgets/model_view.dart';
 import 'package:sdp2/features/customer/screen/product/widgets/product_detail_card.dart';
@@ -23,6 +22,7 @@ class ProductPage extends StatefulWidget {
   final int discountedPrice;
   final double rating;
   final String modelUrl;
+  final String description;
 
   const ProductPage({
     Key? key,
@@ -34,6 +34,7 @@ class ProductPage extends StatefulWidget {
     required this.discountedPrice,
     required this.rating,
     required this.modelUrl,
+    required this.description,
   }) : super(key: key);
 
   @override
@@ -92,7 +93,7 @@ class _ProductPageState extends State<ProductPage> {
             ProductDetailsCard(
               brandLogoPath: 'assets/brands/regal.png', // Assuming this path for demo purposes
               productName: widget.productName,
-              productDescription: 'This armchair is an elegant piece of furniture. It is suitable for family visits perfect for relaxing in front of the TV after hard work.', // Example description
+              productDescription: widget.description,
               originalPrice: widget.originalPrice,
               discountedPrice: widget.discountedPrice,
             ),

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class SortBy extends StatefulWidget {
-  const SortBy({super.key});
+class CategorySortBy extends StatefulWidget {
+  const CategorySortBy({super.key});
 
   @override
   _SortByState createState() => _SortByState();
 }
 
-class _SortByState extends State<SortBy> {
+class _SortByState extends State<CategorySortBy> {
   String? _selectedOption = 'none'; // Initial selected option
 
   @override
@@ -16,13 +16,13 @@ class _SortByState extends State<SortBy> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-        'Sort By'.tr,
+          'Sort By'.tr,
           style: TextStyle(
             color: Colors.deepOrange,
             fontSize: 24.0,
             fontWeight: FontWeight.bold,
-            ),
           ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -84,7 +84,6 @@ class _SortByState extends State<SortBy> {
                       });
                     },
                   ),
-
                 ],
               ),
             ),
