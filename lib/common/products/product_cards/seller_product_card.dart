@@ -5,11 +5,13 @@ import 'package:sdp2/utils/global_colors.dart';
 class SellerProductCard extends StatelessWidget {
   final Product product;
   final VoidCallback onTap;
+  final bool isSelected; // Add this property
 
   const SellerProductCard({
     super.key,
     required this.product,
     required this.onTap,
+    this.isSelected = false, // Add default value
   });
 
   @override
@@ -31,8 +33,8 @@ class SellerProductCard extends StatelessWidget {
           ],
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: Colors.grey.shade400,
-            width: 1,
+            color: isSelected ? Colors.orange : Colors.grey.shade400,
+            width: 2, // Increase width for better visibility
           ),
         ),
         child: SingleChildScrollView(
@@ -47,12 +49,22 @@ class SellerProductCard extends StatelessWidget {
                     child: Image.network(
                       product.imageUrl,
                       fit: BoxFit.contain,
-                      errorBuilder: (context, error, stackTrace) => Icon(
+                      errorBuilder: (context, error, stackTrace) => const Icon(
                         Icons.error,
                         color: Colors.red,
-                      ), // Handle loading errors gracefully
+                      ),
                     ),
                   ),
+                  if (isSelected)
+                    Positioned(
+                      top: 8,
+                      right: 8,
+                      child: const Icon(
+                        Icons.check_circle,
+                        color: Colors.orange, // Change to orange
+                        size: 24,
+                      ),
+                    ),
                   Positioned(
                     top: 2,
                     left: 2,

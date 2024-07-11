@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ProductsController extends GetxController {
   var products = <Product>[].obs;
   var allProducts = <Product>[].obs;
-
+  var selectedProducts = <Product>[].obs;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
@@ -76,5 +76,30 @@ class ProductsController extends GetxController {
       products[index] = updatedProduct;
       products.refresh();
     }
+  }
+
+  void deleteProducts(List<Product> productsToDelete) {
+    try {
+      for (Product product in productsToDelete) {
+        _firestore.collection('Products').doc(product.id).delete();
+      }
+      products.removeWhere((product) => productsToDelete.contains(product));
+      allProducts.removeWhere((product) => productsToDelete.contains(product));
+      selectedProducts.clear();
+    } catch (e) {
+      Get.snackbar("Error", "Failed to delete products: ${e.toString()}");
+    }
+  }
+
+  void toggleProductSelection(Product product) {
+    if (selectedProducts.contains(product)) {
+      selectedProducts.remove(product);
+    } else {
+      selectedProducts.add(product);
+    }
+  }
+
+  void clearSelection() {
+    selectedProducts.clear();
   }
 }
