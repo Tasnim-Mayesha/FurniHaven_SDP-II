@@ -1,51 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sdp2/features/personilization/screen/profile/profile_controller.dart';
 
-class EditEmail extends StatefulWidget {
-  const EditEmail({super.key});
+import '../profile/profile.dart';
 
-  @override
-  _EditEmailState createState() => _EditEmailState();
-}
-
-class _EditEmailState extends State<EditEmail> {
-  final _emailController = TextEditingController();
-  final FocusNode _focusNode = FocusNode();
-  bool _isFocused = false;
-  bool _isEmailValid = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _focusNode.addListener(() {
-      setState(() {
-        _isFocused = _focusNode.hasFocus;
-      });
-    });
-    _emailController.addListener(() {
-      setState(() {
-        _isEmailValid = _validateEmail(_emailController.text);
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _focusNode.dispose();
-    super.dispose();
-  }
-
-  bool _validateEmail(String email) {
-    // Regular expression for validating an email address
-    final RegExp emailRegExp = RegExp(
-      r'^[^@]+@[^@]+\.[^@]+',
-    );
-    return emailRegExp.hasMatch(email);
-  }
+class EditEmail extends StatelessWidget {
+  const EditEmail({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final ProfileController controller = Get.find<ProfileController>();
+    final TextEditingController _emailController = TextEditingController(text: controller.email);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -54,7 +20,6 @@ class _EditEmailState extends State<EditEmail> {
         ),
         backgroundColor: Colors.deepOrange,
       ),
-
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -62,19 +27,18 @@ class _EditEmailState extends State<EditEmail> {
           children: [
             TextField(
               controller: _emailController,
-              focusNode: _focusNode,
               decoration: InputDecoration(
                 hintText: 'Enter your email',
                 prefixIcon: Icon(
                   Icons.email,
-                  color: _isFocused ? Colors.deepOrange : Colors.grey,
+                  color: Colors.deepOrange,
                 ),
                 hintStyle: const TextStyle(color: Colors.grey),
                 border: const OutlineInputBorder(),
               ),
               keyboardType: TextInputType.emailAddress,
             ),
-            const SizedBox(height: 8.0), // Spacer between TextField and additional text
+            const SizedBox(height: 8.0),
             Padding(
               padding: EdgeInsets.only(left: 8.0),
               child: Text(
@@ -83,31 +47,28 @@ class _EditEmailState extends State<EditEmail> {
               ),
             ),
             const SizedBox(height: 16.0),
-            if (_isEmailValid)
-              ButtonTheme(
-                height: 160.0,
-                child: ElevatedButton(
-                  onPressed: _isEmailValid
-                      ? () {
-                    // Handle update action
-                    print('New Email: ${_emailController.text}');
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Your Email has been Updated Successfully'.tr),
-                        duration: Duration(seconds: 3),
-                        backgroundColor: Colors.grey,
-                      ),
+            Obx(() {
+              return controller.isLoading.value
+                  ? Center(child: CircularProgressIndicator())
+                  : ElevatedButton(
+                onPressed: () async {
+                  if (_emailController.text.isNotEmpty) {
+                    await controller.updateEmail(_emailController.text);
+                    Get.snackbar(
+                      'Success',
+                      'Your email has been updated successfully'.tr,
+                      snackPosition: SnackPosition.BOTTOM,
                     );
                     Navigator.pop(context);
                   }
-                      : null,
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 14.0),
-                    minimumSize: const Size(double.infinity, 50.0),
-                  ),
-                  child: Text('Save'.tr),
+                },
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 14.0),
+                  minimumSize: const Size(double.infinity, 50.0),
                 ),
-              ),
+                child: Text('Save'.tr),
+              );
+            }),
           ],
         ),
       ),

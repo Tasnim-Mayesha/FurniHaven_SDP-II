@@ -23,7 +23,7 @@ class AccountPage extends StatelessWidget {
             Icons.person,
             'Profile'.tr,
             () {
-              Get.to(() => const ProfileView());
+              Get.to(() => ProfileView());
             },
           ),
           const Divider(),
