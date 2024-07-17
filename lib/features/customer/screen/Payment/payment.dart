@@ -28,12 +28,14 @@ class DottedLinePainter extends CustomPainter {
   }
 }
 
-
 class Payment extends StatelessWidget {
   const Payment({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final totalCost = Get.arguments['totalCost'] as double;
+    final selectedAddress = Get.arguments['selectedAddress'] as Map<String, String>;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Payment'.tr),
@@ -48,55 +50,50 @@ class Payment extends StatelessWidget {
               ),
               title: Text('Bkash'.tr),
               onTap: () {
-                Get.to( const Bkash());
+                Get.to(const Bkash());
               },
             ),
             ListTile(
               leading: const CircleAvatar(
-                backgroundImage: AssetImage('assets/payment/nagad.png'), // Replace with your image asset
+                backgroundImage: AssetImage('assets/payment/nagad.png'),
               ),
               title: Text('Nagad'.tr),
-              onTap: () {
-
-              },
+              onTap: () {},
             ),
             ListTile(
               leading: const CircleAvatar(
-                backgroundImage: AssetImage('assets/payment/cash-on-delivery.png'), // Replace with your image asset
+                backgroundImage: AssetImage('assets/payment/cash-on-delivery.png'),
               ),
               title: Text('Cash on Delivery'.tr),
-              onTap: () {
-
-              },
+              onTap: () {},
             ),
-            const SizedBox(height: 200,),
+            const SizedBox(height: 200),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
                 padding: const EdgeInsets.all(16.0),
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: Colors.black26, // You can change the border color here
-                    width: 1.0, // Border width
+                    color: Colors.black26,
+                    width: 1.0,
                   ),
-                  //borderRadius: BorderRadius.circular(4.0), // Optional: for rounded corners
                 ),
                 child: Column(
                   children: [
-                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween, // To space out the texts
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Items(3)'.tr,
+                          'Items(${selectedAddress['quantity']})'.tr,
                           style: TextStyle(color: Color(0xFF9098B1)),
                         ),
                         Text(
-                          '20000 Tk'.tr,
+                          '${totalCost.toStringAsFixed(2)} Tk'.tr,
                           style: TextStyle(color: Colors.black),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 8,),
+                    const SizedBox(height: 8),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -110,7 +107,7 @@ class Payment extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 8,),
+                    const SizedBox(height: 8),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -120,36 +117,34 @@ class Payment extends StatelessWidget {
                         ),
                         Text(
                           '200 Tk'.tr,
-                          style: TextStyle(color:Colors.black),
+                          style: TextStyle(color: Colors.black),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 16,),
+                    const SizedBox(height: 16),
                     CustomPaint(
                       size: const Size(double.infinity, 1),
                       painter: DottedLinePainter(),
                     ),
-                    const SizedBox(height: 16,),
-
+                    const SizedBox(height: 16),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           'Total Price'.tr,
-                          style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
+                          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          '20240 Tk'.tr,
-                          style: TextStyle(color: Colors.deepOrange,fontWeight: FontWeight.bold),
+                          '${(totalCost + 40 + 200).toStringAsFixed(2)} Tk'.tr,
+                          style: TextStyle(color: Colors.deepOrange, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 8,),
+                    const SizedBox(height: 8),
                   ],
                 ),
               ),
-            )
-
+            ),
           ],
         ),
       ),

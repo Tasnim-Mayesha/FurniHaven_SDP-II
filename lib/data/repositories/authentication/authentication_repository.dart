@@ -15,15 +15,15 @@ import '../../../utils/exceptions/format_exceptions.dart';
 import '../user/user_repository.dart';
 
 class AuthenticationRepository extends GetxController {
-  //getter method
+  // Getter method
   static AuthenticationRepository get instance => Get.find();
 
-  //variables
+  // Variables
   final deviceStorage = GetStorage();
   final _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  //Get Authenticated user data
+  // Get Authenticated user data
   User? get authUser => _auth.currentUser;
 
   @override
@@ -53,7 +53,7 @@ class AuthenticationRepository extends GetxController {
       if (user.emailVerified) {
         await LocalStorage.init(user.uid);
         print("Navigating to CustMainPage");
-        Get.offAll(() => CustMainPage());
+        Get.offAll(() => CustMainPage()); // Change this to your home screen widget
       } else {
         print("Email not verified, navigating to LoginOption");
         Get.offAll(() => const LoginOption());
@@ -68,7 +68,6 @@ class AuthenticationRepository extends GetxController {
       }
     }
   }
-
 
   /// Email login authentication
   Future<UserCredential> loginWithEmailAndPassword(
@@ -152,7 +151,7 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
-  ///Re authenticate user
+  /// Re-authenticate user
   Future<void> reAuthenticateWithEmailAndPassword(
       String email, String password) async {
     try {
@@ -246,7 +245,7 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
-  ///delete account
+  /// Delete account
   Future<void> deleteAccount() async {
     try {
       await UserRepository.instance.removeUserRecord(_auth.currentUser!.uid);

@@ -7,7 +7,7 @@ import '../../../../utils/global_colors.dart';
 import '../../../../utils/global_variables/tap_count.dart';
 import '../product/product_page.dart';
 import '../product_suggestion/product_search_result.dart';
-import 'brand/widgets/brand_grid.dart';
+import 'widgets/brand_grid.dart';
 import 'home_controller/home_controller.dart';
 
 class HomeView extends StatelessWidget {
@@ -34,7 +34,7 @@ class HomeView extends StatelessWidget {
                   decoration: InputDecoration(
                     hintText: "Search here".tr,
                     prefixIcon:
-                        Icon(Icons.search, color: GlobalColors.mainColor),
+                    Icon(Icons.search, color: GlobalColors.mainColor),
                     contentPadding: const EdgeInsets.symmetric(
                         vertical: 12.0), // Adjust vertical padding
                     border: const OutlineInputBorder(
@@ -50,7 +50,7 @@ class HomeView extends StatelessWidget {
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius:
-                          const BorderRadius.all(Radius.circular(8.0)),
+                      const BorderRadius.all(Radius.circular(8.0)),
                       borderSide: BorderSide(
                           color: GlobalColors
                               .mainColor), // Border color when the TextField is focused
@@ -93,70 +93,60 @@ class HomeView extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 8),
                     child: Obx(
-                      () {
-                        // Sort products by tap count in descending order
-                        controller.products.sort((a, b) {
-                          var countA = globalController.tapCount[a['id']] ?? 0;
-                          var countB = globalController.tapCount[b['id']] ?? 0;
-                          return countB.compareTo(countA);
-                        });
+                          () => GridView.builder(
+                        itemCount: controller.recommendedProducts.length,
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 8,
+                          crossAxisSpacing: 8,
+                          mainAxisExtent: 335,
+                        ),
+                        itemBuilder: (_, index) {
+                          final product = controller.recommendedProducts[index];
+                          final originalPrice = product["price"] is int
+                              ? product["price"]
+                              : (product["price"] as double).toInt();
+                          final discount = product["discount"] ?? 0;
+                          final modelUrl = product["modelUrl"] ?? '';
 
-                        return GridView.builder(
-                          itemCount: controller.products.length,
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            mainAxisSpacing: 8,
-                            crossAxisSpacing: 8,
-                            mainAxisExtent: 335,
-                          ),
-                          itemBuilder: (_, index) {
-                            final product = controller.products[index];
-                            final originalPrice = product["price"] is int
-                                ? product["price"]
-                                : (product["price"] as double).toInt();
-                            final discount = product["discount"] ?? 0;
-                            final modelUrl = product["modelUrl"] ?? '';
-
-                            return ProductCard(
-                              imageUrl: product["imageUrl"] ?? '',
-                              productName: product["title"] ?? '',
-                              brandName: product["brandName"] ?? 'Unknown',
-                              discount: discount,
-                              originalPrice: originalPrice,
-                              discountedPrice:
-                                  (originalPrice * (1 - (discount / 100)))
-                                      .round(),
-                              rating: product["rating"] ?? 0,
-                              onTap: () {
-                                // Increment tap count
-                                var id = product["id"];
-                                if (globalController.tapCount.containsKey(id)) {
-                                  globalController.tapCount[id] += 1;
-                                } else {
-                                  globalController.tapCount[id] = 1;
-                                }
-                                Get.to(() => ProductPage(
-                                      imageUrl: product["imageUrl"] ?? '',
-                                      productName: product["title"] ?? '',
-                                      brandName:
-                                          product["brandName"] ?? 'Unknown',
-                                      discount: discount,
-                                      originalPrice: originalPrice,
-                                      discountedPrice: (originalPrice *
-                                              (1 - (discount / 100)))
-                                          .round(),
-                                      rating: product["rating"] ?? 0,
-                                      description: product["description"],
-                                      modelUrl: modelUrl,
-                                    ));
-                              },
-                            );
-                          },
-                        );
-                      },
+                          return ProductCard(
+                            imageUrl: product["imageUrl"] ?? '',
+                            productName: product["title"] ?? '',
+                            brandName: product["brandName"] ?? 'Unknown',
+                            discount: discount,
+                            originalPrice: originalPrice,
+                            discountedPrice:
+                            (originalPrice * (1 - (discount / 100)))
+                                .round(),
+                            rating: product["rating"] ?? 0,
+                            onTap: () {
+                              // Increment tap count
+                              var id = product["id"];
+                              if (globalController.tapCount.containsKey(id)) {
+                                globalController.tapCount[id] += 1;
+                              } else {
+                                globalController.tapCount[id] = 1;
+                              }
+                              Get.to(() => ProductPage(
+                                imageUrl: product["imageUrl"] ?? '',
+                                productName: product["title"] ?? '',
+                                brandName: product["brandName"] ?? 'Unknown',
+                                discount: discount,
+                                originalPrice: originalPrice,
+                                discountedPrice: (originalPrice *
+                                    (1 - (discount / 100)))
+                                    .round(),
+                                rating: product["rating"] ?? 0,
+                                description: product["description"],
+                                modelUrl: modelUrl,
+                              ));
+                            },
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ],

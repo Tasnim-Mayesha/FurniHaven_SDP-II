@@ -9,8 +9,9 @@ import 'package:sdp2/features/customer/screen/product/widgets/product_detail_car
 import 'package:sdp2/features/personilization/screen/Login/login_option.dart';
 import '../../../../common/widgets/bottomnavbar/customer_starting.dart';
 import '../../../../common/widgets/bottomnavbar/starting_controller.dart';
-import '../review_ratings/widgets/review_section.dart';
 
+import '../cart/controller/cart_controller.dart';
+import '../review_ratings/widgets/review_section.dart';
 import '../../../../utils/global_colors.dart';
 
 class ProductPage extends StatefulWidget {
@@ -62,6 +63,7 @@ class _ProductPageState extends State<ProductPage> {
 
   @override
   Widget build(BuildContext context) {
+    final CartController controller = Get.put(CartController());
     return Scaffold(
       backgroundColor: GlobalColors.softGrey, // Light ash color
       appBar: AppBar(
@@ -102,7 +104,7 @@ class _ProductPageState extends State<ProductPage> {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Container(
                 height: 50,
-                padding: const EdgeInsets.only(left: 16,right: 16),
+                padding: const EdgeInsets.only(left: 16, right: 16),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(8.0),
@@ -120,7 +122,10 @@ class _ProductPageState extends State<ProductPage> {
                   children: [
                     Text(
                       'Quantity'.tr,
-                      style: TextStyle(fontSize: 16,color: Colors.deepOrange,fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          fontSize: 16,
+                          color: Colors.deepOrange,
+                          fontWeight: FontWeight.bold),
                     ),
                     const Spacer(),
                     Row(
@@ -146,7 +151,10 @@ class _ProductPageState extends State<ProductPage> {
                         ),
                         Text(
                           quantity.toString().tr,
-                          style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontSize: 18),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall
+                              ?.copyWith(fontSize: 18),
                         ),
                         const SizedBox(
                           width: 16,
@@ -175,7 +183,9 @@ class _ProductPageState extends State<ProductPage> {
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: ReviewSection(),
             ),
-            const SizedBox(height: 80,),
+            const SizedBox(
+              height: 80,
+            ),
           ],
         ),
       ),
@@ -184,12 +194,25 @@ class _ProductPageState extends State<ProductPage> {
         height: 50,
         child: FloatingActionButton.extended(
           onPressed: () {
-            final controller = Get.find<CustNavController>();
-            controller.changePage(2);
+            final controller = Get.find<CartController>();
+            controller.addProductToCart({
+              'imageUrl': widget.imageUrl,
+              'productName': widget.productName,
+              'brandName': widget.brandName,
+              'quantity': quantity,
+              'price': widget.discountedPrice,
+            });
+
+            final controller1 = Get.find<CustNavController>();
+            controller1.changePage(2);
             Get.to(() => CustMainPage());
           },
-          label: Text('Add to Cart'.tr,style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w600),),
-          icon: const Icon(Icons.shopping_cart,color: Colors.white),
+          label: Text('Add to Cart'.tr,
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600)),
+          icon: const Icon(Icons.shopping_cart, color: Colors.white),
           backgroundColor: GlobalColors.mainColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(35),

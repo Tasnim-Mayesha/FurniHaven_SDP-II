@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sdp2/utils/global_colors.dart';
-
 import '../../../personilization/screen/address/address_page.dart';
 import '../../../personilization/screen/address/widgets/address_card.dart';
 import '../Payment/payment.dart';
@@ -54,6 +53,32 @@ class _ShippingPageState extends State<ShippingPage> {
     });
   }
 
+  void _navigateToPayment() {
+    if (addresses.isEmpty) {
+      Get.snackbar(
+        'Error',
+        'Please add an address',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.orange,
+        colorText: Colors.white,
+      );
+    } else if (_selectedAddressIndex == null) {
+      Get.snackbar(
+        'Error',
+        'Please select an address',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.orange,
+        colorText: Colors.white,
+      );
+    } else {
+      final totalCost = Get.arguments['totalCost'] as double;
+      Get.to(() => const Payment(), arguments: {
+        'totalCost': totalCost,
+        'selectedAddress': addresses[_selectedAddressIndex!],
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,27 +120,7 @@ class _ShippingPageState extends State<ShippingPage> {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: ElevatedButton(
-              onPressed: () {
-                if (addresses.isEmpty) {
-                  Get.snackbar(
-                    'Error',
-                    'Please add an address',
-                    snackPosition: SnackPosition.BOTTOM,
-                    backgroundColor: Colors.orange,
-                    colorText: Colors.white,
-                  );
-                } else if (_selectedAddressIndex == null) {
-                  Get.snackbar(
-                    'Error',
-                    'Please select an address',
-                    snackPosition: SnackPosition.BOTTOM,
-                    backgroundColor: Colors.orange,
-                    colorText: Colors.white,
-                  );
-                } else {
-                  Get.to(() => const Payment());
-                }
-              },
+              onPressed: _navigateToPayment,
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
                 backgroundColor: GlobalColors.mainColor,

@@ -1,13 +1,26 @@
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:async';
+
+import '../../../../../utils/global_variables/tap_count.dart';
+
 
 class HomeController extends GetxController {
   var products = <Map<String, dynamic>>[].obs;
+  var recommendedProducts = <Map<String, dynamic>>[].obs;
+  Timer? _timer;
 
   @override
   void onInit() {
     super.onInit();
     fetchProducts();
+    _startPeriodicRefresh();
+  }
+
+  @override
+  void onClose() {
+    _timer?.cancel();
+    super.onClose();
   }
 
   Future<void> fetchProducts() async {
@@ -31,6 +44,26 @@ class HomeController extends GetxController {
     }
 
     products.assignAll(productsList);
+    prepareRecommendations();
+  }
+
+  void prepareRecommendations() {
+    final GlobalController globalController = Get.find();
+    // Sort products by tap count in descending order
+    var sortedProducts = List<Map<String, dynamic>>.from(products);
+    sortedProducts.sort((a, b) {
+      var countA = globalController.tapCount[a['id']] ?? 0;
+      var countB = globalController.tapCount[b['id']] ?? 0;
+      return countB.compareTo(countA);
+    });
+
+    recommendedProducts.assignAll(sortedProducts);
+  }
+
+  void _startPeriodicRefresh() {
+    _timer = Timer.periodic(Duration(seconds: 2), (timer) {
+      prepareRecommendations();
+    });
   }
 
   List<Map<String, dynamic>> searchProducts(String query) {

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../product_suggestion/product_suggestion_brand.dart';
+import '../../product_suggestion/product_suggestion_brand.dart';
+
+
 
 
 class PopularBrandsGrid extends StatelessWidget {
