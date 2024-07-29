@@ -18,7 +18,7 @@ class CartView extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Obx(() {
           double totalCost = controller.cartItems.fold(0.0, (sum, item) {
-            return sum + (item['price'] as num) * (item['quantity'] as int);
+            return sum + ((item['price'] as num?) ?? 0) * ((item['quantity'] as int?) ?? 0);
           });
 
           return Column(
@@ -41,11 +41,11 @@ class CartView extends StatelessWidget {
                       children: [
                         CartItem(
                           onDelete: () => controller.deleteItem(index),
-                          imageUrl: item['imageUrl'] as String,
-                          productName: item['productName'] as String,
-                          brandName: item['brandName'] as String,
-                          quantity: item['quantity'] as int,
-                          price: (item['price'] as num).toDouble(),
+                          imageUrl: (item['imageUrl'] as String?) ?? '',
+                          productName: (item['productName'] as String?) ?? '',
+                          brandName: (item['brandName'] as String?) ?? '',
+                          quantity: (item['quantity'] as int?) ?? 0,
+                          price: ((item['price'] as num?) ?? 0.0).toDouble(),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -56,12 +56,12 @@ class CartView extends StatelessWidget {
                                 AddRemoveButton(
                                   onAdd: () => controller.addItem(index),
                                   onRemove: () => controller.removeItem(index),
-                                  count: item['quantity'] as int,
+                                  count: (item['quantity'] as int?) ?? 0,
                                 ),
                               ],
                             ),
                             Text(
-                              '${((item['price'] as num) * (item['quantity'] as int)).toStringAsFixed(2)} Tk',
+                              '${(((item['price'] as num?) ?? 0) * ((item['quantity'] as int?) ?? 0)).toStringAsFixed(2)} Tk',
                               style: const TextStyle(
                                 color: Colors.deepOrange,
                                 fontWeight: FontWeight.bold,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:sdp2/utils/global_colors.dart';
-
+import '../../../features/customer/screen/cart/controller/cart_controller.dart';
 
 class ProductCard extends StatelessWidget {
   final String imageUrl;
@@ -28,6 +28,8 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final CartController cartController = Get.put(CartController());
+
     return Container(
       width: 180,
       height: 335,
@@ -53,7 +55,7 @@ class ProductCard extends StatelessWidget {
             onTap: onTap,
             child: Column(
               children: [
-                SizedBox(height: 10,),
+                const SizedBox(height: 10),
                 Container(
                   height: 180,
                   padding: const EdgeInsets.only(left: 2, right: 2),
@@ -124,7 +126,7 @@ class ProductCard extends StatelessWidget {
                     children: [
                       Text(
                         'Brand: '.tr,
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.deepOrange,
                             fontWeight: FontWeight.bold),
                       ),
@@ -186,20 +188,48 @@ class ProductCard extends StatelessWidget {
                           decoration: TextDecoration.lineThrough,
                         ),
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: GlobalColors.mainColor,
-                          borderRadius: const BorderRadius.only(
-                            bottomRight: Radius.circular(15.0),
-                            topLeft: Radius.circular(15.0),
+                      Obx(() {
+                        int quantity = cartController.getProductQuantity(productName);
+                        return Container(
+                          width: 36,
+                          height: 36,
+                          decoration: BoxDecoration(
+                            color: GlobalColors.mainColor,
+                            borderRadius: const BorderRadius.only(
+                              bottomRight: Radius.circular(15.0),
+                              topLeft: Radius.circular(15.0),
+                            ),
                           ),
-                        ),
-                        child: IconButton(
-                          onPressed: onTap,
-                          icon: const Icon(Iconsax.add),
-                          color: Colors.white,
-                        ),
-                      ),
+                          child: quantity == 0
+                              ? IconButton(
+                            onPressed: () {
+                              cartController.addProductToCart({
+                                'imageUrl': imageUrl,
+                                'productName': productName,
+                                'brandName': brandName,
+                                'quantity': 1,
+                                'price': discountedPrice,
+                              });
+                            },
+                            icon: const Icon(Iconsax.add),
+                            color: Colors.white,
+                          )
+                              : GestureDetector(
+                            onTap: () {
+                              cartController.incrementProduct(productName);
+                            },
+                            child: Center(
+                              child: Text(
+                                '$quantity',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      }),
                     ],
                   ),
                 ),

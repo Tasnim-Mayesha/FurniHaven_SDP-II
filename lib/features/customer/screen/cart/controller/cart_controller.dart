@@ -20,6 +20,28 @@ class CartController extends GetxController {
   }
 
   void addProductToCart(Map<String, dynamic> product) {
-    cartItems.add(product);
+    int existingIndex = cartItems.indexWhere((item) => item['productName'] == product['productName']);
+    if (existingIndex != -1) {
+      cartItems[existingIndex]['quantity']++;
+    } else {
+      cartItems.add({...product, 'quantity': 1});
+    }
+  }
+
+  int getProductQuantity(String productName) {
+    int existingIndex = cartItems.indexWhere((item) => item['productName'] == productName);
+    if (existingIndex != -1) {
+      return cartItems[existingIndex]['quantity'];
+    }
+    return 0;
+  }
+
+  void incrementProduct(String productName) {
+    int existingIndex = cartItems.indexWhere((item) => item['productName'] == productName);
+    if (existingIndex != -1) {
+      cartItems[existingIndex]['quantity']++;
+    } else {
+      cartItems.add({'productName': productName, 'quantity': 1});
+    }
   }
 }
