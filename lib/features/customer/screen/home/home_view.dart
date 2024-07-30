@@ -116,6 +116,7 @@ class HomeView extends StatelessWidget {
                             imageUrl: product["imageUrl"] ?? '',
                             productName: product["title"] ?? '',
                             brandName: product["brandName"] ?? 'Unknown',
+                            sellerEmail: product["sellerEmail"] ?? 'Unknown',
                             discount: discount,
                             originalPrice: originalPrice,
                             discountedPrice:
@@ -134,6 +135,7 @@ class HomeView extends StatelessWidget {
                                 imageUrl: product["imageUrl"] ?? '',
                                 productName: product["title"] ?? '',
                                 brandName: product["brandName"] ?? 'Unknown',
+                                sellerEmail: product["sellerEmail"] ?? 'Unknown',
                                 discount: discount,
                                 originalPrice: originalPrice,
                                 discountedPrice: (originalPrice *

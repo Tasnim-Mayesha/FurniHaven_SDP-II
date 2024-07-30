@@ -55,7 +55,8 @@ class OrderItem extends StatelessWidget {
                     children: [
                       Text(
                         'Luxury Chair'.tr,
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                       Text('Brand: Regal'.tr),
                       Text('Quantity: 1'.tr),
@@ -96,7 +97,18 @@ class OrderItem extends StatelessWidget {
               alignment: Alignment.bottomRight,
               child: ElevatedButton(
                 onPressed: () {
-                  Get.to(()=> const ProductPage(imageUrl: '', productName: 'Chair', brandName: 'Regal', discount: 10, originalPrice: 10000, discountedPrice: 8000, rating: 4, modelUrl: 'assets/product3d/office_chair.glb', description: '',));
+                  Get.to(() => const ProductPage(
+                        imageUrl: '',
+                        productName: 'Chair',
+                        brandName: 'Regal',
+                        sellerEmail: 'Unknown',
+                        discount: 10,
+                        originalPrice: 10000,
+                        discountedPrice: 8000,
+                        rating: 4,
+                        modelUrl: 'assets/product3d/office_chair.glb',
+                        description: '',
+                      ));
                   // Navigate to ProductPage or any other page as needed
                 },
                 child: Text('Review'.tr),

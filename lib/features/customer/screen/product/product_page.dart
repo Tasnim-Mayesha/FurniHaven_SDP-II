@@ -24,6 +24,7 @@ class ProductPage extends StatefulWidget {
   final double rating;
   final String modelUrl;
   final String description;
+  final String sellerEmail;
 
   const ProductPage({
     Key? key,
@@ -36,6 +37,7 @@ class ProductPage extends StatefulWidget {
     required this.rating,
     required this.modelUrl,
     required this.description,
+    required this.sellerEmail,
   }) : super(key: key);
 
   @override
@@ -199,6 +201,7 @@ class _ProductPageState extends State<ProductPage> {
               'imageUrl': widget.imageUrl,
               'productName': widget.productName,
               'brandName': widget.brandName,
+              'sellerEmail': widget.sellerEmail,
               'quantity': quantity,
               'price': widget.discountedPrice,
             });

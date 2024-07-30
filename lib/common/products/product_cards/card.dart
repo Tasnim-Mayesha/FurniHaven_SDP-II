@@ -8,6 +8,7 @@ class ProductCard extends StatelessWidget {
   final String imageUrl;
   final String productName;
   final String brandName;
+  final String sellerEmail;
   final int discount;
   final int originalPrice;
   final int discountedPrice;
@@ -19,6 +20,7 @@ class ProductCard extends StatelessWidget {
     required this.imageUrl,
     required this.productName,
     required this.brandName,
+    required this.sellerEmail,
     required this.discount,
     required this.originalPrice,
     required this.discountedPrice,

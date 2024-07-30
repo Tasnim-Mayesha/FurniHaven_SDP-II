@@ -3,8 +3,6 @@ import 'package:get/get.dart';
 import 'package:sdp2/common/products/product_cards/card.dart';
 import 'package:sdp2/common/widgets/appbar/custom_appbar_in.dart';
 
-
-
 import '../../../../common/widgets/bottomnavbar/bottom_nav_bar.dart';
 import '../product/product_page.dart';
 
@@ -63,12 +61,24 @@ class WishlistView extends StatelessWidget {
               imageUrl: product["imageUrl"],
               productName: product["productName"],
               brandName: product["brandName"],
+              sellerEmail: product["sellerEmail"] ?? 'Unknown',
               discount: product["discount"],
               originalPrice: product["originalPrice"],
               discountedPrice: product["discountedPrice"],
               rating: product["rating"],
               onTap: () {
-                Get.to(()=>  ProductPage(imageUrl: '', productName: 'Chair', brandName: 'Regal', discount: 10, originalPrice: 10000, discountedPrice: 8000, rating: 4, modelUrl: 'assets/product3d/office_chair.glb', description: 'very good product',));
+                Get.to(() => ProductPage(
+                      imageUrl: '',
+                      productName: 'Chair',
+                      brandName: 'Regal',
+                      sellerEmail: 'Unknown',
+                      discount: 10,
+                      originalPrice: 10000,
+                      discountedPrice: 8000,
+                      rating: 4,
+                      modelUrl: 'assets/product3d/office_chair.glb',
+                      description: 'very good product',
+                    ));
               },
             );
           },

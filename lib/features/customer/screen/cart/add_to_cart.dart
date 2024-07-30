@@ -76,7 +76,7 @@ class CartView extends StatelessWidget {
               ),
               SizedBox(
                 width: double.infinity,
-                height: 60,
+                height: 56,
                 child: ElevatedButton(
                   onPressed: () {
                     if (controller.cartItems.isEmpty) {
@@ -88,8 +88,9 @@ class CartView extends StatelessWidget {
                         colorText: Colors.white,
                       );
                     } else {
-                      Get.to(() => const ShippingPage(), arguments: {
+                      Get.to(() =>  ShippingPage(), arguments: {
                         'totalCost': totalCost,
+                        'cartItems': controller.cartItems,
                       });
                     }
                   },

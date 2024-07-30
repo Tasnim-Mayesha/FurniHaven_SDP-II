@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sdp2/features/personilization/screen/address/widgets/map.dart';
 
 import '../../../../utils/global_colors.dart';
 
 class AddAddressPage extends StatefulWidget {
-  const AddAddressPage({super.key});
+  const AddAddressPage({Key? key}) : super(key: key);
 
   @override
   _AddAddressPageState createState() => _AddAddressPageState();
@@ -39,15 +40,32 @@ class _AddAddressPageState extends State<AddAddressPage> {
                 },
               ),
               const SizedBox(height: 10),
-              TextFormField(
-                controller: _addressController,
-                decoration: const InputDecoration(labelText: 'Address'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter an address';
-                  }
-                  return null;
-                },
+              Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      controller: _addressController,
+                      decoration: const InputDecoration(labelText: 'Address'),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter an address';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.map,color: GlobalColors.mainColor,),
+                    onPressed: () async {
+                      final result = await Get.to(() => SelectAddressPage());
+                      if (result != null) {
+                        setState(() {
+                          _addressController.text = result;
+                        });
+                      }
+                    },
+                  ),
+                ],
               ),
               const SizedBox(height: 10),
               TextFormField(
@@ -57,6 +75,12 @@ class _AddAddressPageState extends State<AddAddressPage> {
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter a phone number';
+                  }
+                  if (value.length != 11) {
+                    return 'Phone number must be 11 digits and start with 01';
+                  }
+                  if (!value.startsWith('01')) {
+                    return 'Phone number must start with "01"';
                   }
                   return null;
                 },

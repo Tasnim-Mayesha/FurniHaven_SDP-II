@@ -16,6 +16,17 @@ class _ShippingPageState extends State<ShippingPage> {
   List<Map<String, String>> addresses = [];
   int? _selectedAddressIndex;
 
+  double totalCost = 0.0;
+  List<dynamic> cartItems = [];
+
+  @override
+  void initState() {
+    super.initState();
+    final arguments = Get.arguments as Map<String, dynamic>;
+    totalCost = arguments['totalCost'] as double;
+    cartItems = arguments['cartItems'] as List<dynamic>;
+  }
+
   void _addAddress(Map<String, String> newAddress) {
     setState(() {
       addresses.add(newAddress);
@@ -71,9 +82,9 @@ class _ShippingPageState extends State<ShippingPage> {
         colorText: Colors.white,
       );
     } else {
-      final totalCost = Get.arguments['totalCost'] as double;
       Get.to(() => const Payment(), arguments: {
         'totalCost': totalCost,
+        'cartItems': cartItems,
         'selectedAddress': addresses[_selectedAddressIndex!],
       });
     }
