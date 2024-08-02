@@ -58,6 +58,7 @@ class WishlistView extends StatelessWidget {
           itemBuilder: (_, index) {
             final product = products[index];
             return ProductCard(
+              id: product["id"] ?? '',
               imageUrl: product["imageUrl"],
               productName: product["productName"],
               brandName: product["brandName"],
@@ -68,6 +69,7 @@ class WishlistView extends StatelessWidget {
               rating: product["rating"],
               onTap: () {
                 Get.to(() => ProductPage(
+                      id: '',
                       imageUrl: '',
                       productName: 'Chair',
                       brandName: 'Regal',
@@ -78,7 +80,8 @@ class WishlistView extends StatelessWidget {
                       rating: 4,
                       modelUrl: 'assets/product3d/office_chair.glb',
                       description: 'very good product',
-                    ));
+                    )
+                );
               },
             );
           },

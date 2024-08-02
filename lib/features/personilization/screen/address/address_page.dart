@@ -1,7 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sdp2/features/personilization/screen/address/widgets/map.dart';
-
 import '../../../../utils/global_colors.dart';
 
 class AddAddressPage extends StatefulWidget {
@@ -16,6 +17,29 @@ class _AddAddressPageState extends State<AddAddressPage> {
   final _nameController = TextEditingController();
   final _addressController = TextEditingController();
   final _phoneController = TextEditingController();
+
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  late DocumentReference userDocRef;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchUserInfo();
+  }
+
+  Future<void> _fetchUserInfo() async {
+    final User? user = _auth.currentUser;
+    if (user != null) {
+      userDocRef = _firestore.collection('Users').doc(user.uid);
+      final userDoc = await userDocRef.get();
+      if (userDoc.exists) {
+        setState(() {
+          _nameController.text = userDoc['userName'] ?? '';
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +79,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
                     ),
                   ),
                   IconButton(
-                    icon: Icon(Icons.map,color: GlobalColors.mainColor,),
+                    icon: Icon(Icons.map, color: GlobalColors.mainColor),
                     onPressed: () async {
                       final result = await Get.to(() => SelectAddressPage());
                       if (result != null) {
@@ -87,12 +111,14 @@ class _AddAddressPageState extends State<AddAddressPage> {
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    Get.back(result: {
-                      'name': _nameController.text,
+                    await _saveAddressAndPhone();
+                    // Return the new address and phone to the previous screen
+                    Navigator.pop(context, {
                       'address': _addressController.text,
                       'phone': _phoneController.text,
+                      'name': _nameController.text,
                     });
                   }
                 },
@@ -108,5 +134,15 @@ class _AddAddressPageState extends State<AddAddressPage> {
         ),
       ),
     );
+  }
+
+  Future<void> _saveAddressAndPhone() async {
+    final String address = _addressController.text;
+    final String phone = _phoneController.text;
+
+    await userDocRef.update({
+      'addresses': FieldValue.arrayUnion([address]),
+      'phones': FieldValue.arrayUnion([phone]),
+    });
   }
 }

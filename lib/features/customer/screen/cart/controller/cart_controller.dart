@@ -20,7 +20,7 @@ class CartController extends GetxController {
   }
 
   void addProductToCart(Map<String, dynamic> product) {
-    int existingIndex = cartItems.indexWhere((item) => item['productName'] == product['productName']);
+    int existingIndex = cartItems.indexWhere((item) => item['id'] == product['id']);
     if (existingIndex != -1) {
       cartItems[existingIndex]['quantity']++;
     } else {
@@ -28,20 +28,20 @@ class CartController extends GetxController {
     }
   }
 
-  int getProductQuantity(String productName) {
-    int existingIndex = cartItems.indexWhere((item) => item['productName'] == productName);
+  int getProductQuantity(String id) {
+    int existingIndex = cartItems.indexWhere((item) => item['id'] == id);
     if (existingIndex != -1) {
       return cartItems[existingIndex]['quantity'];
     }
     return 0;
   }
 
-  void incrementProduct(String productName) {
-    int existingIndex = cartItems.indexWhere((item) => item['productName'] == productName);
+  void incrementProduct(String id) {
+    int existingIndex = cartItems.indexWhere((item) => item['id'] == id);
     if (existingIndex != -1) {
       cartItems[existingIndex]['quantity']++;
     } else {
-      cartItems.add({'productName': productName, 'quantity': 1});
+      cartItems.add({'id': id, 'quantity': 1});
     }
   }
 }

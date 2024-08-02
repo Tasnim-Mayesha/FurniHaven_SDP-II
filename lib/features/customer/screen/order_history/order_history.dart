@@ -98,6 +98,7 @@ class OrderItem extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {
                   Get.to(() => const ProductPage(
+                        id: '',
                         imageUrl: '',
                         productName: 'Chair',
                         brandName: 'Regal',

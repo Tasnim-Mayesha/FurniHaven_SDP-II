@@ -18,6 +18,9 @@ class SignupController extends GetxController{
   final email = TextEditingController();
   final password = TextEditingController();
   final userName = TextEditingController();
+  final profilePicture = ''.obs;
+  final addresses = <String>[].obs;
+  final phones = <String>[].obs;
   GlobalKey<FormState> signupFormKey = GlobalKey<FormState>();
 
   ///SIGNUP
@@ -34,13 +37,11 @@ class SignupController extends GetxController{
         return;
       }
 
-
       //form validation
       if (!signupFormKey.currentState!.validate()) {
-        //TFullScreenLoader.stopLoading();
+        FullScreenLoader.stopLoading();
         return;
       }
-
 
       //register user in the firebase authentication & save user data in the firebase
       final userCredential = await AuthenticationRepository.instance
@@ -50,9 +51,11 @@ class SignupController extends GetxController{
       //save authenticated user data in the firebase firestore
       final newUser = UserModel(
         id: userCredential.user!.uid,
-        username : userName.text.trim(),
+        userName: userName.text.trim(),
         email: email.text.trim(),
-        profilePicture: "",
+        profilePicture: profilePicture.value,
+        addresses: addresses.toList(),
+        phones: phones.toList(),
       );
 
       final userRepository = Get.put(UserRepository());
@@ -68,15 +71,13 @@ class SignupController extends GetxController{
       //move to verify email screen
       Get.to(() => VerifyEmailScreen(email: email.text.trim()));
 
-
     } catch (e) {
       //show some generic error to the user
       Loaders.errorSnackBar(title: 'Something Went Wrong!'.tr, message: e.toString());
 
-    }finally{
+    } finally {
       //remove loader
       FullScreenLoader.stopLoading();
-
     }
   }
 }

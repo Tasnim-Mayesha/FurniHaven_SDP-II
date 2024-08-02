@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-// import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sdp2/features/personilization/screen/Login/login_option.dart';
 
 import '../../../../common/widgets/loaders/loaders.dart';

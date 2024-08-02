@@ -30,7 +30,7 @@ class ProfileController extends GetxController {
     isLoading.value = true;
     try {
       String userId = FirebaseAuth.instance.currentUser!.uid;
-      DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('users').doc(userId).get();
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('Users').doc(userId).get();
       if (userDoc.exists) {
         _imageUrl = userDoc['profilePicture'];
         _username = userDoc['userName'];
@@ -61,7 +61,7 @@ class ProfileController extends GetxController {
 
       TaskSnapshot snapshot = await uploadTask;
       String downloadUrl = await snapshot.ref.getDownloadURL();
-      await FirebaseFirestore.instance.collection('users').doc(userId).set(
+      await FirebaseFirestore.instance.collection('Users').doc(userId).set(
         {'profilePicture': downloadUrl},
         SetOptions(merge: true),
       );
@@ -78,7 +78,7 @@ class ProfileController extends GetxController {
     isLoading.value = true;
     try {
       String userId = FirebaseAuth.instance.currentUser!.uid;
-      await FirebaseFirestore.instance.collection('users').doc(userId).set(
+      await FirebaseFirestore.instance.collection('Users').doc(userId).set(
         {'email': newEmail},
         SetOptions(merge: true),
       );
@@ -182,7 +182,7 @@ class ProfileView extends StatelessWidget {
                           const SizedBox(width: 4.0),
                           Expanded(
                             child: Text(
-                              _profileController.email ?? 'Disgusting',
+                              _profileController.email ?? '',
                               style: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 16.0,

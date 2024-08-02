@@ -7,7 +7,8 @@ class AddressCard extends StatelessWidget {
   final VoidCallback onSelect;
   final VoidCallback onDelete;
 
-  const AddressCard({super.key, 
+  const AddressCard({
+    super.key,
     required this.address,
     required this.isSelected,
     required this.onSelect,
@@ -31,10 +32,39 @@ class AddressCard extends StatelessWidget {
         isThreeLine: true,
         trailing: IconButton(
           icon: const Icon(Icons.delete),
-          onPressed: onDelete,
+          onPressed: () {
+            _confirmDeletion(context);
+          },
         ),
         onTap: onSelect,
       ),
+    );
+  }
+
+  void _confirmDeletion(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirm Deletion'),
+          content: const Text('Are you sure you want to delete this address and phone number?'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Delete'),
+              onPressed: () {
+                onDelete();
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

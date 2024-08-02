@@ -1,9 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sdp2/features/customer/screen/order_history/order_history.dart';
-
-import '../../../../common/widgets/button.dart';
-import '../../../../common/widgets/success_screen.dart';
+import '../../../../../../common/widgets/button.dart';
+import '../../../../../../common/widgets/success_screen.dart';
 
 class Bkash extends StatefulWidget {
   const Bkash({super.key});
@@ -15,8 +16,35 @@ class Bkash extends StatefulWidget {
 class _BkashState extends State<Bkash> {
   bool _isObscured = true;
 
+  Future<void> _addOrderToFirestore(List<dynamic> cartItems, String paymentMethod, double totalCost, Map<String, String> selectedAddress) async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final ordersCollection = FirebaseFirestore.instance.collection('Orders');
+      final timestamp = Timestamp.now();
+
+      // Iterate over each item in cartItems
+      for (var item in cartItems) {
+        await ordersCollection.add({
+          'productID': item['id'],  // Assuming 'id' is the product ID
+          'userID': user.uid,
+          'sellerEmail': item['sellerEmail'],
+          'quantity': item['quantity'],
+          'price': item['price'],
+          'totalPrice': totalCost,
+          'paymentMethod': paymentMethod,
+          'address': selectedAddress,
+          'timestamp': timestamp
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final totalCost = Get.arguments['totalCost'] as double;
+    final cartItems = Get.arguments['cartItems'] as List<dynamic>;
+    final selectedAddress = Get.arguments['selectedAddress'] as Map<String, String>;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Bkash'.tr),
@@ -53,7 +81,7 @@ class _BkashState extends State<Bkash> {
                               prefixIcon: Icon(Icons.phone, color: Colors.orange),
                               filled: true,
                               fillColor: Colors.white,
-                              contentPadding: EdgeInsets.symmetric(vertical: 4.0),  // Adjust padding as needed
+                              contentPadding: EdgeInsets.symmetric(vertical: 4.0),
                             ),
                             keyboardType: TextInputType.phone,
                           ),
@@ -83,7 +111,7 @@ class _BkashState extends State<Bkash> {
                               ),
                               filled: true,
                               fillColor: Colors.white,
-                              contentPadding: const EdgeInsets.symmetric(vertical: 4.0),  // Adjust padding as needed
+                              contentPadding: const EdgeInsets.symmetric(vertical: 4.0),
                             ),
                             keyboardType: TextInputType.number,
                           ),
@@ -100,15 +128,19 @@ class _BkashState extends State<Bkash> {
                 height: 50,
                 child: CustomButton(
                   text: 'Pay',
-                  onTap: () => Get.to(() => SuccessScreen(
-                    image: 'assets/images/success.png',
-                    title: 'Payment Successful',
-                    subTitle: 'Your payment was successfully completed. Your product will be delivered to your door.',
-                    onPressed: () {
-                      Get.to(() => const OrderHistoryPage());
-                    },
-                    buttonTitle: 'See your order',
-                  )),
+                  onTap: () async {
+                    await _addOrderToFirestore(cartItems, 'Bkash', totalCost, selectedAddress);
+
+                    Get.to(() => SuccessScreen(
+                      image: 'assets/images/success.png',
+                      title: 'Payment Successful',
+                      subTitle: 'Your payment was successfully completed. Your product will be delivered to your door.',
+                      onPressed: () {
+                        Get.to(() => const OrderHistoryPage());
+                      },
+                      buttonTitle: 'See your order',
+                    ));
+                  },
                 ),
               ),
             ),

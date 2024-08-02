@@ -3,30 +3,40 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 ///Model class repository user data
 class UserModel {
   final String id;
-  final String username;
+  final String userName;
   final String email;
   String profilePicture;
+  List<String> addresses;
+  List<String> phones;
 
   ///constructor for user model
   UserModel({
     required this.id,
-    required this.username,
+    required this.userName,
     required this.email,
     required this.profilePicture,
+    required this.addresses,
+    required this.phones,
   });
 
   ///static function to create an empty user model
   static UserModel empty() => UserModel(
       id: '',
-      username: '',
+      userName: '',
       email: '',
-      profilePicture: '');
+      profilePicture: '',
+      addresses: [],
+      phones: []
+  );
+
   ///convert model to JSON structure for storing data in Firebase
   Map<String, dynamic> toJson() {
     return {
-      'UserName': username,
-      'Email': email,
-      'ProfilePicture': profilePicture,
+      'userName': userName,
+      'email': email,
+      'profilePicture': profilePicture,
+      'addresses': addresses,
+      'phones': phones
     };
   }
 
@@ -37,11 +47,13 @@ class UserModel {
       final data = document.data()!;
       return UserModel(
           id: document.id,
-          username: data['UserName'] ?? '',
-          email: data['Email'] ?? '',
-          profilePicture: data['ProfilePicture'] ?? '');
+          userName: data['userName'] ?? '',
+          email: data['email'] ?? '',
+          profilePicture: data['profilePicture'] ?? '',
+          addresses: List<String>.from(data['addresses'] ?? []),
+          phones: List<String>.from(data['phones'] ?? [])
+      );
     }
     return UserModel.empty();
   }
-
 }

@@ -118,6 +118,7 @@ class _ProductSearchResultState extends State<ProductSearchResult> {
               final modelUrl = product["modelUrl"] ?? '';
 
               return ProductCard(
+                id: product["id"] ?? '',
                 imageUrl: product["imageUrl"] ?? '',
                 productName: product["title"] ?? '',
                 brandName: product["brandName"] ?? 'Unknown',
@@ -128,6 +129,7 @@ class _ProductSearchResultState extends State<ProductSearchResult> {
                 rating: product["rating"] ?? 0,
                 onTap: () {
                   Get.to(() => ProductPage(
+                    id: product["id"] ?? '',
                     imageUrl: product["imageUrl"] ?? '',
                     productName: product["title"] ?? '',
                     brandName: product["brandName"] ?? 'Unknown',

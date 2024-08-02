@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sdp2/features/customer/screen/Payment/payment_methods/Bkash/bkash.dart';
+import 'package:sdp2/features/customer/screen/Payment/payment_methods/Nagad/nagad.dart';
 
-import '../Bkash/bkash.dart';
+
 
 class DottedLinePainter extends CustomPainter {
   @override
@@ -34,6 +36,7 @@ class Payment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final totalCost = Get.arguments['totalCost'] as double;
+    final cartItems = Get.arguments['cartItems'] as List<dynamic>;
     final selectedAddress = Get.arguments['selectedAddress'] as Map<String, String>;
 
     return Scaffold(
@@ -50,7 +53,11 @@ class Payment extends StatelessWidget {
               ),
               title: Text('Bkash'.tr),
               onTap: () {
-                Get.to(const Bkash());
+                Get.to(() =>  Bkash(), arguments: {
+                  'totalCost': totalCost,
+                  'cartItems': cartItems,
+                  'selectedAddress': selectedAddress,
+                });
               },
             ),
             ListTile(
@@ -58,14 +65,22 @@ class Payment extends StatelessWidget {
                 backgroundImage: AssetImage('assets/payment/nagad.png'),
               ),
               title: Text('Nagad'.tr),
-              onTap: () {},
+              onTap: () {
+                Get.to(() =>  Nagad(), arguments: {
+                  'totalCost': totalCost,
+                  'cartItems': cartItems,
+                  'selectedAddress': selectedAddress,
+                });
+              },
             ),
             ListTile(
               leading: const CircleAvatar(
                 backgroundImage: AssetImage('assets/payment/cash-on-delivery.png'),
               ),
               title: Text('Cash on Delivery'.tr),
-              onTap: () {},
+              onTap: () {
+                // Add any specific action for Cash on Delivery if needed
+              },
             ),
             const SizedBox(height: 200),
             Padding(
@@ -84,7 +99,7 @@ class Payment extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Items(${selectedAddress['quantity']})'.tr,
+                          'Items(${cartItems.length})'.tr,
                           style: TextStyle(color: Color(0xFF9098B1)),
                         ),
                         Text(

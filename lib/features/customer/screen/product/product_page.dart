@@ -25,6 +25,7 @@ class ProductPage extends StatefulWidget {
   final String modelUrl;
   final String description;
   final String sellerEmail;
+  final String id;
 
   const ProductPage({
     Key? key,
@@ -38,6 +39,7 @@ class ProductPage extends StatefulWidget {
     required this.modelUrl,
     required this.description,
     required this.sellerEmail,
+    required this.id,
   }) : super(key: key);
 
   @override
@@ -197,10 +199,11 @@ class _ProductPageState extends State<ProductPage> {
         child: FloatingActionButton.extended(
           onPressed: () {
             final controller = Get.find<CartController>();
+
             controller.addProductToCart({
-              'imageUrl': widget.imageUrl,
+              'id' : widget.id,
               'productName': widget.productName,
-              'brandName': widget.brandName,
+              'imageUrl': widget.imageUrl,
               'sellerEmail': widget.sellerEmail,
               'quantity': quantity,
               'price': widget.discountedPrice,

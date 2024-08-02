@@ -137,6 +137,7 @@ class _ProductSuggestionCategoryState extends State<ProductSuggestionCategory> {
                 final modelUrl = product["modelUrl"] ?? '';
 
                 return ProductCard(
+                  id: product["id"] ?? '',
                   imageUrl: product["imageUrl"] ?? '',
                   productName: product["title"] ?? '',
                   brandName: product["brandName"] ?? 'Unknown',
@@ -154,6 +155,7 @@ class _ProductSuggestionCategoryState extends State<ProductSuggestionCategory> {
                       globalController.tapCount[id] = 1;
                     }
                     Get.to(() => ProductPage(
+                      id: product["id"] ?? '',
                       imageUrl: product["imageUrl"] ?? '',
                       productName: product["title"] ?? '',
                       brandName: product["brandName"] ?? 'Unknown',
@@ -164,7 +166,8 @@ class _ProductSuggestionCategoryState extends State<ProductSuggestionCategory> {
                       rating: product["rating"] ?? 0,
                       modelUrl: modelUrl,
                       description: product["description"]?? '',
-                    ));
+                    )
+                    );
                   },
                 );
               },

@@ -8,6 +8,7 @@ class ProductCard extends StatelessWidget {
   final String imageUrl;
   final String productName;
   final String brandName;
+  final String id;
   final String sellerEmail;
   final int discount;
   final int originalPrice;
@@ -21,6 +22,7 @@ class ProductCard extends StatelessWidget {
     required this.productName,
     required this.brandName,
     required this.sellerEmail,
+    required this.id,
     required this.discount,
     required this.originalPrice,
     required this.discountedPrice,
@@ -191,7 +193,7 @@ class ProductCard extends StatelessWidget {
                         ),
                       ),
                       Obx(() {
-                        int quantity = cartController.getProductQuantity(productName);
+                        int quantity = cartController.getProductQuantity(id);
                         return Container(
                           width: 36,
                           height: 36,
@@ -206,9 +208,10 @@ class ProductCard extends StatelessWidget {
                               ? IconButton(
                             onPressed: () {
                               cartController.addProductToCart({
-                                'imageUrl': imageUrl,
+                                'id': id,
                                 'productName': productName,
-                                'brandName': brandName,
+                                'imageUrl':imageUrl,
+                                'sellerEmail': sellerEmail,
                                 'quantity': 1,
                                 'price': discountedPrice,
                               });
@@ -218,7 +221,7 @@ class ProductCard extends StatelessWidget {
                           )
                               : GestureDetector(
                             onTap: () {
-                              cartController.incrementProduct(productName);
+                              cartController.incrementProduct(id);
                             },
                             child: Center(
                               child: Text(

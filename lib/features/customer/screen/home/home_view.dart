@@ -113,6 +113,7 @@ class HomeView extends StatelessWidget {
                           final modelUrl = product["modelUrl"] ?? '';
 
                           return ProductCard(
+                            id: product["id"] ?? '',
                             imageUrl: product["imageUrl"] ?? '',
                             productName: product["title"] ?? '',
                             brandName: product["brandName"] ?? 'Unknown',
@@ -132,6 +133,7 @@ class HomeView extends StatelessWidget {
                                 globalController.tapCount[id] = 1;
                               }
                               Get.to(() => ProductPage(
+                                id: product["id"] ?? '',
                                 imageUrl: product["imageUrl"] ?? '',
                                 productName: product["title"] ?? '',
                                 brandName: product["brandName"] ?? 'Unknown',
