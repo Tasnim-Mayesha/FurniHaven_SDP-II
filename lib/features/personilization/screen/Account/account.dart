@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:sdp2/features/customer/screen/order_history/order_history.dart';
 import 'package:sdp2/features/personilization/screen/Account/account_controller.dart';
-import 'package:sdp2/features/personilization/screen/profile/profile.dart';
+
 import 'package:sdp2/features/personilization/screen/Login/login_option.dart';
+import 'package:sdp2/features/personilization/screen/address/profile_address_page.dart';
+
+import '../../../../common/widgets/bottomnavbar/customer_starting.dart';
+import '../../../../common/widgets/bottomnavbar/starting_controller.dart';
+import '../profile/profile.dart';
+
 
 class AccountPage extends StatelessWidget {
   AccountPage({super.key});
@@ -33,7 +40,7 @@ class AccountPage extends StatelessWidget {
             Icons.location_on,
             'My Address'.tr,
             () {
-              //
+              Get.to(()=>ProfileAddressPage());
             },
           ),
           const Divider(),
@@ -43,7 +50,9 @@ class AccountPage extends StatelessWidget {
             Iconsax.heart5,
             'My Wishlist'.tr,
             () {
-              //
+              final controller = Get.find<CustNavController>();
+              controller.changePage(3);
+              Get.to(() => CustMainPage());
             },
           ),
           const Divider(),
@@ -53,7 +62,9 @@ class AccountPage extends StatelessWidget {
             Icons.shopping_cart,
             'My Cart'.tr,
             () {
-              //
+              final controller = Get.find<CustNavController>();
+              controller.changePage(2);
+              Get.to(() => CustMainPage());
             },
           ),
           const Divider(),
@@ -63,7 +74,7 @@ class AccountPage extends StatelessWidget {
             Icons.shopping_bag,
             'My Order List',
             () {
-              //
+              Get.to(()=> OrderHistoryPage());
             },
           ),
           const Divider(),

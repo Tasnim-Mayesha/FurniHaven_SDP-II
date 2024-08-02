@@ -17,8 +17,10 @@ class SellerSignupController extends GetxController {
   final hidePassword = true.obs;
   final email = TextEditingController();
   final password = TextEditingController();
-  final userName = TextEditingController();
+  final sellerName = TextEditingController();
   final brandName = TextEditingController();
+  final profilePicture =''.obs;
+  final phone =''.obs;
   GlobalKey<FormState> signupFormKey = GlobalKey<FormState>();
 
   ///SIGNUP
@@ -49,9 +51,11 @@ class SellerSignupController extends GetxController {
       //save authenticated user data in the firebase firestore
       final newSeller = SellerModel(
         id: userCredential.user!.uid,
-        username: userName.text.trim(),
+        sellerName: sellerName.text.trim(),
         email: email.text.trim(),
         brandName: brandName.text.trim(),
+        profilePicture: profilePicture.value,
+        phone: phone.value
       );
 
       final sellerRepository = Get.put(SellerRepository());

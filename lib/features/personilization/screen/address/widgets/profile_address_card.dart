@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:sdp2/utils/global_colors.dart';
 
-class AddressCard extends StatelessWidget {
+class ProfileAddressCard extends StatelessWidget {
   final Map<String, String> address;
-  final bool isSelected;
-  final VoidCallback onSelect;
   final VoidCallback onDelete;
   final VoidCallback onEdit;
 
-  const AddressCard({
+  const ProfileAddressCard({
     super.key,
     required this.address,
-    required this.isSelected,
-    required this.onSelect,
     required this.onDelete,
     required this.onEdit,
   });
@@ -21,13 +16,6 @@ class AddressCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.all(10),
-      shape: RoundedRectangleBorder(
-        side: BorderSide(
-          color: isSelected ? GlobalColors.mainColor : Colors.transparent,
-          width: 2.0,
-        ),
-        borderRadius: BorderRadius.circular(4.0),
-      ),
       child: ListTile(
         title: Text(address['name']!),
         subtitle: Text('${address['address']}\n${address['phone']}'),
@@ -47,7 +35,6 @@ class AddressCard extends StatelessWidget {
             ),
           ],
         ),
-        onTap: onSelect,
       ),
     );
   }

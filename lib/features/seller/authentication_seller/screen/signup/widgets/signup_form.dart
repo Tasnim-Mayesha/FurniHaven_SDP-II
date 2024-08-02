@@ -29,7 +29,7 @@ class SellerSignupForm extends StatelessWidget {
 
           ///Username
           TextFormField(
-            controller: controller.userName,
+            controller: controller.sellerName,
             validator: (value) =>
                 Validator.validateEmptyText('Username'.tr, value),
             expands: false,

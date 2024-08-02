@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../profile/profile.dart';
+
 
 class AddContact extends StatefulWidget {
   const AddContact({super.key});
@@ -38,21 +43,58 @@ class _AddContactState extends State<AddContact> {
 
   bool _validateContact(String contact) {
     // Simple validation for a phone number
-    final RegExp contactRegExp = RegExp(r'^\d{10,15}$');
+    final RegExp contactRegExp = RegExp(r'^\d{11,15}$');
     return contactRegExp.hasMatch(contact);
   }
+
+  Future<void> _updateContact() async {
+    try {
+      String userId = FirebaseAuth.instance.currentUser!.uid;
+      DocumentReference userDocRef = FirebaseFirestore.instance.collection('Users').doc(userId);
+
+      // Fetch the current list of phone numbers
+      DocumentSnapshot userDoc = await userDocRef.get();
+      Map<String, dynamic> userData = userDoc.data() as Map<String, dynamic>;
+      List<dynamic> currentPhones = userData['phones'] ?? [];
+
+      // Add the new phone number to the list if it doesn't already exist
+      String newPhone = _addContactController.text;
+      if (!currentPhones.contains(newPhone)) {
+        currentPhones.add(newPhone);
+      }
+
+      // Update the Firestore document with the modified list
+      await userDocRef.update({
+        'phones': currentPhones,
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Phone Number has been Added'.tr),
+          duration: Duration(seconds: 3),
+          backgroundColor: Colors.grey,
+        ),
+      );
+      Get.off(() => ProfileView()); // Navigate back to ProfileView and refresh it
+    } catch (e) {
+      print('Failed to update phone number: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed to update phone number'.tr),
+          duration: Duration(seconds: 3),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Add Phone Number'.tr,
-          style: TextStyle(color: Colors.white), // Set the text color to white
-        ),
-        backgroundColor: Colors.deepOrange, // Set the background color to deep orange
+        title: Text('Add Phone Number'.tr),
       ),
-
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -77,20 +119,7 @@ class _AddContactState extends State<AddContact> {
               ButtonTheme(
                 height: 160.0,
                 child: ElevatedButton(
-                  onPressed: _isContactValid
-                      ? () {
-                    // Handle update action
-                    print('Phone Number: ${_addContactController.text}');
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Your Contact Number has been Added'.tr),
-                        duration: Duration(seconds: 3),
-                        backgroundColor: Colors.grey,
-                      ),
-                    );
-                    Navigator.pop(context);
-                  }
-                      : null,
+                  onPressed: _isContactValid ? _updateContact : null,
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 14.0),
                     minimumSize: const Size(double.infinity, 50.0),

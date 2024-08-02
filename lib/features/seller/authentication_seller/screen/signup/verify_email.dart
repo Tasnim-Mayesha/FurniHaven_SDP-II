@@ -33,7 +33,7 @@ class SellerVerifyEmailScreen extends StatelessWidget{
                 ///Title & SubTitle
                 Text('Verify your email address!'.tr,style: Theme.of(context).textTheme.headlineMedium,textAlign: TextAlign.center,),
                 const SizedBox(height: 16),
-                Text('support@codingwitht.com'.tr,style: Theme.of(context).textTheme.labelLarge, textAlign: TextAlign.center,),
+                Text('support@furnihaven.com'.tr,style: Theme.of(context).textTheme.labelLarge, textAlign: TextAlign.center,),
                 const SizedBox(height: 16),
                 Text('Verify Your Email to Start Exploring and Experience a World of Unrivaled Deals and Personalized Offers.'.tr,style: Theme.of(context).textTheme.labelMedium,textAlign: TextAlign.center,),
                 const SizedBox(height: 32),

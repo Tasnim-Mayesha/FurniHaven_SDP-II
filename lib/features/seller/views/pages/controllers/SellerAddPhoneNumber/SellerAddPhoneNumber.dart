@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../SellerProfile/sellerProfile.dart';
+
 
 class SellerAddContact extends StatefulWidget {
   const SellerAddContact({super.key});
@@ -38,8 +43,34 @@ class _SellerAddContactState extends State<SellerAddContact> {
 
   bool _validateContact(String contact) {
     // Simple validation for a phone number
-    final RegExp contactRegExp = RegExp(r'^\d{10,15}$');
+    final RegExp contactRegExp = RegExp(r'^\d{11,15}$');
     return contactRegExp.hasMatch(contact);
+  }
+
+  Future<void> _updateContact() async {
+    try {
+      String userId = FirebaseAuth.instance.currentUser!.uid;
+      await FirebaseFirestore.instance.collection('Sellers').doc(userId).update({
+        'phone': _addContactController.text,
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Phone Number has been Added'.tr),
+          duration: Duration(seconds: 3),
+          backgroundColor: Colors.grey,
+        ),
+      );
+      Get.off(() => SellerProfileView()); // Navigate back to SellerProfileView and refresh it
+    } catch (e) {
+      print('Failed to update phone number: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed to update phone number'.tr),
+          duration: Duration(seconds: 3),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
 
   @override
@@ -72,20 +103,7 @@ class _SellerAddContactState extends State<SellerAddContact> {
               ButtonTheme(
                 height: 160.0,
                 child: ElevatedButton(
-                  onPressed: _isContactValid
-                      ? () {
-                    // Handle update action
-                    print('Phone Number: ${_addContactController.text}');
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Phone Number has been Added'.tr),
-                        duration: Duration(seconds: 3),
-                        backgroundColor: Colors.grey,
-                      ),
-                    );
-                    Navigator.pop(context);
-                  }
-                      : null,
+                  onPressed: _isContactValid ? _updateContact : null,
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 14.0),
                     minimumSize: const Size(double.infinity, 50.0),

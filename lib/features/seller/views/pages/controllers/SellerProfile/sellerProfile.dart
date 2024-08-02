@@ -5,7 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:firebase_core/firebase_core.dart';
+
 import 'package:sdp2/features/seller/views/pages/controllers/SellerAddPhoneNumber/SellerAddPhoneNumber.dart';
 import 'package:sdp2/features/seller/views/pages/controllers/SellerEditEmail/SellerEditEmail.dart';
 import 'package:sdp2/features/seller/views/pages/controllers/SellerPasswordChange/SellerPasswordChange.dart';
@@ -21,6 +21,8 @@ class _SellerProfileViewState extends State<SellerProfileView> {
   final ImagePicker _picker = ImagePicker();
   XFile? _image;
   String? _imageUrl;
+  String? _sellerName;
+  String? _email;
   bool _isLoading = false;
 
   @override
@@ -32,10 +34,12 @@ class _SellerProfileViewState extends State<SellerProfileView> {
   Future<void> _loadProfilePicture() async {
     try {
       String userId = FirebaseAuth.instance.currentUser!.uid;
-      DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('users').doc(userId).get();
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('Sellers').doc(userId).get();
       if (userDoc.exists) {
         setState(() {
           _imageUrl = userDoc['profilePicture'];
+          _sellerName = userDoc['sellerName'];
+          _email = userDoc['email'];
         });
       }
     } catch (e) {
@@ -65,7 +69,7 @@ class _SellerProfileViewState extends State<SellerProfileView> {
 
       TaskSnapshot snapshot = await uploadTask;
       String downloadUrl = await snapshot.ref.getDownloadURL();
-      await FirebaseFirestore.instance.collection('users').doc(userId).set(
+      await FirebaseFirestore.instance.collection('Sellers').doc(userId).set(
         {'profilePicture': downloadUrl},
         SetOptions(merge: true),
       );
@@ -108,7 +112,7 @@ class _SellerProfileViewState extends State<SellerProfileView> {
                       radius: 40.0,
                       backgroundImage: _imageUrl != null
                           ? NetworkImage(_imageUrl!)
-                          : AssetImage('assets/images/profile.jpg')as ImageProvider,
+                          : AssetImage('assets/images/profile.jpg') as ImageProvider,
                     ),
                     Positioned(
                       bottom: 0,
@@ -130,7 +134,7 @@ class _SellerProfileViewState extends State<SellerProfileView> {
                 ),
                 SizedBox(width: 16.0),
                 Text(
-                  'Yamin Shovo'.tr,
+                  _sellerName ?? 'Seller Name',
                   style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
                 ),
               ],
@@ -151,69 +155,64 @@ class _SellerProfileViewState extends State<SellerProfileView> {
                             style: TextStyle(
                               fontWeight: FontWeight.w900,
                               fontSize: 16.0,
-                              color: Color(0xFF00008B),
+                              color: Color(0xFF2D2727),
                             ),
                           ),
                           TextSpan(
-                            text: 'shovoyamin@gmail.com'.tr,
+                            text: _email ?? 'Your Email',
                             style: TextStyle(
-                              color: Colors.grey,
+                              fontWeight: FontWeight.w400,
                               fontSize: 16.0,
+                              color: Color(0xFF2D2727),
                             ),
                           ),
                         ],
                       ),
                     ),
-                    trailing: const Icon(Icons.navigate_next, color: Colors.deepOrange),
-                    onTap: () {
-                      Get.to(() => const SellerEditEmail());
-                    },
+                    trailing: IconButton(
+                      icon: const Icon(Icons.edit, color: Colors.deepOrange),
+                      onPressed: () {
+                        Get.to(() => SellerEditEmail());
+                      },
+                    ),
                   ),
                   const Divider(),
                   ListTile(
-                    leading: const Icon(Icons.phone_android_sharp, color: Colors.deepOrange),
+                    leading: const Icon(Icons.phone, color: Colors.deepOrange),
                     title: Text(
-                      'Add Phone Number'.tr,
+                      'Phone Number'.tr,
                       style: TextStyle(
                         fontWeight: FontWeight.w900,
-                        color: Color(0xFF00008B),
                         fontSize: 16.0,
+                        color: Color(0xFF2D2727),
                       ),
                     ),
-                    trailing: const Icon(Icons.navigate_next, color: Colors.deepOrange),
-                    onTap: () {
-                      Get.to(() => const SellerAddContact());
-                    },
+                    trailing: IconButton(
+                      icon: const Icon(Icons.edit, color: Colors.deepOrange),
+                      onPressed: () {
+                        Get.to(() => SellerAddContact());
+                      },
+                    ),
                   ),
                   const Divider(),
                   ListTile(
                     leading: const Icon(Icons.lock, color: Colors.deepOrange),
-                    title: RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text: 'Password: '.tr,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontSize: 16.0,
-                              color: Color(0xFF00008B),
-                            ),
-                          ),
-                          TextSpan(
-                            text: '********',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 16.0,
-                            ),
-                          ),
-                        ],
+                    title: Text(
+                      'Password'.tr,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w900,
+                        fontSize: 16.0,
+                        color: Color(0xFF2D2727),
                       ),
                     ),
-                    trailing: const Icon(Icons.navigate_next, color: Colors.deepOrange),
-                    onTap: () {
-                      Get.to(() => const SellerChangePassword());
-                    },
+                    trailing: IconButton(
+                      icon: const Icon(Icons.edit, color: Colors.deepOrange),
+                      onPressed: () {
+                        Get.to(() => SellerChangePassword());
+                      },
+                    ),
                   ),
+                  const Divider(),
                 ],
               ),
             ),

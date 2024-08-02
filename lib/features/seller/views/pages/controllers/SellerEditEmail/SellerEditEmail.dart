@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../SellerProfile/sellerProfile.dart';
+
 
 class SellerEditEmail extends StatefulWidget {
   const SellerEditEmail({super.key});
@@ -37,11 +41,36 @@ class _SellerEditEmailState extends State<SellerEditEmail> {
   }
 
   bool _validateEmail(String email) {
-    // Regular expression for validating an email address
     final RegExp emailRegExp = RegExp(
       r'^[^@]+@[^@]+\.[^@]+',
     );
     return emailRegExp.hasMatch(email);
+  }
+
+  Future<void> _updateEmail() async {
+    try {
+      String userId = FirebaseAuth.instance.currentUser!.uid;
+      await FirebaseFirestore.instance.collection('Sellers').doc(userId).update({
+        'email': _emailController.text,
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Your Email has been Updated Successfully'.tr),
+          duration: Duration(seconds: 3),
+          backgroundColor: Colors.grey,
+        ),
+      );
+      Get.off(() => SellerProfileView()); // Navigate back to SellerProfileView and refresh it
+    } catch (e) {
+      print('Failed to update email: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed to update email'.tr),
+          duration: Duration(seconds: 3),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
 
   @override
@@ -82,20 +111,7 @@ class _SellerEditEmailState extends State<SellerEditEmail> {
               ButtonTheme(
                 height: 160.0,
                 child: ElevatedButton(
-                  onPressed: _isEmailValid
-                      ? () {
-                    // Handle update action
-                    print('New Email: ${_emailController.text}');
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Your Email has been Updated Successfully'.tr),
-                        duration: Duration(seconds: 3),
-                        backgroundColor: Colors.grey,
-                      ),
-                    );
-                    Navigator.pop(context);
-                  }
-                      : null,
+                  onPressed: _isEmailValid ? _updateEmail : null,
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 14.0),
                     minimumSize: const Size(double.infinity, 50.0),

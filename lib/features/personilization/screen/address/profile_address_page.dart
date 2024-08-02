@@ -2,25 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../../../../utils/global_colors.dart';
+import 'package:sdp2/features/personilization/screen/address/widgets/profile_address_card.dart';
+
 import '../../../personilization/model/user_models.dart';
 import '../../../personilization/screen/address/address_page.dart';
-import '../../../personilization/screen/address/widgets/address_card.dart';
-import '../Payment/payment.dart';
 
-class ShippingPage extends StatefulWidget {
-  const ShippingPage({super.key});
+class ProfileAddressPage extends StatefulWidget {
+  const ProfileAddressPage({super.key});
 
   @override
-  _ShippingPageState createState() => _ShippingPageState();
+  _ProfileAddressPageState createState() => _ProfileAddressPageState();
 }
 
-class _ShippingPageState extends State<ShippingPage> {
+class _ProfileAddressPageState extends State<ProfileAddressPage> {
   List<Map<String, String>> addresses = [];
-  int? _selectedAddressIndex;
-
-  double totalCost = 0.0;
-  List<dynamic> cartItems = [];
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -29,9 +24,6 @@ class _ShippingPageState extends State<ShippingPage> {
   @override
   void initState() {
     super.initState();
-    final arguments = Get.arguments as Map<String, dynamic>;
-    totalCost = arguments['totalCost'] as double;
-    cartItems = arguments['cartItems'] as List<dynamic>;
     _fetchUserAddresses();
   }
 
@@ -88,11 +80,6 @@ class _ShippingPageState extends State<ShippingPage> {
 
           setState(() {
             addresses.removeAt(index);
-            if (_selectedAddressIndex == index) {
-              _selectedAddressIndex = null;
-            } else if (_selectedAddressIndex != null && _selectedAddressIndex! > index) {
-              _selectedAddressIndex = _selectedAddressIndex! - 1;
-            }
           });
 
           Get.snackbar(
@@ -201,43 +188,11 @@ class _ShippingPageState extends State<ShippingPage> {
     );
   }
 
-  void _selectAddress(int index) {
-    setState(() {
-      _selectedAddressIndex = index;
-    });
-  }
-
-  void _navigateToPayment() {
-    if (addresses.isEmpty) {
-      Get.snackbar(
-        'Error',
-        'Please add an address',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.orange,
-        colorText: Colors.white,
-      );
-    } else if (_selectedAddressIndex == null) {
-      Get.snackbar(
-        'Error',
-        'Please select an address',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.orange,
-        colorText: Colors.white,
-      );
-    } else {
-      Get.to(() => const Payment(), arguments: {
-        'totalCost': totalCost,
-        'cartItems': cartItems,
-        'selectedAddress': addresses[_selectedAddressIndex!],
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Ship To'.tr),
+        title: Text('Addresses'.tr),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -256,35 +211,15 @@ class _ShippingPageState extends State<ShippingPage> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: addresses.length,
-              itemBuilder: (context, index) {
-                return AddressCard(
-                  address: addresses[index],
-                  isSelected: index == _selectedAddressIndex,
-                  onSelect: () => _selectAddress(index),
-                  onDelete: () => _deleteAddress(index),
-                  onEdit: () => _editAddress(index),
-                );
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: ElevatedButton(
-              onPressed: _navigateToPayment,
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white,
-                backgroundColor: GlobalColors.mainColor,
-                minimumSize: const Size(double.infinity, 50),
-              ),
-              child: Text('Next'.tr),
-            ),
-          ),
-        ],
+      body: ListView.builder(
+        itemCount: addresses.length,
+        itemBuilder: (context, index) {
+          return ProfileAddressCard(
+            address: addresses[index],
+            onDelete: () => _deleteAddress(index),
+            onEdit: () => _editAddress(index),
+          );
+        },
       ),
     );
   }
