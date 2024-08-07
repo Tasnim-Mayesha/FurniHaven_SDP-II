@@ -94,7 +94,7 @@ class _ProductPageState extends State<ProductPage> {
           children: [
             Product3DViewer(modelUrl: widget.modelUrl), // Pass the modelUrl here
             const SizedBox(height: 8),
-            const ActionButtonsRow(),
+            ActionButtonsRow(sellerEmail: widget.sellerEmail, brandName: widget.brandName),
             const SizedBox(height: 8),
             ProductDetailsCard(
               brandLogoPath: 'assets/brands/regal.png', // Assuming this path for demo purposes

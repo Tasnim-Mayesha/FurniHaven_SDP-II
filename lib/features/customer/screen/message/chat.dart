@@ -1,47 +1,110 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:intl/intl.dart';
 
-import '../../../../utils/global_colors.dart'; // Add this import for date formatting
+import '../../../../utils/global_colors.dart';
 
-
-class ChatWithSeller extends StatefulWidget {
-  final String brandImage;
-
+class ChatScreen extends StatefulWidget {
+  final String sellerEmail;
   final String brandName;
+  final String userId;
+  final String userName;
+  final String userImage;
 
-  const ChatWithSeller({super.key, required this.brandImage, required this.brandName});
+  const ChatScreen({
+    super.key,
+    required this.sellerEmail,
+    required this.brandName,
+    required this.userId,
+    required this.userName,
+    required this.userImage,
+  });
 
   @override
-  _ChatWithSellerState createState() => _ChatWithSellerState();
+  _ChatScreenState createState() => _ChatScreenState();
 }
 
-class _ChatWithSellerState extends State<ChatWithSeller> {
-  final List<Map<String, dynamic>> _messages = [];
+class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _controller = TextEditingController();
   final ImagePicker _picker = ImagePicker();
+  String? sellerId;
+  String? userId;
+  String? sellerName;
+  String? sellerImage;
 
-  void _sendMessage(String text, [File? image]) {
+  @override
+  void initState() {
+    super.initState();
+    _fetchSellerDetails();
+    _getCurrentUserId();
+  }
+
+  Future<void> _getCurrentUserId() async {
+    final user = FirebaseAuth.instance.currentUser;
+    setState(() {
+      userId = user?.uid;
+    });
+  }
+
+  Future<void> _fetchSellerDetails() async {
+    final sellerSnapshot = await FirebaseFirestore.instance
+        .collection('Sellers')
+        .where('email', isEqualTo: widget.sellerEmail)
+        .get();
+
+    if (sellerSnapshot.docs.isNotEmpty) {
+      final sellerData = sellerSnapshot.docs.first.data();
+      setState(() {
+        sellerImage = sellerData['profilePicture'];
+        sellerName = sellerData['sellerName'];
+        sellerId = sellerSnapshot.docs.first.id;
+      });
+    }
+  }
+
+  Future<void> _sendMessage(String text, [File? image]) async {
     if (text.isEmpty && image == null) return;
 
-    String currentTime = DateFormat('HH:mm').format(DateTime.now()); // Get current time
+    String currentTime = DateFormat('HH:mm').format(DateTime.now());
 
-    setState(() {
-      _messages.add({
-        'text': text,
-        'image': image,
-        'isMe': true,
-        'time': currentTime,
-      });
-    });
+    String? imageUrl;
+    if (image != null) {
+      imageUrl = await _uploadImage(image);
+    }
+
+    final chatData = {
+      'sender': userId,
+      'receiver': sellerId,
+      'message': text,
+      'imageUrl': imageUrl,
+      'timestamp': FieldValue.serverTimestamp(),
+    };
+
+    await FirebaseFirestore.instance.collection('Chats').add(chatData);
     _controller.clear();
+  }
+
+  Future<String?> _uploadImage(File image) async {
+    try {
+      String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+      Reference storageReference = FirebaseStorage.instance.ref().child('chat_images/$fileName');
+      UploadTask uploadTask = storageReference.putFile(image);
+      TaskSnapshot storageTaskSnapshot = await uploadTask;
+      String downloadUrl = await storageTaskSnapshot.ref.getDownloadURL();
+      return downloadUrl;
+    } catch (e) {
+      print('Error uploading image: $e');
+      return null;
+    }
   }
 
   Future<void> _pickImage() async {
     final pickedFile = await _picker.getImage(source: ImageSource.gallery);
-
     if (pickedFile != null) {
       _sendMessage('', File(pickedFile.path));
     }
@@ -51,53 +114,49 @@ class _ChatWithSellerState extends State<ChatWithSeller> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: GlobalColors.mainColor, // Set the app bar color
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back,color: Colors.white,),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        title: Center(
-          child: Row(
-            children: [
-              Container(
-                width: 50,
-                height: 40,
-                decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  image: DecorationImage(
-                    image: AssetImage(widget.brandImage), // Use the passed seller image
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 20),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-
-                  Text(
-                    'Chat with Seller'.tr, // Use the passed brand name
-                    style: TextStyle(fontSize: 16,color: Colors.white),
-                  ),
-                ],
-              ),
-            ],
-          ),
+        backgroundColor: GlobalColors.mainColor,
+        title: Row(
+          children: [
+            CircleAvatar(
+              backgroundImage: sellerId == userId
+                  ? NetworkImage(sellerImage ?? '')
+                  : NetworkImage(widget.userImage),
+              radius: 20,
+            ),
+            const SizedBox(width: 10),
+            Text(
+              sellerName != null ? '$sellerName (${widget.brandName})' : '${widget.userName}',
+              style: const TextStyle(fontSize: 16, color: Colors.white),
+            ),
+          ],
         ),
       ),
       body: Column(
         children: <Widget>[
           Expanded(
-            child: ListView.builder(
-              itemCount: _messages.length,
-              itemBuilder: (ctx, i) {
-                return ChatBubble(
-                  message: _messages[i]['text'] ?? '',
-                  image: _messages[i]['image'],
-                  isMe: _messages[i]['isMe'],
-                  time: _messages[i]['time'],
+            child: StreamBuilder<QuerySnapshot>(
+              stream: FirebaseFirestore.instance
+                  .collection('Chats')
+                  .orderBy('timestamp', descending: true)
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                final chatDocs = snapshot.data!.docs;
+                return ListView.builder(
+                  reverse: true,
+                  itemCount: chatDocs.length,
+                  itemBuilder: (ctx, i) {
+                    final chatData = chatDocs[i].data() as Map<String, dynamic>;
+                    bool isMe = chatData['sender'] == userId;
+                    return ChatBubble(
+                      message: chatData['message'] ?? '',
+                      image: chatData['imageUrl'],
+                      isMe: isMe,
+                      time: (chatData['timestamp'] as Timestamp?)?.toDate().toString() ?? '',
+                    );
+                  },
                 );
               },
             ),
@@ -115,11 +174,17 @@ class _ChatWithSellerState extends State<ChatWithSeller> {
 
 class ChatBubble extends StatelessWidget {
   final String message;
-  final File? image;
+  final String? image;
   final bool isMe;
   final String time;
 
-  const ChatBubble({super.key, required this.message, this.image, required this.isMe, required this.time});
+  const ChatBubble({
+    super.key,
+    required this.message,
+    this.image,
+    required this.isMe,
+    required this.time,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +209,7 @@ class ChatBubble extends StatelessWidget {
               ),
               child: Padding(
                 padding: const EdgeInsets.all(10),
-                child: Image.file(
+                child: Image.network(
                   image!,
                   width: 150,
                   height: 150,
@@ -154,7 +219,7 @@ class ChatBubble extends StatelessWidget {
           if (message.isNotEmpty)
             ConstrainedBox(
               constraints: BoxConstraints(
-                maxWidth: MediaQuery.of(context).size.width * 0.6, // Max width 60% of screen width
+                maxWidth: MediaQuery.of(context).size.width * 0.6,
               ),
               child: Material(
                 color: isMe ? Colors.orange[400] : Colors.grey[300],
@@ -172,7 +237,7 @@ class ChatBubble extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                   child: Text(
-                    message.tr,
+                    message,
                     style: TextStyle(
                       color: isMe ? Colors.white : Colors.black,
                       fontSize: 15,
@@ -183,10 +248,8 @@ class ChatBubble extends StatelessWidget {
             ),
           const SizedBox(height: 5),
           Text(
-            time.tr,
-            style: const TextStyle(
-                color: Colors.grey,
-                fontSize: 12),
+            time,
+            style: const TextStyle(color: Colors.grey, fontSize: 12),
           ),
         ],
       ),
@@ -199,7 +262,8 @@ class ChatInputField extends StatelessWidget {
   final Function(String, [File?]) onSend;
   final Function() onPickImage;
 
-  const ChatInputField({super.key, 
+  const ChatInputField({
+    super.key,
     required this.controller,
     required this.onSend,
     required this.onPickImage,
@@ -230,7 +294,7 @@ class ChatInputField extends StatelessWidget {
                   border: InputBorder.none,
                 ),
                 minLines: 1,
-                maxLines: null, // Allows multiple lines
+                maxLines: null,
               ),
             ),
           ),

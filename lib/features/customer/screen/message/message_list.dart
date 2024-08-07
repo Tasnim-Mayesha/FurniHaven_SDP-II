@@ -1,82 +1,121 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'chat_with_seller.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'chat.dart';
 
-class MessageList extends StatelessWidget {
+class MessageList extends StatefulWidget {
   const MessageList({super.key});
+
+  @override
+  _MessageListState createState() => _MessageListState();
+}
+
+class _MessageListState extends State<MessageList> {
+  String? userId;
+  String? userName;
+  String? userImage;
+
+  @override
+  void initState() {
+    super.initState();
+    _getCurrentUser();
+  }
+
+  Future<void> _getCurrentUser() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      setState(() {
+        userId = user.uid;
+      });
+      _fetchUserDetails();
+    }
+  }
+
+  Future<void> _fetchUserDetails() async {
+    if (userId != null) {
+      final userSnapshot = await FirebaseFirestore.instance.collection('Users').doc(userId).get();
+      if (userSnapshot.exists) {
+        setState(() {
+          userName = userSnapshot['userName'];
+          userImage = userSnapshot['profilePicture'];
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //appBar: customAppBarIn(context),
       body: Padding(
         padding: const EdgeInsets.only(top: 16),
-        child: ListView(
-          children: [
-            ListTile(
-              leading: const CircleAvatar(
-                backgroundImage: AssetImage(
-                    'assets/brands/otobi.png'), // Replace with your image asset
-              ),
-              title: Text('Otobi'.tr),
-              trailing: Text('12:20'.tr),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ChatWithSeller(
-                      brandImage:
-                          'assets/brands/otobi.png', // Pass the image asset
-                      brandName: 'Otobi'.tr, // Pass the brand name
-                    ),
-                  ),
+        child: StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance
+              .collection('Chats')
+              .where('sender', isEqualTo: userId)
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            final chatDocs = snapshot.data!.docs;
+
+            // Get unique seller IDs from the chats
+            final sellerIds = chatDocs.map((doc) => doc['receiver']).toSet().toList();
+
+            return ListView.builder(
+              itemCount: sellerIds.length,
+              itemBuilder: (context, index) {
+                return FutureBuilder<DocumentSnapshot>(
+                  future: FirebaseFirestore.instance.collection('Sellers').doc(sellerIds[index]).get(),
+                  builder: (context, sellerSnapshot) {
+                    if (!sellerSnapshot.hasData) {
+                      return const ListTile(
+                        title: Text('Loading...'),
+                      );
+                    }
+
+                    final sellerData = sellerSnapshot.data!.data() as Map<String, dynamic>?;
+                    if (sellerData == null) {
+                      return const ListTile(
+                        title: Text('Seller not found'),
+                      );
+                    }
+
+                    final sellerName = sellerData['sellerName'];
+                    final sellerImage = sellerData['profilePicture'];
+                    final sellerEmail = sellerData['email'];
+                    final brandName = sellerData['brandName'];
+
+                    return ListTile(
+                      leading: CircleAvatar(
+                        backgroundImage: sellerImage != null
+                            ? NetworkImage(sellerImage)
+                            : const AssetImage('assets/images/placeholder.png') as ImageProvider,
+                      ),
+                      title: Text('$sellerName ($brandName)'),
+                      //trailing: const Text('12:20'), // You can add last message time here
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ChatScreen(
+                              sellerEmail: sellerEmail,
+                              brandName: brandName,
+                              userId: userId!,
+                              userName: userName!,
+                              userImage: userImage!,
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
                 );
               },
-            ),
-            ListTile(
-              leading: const CircleAvatar(
-                backgroundImage: AssetImage(
-                    'assets/brands/regal.png'), // Replace with your image asset
-              ),
-              title: Text('regal'.tr),
-              trailing: Text('12:20'.tr),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ChatWithSeller(
-                      brandImage:
-                          'assets/brands/regal.png', // Pass the image asset
-                      brandName: 'Regal', // Pass the brand name
-                    ),
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              leading: const CircleAvatar(
-                backgroundImage: AssetImage(
-                    'assets/brands/hatil.png'), // Replace with your image asset
-              ),
-              title: Text('Hatil'.tr),
-              trailing: Text('12:20'.tr),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ChatWithSeller(
-                      brandImage:
-                          'assets/brands/hatil.png', // Pass the image asset
-                      brandName: 'Hatil'.tr, // Pass the brand name
-                    ),
-                  ),
-                );
-              },
-            ),
-          ],
+            );
+          },
         ),
       ),
-      //bottomNavigationBar: CustomBottomNavBar(),
     );
   }
 }
