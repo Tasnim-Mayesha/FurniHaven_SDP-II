@@ -5,10 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
-import 'package:sdp2/features/seller/views/pages/controllers/SellerAddPhoneNumber/SellerAddPhoneNumber.dart';
-import 'package:sdp2/features/seller/views/pages/controllers/SellerEditEmail/SellerEditEmail.dart';
-import 'package:sdp2/features/seller/views/pages/controllers/SellerPasswordChange/SellerPasswordChange.dart';
+import 'package:sdp2/features/personilization/screen/EditUserName/edit_user_name.dart';
 
 import '../AddContact/addContact.dart';
 import '../ChangePassword/ChangePassword.dart';
@@ -149,6 +146,24 @@ class _ProfileViewState extends State<ProfileView> {
             Expanded(
               child: ListView(
                 children: [
+                  ListTile(
+                    leading: const Icon(Icons.person, color: Colors.deepOrange),
+                    title: Text(
+                      'User Name'.tr,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w900,
+                        fontSize: 16.0,
+                        color: Color(0xFF2D2727),
+                      ),
+                    ),
+                    trailing: IconButton(
+                      icon: const Icon(Icons.edit, color: Colors.deepOrange),
+                      onPressed: () {
+                        Get.to(() => EditName());
+                      },
+                    ),
+                  ),
+                  const Divider(),
                   ListTile(
                     leading: const Icon(Icons.email, color: Colors.deepOrange),
                     title: RichText(

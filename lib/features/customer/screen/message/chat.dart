@@ -125,7 +125,7 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
             const SizedBox(width: 10),
             Text(
-              sellerName != null ? '$sellerName (${widget.brandName})' : '${widget.userName}',
+              sellerName != null ? '$sellerName (${widget.brandName})' : widget.userName,
               style: const TextStyle(fontSize: 16, color: Colors.white),
             ),
           ],
