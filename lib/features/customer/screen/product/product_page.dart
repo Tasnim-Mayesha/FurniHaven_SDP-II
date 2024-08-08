@@ -254,6 +254,7 @@ class _ProductPageState extends State<ProductPage> {
                 'quantity': quantity,
                 'price': widget.discountedPrice,
               });
+              print('Quantity: ${quantity}');
 
               final controller1 = Get.find<CustNavController>();
               controller1.changePage(2);

@@ -22,9 +22,11 @@ class CartController extends GetxController {
   void addProductToCart(Map<String, dynamic> product) {
     int existingIndex = cartItems.indexWhere((item) => item['id'] == product['id']);
     if (existingIndex != -1) {
-      cartItems[existingIndex]['quantity']++;
+      // Increment the existing quantity by the new quantity
+      cartItems[existingIndex]['quantity'] += product['quantity'];
     } else {
-      cartItems.add({...product, 'quantity': 1});
+      // Add the product with the passed quantity
+      cartItems.add({...product, 'quantity': product['quantity']});
     }
   }
 
