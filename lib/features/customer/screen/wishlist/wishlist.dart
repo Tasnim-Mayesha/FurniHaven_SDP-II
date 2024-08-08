@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:sdp2/common/products/product_cards/card.dart';
 import 'package:sdp2/features/customer/screen/wishlist/wishlist_controller.dart';
 
+
 class WishlistView extends StatelessWidget {
   const WishlistView({super.key});
 
