@@ -55,7 +55,6 @@ class WishlistView extends StatelessWidget {
                 discountedPrice: product["discountedPrice"],
                 rating: product["rating"],
                 onTap: () async {
-                  // Fetch product details using the ID
                   var productData = await fetchProductData(product["id"]);
                   if (productData != null) {
                     Get.to(() => ProductPage(
