@@ -9,10 +9,10 @@ import 'package:sdp2/features/customer/screen/product/widgets/product_detail_car
 import 'package:sdp2/features/personilization/screen/Login/login_option.dart';
 import '../../../../common/widgets/bottomnavbar/customer_starting.dart';
 import '../../../../common/widgets/bottomnavbar/starting_controller.dart';
-
 import '../cart/controller/cart_controller.dart';
 import '../review_ratings/widgets/review_section.dart';
 import '../../../../utils/global_colors.dart';
+import '../wishlist/wishlist_controller.dart';
 
 class ProductPage extends StatefulWidget {
   final String imageUrl;
@@ -50,24 +50,66 @@ class _ProductPageState extends State<ProductPage> {
   bool isFavorite = false;
   int quantity = 1;
 
+  @override
+  void initState() {
+    super.initState();
+    final WishlistController wishlistController = Get.find<WishlistController>();
+    isFavorite = wishlistController.isInWishlist(widget.id);
+
+  }
+
+
+
   Future<void> _toggleWishlist() async {
     User? user = FirebaseAuth.instance.currentUser;
+    final WishlistController wishlistController = Get.find<WishlistController>();
 
     if (user != null) {
-      // User is logged in, add the product to the wishlist
       setState(() {
         isFavorite = !isFavorite;
       });
-      // Add logic to add the product to the wishlist in Firestore or local storage
+
+      if (isFavorite) {
+        wishlistController.addToWishlist({
+          'id': widget.id as String? ?? '', // Ensure id is a String
+          'imageUrl': widget.imageUrl as String? ?? '', // Ensure imageUrl is a String
+          'productName': widget.productName as String? ?? 'Unknown Product', // Ensure productName is a String
+          'brandName': widget.brandName as String? ?? 'Unknown Brand', // Ensure brandName is a String
+          'sellerEmail': widget.sellerEmail as String? ?? '', // Ensure sellerEmail is a String
+          'discount': (widget.discount as num?)?.toInt() ?? 0, // Ensure discount is cast to int
+          'originalPrice': (widget.originalPrice as num?)?.toInt() ?? 0, // Ensure originalPrice is cast to int
+          'discountedPrice': (widget.discountedPrice as num?)?.toInt() ?? 0, // Ensure discountedPrice is cast to int
+          'rating': (widget.rating as num?)?.toDouble() ?? 0.0, // Ensure rating is cast to double
+          'modelUrl': widget.modelUrl as String? ?? '', // Ensure modelUrl is a String
+          'description': widget.description as String? ?? '', // Ensure description is a String
+        });
+
+
+      } else {
+        wishlistController.removeFromWishlist(widget.id);
+      }
     } else {
-      // User is not logged in, navigate to LoginOption
       Get.to(() => const LoginOption());
+    }
+  }
+  String getBrandLogoPath(String brandName) {
+    switch (brandName.toLowerCase()) {
+      case 'regal':
+        return 'assets/brands/regal.png';
+      case 'brothers':
+        return 'assets/brands/brothers.png';
+      case 'otobi':
+        return 'assets/brands/otobi.png';
+      case 'hatil':
+        return 'assets/brands/hatil.png';
+      default:
+        return 'assets/brands/default.png'; // Use a default logo path if the brand name doesn't match
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final CartController controller = Get.put(CartController());
+    //final CartController controller = Get.put(CartController());
     return Scaffold(
       backgroundColor: GlobalColors.softGrey, // Light ash color
       appBar: AppBar(
@@ -82,7 +124,7 @@ class _ProductPageState extends State<ProductPage> {
           IconButton(
             icon: Icon(
               Iconsax.heart5,
-              color: isFavorite ? GlobalColors.mainColor : Colors.grey,
+              color: isFavorite ? Colors.red : Colors.grey,
             ),
             onPressed: _toggleWishlist,
           ),
@@ -97,7 +139,7 @@ class _ProductPageState extends State<ProductPage> {
             ActionButtonsRow(sellerEmail: widget.sellerEmail, brandName: widget.brandName),
             const SizedBox(height: 8),
             ProductDetailsCard(
-              brandLogoPath: 'assets/brands/regal.png', // Assuming this path for demo purposes
+              brandLogoPath: getBrandLogoPath(widget.brandName),
               productName: widget.productName,
               productDescription: widget.description,
               originalPrice: widget.originalPrice,
@@ -198,20 +240,26 @@ class _ProductPageState extends State<ProductPage> {
         height: 50,
         child: FloatingActionButton.extended(
           onPressed: () {
-            final controller = Get.find<CartController>();
+            User? user = FirebaseAuth.instance.currentUser;
 
-            controller.addProductToCart({
-              'id' : widget.id,
-              'productName': widget.productName,
-              'imageUrl': widget.imageUrl,
-              'sellerEmail': widget.sellerEmail,
-              'quantity': quantity,
-              'price': widget.discountedPrice,
-            });
+            if (user != null) {
+              final controller = Get.find<CartController>();
 
-            final controller1 = Get.find<CustNavController>();
-            controller1.changePage(2);
-            Get.to(() => CustMainPage());
+              controller.addProductToCart({
+                'id': widget.id,
+                'productName': widget.productName,
+                'imageUrl': widget.imageUrl,
+                'sellerEmail': widget.sellerEmail,
+                'quantity': quantity,
+                'price': widget.discountedPrice,
+              });
+
+              final controller1 = Get.find<CustNavController>();
+              controller1.changePage(2);
+              Get.to(() => CustMainPage());
+            } else {
+              Get.to(() => const LoginOption());
+            }
           },
           label: Text('Add to Cart'.tr,
               style: const TextStyle(

@@ -14,7 +14,7 @@ class ProductCard extends StatelessWidget {
   final int discount;
   final int originalPrice;
   final int discountedPrice;
-  final int rating;
+  final double rating;
   final VoidCallback onTap;
 
   const ProductCard({
