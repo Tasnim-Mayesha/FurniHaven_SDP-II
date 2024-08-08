@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:sdp2/features/customer/screen/wishlist/wishlist_controller.dart';
 import 'package:sdp2/utils/global_colors.dart';
 import '../../../features/customer/screen/cart/controller/cart_controller.dart';
 
@@ -33,6 +34,7 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final CartController cartController = Get.put(CartController());
+    final WishlistController wishlistController = Get.put(WishlistController());
 
     return Container(
       width: 180,
@@ -102,9 +104,29 @@ class ProductCard extends StatelessWidget {
                             borderRadius: BorderRadius.circular(100),
                           ),
                           child: IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Iconsax.heart5),
-                            color: Colors.red,
+                            onPressed: () {
+                              if (wishlistController.isInWishlist(id)) {
+                                wishlistController.removeFromWishlist(id);
+                              } else {
+                                wishlistController.addToWishlist({
+                                  'id': id,
+                                  'productName': productName,
+                                  'imageUrl': imageUrl,
+                                  'brandName': brandName,
+                                  'sellerEmail': sellerEmail,
+                                  'discount': discount,
+                                  'originalPrice': originalPrice,
+                                  'discountedPrice': discountedPrice,
+                                  'rating': rating,
+                                });
+                              }
+                            },
+                            icon: Obx(() {
+                              return Icon(
+                                wishlistController.isInWishlist(id) ? Iconsax.heart5 : Iconsax.heart,
+                                color: wishlistController.isInWishlist(id) ? Colors.red : Colors.grey,
+                              );
+                            }),
                           ),
                         ),
                       ),

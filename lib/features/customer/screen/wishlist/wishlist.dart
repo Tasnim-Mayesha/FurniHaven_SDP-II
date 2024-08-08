@@ -1,93 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sdp2/common/products/product_cards/card.dart';
-import 'package:sdp2/common/widgets/appbar/custom_appbar_in.dart';
-
-import '../../../../common/widgets/bottomnavbar/bottom_nav_bar.dart';
-import '../product/product_page.dart';
+import 'package:sdp2/features/customer/screen/wishlist/wishlist_controller.dart';
 
 class WishlistView extends StatelessWidget {
   const WishlistView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // List of product details
-    final List<Map<String, dynamic>> products = [
-      {
-        "imageUrl": "assets/products/ar_chair.png",
-        "productName": "Eve Fabric Double Chair",
-        "brandName": "Hatil",
-        "discount": 25,
-        "originalPrice": 24000,
-        "discountedPrice": 17000,
-        "rating": 4,
-      },
-      {
-        "imageUrl": "assets/products/Round Dining Table.png",
-        "productName": "Round 4 Seater Dining Table",
-        "brandName": "Regal",
-        "discount": 20,
-        "originalPrice": 150000,
-        "discountedPrice": 120000,
-        "rating": 5,
-      },
-      {
-        "imageUrl": "assets/products/Furnish Modern Chair.png",
-        "productName": "Furnish White Modern Chair",
-        "brandName": "Brothers",
-        "discount": 15,
-        "originalPrice": 18000,
-        "discountedPrice": 12750,
-        "rating": 4,
-      },
-    ];
+    final WishlistController wishlistController = Get.put(WishlistController());
 
     return Scaffold(
-      //appBar: customAppBarIn(context),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: GridView.builder(
-          itemCount: products.length,
-          shrinkWrap: true,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            mainAxisSpacing: 8,
-            crossAxisSpacing: 8,
-            mainAxisExtent: 335,
-          ),
-          itemBuilder: (_, index) {
-            final product = products[index];
-            return ProductCard(
-              id: product["id"] ?? '',
-              imageUrl: product["imageUrl"],
-              productName: product["productName"],
-              brandName: product["brandName"],
-              sellerEmail: product["sellerEmail"] ?? 'Unknown',
-              discount: product["discount"],
-              originalPrice: product["originalPrice"],
-              discountedPrice: product["discountedPrice"],
-              rating: product["rating"],
-              onTap: () {
-                Get.to(() => ProductPage(
-                      id: '',
-                      imageUrl: '',
-                      productName: 'Chair',
-                      brandName: 'Regal',
-                      sellerEmail: 'Unknown',
-                      discount: 10,
-                      originalPrice: 10000,
-                      discountedPrice: 8000,
-                      rating: 4,
-                      modelUrl: 'assets/product3d/office_chair.glb',
-                      description: 'very good product',
-                    )
-                );
-              },
-            );
-          },
-        ),
+        child: Obx(() {
+          return GridView.builder(
+            itemCount: wishlistController.wishlistItems.length,
+            shrinkWrap: true,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 8,
+              mainAxisExtent: 335,
+            ),
+            itemBuilder: (_, index) {
+              final product = wishlistController.wishlistItems[index];
+              return ProductCard(
+                id: product["id"],
+                imageUrl: product["imageUrl"],
+                productName: product["productName"],
+                brandName: product["brandName"],
+                sellerEmail: product["sellerEmail"],
+                discount: product["discount"],
+                originalPrice: product["originalPrice"],
+                discountedPrice: product["discountedPrice"],
+                rating: product["rating"],
+                onTap: () {
+                  // Handle card tap if necessary
+                },
+              );
+            },
+          );
+        }),
       ),
-      //bottomNavigationBar: CustomBottomNavBar(),
     );
   }
 }
