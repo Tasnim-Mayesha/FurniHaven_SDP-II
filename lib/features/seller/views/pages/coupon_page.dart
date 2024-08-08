@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sdp2/features/seller/views/pages/add_coupon_page.dart';
-import 'package:sdp2/features/seller/views/pages/edit_coupon_page.dart'; // Ensure this import is correct
+import 'package:sdp2/features/seller/views/pages/edit_coupon_page.dart';
 import 'package:sdp2/features/seller/views/pages/controllers/Coupon/coupon_controller.dart';
 
 class CouponPage extends StatelessWidget {
@@ -14,20 +14,18 @@ class CouponPage extends StatelessWidget {
     return Scaffold(
       body: Obx(() => ListView.builder(
             itemCount: controller.coupons.length,
-            padding: EdgeInsets.all(8), // General padding around the list
+            padding: EdgeInsets.all(8),
             itemBuilder: (context, index) {
               final coupon = controller.coupons[index];
               return Dismissible(
-                key: Key(coupon.id), // Unique key for Dismissible
-                direction: DismissDirection
-                    .endToStart, // Allows only right to left swipe for delete
+                key: Key(coupon.code), // Use code as unique key for Dismissible
+                direction: DismissDirection.endToStart,
                 confirmDismiss: (direction) async {
-                  return await showDeleteConfirmationDialog(
-                      context); // Show delete confirmation
+                  return await showDeleteConfirmationDialog(context);
                 },
                 onDismissed: (direction) {
                   controller.removeCoupon(
-                      coupon.id); // Remove the coupon after confirmation
+                      coupon.code); // Remove the coupon after confirmation
                 },
                 background: Container(
                   alignment: Alignment.centerRight,
@@ -36,19 +34,16 @@ class CouponPage extends StatelessWidget {
                   child: Icon(Icons.delete, color: Colors.white, size: 36),
                 ),
                 child: Card(
-                  color:
-                      Colors.orange.shade100, // Light shade orange background
+                  color: Colors.orange.shade100,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10), // Rounded corners
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  margin: EdgeInsets.symmetric(
-                      vertical: 5, horizontal: 5), // Spacing between cards
+                  margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
                   child: ListTile(
                     title: Text(coupon.code),
                     subtitle: Text(
                         'Discount: ${coupon.discount}% - Expires on: ${coupon.expiryDate.toString().substring(0, 10)}'),
                     onTap: () {
-                      // Navigate to the Edit Coupon Page when the item is tapped
                       Get.to(() => EditCouponPage(coupon: coupon));
                     },
                   ),
@@ -58,11 +53,9 @@ class CouponPage extends StatelessWidget {
           )),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Navigate to the Add Coupon Page
           Get.to(() => AddCouponPage());
         },
-        backgroundColor:
-            Colors.orange.shade200, // Use global color or specify a new one
+        backgroundColor: Colors.orange.shade200,
         child: Icon(Icons.add),
       ),
     );
@@ -87,27 +80,6 @@ class CouponPage extends StatelessWidget {
           ],
         );
       },
-    );
-  }
-
-  Widget slideRightBackground() {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.blue,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      alignment: Alignment.centerLeft,
-      padding: EdgeInsets.only(left: 20),
-      child: Icon(Icons.edit, color: Colors.white, size: 36),
-    );
-  }
-
-  Widget slideLeftBackground() {
-    return Container(
-      child: const Center(
-        child: Text("Coupon Page",
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-      ),
     );
   }
 }
