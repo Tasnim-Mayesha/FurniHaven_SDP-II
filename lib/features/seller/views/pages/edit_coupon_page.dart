@@ -10,25 +10,23 @@ class EditCouponPage extends StatelessWidget {
   final TextEditingController discountController;
   final TextEditingController expiryDateController;
 
-  EditCouponPage({Key? key, required this.coupon})
+  EditCouponPage({required this.coupon})
       : codeController = TextEditingController(text: coupon.code),
         discountController =
             TextEditingController(text: coupon.discount.toString()),
         expiryDateController = TextEditingController(
-            text: coupon.expiryDate.toString().substring(0, 10)),
-        super(key: key);
+            text: coupon.expiryDate.toIso8601String().substring(0, 10));
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Edit Coupon'),
+        backgroundColor: Colors.deepOrange,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment
-              .stretch, // Makes button stretch to fit the width
           children: [
             TextField(
               controller: codeController,
@@ -40,11 +38,11 @@ class EditCouponPage extends StatelessWidget {
             SizedBox(height: 10),
             TextField(
               controller: discountController,
-              keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 labelText: 'Discount Percentage',
                 border: OutlineInputBorder(),
               ),
+              keyboardType: TextInputType.number,
             ),
             SizedBox(height: 10),
             TextField(
@@ -56,31 +54,35 @@ class EditCouponPage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 30), // Horizontal padding
-              child: ElevatedButton(
-                onPressed: () {
-                  if (codeController.text.isNotEmpty &&
-                      discountController.text.isNotEmpty &&
-                      expiryDateController.text.isNotEmpty) {
-                    controller.updateCoupon(Coupon(
-                      id: coupon.id,
-                      code: codeController.text,
-                      discount: double.parse(discountController.text),
-                      expiryDate: DateTime.parse(expiryDateController.text),
-                    ));
-                    Navigator.pop(context);
-                  }
-                },
-                child: Text('Save Changes'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.deepOrange, // Button color
-                  foregroundColor: Colors.white, // Text color
-                  padding: EdgeInsets.symmetric(
-                      vertical: 12,
-                      horizontal: 6), // Adds vertical padding inside the button
-                ),
+            ElevatedButton(
+              onPressed: () {
+                if (codeController.text.isNotEmpty &&
+                    discountController.text.isNotEmpty &&
+                    expiryDateController.text.isNotEmpty) {
+                  final updatedCoupon = Coupon(
+                    code: codeController.text,
+                    discount: double.parse(discountController.text),
+                    expiryDate: DateTime.parse(expiryDateController.text),
+                    email: coupon.email,
+                  );
+                  // Assuming you have the document ID stored
+                  controller.updateCoupon(coupon.code, updatedCoupon);
+                  Navigator.pop(context);
+                } else {
+                  Get.snackbar(
+                    'Error',
+                    'All fields are required!',
+                    snackPosition: SnackPosition.BOTTOM,
+                    backgroundColor: Colors.red,
+                    colorText: Colors.white,
+                  );
+                }
+              },
+              child: Text('Update Coupon'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.deepOrange,
+                foregroundColor: Colors.white,
+                padding: EdgeInsets.symmetric(vertical: 12, horizontal: 12),
               ),
             ),
           ],

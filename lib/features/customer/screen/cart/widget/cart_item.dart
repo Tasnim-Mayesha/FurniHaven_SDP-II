@@ -28,7 +28,8 @@ class CartItem extends StatelessWidget {
       children: [
         isValidUrl(imageUrl)
             ? Image.network(imageUrl, width: 50, height: 50)
-            : const Icon(Icons.image_not_supported, size: 50, color: Colors.grey),
+            : const Icon(Icons.image_not_supported,
+                size: 50, color: Colors.grey),
         const SizedBox(width: 16),
         Expanded(
           child: Column(
@@ -36,12 +37,12 @@ class CartItem extends StatelessWidget {
             children: [
               Text(
                 productName,
-                style: Theme.of(context).textTheme.bodyText1,
+                style: Theme.of(context).textTheme.bodyMedium,
                 overflow: TextOverflow.ellipsis,
               ),
               Text(
                 brandName,
-                style: Theme.of(context).textTheme.bodyText2,
+                style: Theme.of(context).textTheme.bodyMedium,
                 overflow: TextOverflow.ellipsis,
               ),
             ],
@@ -52,7 +53,7 @@ class CartItem extends StatelessWidget {
           children: [
             Text(
               '${quantity.toString()} x ${price.toStringAsFixed(2)} Tk',
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
             IconButton(
               onPressed: onDelete,

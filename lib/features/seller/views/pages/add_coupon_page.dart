@@ -16,7 +16,7 @@ class AddCouponPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Add New Coupon'),
-        // backgroundColor: Colors.deepOrange, // Adjust color to your theme
+        backgroundColor: Colors.deepOrange,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -54,24 +54,28 @@ class AddCouponPage extends StatelessWidget {
                     discountController.text.isNotEmpty &&
                     expiryDateController.text.isNotEmpty) {
                   final newCoupon = Coupon(
-                    id: DateTime.now()
-                        .millisecondsSinceEpoch
-                        .toString(), // Generate a unique ID based on timestamp
                     code: codeController.text,
                     discount: double.parse(discountController.text),
                     expiryDate: DateTime.parse(expiryDateController.text),
+                    email: '', // Will be set in the controller
                   );
                   controller.addCoupon(newCoupon);
                   Navigator.pop(context);
+                } else {
+                  Get.snackbar(
+                    'Error',
+                    'All fields are required!',
+                    snackPosition: SnackPosition.BOTTOM,
+                    backgroundColor: Colors.red,
+                    colorText: Colors.white,
+                  );
                 }
               },
               child: Text('Add Coupon'),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.deepOrange, // Button color
-                foregroundColor: Colors.white, // Text color
-                padding: EdgeInsets.symmetric(
-                    vertical: 12,
-                    horizontal: 12), // Adds vertical padding inside the button
+                backgroundColor: Colors.deepOrange,
+                foregroundColor: Colors.white,
+                padding: EdgeInsets.symmetric(vertical: 12, horizontal: 12),
               ),
             ),
           ],

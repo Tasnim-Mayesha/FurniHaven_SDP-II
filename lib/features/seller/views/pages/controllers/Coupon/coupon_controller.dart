@@ -1,46 +1,57 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sdp2/features/seller/models/coupon.dart';
+import 'package:sdp2/features/seller/views/pages/repository/coupon_repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CouponController extends GetxController {
   var coupons = <Coupon>[].obs;
+  final CouponRepository couponRepository = CouponRepository();
+  late String sellerEmail;
 
   @override
   void onInit() {
     super.onInit();
-    // Adding dummy coupons on initialization
-    coupons.addAll([
-      Coupon(
-          id: '001',
-          code: 'SAVE10',
-          discount: 10.0,
-          expiryDate: DateTime.now().add(Duration(days: 30))),
-      Coupon(
-          id: '002',
-          code: 'SUMMER20',
-          discount: 20.0,
-          expiryDate: DateTime.now().add(Duration(days: 60))),
-      Coupon(
-          id: '003',
-          code: 'WELCOME15',
-          discount: 15.0,
-          expiryDate: DateTime.now().add(Duration(days: 45))),
-    ]);
+    _loadSellerEmail();
   }
 
-  void addCoupon(Coupon coupon) {
-    coupons.add(coupon);
-  }
-
-  void removeCoupon(String id) {
-    coupons.removeWhere((coupon) => coupon.id == id);
-  }
-
-  void updateCoupon(Coupon updatedCoupon) {
-    int index = coupons.indexWhere((coupon) => coupon.id == updatedCoupon.id);
-    if (index != -1) {
-      // Update the coupon at the found index
-      coupons[index] = updatedCoupon;
-      coupons.refresh(); // Refresh the observable list to trigger UI updates
+  Future<void> _loadSellerEmail() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    sellerEmail = prefs.getString('seller_email') ?? '';
+    if (sellerEmail.isNotEmpty) {
+      _loadCoupons();
     }
+  }
+
+  void _loadCoupons() {
+    couponRepository.getCoupons(sellerEmail).listen((couponList) {
+      coupons.assignAll(couponList);
+    });
+  }
+
+  Future<void> addCoupon(Coupon coupon) async {
+    try {
+      await couponRepository.addCoupon(coupon);
+      _loadCoupons(); // Reload coupons after adding a new one
+    } catch (e) {
+      // Show a popup or dialog when the coupon code already exists
+      Get.snackbar(
+        "Error",
+        e.toString(),
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.redAccent,
+        colorText: Colors.white,
+      );
+    }
+  }
+
+  Future<void> removeCoupon(String code) async {
+    await couponRepository.deleteCoupon(code);
+    _loadCoupons(); // Reload coupons after deletion
+  }
+
+  Future<void> updateCoupon(String code, Coupon updatedCoupon) async {
+    await couponRepository.updateCoupon(code, updatedCoupon);
+    _loadCoupons(); // Reload coupons after update
   }
 }
