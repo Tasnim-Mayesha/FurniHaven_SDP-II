@@ -52,7 +52,9 @@ class _ProductPageState extends State<ProductPage> {
 
   @override
   void initState() {
-    super.initState();
+    // Ensure WishlistController is initialized
+    Get.lazyPut<WishlistController>(() => WishlistController());
+
     final WishlistController wishlistController = Get.find<WishlistController>();
     isFavorite = wishlistController.isInWishlist(widget.id);
 
@@ -103,7 +105,7 @@ class _ProductPageState extends State<ProductPage> {
       case 'hatil':
         return 'assets/brands/hatil.png';
       default:
-        return 'assets/brands/default.png'; // Use a default logo path if the brand name doesn't match
+        return 'assets/brands/regal.png'; // Use a default logo path if the brand name doesn't match
     }
   }
 
@@ -227,7 +229,7 @@ class _ProductPageState extends State<ProductPage> {
             ),
             const SizedBox(height: 20),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: ReviewSection(productId: widget.id,),
             ),
             const SizedBox(
@@ -254,7 +256,7 @@ class _ProductPageState extends State<ProductPage> {
                 'quantity': quantity,
                 'price': widget.discountedPrice,
               });
-              print('Quantity: ${quantity}');
+
 
               final controller1 = Get.find<CustNavController>();
               controller1.changePage(2);

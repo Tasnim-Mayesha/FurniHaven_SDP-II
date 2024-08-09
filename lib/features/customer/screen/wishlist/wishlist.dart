@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:cloud_firestore/cloud_firestore.dart'; // Import Firestore
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sdp2/common/products/product_cards/card.dart';
 import 'package:sdp2/features/customer/screen/wishlist/wishlist_controller.dart';
 
@@ -12,9 +12,27 @@ class WishlistView extends StatelessWidget {
   Future<Map<String, dynamic>?> fetchProductData(String id) async {
     try {
       // Fetch the document from Firestore using the product ID
-      DocumentSnapshot doc = await FirebaseFirestore.instance.collection('Products').doc(id).get();
-      if (doc.exists) {
-        return doc.data() as Map<String, dynamic>;
+      DocumentSnapshot productDoc = await FirebaseFirestore.instance.collection('Products').doc(id).get();
+      if (productDoc.exists) {
+        Map<String, dynamic> productData = productDoc.data() as Map<String, dynamic>;
+        String sellerEmail = productData["sellerEmail"];
+
+        // Fetch the seller data from Firestore using the sellerEmail
+        QuerySnapshot sellerSnapshot = await FirebaseFirestore.instance
+            .collection('Sellers')
+            .where('email', isEqualTo: sellerEmail)
+            .limit(1)
+            .get();
+
+        if (sellerSnapshot.docs.isNotEmpty) {
+          Map<String, dynamic> sellerData = sellerSnapshot.docs.first.data() as Map<String, dynamic>;
+          productData["brandName"] = sellerData["brandName"];
+        } else {
+          print("No matching seller found!");
+          productData["brandName"] = 'Unknown';
+        }
+
+        return productData;
       } else {
         print("No such product!");
         return null;
@@ -48,7 +66,7 @@ class WishlistView extends StatelessWidget {
                 id: product["id"],
                 imageUrl: product["imageUrl"],
                 productName: product["productName"],
-                brandName: product["brandName"],
+                brandName: product["brandName"], // Will be updated later
                 sellerEmail: product["sellerEmail"],
                 discount: product["discount"],
                 originalPrice: product["originalPrice"],
@@ -57,6 +75,7 @@ class WishlistView extends StatelessWidget {
                 onTap: () async {
                   var productData = await fetchProductData(product["id"]);
                   if (productData != null) {
+                    print("brand name: ${productData["brandName"]}");
                     Get.to(() => ProductPage(
                       id: productData["id"] as String? ?? '',
                       imageUrl: productData["imageUrl"] as String? ?? '',
