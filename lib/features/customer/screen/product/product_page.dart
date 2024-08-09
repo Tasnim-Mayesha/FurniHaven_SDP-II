@@ -226,9 +226,9 @@ class _ProductPageState extends State<ProductPage> {
               ),
             ),
             const SizedBox(height: 20),
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: ReviewSection(),
+              child: ReviewSection(productId: widget.id,),
             ),
             const SizedBox(
               height: 80,

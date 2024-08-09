@@ -1,70 +1,24 @@
 import 'package:flutter/material.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sdp2/features/customer/screen/review_ratings/widgets/review_card.dart';
 import '../../../../../utils/global_colors.dart';
 import '../review_input.dart';
 
 class ReviewSection extends StatefulWidget {
-  const ReviewSection({super.key});
+  final String productId; // Receive productId
+
+  const ReviewSection({super.key, required this.productId});
 
   @override
   _ReviewSectionState createState() => _ReviewSectionState();
 }
 
 class _ReviewSectionState extends State<ReviewSection> {
-  final List<Map<String, dynamic>> reviews = [
-    {
-      'name': 'Rabbil Hasan',
-      'review': 'air max are always very comfortable fit, clean and just perfect in every way. just the box was too small and scrunched the sneakers up a little bit, not sure if the box was always this small but the 90s are and will always be one of my favorites.',
-      'date': 'December 10, 2018',
-      'rating': 5.0,
-      'image': 'assets/users/rabbil.png',
-      'reviewImage': 'assets/products/ar_chair_class.png',
-    },
-    {
-      'name': 'Mithila Tanzim',
-      'review': 'This is really amazing product, I like the design of product. I hope can buy it again!',
-      'date': 'December 10, 2018',
-      'rating': 5.0,
-      'image': 'assets/users/mithila.png',
-      'reviewImage': 'assets/products/ar_chair.png',
-    },
-    {
-      'name': 'Nuraj Tahsin',
-      'review': 'air max are always very comfortable fit, clean and just perfect in every way. just the box was too small and scrunched the sneakers up a little bit',
-      'date': 'December 10, 2018',
-      'rating': 5.0,
-      'image': 'assets/users/nuraj.png',
-      'reviewImage': 'assets/products/ar_chair.png',
-    },
-    {
-      'name': 'Nafis Ahmed',
-      'review': 'air max are always very comfortable fit, clean and just perfect in every way. just the box was too small',
-      'date': 'December 10, 2018',
-      'rating': 5.0,
-      'image': 'assets/users/nafis.png',
-      'reviewImage': 'assets/products/ar_chair.png',
-    },
-  ];
-
-  void _addReview(String review, double rating, String? imagePath) {
-    setState(() {
-      reviews.insert(0, {
-        'name': 'New User',
-        'review': review,
-        'date': DateTime.now().toString().split(' ')[0],
-        'rating': rating,
-        'image': 'assets/users/default.png', // Default user image
-        'reviewImage': imagePath,
-      });
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // Title for Reviews
         const Align(
           alignment: Alignment.centerLeft,
           child: Text(
@@ -73,13 +27,15 @@ class _ReviewSectionState extends State<ReviewSection> {
           ),
         ),
         const SizedBox(height: 10),
-
         ElevatedButton(
           onPressed: () {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => ReviewInputPage(onSubmit: _addReview),
+                builder: (context) => ReviewInputPage(
+                  onSubmit: _addReview,
+                  productId: widget.productId,
+                ),
               ),
             );
           },
@@ -87,15 +43,86 @@ class _ReviewSectionState extends State<ReviewSection> {
             backgroundColor: GlobalColors.mainColor,
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(35),  // Adjust radius to make it circular
+              borderRadius: BorderRadius.circular(35),
             ),
           ),
           child: const Text('Give Review and Ratings'),
         ),
+        /*StreamBuilder(
+          stream: FirebaseFirestore.instance
+              .collection('Review and Ratings')
+              .where('productId', isEqualTo: widget.productId)
+              .snapshots(),
+          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator();
+            }
 
-        // Display Reviews
-        ...reviews.map((review) => ReviewCard(review: review)).toList(),
+            if (snapshot.hasError) {
+              return const Text('Something went wrong');
+            }
+
+            if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+              return const Text('No reviews yet.');
+            }
+
+            return Column(
+              children: snapshot.data!.docs.map((doc) {
+                return ReviewCard(review: doc.data() as Map<String, dynamic>);
+              }).toList(),
+            );
+          },
+        ),*/
+
+        StreamBuilder(
+          stream: FirebaseFirestore.instance
+              .collection('Review and Ratings')
+              .where('productId', isEqualTo: widget.productId)
+              .orderBy('date', descending: true) // Sort by date in descending order
+              .snapshots(),
+          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator();
+            }
+
+            if (snapshot.hasError) {
+
+              return const Text('Something went wrong');
+            }
+
+            if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+              return const Text('No reviews yet.');
+            }
+
+            return Column(
+              children: snapshot.data!.docs.map((doc) {
+                return ReviewCard(review: doc.data() as Map<String, dynamic>);
+              }).toList(),
+            );
+          },
+        ),
+
       ],
     );
+  }
+
+  Future<void> _addReview(String review, double rating, String? imageUrl) async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final userDoc = await FirebaseFirestore.instance.collection('Users').doc(user.uid).get();
+      final userName = userDoc.get('userName');
+      final profilePicture = userDoc.get('profilePicture');
+
+      await FirebaseFirestore.instance.collection('Review and Ratings').add({
+        'userId': user.uid,
+        'productId': widget.productId,
+        'userName': userName,
+        'profilePicture': profilePicture,
+        'review': review,
+        'rating': rating,
+        'imageUrl': imageUrl,
+        'date': DateTime.now(),
+      });
+    }
   }
 }

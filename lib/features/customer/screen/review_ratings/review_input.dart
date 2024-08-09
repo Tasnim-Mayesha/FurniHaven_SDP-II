@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-
 import '../../../../utils/global_colors.dart';
 
 class ReviewInputPage extends StatefulWidget {
   final Function(String, double, String?) onSubmit;
+  final String productId;
 
-  const ReviewInputPage({super.key, required this.onSubmit});
+  const ReviewInputPage({super.key, required this.onSubmit, required this.productId});
 
   @override
   _ReviewInputPageState createState() => _ReviewInputPageState();
@@ -30,11 +30,24 @@ class _ReviewInputPageState extends State<ReviewInputPage> {
     });
   }
 
+  Future<String?> _uploadImage(File imageFile) async {
+    try {
+      final ref = FirebaseStorage.instance
+          .ref()
+          .child('review_images/${widget.productId}/${DateTime.now().toIso8601String()}.jpg');
+      await ref.putFile(imageFile);
+      return await ref.getDownloadURL();
+    } catch (e) {
+      print('Error uploading image: $e');
+      return null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Write a Review'.tr),
+        title: const Text('Write a Review'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -42,8 +55,8 @@ class _ReviewInputPageState extends State<ReviewInputPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               Text(
-                'Write Your Review'.tr,
+              const Text(
+                'Write Your Review',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 10),
@@ -78,7 +91,7 @@ class _ReviewInputPageState extends State<ReviewInputPage> {
                   Expanded(
                     child: OutlinedButton.icon(
                       icon: const Icon(Icons.camera_alt),
-                      label: Text('Upload Photo'.tr),
+                      label: const Text('Upload Photo'),
                       onPressed: _pickImage,
                     ),
                   ),
@@ -96,11 +109,15 @@ class _ReviewInputPageState extends State<ReviewInputPage> {
               ),
               const SizedBox(height: 10),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
+                  String? imageUrl;
+                  if (_imageFile != null) {
+                    imageUrl = await _uploadImage(_imageFile!);
+                  }
                   widget.onSubmit(
                     reviewController.text,
                     rating,
-                    _imageFile?.path,
+                    imageUrl,
                   );
                   Navigator.pop(context);
                 },
@@ -108,7 +125,7 @@ class _ReviewInputPageState extends State<ReviewInputPage> {
                   backgroundColor: GlobalColors.mainColor,
                   padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                 ),
-                child: Text('SUBMIT REVIEW'.tr),
+                child: const Text('SUBMIT REVIEW'),
               ),
             ],
           ),

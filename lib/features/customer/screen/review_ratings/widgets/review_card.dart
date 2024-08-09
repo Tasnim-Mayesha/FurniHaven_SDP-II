@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:io';
 
 class ReviewCard extends StatelessWidget {
   final Map<String, dynamic> review;
@@ -18,7 +17,7 @@ class ReviewCard extends StatelessWidget {
             Row(
               children: [
                 CircleAvatar(
-                  backgroundImage: AssetImage(review['image']),
+                  backgroundImage: NetworkImage(review['profilePicture']),
                   radius: 24,
                 ),
                 const SizedBox(width: 10),
@@ -26,7 +25,7 @@ class ReviewCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      review['name'],
+                      review['userName'],
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 5),
@@ -47,19 +46,14 @@ class ReviewCard extends StatelessWidget {
             const SizedBox(height: 10),
             Text(review['review']),
             const SizedBox(height: 10),
-            if (review['reviewImage'] != null && review['reviewImage'].isNotEmpty)
-              review['reviewImage'].startsWith('assets/')
-                  ? Image.asset(
-                review['reviewImage'],
-                fit: BoxFit.cover,
-              )
-                  : Image.file(
-                File(review['reviewImage']),
+            if (review['imageUrl'] != null && review['imageUrl'].isNotEmpty)
+              Image.network(
+                review['imageUrl'],
                 fit: BoxFit.cover,
               ),
             const SizedBox(height: 10),
             Text(
-              review['date'],
+              review['date'].toDate().toString(),
               style: const TextStyle(color: Colors.grey),
             ),
           ],
