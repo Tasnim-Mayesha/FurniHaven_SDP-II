@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sdp2/features/customer/screen/Payment/payment_methods/Bkash/bkash.dart';
 import 'package:sdp2/features/customer/screen/Payment/payment_methods/Nagad/nagad.dart';
-
-
+import 'package:sdp2/features/customer/screen/order_history/order_history.dart';
+import '../../../../../../common/widgets/success_screen.dart';
 
 class DottedLinePainter extends CustomPainter {
   @override
@@ -33,6 +35,28 @@ class DottedLinePainter extends CustomPainter {
 class Payment extends StatelessWidget {
   const Payment({super.key});
 
+  Future<void> _addOrderToFirestore(List<dynamic> cartItems, String paymentMethod, double totalCost, Map<String, String> selectedAddress) async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final ordersCollection = FirebaseFirestore.instance.collection('Orders');
+      final timestamp = Timestamp.now();
+
+      for (var item in cartItems) {
+        await ordersCollection.add({
+          'productID': item['id'],  // Assuming 'id' is the product ID
+          'userID': user.uid,
+          'sellerEmail': item['sellerEmail'],
+          'quantity': item['quantity'],
+          'price': item['price'],
+          'totalPrice': totalCost,
+          'paymentMethod': paymentMethod,
+          'address': selectedAddress,
+          'timestamp': timestamp
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final totalCost = Get.arguments['totalCost'] as double;
@@ -53,7 +77,7 @@ class Payment extends StatelessWidget {
               ),
               title: Text('Bkash'.tr),
               onTap: () {
-                Get.to(() =>  Bkash(), arguments: {
+                Get.to(() => Bkash(), arguments: {
                   'totalCost': totalCost,
                   'cartItems': cartItems,
                   'selectedAddress': selectedAddress,
@@ -66,7 +90,7 @@ class Payment extends StatelessWidget {
               ),
               title: Text('Nagad'.tr),
               onTap: () {
-                Get.to(() =>  Nagad(), arguments: {
+                Get.to(() => Nagad(), arguments: {
                   'totalCost': totalCost,
                   'cartItems': cartItems,
                   'selectedAddress': selectedAddress,
@@ -78,8 +102,18 @@ class Payment extends StatelessWidget {
                 backgroundImage: AssetImage('assets/payment/cash-on-delivery.png'),
               ),
               title: Text('Cash on Delivery'.tr),
-              onTap: () {
-                // Add any specific action for Cash on Delivery if needed
+              onTap: () async {
+                await _addOrderToFirestore(cartItems, 'Cash on Delivery', totalCost, selectedAddress);
+
+                Get.to(() => SuccessScreen(
+                  image: 'assets/images/success.png',
+                  title: 'Order Placed Successfully',
+                  subTitle: 'Your order has been placed. You will pay upon delivery.',
+                  onPressed: () {
+                    Get.to(() => const OrderHistoryPage());
+                  },
+                  buttonTitle: 'See your order',
+                ));
               },
             ),
             const SizedBox(height: 200),

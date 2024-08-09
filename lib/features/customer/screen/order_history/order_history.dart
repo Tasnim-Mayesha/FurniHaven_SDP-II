@@ -54,10 +54,18 @@ class OrderHistoryPage extends StatelessWidget {
         'orderData': orderData,
         'productData': productData,
         'brandName': brandName,
+        'timestamp': dateTime,  // Keep the timestamp for sorting
       });
     }
 
-    return groupedOrders;
+    // Sort orders by timestamp in descending order
+    final sortedEntries = groupedOrders.entries.toList()
+      ..sort((a, b) => b.value.first['timestamp'].compareTo(a.value.first['timestamp']));
+
+    // Rebuild the map with sorted entries
+    final sortedGroupedOrders = Map<String, List<Map<String, dynamic>>>.fromEntries(sortedEntries);
+
+    return sortedGroupedOrders;
   }
 
   @override
@@ -136,7 +144,7 @@ class OrderHistoryPage extends StatelessWidget {
                                             Row(
                                               children: [
                                                 Text(
-                                                  '${order['price']} tk',
+                                                  '${(order['price'] * order['quantity']) + 240} tk',
                                                   style: TextStyle(
                                                       color: Colors.blueAccent,
                                                       fontSize: 16,
@@ -144,7 +152,7 @@ class OrderHistoryPage extends StatelessWidget {
                                                 ),
                                                 const SizedBox(width: 8),
                                                 Text(
-                                                  '${product['price']} tk',
+                                                  '${product['price'] * order['quantity'] + 240} tk',
                                                   style: const TextStyle(
                                                     decoration: TextDecoration.lineThrough,
                                                     color: Colors.grey,
@@ -175,6 +183,7 @@ class OrderHistoryPage extends StatelessWidget {
                                         description: product['description'] as String? ?? '',
                                         sellerEmail: product['sellerEmail'] as String? ?? 'Unknown',
                                         id: product['id'] as String? ?? '',
+                                        scrollToReview: true,
                                       ));
                                     },
                                     child: const Text('Review'),

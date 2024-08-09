@@ -136,7 +136,7 @@ class _NagadState extends State<Nagad> {
                       title: 'Payment Successful',
                       subTitle: 'Your payment was successfully completed. Your product will be delivered to your door.',
                       onPressed: () {
-                        Get.to(() => const OrderHistoryPage());
+                        Get.to(() =>  const OrderHistoryPage());
                       },
                       buttonTitle: 'See your order',
                     ));

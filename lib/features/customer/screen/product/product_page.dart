@@ -26,6 +26,7 @@ class ProductPage extends StatefulWidget {
   final String description;
   final String sellerEmail;
   final String id;
+  final bool scrollToReview; // New flag to indicate if we should scroll to review section
 
   const ProductPage({
     Key? key,
@@ -40,6 +41,7 @@ class ProductPage extends StatefulWidget {
     required this.description,
     required this.sellerEmail,
     required this.id,
+    this.scrollToReview = false, // Default value is false
   }) : super(key: key);
 
   @override
@@ -49,17 +51,40 @@ class ProductPage extends StatefulWidget {
 class _ProductPageState extends State<ProductPage> {
   bool isFavorite = false;
   int quantity = 1;
+  late ScrollController _scrollController; // Declare ScrollController
 
   @override
   void initState() {
+    super.initState();
     // Ensure WishlistController is initialized
     Get.lazyPut<WishlistController>(() => WishlistController());
 
     final WishlistController wishlistController = Get.find<WishlistController>();
     isFavorite = wishlistController.isInWishlist(widget.id);
 
+    _scrollController = ScrollController(); // Initialize ScrollController
+
+    if (widget.scrollToReview) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _scrollToReviewSection();
+      });
+    }
   }
 
+  @override
+  void dispose() {
+    _scrollController.dispose(); // Dispose of the ScrollController
+    super.dispose();
+  }
+
+  void _scrollToReviewSection() {
+    final offset = 420.0; // Adjust this value to scroll a bit further down
+    _scrollController.animateTo(
+      _scrollController.position.maxScrollExtent + offset,
+      duration: const Duration(seconds: 1),
+      curve: Curves.easeInOut,
+    );
+  }
 
 
   Future<void> _toggleWishlist() async {
@@ -86,7 +111,6 @@ class _ProductPageState extends State<ProductPage> {
           'description': widget.description as String? ?? '', // Ensure description is a String
         });
 
-
       } else {
         wishlistController.removeFromWishlist(widget.id);
       }
@@ -94,6 +118,7 @@ class _ProductPageState extends State<ProductPage> {
       Get.to(() => const LoginOption());
     }
   }
+
   String getBrandLogoPath(String brandName) {
     switch (brandName.toLowerCase()) {
       case 'regal':
@@ -109,12 +134,10 @@ class _ProductPageState extends State<ProductPage> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
-    //final CartController controller = Get.put(CartController());
     return Scaffold(
-      backgroundColor: GlobalColors.softGrey, // Light ash color
+      backgroundColor: GlobalColors.softGrey,
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
@@ -134,10 +157,11 @@ class _ProductPageState extends State<ProductPage> {
         ],
       ),
       body: SingleChildScrollView(
+        controller: _scrollController, // Attach the ScrollController
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Product3DViewer(modelUrl: widget.modelUrl), // Pass the modelUrl here
+            Product3DViewer(modelUrl: widget.modelUrl),
             const SizedBox(height: 8),
             ActionButtonsRow(sellerEmail: widget.sellerEmail, brandName: widget.brandName),
             const SizedBox(height: 8),
@@ -230,11 +254,9 @@ class _ProductPageState extends State<ProductPage> {
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: ReviewSection(productId: widget.id,),
+              child: ReviewSection(productId: widget.id),
             ),
-            const SizedBox(
-              height: 80,
-            ),
+            const SizedBox(height: 80),
           ],
         ),
       ),
@@ -256,7 +278,6 @@ class _ProductPageState extends State<ProductPage> {
                 'quantity': quantity,
                 'price': widget.discountedPrice,
               });
-
 
               final controller1 = Get.find<CustNavController>();
               controller1.changePage(2);
