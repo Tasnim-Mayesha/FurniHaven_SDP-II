@@ -10,7 +10,7 @@ import 'Sort/brand_sort.dart';
 
 class ProductSuggestionBrand extends StatefulWidget {
   final String brandName;
-  final RangeValues? priceRange; // Add price range as an optional parameter
+  final RangeValues? priceRange;
 
   const ProductSuggestionBrand({super.key, required this.brandName, this.priceRange});
 
@@ -20,7 +20,8 @@ class ProductSuggestionBrand extends StatefulWidget {
 
 class _ProductSuggestionBrandState extends State<ProductSuggestionBrand> {
   late Future<List<Map<String, dynamic>>> _productsFuture;
-  RangeValues? _currentPriceRange; // Track the current price range
+  RangeValues? _currentPriceRange;
+  String? _sortOption; // Track the current sort option
 
   @override
   void initState() {
@@ -62,6 +63,33 @@ class _ProductSuggestionBrandState extends State<ProductSuggestionBrand> {
       }).toList();
     }
 
+    // Apply sorting
+    if (_sortOption != null) {
+      if (_sortOption == "New arrivals") {
+        filteredProducts.sort((a, b) {
+          return b["timestamp"].compareTo(a["timestamp"]);
+        });
+      } else if (_sortOption == "Discount") {
+        filteredProducts = filteredProducts
+            .where((product) => product["discount"] != null && product["discount"] > 0)
+            .toList();
+      } else if (_sortOption == "PriceLtH") {
+        filteredProducts.sort((a, b) {
+          return a["price"].compareTo(b["price"]);
+        });
+      } else if (_sortOption == "PriceHtL") {
+        filteredProducts.sort((a, b) {
+          return b["price"].compareTo(a["price"]);
+        });
+      } else if (_sortOption == "Most Popular") {
+        filteredProducts.sort((a, b) {
+          var countA = globalController.tapCount[a['id']] ?? 0;
+          var countB = globalController.tapCount[b['id']] ?? 0;
+          return countB.compareTo(countA);
+        });
+      }
+    }
+
     return filteredProducts;
   }
 
@@ -69,6 +97,13 @@ class _ProductSuggestionBrandState extends State<ProductSuggestionBrand> {
     setState(() {
       _currentPriceRange = priceRange; // Update the current price range
       _productsFuture = _fetchProducts(); // Re-fetch products with the new filter
+    });
+  }
+
+  void _applySort(String? sortOption) {
+    setState(() {
+      _sortOption = sortOption; // Update the current sort option
+      _productsFuture = _fetchProducts(); // Re-fetch products with the new sort option
     });
   }
 
@@ -118,7 +153,12 @@ class _ProductSuggestionBrandState extends State<ProductSuggestionBrand> {
           ),
           IconButton(
             icon: Icon(Icons.sort, color: GlobalColors.mainColor),
-            onPressed: () => Get.to(() => const BrandSortBy()),
+            onPressed: () async {
+              final selectedSort = await Get.to(() => const BrandSortBy());
+              if (selectedSort != null) {
+                _applySort(selectedSort); // Apply the new sort option
+              }
+            },
           ),
         ],
       ),
@@ -133,12 +173,6 @@ class _ProductSuggestionBrandState extends State<ProductSuggestionBrand> {
             return Center(child: Text('No products found'.tr));
           } else {
             final products = snapshot.data!;
-
-            products.sort((a, b) {
-              var countA = globalController.tapCount[a['id']] ?? 0;
-              var countB = globalController.tapCount[b['id']] ?? 0;
-              return countB.compareTo(countA);
-            });
 
             return GridView.builder(
               itemCount: products.length,

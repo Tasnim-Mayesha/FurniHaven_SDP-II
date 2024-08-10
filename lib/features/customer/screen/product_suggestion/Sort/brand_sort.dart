@@ -5,10 +5,10 @@ class BrandSortBy extends StatefulWidget {
   const BrandSortBy({super.key});
 
   @override
-  _SortByState createState() => _SortByState();
+  _BrandSortByState createState() => _BrandSortByState();
 }
 
-class _SortByState extends State<BrandSortBy> {
+class _BrandSortByState extends State<BrandSortBy> {
   String? _selectedOption = 'none'; // Initial selected option
 
   @override
@@ -17,7 +17,7 @@ class _SortByState extends State<BrandSortBy> {
       appBar: AppBar(
         title: Text(
           'Sort By'.tr,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.deepOrange,
             fontSize: 24.0,
             fontWeight: FontWeight.bold,
@@ -30,10 +30,10 @@ class _SortByState extends State<BrandSortBy> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.only(left: 30.0,top: 10.0),
+              padding: const EdgeInsets.only(left: 30.0, top: 10.0),
               child: Text(
                 'Best Match'.tr,
-                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold,color:Colors.orange),
+                style: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.orange),
               ),
             ),
             const SizedBox(height: 16.0),
@@ -51,7 +51,17 @@ class _SortByState extends State<BrandSortBy> {
                       });
                     },
                   ),
-
+                  RadioListTile<String>(
+                    title: Text('Discount'.tr),
+                    value: 'Discount',
+                    groupValue: _selectedOption,
+                    activeColor: Colors.grey,
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedOption = value;
+                      });
+                    },
+                  ),
                   RadioListTile<String>(
                     title: Text('Price: Low to High'.tr),
                     value: 'PriceLtH',
@@ -64,7 +74,7 @@ class _SortByState extends State<BrandSortBy> {
                     },
                   ),
                   RadioListTile<String>(
-                    title: const Text('Price: High to Low'),
+                    title: Text('Price: High to Low'.tr),
                     value: 'PriceHtL',
                     groupValue: _selectedOption,
                     activeColor: Colors.grey,
@@ -74,20 +84,21 @@ class _SortByState extends State<BrandSortBy> {
                       });
                     },
                   ),
-                  SizedBox(height: 20,),
+                  const SizedBox(height: 10),
                   SizedBox(
-                      height: 56,
-                      child: ElevatedButton(onPressed: (){
-
+                    height: 56,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        // Pass the selected option back to the previous page
+                        Get.back(result: _selectedOption);
                       },
-                          child: Text("Apply")
-                      )
-                  )
+                      child: Text('Apply'.tr),
+                    ),
+                  ),
                 ],
               ),
             ),
-
-          ],//children
+          ], //children
         ),
       ),
     );

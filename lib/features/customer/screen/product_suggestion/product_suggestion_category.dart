@@ -20,6 +20,7 @@ class ProductSuggestionCategory extends StatefulWidget {
 class _ProductSuggestionCategoryState extends State<ProductSuggestionCategory> {
   late Future<List<Map<String, dynamic>>> _productsFuture;
   RangeValues? _currentPriceRange; // Track the current price range
+  String? _currentSortOption; // Track the current sort option
   final GlobalController globalController = Get.find();
 
   @override
@@ -64,6 +65,22 @@ class _ProductSuggestionCategoryState extends State<ProductSuggestionCategory> {
       });
     }
 
+    // Sort products based on the current sort option
+    if (_currentSortOption != null) {
+      products.sort((a, b) {
+        switch (_currentSortOption) {
+          case 'price_asc':
+            return (a['price'] as int).compareTo(b['price'] as int);
+          case 'price_desc':
+            return (b['price'] as int).compareTo(a['price'] as int);
+          case 'rating':
+            return (b['rating'] as double).compareTo(a['rating'] as double);
+          default:
+            return 0;
+        }
+      });
+    }
+
     return products;
   }
 
@@ -71,6 +88,13 @@ class _ProductSuggestionCategoryState extends State<ProductSuggestionCategory> {
     setState(() {
       _currentPriceRange = priceRange; // Update the current price range
       _productsFuture = _fetchProducts(); // Re-fetch products with the new filter
+    });
+  }
+
+  void _applySort(String sortOption) {
+    setState(() {
+      _currentSortOption = sortOption; // Update the current sort option
+      _productsFuture = _fetchProducts(); // Re-fetch products with the new sort option
     });
   }
 
@@ -120,7 +144,12 @@ class _ProductSuggestionCategoryState extends State<ProductSuggestionCategory> {
           ),
           IconButton(
             icon: Icon(Icons.sort, color: GlobalColors.mainColor),
-            onPressed: () => Get.to(() => const CategorySortBy()),
+            onPressed: () async {
+              final sortOption = await Get.to(() => const CategorySortBy());
+              if (sortOption != null) {
+                _applySort(sortOption); // Apply the new sort option
+              }
+            },
           ),
         ],
       ),

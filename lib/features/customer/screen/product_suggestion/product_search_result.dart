@@ -98,7 +98,7 @@ class _ProductSearchResultState extends State<ProductSearchResult> {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.filter_list, color: Colors.grey),
+            icon: Icon(Icons.filter_list, color: GlobalColors.mainColor),
             onPressed: () async {
               final selectedRange = await Get.to(() => const FilterBy());
               if (selectedRange != null) {
@@ -107,7 +107,7 @@ class _ProductSearchResultState extends State<ProductSearchResult> {
             },
           ),
           IconButton(
-            icon: const Icon(Icons.sort, color: Colors.grey),
+            icon: Icon(Icons.sort, color: GlobalColors.mainColor),
             onPressed: () async {
               final selectedSort = await Get.to(() => const SortBy());
               if (selectedSort != null) {
@@ -132,17 +132,19 @@ class _ProductSearchResultState extends State<ProductSearchResult> {
 
         // Apply sorting
         if (_sortOption != null) {
-          if (_sortOption == "Price: Low to High") {
+          if (_sortOption == "New arrivals") {
+            products.sort((a, b) {
+              return b["timestamp"].compareTo(a["timestamp"]);
+            });
+          } else if (_sortOption == "Discount") {
+            products = products.where((product) => product["discount"] != null && product["discount"] > 0).toList();
+          } else if (_sortOption == "PriceLtH") {
             products.sort((a, b) {
               return a["price"].compareTo(b["price"]);
             });
-          } else if (_sortOption == "Price: High to Low") {
+          } else if (_sortOption == "PriceHtL") {
             products.sort((a, b) {
               return b["price"].compareTo(a["price"]);
-            });
-          } else if (_sortOption == "Rating: High to Low") {
-            products.sort((a, b) {
-              return b["rating"].compareTo(a["rating"]);
             });
           }
         }
