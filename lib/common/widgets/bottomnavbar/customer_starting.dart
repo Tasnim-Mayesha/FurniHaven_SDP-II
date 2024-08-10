@@ -8,6 +8,7 @@ import 'package:sdp2/common/widgets/bottomnavbar/starting_controller.dart';
 import 'package:sdp2/features/customer/screen/cart/add_to_cart.dart';
 import 'package:sdp2/features/customer/screen/home/home_view.dart';
 import 'package:sdp2/features/customer/screen/message/message_list.dart';
+import 'package:sdp2/features/customer/screen/order_history/order_history.dart';
 import 'package:sdp2/features/customer/screen/wishlist/wishlist.dart';
 import 'package:sdp2/features/personilization/screen/Account/account.dart';
 import '../appbar/custom_appbar_in.dart';
@@ -57,26 +58,26 @@ class CustMainPage extends StatelessWidget {
               onTap: () {
                 final controller = Get.find<CustNavController>();
                 controller.changePage(1);
-                Get.to(() => const MessageList());
+                Get.to(() => CustMainPage());
               },
             ),
             ListTile(
               leading: const Icon(Iconsax.heart5, color: Colors.deepOrange),
-              title: Text('Wishlist'.tr),
+              title: Text('Cart'.tr),
               onTap: () {
                 final controller = Get.find<CustNavController>();
                 controller.changePage(2);
-                Get.to(() => const WishlistView());
+                Get.to(() => CustMainPage());
               },
             ),
             ListTile(
               leading:
                   const Icon(Icons.shopping_cart, color: Colors.deepOrange),
-              title: Text('Cart'.tr),
+              title: Text('Wishlist'.tr),
               onTap: () {
                 final controller = Get.find<CustNavController>();
                 controller.changePage(3);
-                Get.to(() => const CartView());
+                Get.to(() => CustMainPage());
               },
             ),
             ListTile(
@@ -85,7 +86,14 @@ class CustMainPage extends StatelessWidget {
               onTap: () {
                 final controller = Get.find<CustNavController>();
                 controller.changePage(4);
-                Get.to(() => AccountPage());
+                Get.to(() => CustMainPage());
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.history, color: Colors.deepOrange),
+              title: Text('Order History'.tr),
+              onTap: () {
+                Get.to(() => OrderHistoryPage());
               },
             ),
           ],

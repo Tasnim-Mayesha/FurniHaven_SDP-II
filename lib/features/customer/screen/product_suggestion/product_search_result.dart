@@ -18,6 +18,8 @@ class ProductSearchResult extends StatefulWidget {
 
 class _ProductSearchResultState extends State<ProductSearchResult> {
   late TextEditingController _searchController;
+  RangeValues? _currentPriceRange;
+  String? _sortOption;
 
   @override
   void initState() {
@@ -29,6 +31,18 @@ class _ProductSearchResultState extends State<ProductSearchResult> {
   void dispose() {
     _searchController.dispose();
     super.dispose();
+  }
+
+  void _applyFilter(RangeValues? priceRange) {
+    setState(() {
+      _currentPriceRange = priceRange;
+    });
+  }
+
+  void _applySort(String? sortOption) {
+    setState(() {
+      _sortOption = sortOption;
+    });
   }
 
   @override
@@ -75,7 +89,6 @@ class _ProductSearchResultState extends State<ProductSearchResult> {
               onSubmitted: (query) {
                 if (query.isNotEmpty) {
                   setState(() {
-                    // Update the search query and trigger the search
                     controller.searchProducts(query);
                   });
                 }
@@ -86,16 +99,53 @@ class _ProductSearchResultState extends State<ProductSearchResult> {
         actions: [
           IconButton(
             icon: const Icon(Icons.filter_list, color: Colors.grey),
-            onPressed: () => Get.to(() => FilterBy()),
+            onPressed: () async {
+              final selectedRange = await Get.to(() => const FilterBy());
+              if (selectedRange != null) {
+                _applyFilter(selectedRange);
+              }
+            },
           ),
           IconButton(
             icon: const Icon(Icons.sort, color: Colors.grey),
-            onPressed: () => Get.to(() => SortBy()),
+            onPressed: () async {
+              final selectedSort = await Get.to(() => const SortBy());
+              if (selectedSort != null) {
+                _applySort(selectedSort);
+              }
+            },
           ),
         ],
       ),
       body: Obx(() {
-        final products = controller.searchProducts(_searchController.text);
+        var products = controller.searchProducts(_searchController.text);
+
+        // Apply filtering
+        if (_currentPriceRange != null) {
+          products = products.where((product) {
+            final price = product["price"] is int
+                ? product["price"]
+                : (product["price"] as double).toInt();
+            return price >= _currentPriceRange!.start && price <= _currentPriceRange!.end;
+          }).toList();
+        }
+
+        // Apply sorting
+        if (_sortOption != null) {
+          if (_sortOption == "Price: Low to High") {
+            products.sort((a, b) {
+              return a["price"].compareTo(b["price"]);
+            });
+          } else if (_sortOption == "Price: High to Low") {
+            products.sort((a, b) {
+              return b["price"].compareTo(a["price"]);
+            });
+          } else if (_sortOption == "Rating: High to Low") {
+            products.sort((a, b) {
+              return b["rating"].compareTo(a["rating"]);
+            });
+          }
+        }
 
         if (products.isEmpty) {
           return Center(child: Text('No products found'.tr));
@@ -138,7 +188,7 @@ class _ProductSearchResultState extends State<ProductSearchResult> {
                     originalPrice: originalPrice,
                     discountedPrice: (originalPrice * (1 - (discount / 100))).round(),
                     rating: product["rating"] ?? 0,
-                    description: product["description"],
+                    description: product["description"] ?? '',
                     modelUrl: modelUrl,
                   ));
                 },

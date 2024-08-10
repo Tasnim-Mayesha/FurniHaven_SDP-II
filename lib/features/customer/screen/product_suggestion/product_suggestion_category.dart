@@ -19,7 +19,14 @@ class ProductSuggestionCategory extends StatefulWidget {
 
 class _ProductSuggestionCategoryState extends State<ProductSuggestionCategory> {
   late Future<List<Map<String, dynamic>>> _productsFuture;
+  RangeValues? _currentPriceRange; // Track the current price range
   final GlobalController globalController = Get.find();
+
+  @override
+  void initState() {
+    super.initState();
+    _productsFuture = _fetchProducts();
+  }
 
   Future<List<Map<String, dynamic>>> _fetchProducts() async {
     final querySnapshot = await FirebaseFirestore.instance
@@ -47,13 +54,24 @@ class _ProductSuggestionCategoryState extends State<ProductSuggestionCategory> {
       }
     }
 
+    // Filter by price range if provided
+    if (_currentPriceRange != null) {
+      products.retainWhere((product) {
+        final price = product["price"] is int
+            ? product["price"]
+            : (product["price"] as double).toInt();
+        return price >= _currentPriceRange!.start && price <= _currentPriceRange!.end;
+      });
+    }
+
     return products;
   }
 
-  @override
-  void initState() {
-    super.initState();
-    _productsFuture = _fetchProducts();
+  void _applyFilter(RangeValues? priceRange) {
+    setState(() {
+      _currentPriceRange = priceRange; // Update the current price range
+      _productsFuture = _fetchProducts(); // Re-fetch products with the new filter
+    });
   }
 
   @override
@@ -92,12 +110,17 @@ class _ProductSuggestionCategoryState extends State<ProductSuggestionCategory> {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.filter_list, color: Colors.grey),
-            onPressed: () => Get.to(() => CategoryFilterBy()),
+            icon: Icon(Icons.filter_list, color: GlobalColors.mainColor),
+            onPressed: () async {
+              final selectedRange = await Get.to(() => const CategoryFilterBy());
+              if (selectedRange != null) {
+                _applyFilter(selectedRange); // Apply the new filter
+              }
+            },
           ),
           IconButton(
-            icon: const Icon(Icons.sort, color: Colors.grey),
-            onPressed: () => Get.to(() => CategorySortBy()),
+            icon: Icon(Icons.sort, color: GlobalColors.mainColor),
+            onPressed: () => Get.to(() => const CategorySortBy()),
           ),
         ],
       ),
@@ -165,9 +188,8 @@ class _ProductSuggestionCategoryState extends State<ProductSuggestionCategory> {
                       discountedPrice: (originalPrice * (1 - (discount / 100))).round(),
                       rating: product["rating"] ?? 0,
                       modelUrl: modelUrl,
-                      description: product["description"]?? '',
-                    )
-                    );
+                      description: product["description"] ?? '',
+                    ));
                   },
                 );
               },

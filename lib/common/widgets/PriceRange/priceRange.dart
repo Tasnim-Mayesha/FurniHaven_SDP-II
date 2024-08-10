@@ -2,30 +2,50 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PriceRange extends StatefulWidget {
-  const PriceRange({super.key});
+  final RangeValues rangeValues;
+  final ValueChanged<RangeValues> onChanged;
+
+  const PriceRange({
+    super.key,
+    required this.rangeValues,
+    required this.onChanged,
+  });
 
   @override
-  _PriceRangeFieldState createState() => _PriceRangeFieldState();
+  _PriceRangeState createState() => _PriceRangeState();
 }
 
-class _PriceRangeFieldState extends State<PriceRange> {
-  RangeValues _currentRangeValues = const RangeValues(100, 1000);
+class _PriceRangeState extends State<PriceRange> {
+  late RangeValues _currentRangeValues;
   final TextEditingController _minController = TextEditingController();
   final TextEditingController _maxController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
+    _currentRangeValues = widget.rangeValues;
     _minController.text = _currentRangeValues.start.round().toString();
     _maxController.text = _currentRangeValues.end.round().toString();
   }
 
   void _updateRangeValues(RangeValues values) {
+    // Ensure the range values stay within the allowed range
+    final int min = 0;
+    final int max = 100000;
+
+    int startValue = values.start.round();
+    int endValue = values.end.round();
+
+    if (startValue < min) startValue = min;
+    if (endValue > max) endValue = max;
+
     setState(() {
-      _currentRangeValues = values;
-      _minController.text = _currentRangeValues.start.round().toString();
-      _maxController.text = _currentRangeValues.end.round().toString();
+      _currentRangeValues = RangeValues(startValue.toDouble(), endValue.toDouble());
+      _minController.text = startValue.toString();
+      _maxController.text = endValue.toString();
     });
+
+    widget.onChanged(_currentRangeValues); // Notify the parent widget of the change
   }
 
   @override
@@ -33,10 +53,6 @@ class _PriceRangeFieldState extends State<PriceRange> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Price Range'.tr,
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-        ),
         const SizedBox(height: 16.0),
         Row(
           children: [
@@ -45,13 +61,14 @@ class _PriceRangeFieldState extends State<PriceRange> {
                 controller: _minController,
                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
-                  // labelText: 'Min',
                   border: OutlineInputBorder(),
                 ),
                 onChanged: (value) {
-                  final minPrice = double.tryParse(value) ?? 0;
-                  if (minPrice <= _currentRangeValues.end) {
-                    _updateRangeValues(RangeValues(minPrice, _currentRangeValues.end));
+                  final minPrice = int.tryParse(value) ?? 0;
+                  if (minPrice <= _currentRangeValues.end.round()) {
+                    _updateRangeValues(RangeValues(minPrice.toDouble(), _currentRangeValues.end));
+                  } else {
+                    _minController.text = _currentRangeValues.start.round().toString();
                   }
                 },
               ),
@@ -62,13 +79,14 @@ class _PriceRangeFieldState extends State<PriceRange> {
                 controller: _maxController,
                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
-                  // labelText: 'Max',
                   border: OutlineInputBorder(),
                 ),
                 onChanged: (value) {
-                  final maxPrice = double.tryParse(value) ?? 0;
-                  if (maxPrice >= _currentRangeValues.start) {
-                    _updateRangeValues(RangeValues(_currentRangeValues.start, maxPrice));
+                  final maxPrice = int.tryParse(value) ?? 0;
+                  if (maxPrice >= _currentRangeValues.start.round()) {
+                    _updateRangeValues(RangeValues(_currentRangeValues.start, maxPrice.toDouble()));
+                  } else {
+                    _maxController.text = _currentRangeValues.end.round().toString();
                   }
                 },
               ),
@@ -79,7 +97,7 @@ class _PriceRangeFieldState extends State<PriceRange> {
         RangeSlider(
           values: _currentRangeValues,
           min: 0,
-          max: 5000,
+          max: 100000,
           divisions: 100,
           activeColor: Colors.deepOrangeAccent,
           inactiveColor: Colors.grey,
@@ -92,7 +110,7 @@ class _PriceRangeFieldState extends State<PriceRange> {
           },
         ),
         const SizedBox(height: 8.0),
-       Row(
+        Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text('Min'.tr),

@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sdp2/common/widgets/PriceRange/priceRange.dart';
-import '../Sort/sortBy.dart';
 
-class CategoryFilterBy extends StatelessWidget {
+class CategoryFilterBy extends StatefulWidget {
   const CategoryFilterBy({super.key});
+
+  @override
+  _CategoryFilterByState createState() => _CategoryFilterByState();
+}
+
+class _CategoryFilterByState extends State<CategoryFilterBy> {
+  RangeValues _selectedRange = const RangeValues(0, 100000); // Adjust initial range values
 
   @override
   Widget build(BuildContext context) {
@@ -24,17 +30,34 @@ class CategoryFilterBy extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            //const SizedBox(height: 16.0),
             Expanded(
               child: ListView(
                 children: [
-                  const ListTile(
-                    title: PriceRange(),
+                  ListTile(
+                    title: Text('Price Range'.tr),
+                    subtitle: PriceRange(
+                      rangeValues: _selectedRange,
+                      onChanged: (RangeValues newRange) {
+                        setState(() {
+                          _selectedRange = newRange;
+                        });
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  SizedBox(
+                    height: 56,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Get.back(result: _selectedRange); // Pass the selected range back
+                      },
+                      child: Text("Apply".tr),
+                    ),
                   ),
                 ],
               ),
             ),
-          ],//children
+          ],
         ),
       ),
     );

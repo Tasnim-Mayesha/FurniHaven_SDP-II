@@ -6,15 +6,13 @@ import '../../../../utils/global_colors.dart';
 import '../../../../utils/global_variables/tap_count.dart';
 import '../product/product_page.dart';
 import 'Filter/brand_filter.dart';
-import 'Filter/filterBy.dart';
 import 'Sort/brand_sort.dart';
-import 'Sort/sortBy.dart';
-
 
 class ProductSuggestionBrand extends StatefulWidget {
   final String brandName;
+  final RangeValues? priceRange; // Add price range as an optional parameter
 
-  const ProductSuggestionBrand({super.key, required this.brandName});
+  const ProductSuggestionBrand({super.key, required this.brandName, this.priceRange});
 
   @override
   _ProductSuggestionBrandState createState() => _ProductSuggestionBrandState();
@@ -22,7 +20,14 @@ class ProductSuggestionBrand extends StatefulWidget {
 
 class _ProductSuggestionBrandState extends State<ProductSuggestionBrand> {
   late Future<List<Map<String, dynamic>>> _productsFuture;
-  final GlobalController globalController = Get.find();
+  RangeValues? _currentPriceRange; // Track the current price range
+
+  @override
+  void initState() {
+    super.initState();
+    _currentPriceRange = widget.priceRange;
+    _productsFuture = _fetchProducts();
+  }
 
   Future<List<Map<String, dynamic>>> _fetchProducts() async {
     final querySnapshot = await FirebaseFirestore.instance.collection('Products').get();
@@ -44,15 +49,27 @@ class _ProductSuggestionBrandState extends State<ProductSuggestionBrand> {
       }
     }
 
-    final filteredProducts = products.where((product) => product['brandName'] == widget.brandName).toList();
+    // Filter by brand name
+    var filteredProducts = products.where((product) => product['brandName'] == widget.brandName).toList();
+
+    // Filter by price range if it's provided
+    if (_currentPriceRange != null) {
+      filteredProducts = filteredProducts.where((product) {
+        final price = product["price"] is int
+            ? product["price"]
+            : (product["price"] as double).toInt();
+        return price >= _currentPriceRange!.start && price <= _currentPriceRange!.end;
+      }).toList();
+    }
 
     return filteredProducts;
   }
 
-  @override
-  void initState() {
-    super.initState();
-    _productsFuture = _fetchProducts();
+  void _applyFilter(RangeValues? priceRange) {
+    setState(() {
+      _currentPriceRange = priceRange; // Update the current price range
+      _productsFuture = _fetchProducts(); // Re-fetch products with the new filter
+    });
   }
 
   @override
@@ -91,12 +108,17 @@ class _ProductSuggestionBrandState extends State<ProductSuggestionBrand> {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.filter_list, color: Colors.grey),
-            onPressed: () => Get.to(() => BrandFilterBy()),
+            icon: Icon(Icons.filter_list, color: GlobalColors.mainColor),
+            onPressed: () async {
+              final selectedRange = await Get.to(() => const BrandFilterBy());
+              if (selectedRange != null) {
+                _applyFilter(selectedRange); // Apply the new filter
+              }
+            },
           ),
           IconButton(
-            icon: const Icon(Icons.sort, color: Colors.grey),
-            onPressed: () => Get.to(() => BrandSortBy()),
+            icon: Icon(Icons.sort, color: GlobalColors.mainColor),
+            onPressed: () => Get.to(() => const BrandSortBy()),
           ),
         ],
       ),

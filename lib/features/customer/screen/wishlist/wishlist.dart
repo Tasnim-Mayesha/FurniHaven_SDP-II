@@ -76,6 +76,7 @@ class WishlistView extends StatelessWidget {
                   var productData = await fetchProductData(product["id"]);
                   if (productData != null) {
                     print("brand name: ${productData["brandName"]}");
+                    print("discounted price: ${productData["discountedPrice"]}");
                     Get.to(() => ProductPage(
                       id: productData["id"] as String? ?? '',
                       imageUrl: productData["imageUrl"] as String? ?? '',
@@ -84,7 +85,7 @@ class WishlistView extends StatelessWidget {
                       sellerEmail: productData["sellerEmail"] as String? ?? 'Unknown',
                       discount: (productData["discount"] as num?)?.toInt() ?? 0,
                       originalPrice: (productData["price"] as num?)?.toInt() ?? 0,
-                      discountedPrice: (productData["discountedPrice"] as num?)?.toInt() ?? 0,
+                      discountedPrice: (product["discountedPrice"] as num?)?.toInt() ?? 0,
                       rating: (productData["rating"] as num?)?.toDouble() ?? 0.0,
                       modelUrl: productData["modelUrl"] as String? ?? '',
                       description: productData["description"] as String? ?? '',

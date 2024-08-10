@@ -6,6 +6,7 @@ class ProductDetailsCard extends StatelessWidget {
   final String productDescription;
   final int originalPrice;
   final int discountedPrice;
+  final int discount;
 
   const ProductDetailsCard({
     Key? key,
@@ -14,6 +15,7 @@ class ProductDetailsCard extends StatelessWidget {
     required this.productDescription,
     required this.originalPrice,
     required this.discountedPrice,
+    required this.discount,
   }) : super(key: key);
 
   @override
@@ -48,27 +50,28 @@ class ProductDetailsCard extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    const Text(
-                      'Price',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.orange,
-                        fontWeight: FontWeight.bold,
+                    if (originalPrice != discountedPrice)
+                      Text(
+                        '$originalPrice Tk',
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Colors.grey,
+                          decoration: TextDecoration.lineThrough,
+                        ),
                       ),
-                    ),
                     Text(
-                      '$originalPrice Tk',
+                      '$discountedPrice Tk',
                       style: const TextStyle(
-                        fontSize: 24,
+                        fontSize: 28,
                         color: Colors.deepOrange,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     if (originalPrice != discountedPrice)
                       Text(
-                        '$discountedPrice Tk',
+                        '$discount% off!',
                         style: const TextStyle(
-                          fontSize: 20,
+                          fontSize: 18,
                           color: Colors.green,
                           fontWeight: FontWeight.bold,
                         ),

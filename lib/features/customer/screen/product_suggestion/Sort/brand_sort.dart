@@ -51,17 +51,7 @@ class _SortByState extends State<BrandSortBy> {
                       });
                     },
                   ),
-                  RadioListTile<String>(
-                    title: Text('Discount'.tr),
-                    value: 'Discount'.tr,
-                    groupValue: _selectedOption,
-                    activeColor: Colors.grey,
-                    onChanged: (value) {
-                      setState(() {
-                        _selectedOption = value;
-                      });
-                    },
-                  ),
+
                   RadioListTile<String>(
                     title: Text('Price: Low to High'.tr),
                     value: 'PriceLtH',
@@ -84,9 +74,19 @@ class _SortByState extends State<BrandSortBy> {
                       });
                     },
                   ),
+                  SizedBox(height: 20,),
+                  SizedBox(
+                      height: 56,
+                      child: ElevatedButton(onPressed: (){
+
+                      },
+                          child: Text("Apply")
+                      )
+                  )
                 ],
               ),
             ),
+
           ],//children
         ),
       ),
