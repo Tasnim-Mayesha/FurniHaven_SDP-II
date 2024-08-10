@@ -279,6 +279,7 @@ class _ProductPageState extends State<ProductPage> {
                 'sellerEmail': widget.sellerEmail,
                 'quantity': quantity,
                 'price': widget.discountedPrice,
+                'brandName': widget.brandName
               });
 
               final controller1 = Get.find<CustNavController>();

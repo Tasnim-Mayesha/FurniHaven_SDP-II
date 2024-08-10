@@ -236,6 +236,7 @@ class ProductCard extends StatelessWidget {
                                 'sellerEmail': sellerEmail,
                                 'quantity': 1,
                                 'price': discountedPrice,
+                                'brandName':brandName
                               });
                             },
                             icon: const Icon(Iconsax.add),

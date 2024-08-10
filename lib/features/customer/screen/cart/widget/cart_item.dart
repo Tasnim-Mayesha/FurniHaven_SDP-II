@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../utils/global_colors.dart';
+
 class CartItem extends StatelessWidget {
   final VoidCallback onDelete;
   final String imageUrl;
@@ -25,11 +27,28 @@ class CartItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        isValidUrl(imageUrl)
-            ? Image.network(imageUrl, width: 50, height: 50)
-            : const Icon(Icons.image_not_supported,
-                size: 50, color: Colors.grey),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(8.0),
+          child: isValidUrl(imageUrl)
+              ? Image.network(
+            imageUrl,
+            width: 60,
+            height: 60,
+            fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) => const Icon(
+              Icons.image_not_supported,
+              size: 60,
+              color: Colors.grey,
+            ),
+          )
+              : const Icon(
+            Icons.image_not_supported,
+            size: 60,
+            color: Colors.grey,
+          ),
+        ),
         const SizedBox(width: 16),
         Expanded(
           child: Column(
@@ -37,27 +56,40 @@ class CartItem extends StatelessWidget {
             children: [
               Text(
                 productName,
-                style: Theme.of(context).textTheme.bodyMedium,
-                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
+              const SizedBox(height: 4),
               Text(
                 brandName,
-                style: Theme.of(context).textTheme.bodyMedium,
-                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                  fontSize: 14,
+                  color: GlobalColors.mainColor,
+                ),
               ),
             ],
           ),
         ),
         const SizedBox(width: 16),
         Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
-              '${quantity.toString()} x ${price.toStringAsFixed(2)} Tk',
-              style: Theme.of(context).textTheme.bodyMedium,
+              '$quantity x ${price.toStringAsFixed(2)} Tk',
+              style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.black87,
+              ),
             ),
             IconButton(
               onPressed: onDelete,
-              icon: Icon(Icons.delete, color: Colors.red),
+              icon: Icon(
+                Icons.delete_outline,
+                color: Colors.red[400],
+              ),
             ),
           ],
         ),

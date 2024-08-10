@@ -14,8 +14,9 @@ class CartView extends StatelessWidget {
     final CartController controller = Get.put(CartController());
 
     return Scaffold(
+
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16.0),
         child: Obx(() {
           double totalCost = controller.cartItems.fold(0.0, (sum, item) {
             return sum + ((item['price'] as num?) ?? 0) * ((item['quantity'] as int?) ?? 0);
@@ -33,43 +34,51 @@ class CartView extends StatelessWidget {
                 )
                     : ListView.separated(
                   shrinkWrap: true,
-                  separatorBuilder: (_, __) => const SizedBox(height: 32),
+                  separatorBuilder: (_, __) => const SizedBox(height: 4),
                   itemCount: controller.cartItems.length,
                   itemBuilder: (_, index) {
                     final item = controller.cartItems[index];
-                    return Column(
-                      children: [
-                        CartItem(
-                          onDelete: () => controller.deleteItem(index),
-                          imageUrl: (item['imageUrl'] as String?) ?? '',
-                          productName: (item['productName'] as String?) ?? '',
-                          brandName: (item['brandName'] as String?) ?? '',
-                          quantity: (item['quantity'] as int?) ?? 0,
-                          price: ((item['price'] as num?) ?? 0.0).toDouble(),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    return Card(
+                      elevation: 4,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            CartItem(
+                              onDelete: () => controller.deleteItem(index),
+                              imageUrl: (item['imageUrl'] as String?) ?? '',
+                              productName: (item['productName'] as String?) ?? '',
+                              brandName: (item['brandName'] as String?) ?? '',
+                              quantity: (item['quantity'] as int?) ?? 0,
+                              price: ((item['price'] as num?) ?? 0.0).toDouble(),
+                            ),
+                            const SizedBox(height: 12),
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                const SizedBox(width: 70),
                                 AddRemoveButton(
                                   onAdd: () => controller.addItem(index),
                                   onRemove: () => controller.removeItem(index),
                                   count: (item['quantity'] as int?) ?? 0,
                                 ),
+                                Text(
+                                  '${(((item['price'] as num?) ?? 0) * ((item['quantity'] as int?) ?? 0)).toStringAsFixed(2)} Tk',
+                                  style: const TextStyle(
+                                    color: Colors.deepOrange,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                  ),
+                                ),
                               ],
-                            ),
-                            Text(
-                              '${(((item['price'] as num?) ?? 0) * ((item['quantity'] as int?) ?? 0)).toStringAsFixed(2)} Tk',
-                              style: const TextStyle(
-                                color: Colors.deepOrange,
-                                fontWeight: FontWeight.bold,
-                              ),
                             ),
                           ],
                         ),
-                      ],
+                      ),
                     );
                   },
                 ),
@@ -88,7 +97,7 @@ class CartView extends StatelessWidget {
                         colorText: Colors.white,
                       );
                     } else {
-                      Get.to(() =>  ShippingPage(), arguments: {
+                      Get.to(() => ShippingPage(), arguments: {
                         'totalCost': totalCost,
                         'cartItems': controller.cartItems,
                       });
@@ -103,7 +112,7 @@ class CartView extends StatelessWidget {
                   ),
                   child: Text(
                     'Checkout (${totalCost.toStringAsFixed(2)} Tk)'.tr,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                   ),
                 ),
               ),

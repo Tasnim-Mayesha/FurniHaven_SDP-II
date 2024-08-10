@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sdp2/features/customer/screen/notification/notification.dart';
+import 'package:sdp2/features/customer/screen/order_history/order_history.dart';
+import 'package:sdp2/features/customer/screen/wishlist/wishlist.dart';
 import 'package:sdp2/utils/global_colors.dart';
 
 import '../bottomnavbar/starting_controller.dart';
@@ -15,9 +18,8 @@ class LanguageSelectorButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton<String>(
-      icon: const Icon(Icons.language, color: Colors.white), // Set icon color to white
+      icon: const Icon(Icons.language, color: Colors.white),
       onSelected: (String language) {
-        // Find the selected locale and update language
         Map<String, dynamic> selectedLocale =
         locale.firstWhere((element) => element['name'] == language);
         updateLanguage(selectedLocale['locale']);
@@ -46,14 +48,14 @@ AppBar customAppBarIn(BuildContext context) {
           () => Text(
         navController.pageTitles[navController.currentIndex.value],
         textAlign: TextAlign.center,
-        style: const TextStyle(color: Colors.white), // Set title color to white
+        style: const TextStyle(color: Colors.white),
       ),
     ),
     centerTitle: true,
     leading: Builder(
       builder: (BuildContext context) {
         return IconButton(
-          icon: const Icon(Icons.menu, color: Colors.white), // Set icon color to white
+          icon: const Icon(Icons.menu, color: Colors.white),
           onPressed: () {
             Scaffold.of(context).openDrawer();
           },
@@ -61,8 +63,13 @@ AppBar customAppBarIn(BuildContext context) {
       },
     ),
     actions: [
-      LanguageSelectorButton(), // Add the language selector button here
+      IconButton(
+        icon: const Icon(Icons.notifications, color: Colors.white),
+        onPressed: () {
+          Get.to(()=> NotificationsPage() );
+        },
+      ),
+      LanguageSelectorButton(),
     ],
   );
 }
-
