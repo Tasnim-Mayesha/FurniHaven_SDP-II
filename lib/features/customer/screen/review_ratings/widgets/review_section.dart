@@ -48,32 +48,6 @@ class _ReviewSectionState extends State<ReviewSection> {
           ),
           child: const Text('Give Review and Ratings'),
         ),
-        /*StreamBuilder(
-          stream: FirebaseFirestore.instance
-              .collection('Review and Ratings')
-              .where('productId', isEqualTo: widget.productId)
-              .snapshots(),
-          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const CircularProgressIndicator();
-            }
-
-            if (snapshot.hasError) {
-              return const Text('Something went wrong');
-            }
-
-            if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-              return const Text('No reviews yet.');
-            }
-
-            return Column(
-              children: snapshot.data!.docs.map((doc) {
-                return ReviewCard(review: doc.data() as Map<String, dynamic>);
-              }).toList(),
-            );
-          },
-        ),*/
-
         StreamBuilder(
           stream: FirebaseFirestore.instance
               .collection('Review and Ratings')
@@ -86,7 +60,6 @@ class _ReviewSectionState extends State<ReviewSection> {
             }
 
             if (snapshot.hasError) {
-
               return const Text('Something went wrong');
             }
 
@@ -94,14 +67,17 @@ class _ReviewSectionState extends State<ReviewSection> {
               return const Text('No reviews yet.');
             }
 
+            final currentUserId = FirebaseAuth.instance.currentUser?.uid ?? '';
+
             return Column(
               children: snapshot.data!.docs.map((doc) {
-                return ReviewCard(review: doc.data() as Map<String, dynamic>);
+                final review = doc.data() as Map<String, dynamic>;
+                review['id'] = doc.id; // Store the document ID in the review map
+                return ReviewCard(review: review, currentUserId: currentUserId);
               }).toList(),
             );
           },
         ),
-
       ],
     );
   }
@@ -122,6 +98,10 @@ class _ReviewSectionState extends State<ReviewSection> {
         'rating': rating,
         'imageUrl': imageUrl,
         'date': DateTime.now(),
+        'likes': 0,
+        'dislikes': 0,
+        'likedBy': [], // Initialize as an empty list
+        'dislikedBy': [], // Initialize as an empty list
       });
     }
   }
