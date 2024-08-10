@@ -58,9 +58,7 @@ class _ProductSuggestionCategoryState extends State<ProductSuggestionCategory> {
     // Filter by price range if provided
     if (_currentPriceRange != null) {
       products.retainWhere((product) {
-        final price = product["price"] is int
-            ? product["price"]
-            : (product["price"] as double).toInt();
+        final price = (product["price"] * (1 - (product["discount"] / 100))).round() ;
         return price >= _currentPriceRange!.start && price <= _currentPriceRange!.end;
       });
     }

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -36,6 +37,7 @@ class _ChatScreenState extends State<ChatScreen> {
   String? userId;
   String? sellerName;
   String? sellerImage;
+  Map<String, dynamic>? _replyingTo;
 
   @override
   void initState() {
@@ -83,10 +85,14 @@ class _ChatScreenState extends State<ChatScreen> {
       'message': text,
       'imageUrl': imageUrl,
       'timestamp': FieldValue.serverTimestamp(),
+      'replyTo': _replyingTo,
     };
 
     await FirebaseFirestore.instance.collection('Chats').add(chatData);
     _controller.clear();
+    setState(() {
+      _replyingTo = null;
+    });
   }
 
   Future<String?> _uploadImage(File image) async {
@@ -110,6 +116,18 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
+  void _setReplyingTo(Map<String, dynamic> message) {
+    setState(() {
+      _replyingTo = message;
+    });
+  }
+
+  void _cancelReply() {
+    setState(() {
+      _replyingTo = null;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -118,7 +136,7 @@ class _ChatScreenState extends State<ChatScreen> {
         title: Row(
           children: [
             CircleAvatar(
-              backgroundImage: sellerId == userId
+              backgroundImage: sellerId != userId
                   ? NetworkImage(sellerImage ?? '')
                   : NetworkImage(widget.userImage),
               radius: 20,
@@ -133,6 +151,47 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
       body: Column(
         children: <Widget>[
+          if (_replyingTo != null)
+            Container(
+              color: Colors.grey[200],
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Replying to:',
+                          style: TextStyle(color: Colors.black54),
+                        ),
+                        if (_replyingTo!['imageUrl'] != null)
+                          CachedNetworkImage(
+                            imageUrl: _replyingTo!['imageUrl'],
+                            width: 100,
+                            height: 100,
+                            placeholder: (context, url) => CircularProgressIndicator(
+                              backgroundColor: GlobalColors.mainColor,
+                            ),
+                            errorWidget: (context, url, error) => const Icon(Icons.error),
+                          ),
+                        if (_replyingTo!['message'] != null)
+                          Text(
+                            _replyingTo!['message']!,
+                            style: const TextStyle(color: Colors.black54),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                      ],
+                    ),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.cancel),
+                    onPressed: _cancelReply,
+                  ),
+                ],
+              ),
+            ),
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance
@@ -150,11 +209,15 @@ class _ChatScreenState extends State<ChatScreen> {
                   itemBuilder: (ctx, i) {
                     final chatData = chatDocs[i].data() as Map<String, dynamic>;
                     bool isMe = chatData['sender'] == userId;
-                    return ChatBubble(
-                      message: chatData['message'] ?? '',
-                      image: chatData['imageUrl'],
-                      isMe: isMe,
-                      time: (chatData['timestamp'] as Timestamp?)?.toDate().toString() ?? '',
+                    return GestureDetector(
+                      onLongPress: () => _setReplyingTo(chatData),
+                      child: ChatBubble(
+                        message: chatData['message'] ?? '',
+                        image: chatData['imageUrl'],
+                        isMe: isMe,
+                        time: (chatData['timestamp'] as Timestamp?)?.toDate().toString() ?? '',
+                        replyTo: chatData['replyTo'],
+                      ),
                     );
                   },
                 );
@@ -177,6 +240,7 @@ class ChatBubble extends StatelessWidget {
   final String? image;
   final bool isMe;
   final String time;
+  final Map<String, dynamic>? replyTo;
 
   const ChatBubble({
     super.key,
@@ -184,6 +248,7 @@ class ChatBubble extends StatelessWidget {
     this.image,
     required this.isMe,
     required this.time,
+    this.replyTo,
   });
 
   @override
@@ -193,6 +258,39 @@ class ChatBubble extends StatelessWidget {
       child: Column(
         crossAxisAlignment: isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: <Widget>[
+          if (replyTo != null) ...[
+            Container(
+              padding: const EdgeInsets.all(8.0),
+              color: Colors.grey[300],
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Replying to:',
+                    style: TextStyle(color: Colors.black54, fontSize: 12),
+                  ),
+                  if (replyTo!['imageUrl'] != null)
+                    CachedNetworkImage(
+                      imageUrl: replyTo!['imageUrl'],
+                      width: 100,
+                      height: 100,
+                      placeholder: (context, url) => CircularProgressIndicator(
+                        backgroundColor: GlobalColors.mainColor,
+                      ),
+                      errorWidget: (context, url, error) => const Icon(Icons.error),
+                    ),
+                  if (replyTo!['message'] != null)
+                    Text(
+                      replyTo!['message']!,
+                      style: const TextStyle(color: Colors.black54, fontSize: 12),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 8.0),
+          ],
           if (image != null)
             Material(
               color: isMe ? Colors.orange[400] : Colors.grey[300],
@@ -209,10 +307,14 @@ class ChatBubble extends StatelessWidget {
               ),
               child: Padding(
                 padding: const EdgeInsets.all(10),
-                child: Image.network(
-                  image!,
+                child: CachedNetworkImage(
+                  imageUrl: image!,
                   width: 150,
                   height: 150,
+                  placeholder: (context, url) => CircularProgressIndicator(
+                    backgroundColor: GlobalColors.mainColor,
+                  ),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
             ),

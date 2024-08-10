@@ -56,9 +56,7 @@ class _ProductSuggestionBrandState extends State<ProductSuggestionBrand> {
     // Filter by price range if it's provided
     if (_currentPriceRange != null) {
       filteredProducts = filteredProducts.where((product) {
-        final price = product["price"] is int
-            ? product["price"]
-            : (product["price"] as double).toInt();
+        final price = (product["price"] * (1 - (product["discount"] / 100))).round() ;
         return price >= _currentPriceRange!.start && price <= _currentPriceRange!.end;
       }).toList();
     }
