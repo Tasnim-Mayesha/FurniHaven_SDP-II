@@ -4,7 +4,6 @@ import 'dart:async';
 
 import '../../../../../utils/global_variables/tap_count.dart';
 
-
 class HomeController extends GetxController {
   var products = <Map<String, dynamic>>[].obs;
   var recommendedProducts = <Map<String, dynamic>>[].obs;
@@ -25,10 +24,11 @@ class HomeController extends GetxController {
 
   Future<void> fetchProducts() async {
     final querySnapshot = await FirebaseFirestore.instance.collection('Products').get();
-    final productsList = querySnapshot.docs.map((doc) => doc.data()).toList();
-
-    for (var product in productsList) {
+    final productsList = await Future.wait(querySnapshot.docs.map((doc) async {
+      var product = doc.data();
       final sellerEmail = product['sellerEmail'];
+
+      // Fetch seller's brand name
       if (sellerEmail != null) {
         final sellerSnapshot = await FirebaseFirestore.instance
             .collection('Sellers')
@@ -41,14 +41,36 @@ class HomeController extends GetxController {
           product['brandName'] = 'Unknown';
         }
       }
-    }
+
+      // Calculate the average rating
+      product['rating'] = await _fetchAverageRating(doc.id);
+
+      return product;
+    }).toList());
 
     products.assignAll(productsList);
     prepareRecommendations();
   }
 
+  Future<double> _fetchAverageRating(String productId) async {
+    final reviewsSnapshot = await FirebaseFirestore.instance
+        .collection('Review and Ratings')
+        .where('productId', isEqualTo: productId)
+        .get();
+
+    double totalRating = 0;
+    int count = reviewsSnapshot.docs.length;
+
+    for (var doc in reviewsSnapshot.docs) {
+      totalRating += doc['rating'];
+    }
+
+    return count == 0 ? 0 : totalRating / count;
+  }
+
   void prepareRecommendations() {
     final GlobalController globalController = Get.find();
+
     // Sort products by tap count in descending order
     var sortedProducts = List<Map<String, dynamic>>.from(products);
     sortedProducts.sort((a, b) {

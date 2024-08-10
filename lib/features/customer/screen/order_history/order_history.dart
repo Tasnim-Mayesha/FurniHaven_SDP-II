@@ -176,8 +176,9 @@ class OrderHistoryPage extends StatelessWidget {
                                         productName: product['title'] as String? ?? 'Unknown',
                                         brandName: brandName as String? ?? 'Unknown', // Use fetched brandName
                                         discount: (product['discount'] as num?)?.toInt() ?? 0,
-                                        originalPrice: (product['originalPrice'] as num?)?.toInt() ?? 0,
-                                        discountedPrice: (product['discountedPrice'] as num?)?.toInt() ?? 0,
+                                        originalPrice: (product['price'] as num?)?.toInt() ?? 0,
+                                        discountedPrice: (product['price'] * (1 - (product["discount"] / 100)))
+                                            .round(),
                                         rating: (product['rating'] as num?)?.toDouble() ?? 0.0,
                                         modelUrl: product['modelUrl'] as String? ?? '',
                                         description: product['description'] as String? ?? '',

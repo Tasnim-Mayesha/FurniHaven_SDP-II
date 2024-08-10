@@ -21,7 +21,7 @@ class ProductSuggestionBrand extends StatefulWidget {
 class _ProductSuggestionBrandState extends State<ProductSuggestionBrand> {
   late Future<List<Map<String, dynamic>>> _productsFuture;
   RangeValues? _currentPriceRange;
-  String? _sortOption; // Track the current sort option
+  String? _sortOption;
 
   @override
   void initState() {
@@ -48,6 +48,9 @@ class _ProductSuggestionBrandState extends State<ProductSuggestionBrand> {
           product['brandName'] = 'Unknown';
         }
       }
+
+      // Calculate average rating for each product
+      product['averageRating'] = await _getAverageRating(product['id']);
     }
 
     // Filter by brand name
@@ -56,7 +59,7 @@ class _ProductSuggestionBrandState extends State<ProductSuggestionBrand> {
     // Filter by price range if it's provided
     if (_currentPriceRange != null) {
       filteredProducts = filteredProducts.where((product) {
-        final price = (product["price"] * (1 - (product["discount"] / 100))).round() ;
+        final price = (product["price"] * (1 - (product["discount"] / 100))).round();
         return price >= _currentPriceRange!.start && price <= _currentPriceRange!.end;
       }).toList();
     }
@@ -91,17 +94,35 @@ class _ProductSuggestionBrandState extends State<ProductSuggestionBrand> {
     return filteredProducts;
   }
 
+  Future<double> _getAverageRating(String productId) async {
+    final querySnapshot = await FirebaseFirestore.instance
+        .collection('Review and Ratings')
+        .where('productId', isEqualTo: productId)
+        .get();
+
+    if (querySnapshot.docs.isEmpty) {
+      return 0.0;
+    }
+
+    double totalRating = 0;
+    for (var doc in querySnapshot.docs) {
+      totalRating += doc['rating'] as double;
+    }
+
+    return totalRating / querySnapshot.docs.length;
+  }
+
   void _applyFilter(RangeValues? priceRange) {
     setState(() {
-      _currentPriceRange = priceRange; // Update the current price range
-      _productsFuture = _fetchProducts(); // Re-fetch products with the new filter
+      _currentPriceRange = priceRange;
+      _productsFuture = _fetchProducts();
     });
   }
 
   void _applySort(String? sortOption) {
     setState(() {
-      _sortOption = sortOption; // Update the current sort option
-      _productsFuture = _fetchProducts(); // Re-fetch products with the new sort option
+      _sortOption = sortOption;
+      _productsFuture = _fetchProducts();
     });
   }
 
@@ -145,7 +166,7 @@ class _ProductSuggestionBrandState extends State<ProductSuggestionBrand> {
             onPressed: () async {
               final selectedRange = await Get.to(() => const BrandFilterBy());
               if (selectedRange != null) {
-                _applyFilter(selectedRange); // Apply the new filter
+                _applyFilter(selectedRange);
               }
             },
           ),
@@ -154,7 +175,7 @@ class _ProductSuggestionBrandState extends State<ProductSuggestionBrand> {
             onPressed: () async {
               final selectedSort = await Get.to(() => const BrandSortBy());
               if (selectedSort != null) {
-                _applySort(selectedSort); // Apply the new sort option
+                _applySort(selectedSort);
               }
             },
           ),
@@ -198,7 +219,7 @@ class _ProductSuggestionBrandState extends State<ProductSuggestionBrand> {
                   discount: discount,
                   originalPrice: originalPrice,
                   discountedPrice: (originalPrice * (1 - (discount / 100))).round(),
-                  rating: product["rating"] ?? 0,
+                  rating: product['averageRating'] ?? 0.0,
                   onTap: () {
                     // Increment tap count
                     var id = product["id"];
@@ -216,7 +237,7 @@ class _ProductSuggestionBrandState extends State<ProductSuggestionBrand> {
                       discount: discount,
                       originalPrice: originalPrice,
                       discountedPrice: (originalPrice * (1 - (discount / 100))).round(),
-                      rating: product["rating"] ?? 0,
+                      rating: product['averageRating'] ?? 0.0,
                       modelUrl: modelUrl,
                       description: product["description"] ?? '',
                     ));

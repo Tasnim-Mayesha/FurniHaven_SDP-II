@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ReviewCard extends StatelessWidget {
@@ -30,14 +31,11 @@ class ReviewCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 5),
                     Row(
-                      children: List.generate(
-                        review['rating'].toInt(),
-                            (index) => const Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                          size: 16,
-                        ),
-                      ),
+                      children: [
+                        _buildStarRating(review['rating']),
+                        const SizedBox(width: 8),
+
+                      ],
                     ),
                   ],
                 ),
@@ -59,6 +57,24 @@ class ReviewCard extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  // Function to build the star rating widget
+  Widget _buildStarRating(double rating) {
+    int fullStars = rating.floor();
+    bool hasHalfStar = (rating - fullStars) >= 0.5;
+
+    return Row(
+      children: List.generate(5, (index) {
+        if (index < fullStars) {
+          return const Icon(Icons.star, color: Colors.amber, size: 16);
+        } else if (index == fullStars && hasHalfStar) {
+          return const Icon(Icons.star_half, color: Colors.amber, size: 16);
+        } else {
+          return const Icon(Icons.star_border, color: Colors.amber, size: 16);
+        }
+      }),
     );
   }
 }

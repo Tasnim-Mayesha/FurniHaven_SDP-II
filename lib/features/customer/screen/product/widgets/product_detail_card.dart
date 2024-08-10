@@ -7,6 +7,7 @@ class ProductDetailsCard extends StatelessWidget {
   final int originalPrice;
   final int discountedPrice;
   final int discount;
+  final double rating;
 
   const ProductDetailsCard({
     Key? key,
@@ -16,6 +17,7 @@ class ProductDetailsCard extends StatelessWidget {
     required this.originalPrice,
     required this.discountedPrice,
     required this.discount,
+    required this.rating,
   }) : super(key: key);
 
   @override
@@ -96,9 +98,43 @@ class ProductDetailsCard extends StatelessWidget {
                 color: Colors.grey[700],
               ),
             ),
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                _buildStarRating(rating), // Add the star rating display here
+                const SizedBox(width: 8),
+                Text(
+                  rating.toStringAsFixed(2), // Display rating with two decimal places
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black54,
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),
+    );
+  }
+
+  // Function to build the star rating widget
+  Widget _buildStarRating(double rating) {
+    // Calculate full stars and half stars
+    int fullStars = rating.floor();
+    bool hasHalfStar = (rating - fullStars) >= 0.5;
+
+    return Row(
+      children: List.generate(5, (index) {
+        if (index < fullStars) {
+          return const Icon(Icons.star, color: Colors.amber, size: 24);
+        } else if (index == fullStars && hasHalfStar) {
+          return const Icon(Icons.star_half, color: Colors.amber, size: 24);
+        } else {
+          return const Icon(Icons.star_border, color: Colors.amber, size: 24);
+        }
+      }),
     );
   }
 }

@@ -11,7 +11,7 @@ class WishlistView extends StatelessWidget {
 
   Future<Map<String, dynamic>?> fetchProductData(String id) async {
     try {
-      // Fetch the document from Firestore using the product ID
+      // Fetch the product document from Firestore using the product ID
       DocumentSnapshot productDoc = await FirebaseFirestore.instance.collection('Products').doc(id).get();
       if (productDoc.exists) {
         Map<String, dynamic> productData = productDoc.data() as Map<String, dynamic>;
@@ -32,6 +32,9 @@ class WishlistView extends StatelessWidget {
           productData["brandName"] = 'Unknown';
         }
 
+        // Calculate the average rating for the product
+        productData["rating"] = await _fetchAverageRating(id);
+
         return productData;
       } else {
         print("No such product!");
@@ -41,6 +44,22 @@ class WishlistView extends StatelessWidget {
       print("Error fetching product: $e");
       return null;
     }
+  }
+
+  Future<double> _fetchAverageRating(String productId) async {
+    final reviewsSnapshot = await FirebaseFirestore.instance
+        .collection('Review and Ratings')
+        .where('productId', isEqualTo: productId)
+        .get();
+
+    double totalRating = 0;
+    int count = reviewsSnapshot.docs.length;
+
+    for (var doc in reviewsSnapshot.docs) {
+      totalRating += doc['rating'];
+    }
+
+    return count == 0 ? 0 : totalRating / count;
   }
 
   @override
@@ -71,7 +90,7 @@ class WishlistView extends StatelessWidget {
                 discount: product["discount"],
                 originalPrice: product["originalPrice"],
                 discountedPrice: product["discountedPrice"],
-                rating: product["rating"],
+                rating: product["rating"], // Rating passed from the product data
                 onTap: () async {
                   var productData = await fetchProductData(product["id"]);
                   if (productData != null) {

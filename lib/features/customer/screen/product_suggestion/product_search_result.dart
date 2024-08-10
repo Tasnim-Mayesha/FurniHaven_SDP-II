@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../../common/products/product_cards/card.dart';
 import '../../../../utils/global_colors.dart';
 import '../home/home_controller/home_controller.dart';
@@ -43,6 +44,24 @@ class _ProductSearchResultState extends State<ProductSearchResult> {
     setState(() {
       _sortOption = sortOption;
     });
+  }
+
+  Future<double> _getAverageRating(String productId) async {
+    final querySnapshot = await FirebaseFirestore.instance
+        .collection('Review and Ratings')
+        .where('productId', isEqualTo: productId)
+        .get();
+
+    if (querySnapshot.docs.isEmpty) {
+      return 0.0;
+    }
+
+    double totalRating = 0;
+    for (var doc in querySnapshot.docs) {
+      totalRating += doc['rating'] as double;
+    }
+
+    return totalRating / querySnapshot.docs.length;
   }
 
   @override
@@ -167,18 +186,15 @@ class _ProductSearchResultState extends State<ProductSearchResult> {
               final discount = product["discount"] ?? 0;
               final modelUrl = product["modelUrl"] ?? '';
 
-              return ProductCard(
-                id: product["id"] ?? '',
-                imageUrl: product["imageUrl"] ?? '',
-                productName: product["title"] ?? '',
-                brandName: product["brandName"] ?? 'Unknown',
-                sellerEmail: product["sellerEmail"] ?? 'Unknown',
-                discount: discount,
-                originalPrice: originalPrice,
-                discountedPrice: (originalPrice * (1 - (discount / 100))).round(),
-                rating: product["rating"] ?? 0,
-                onTap: () {
-                  Get.to(() => ProductPage(
+              return FutureBuilder<double>(
+                future: _getAverageRating(product["id"]),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  final averageRating = snapshot.data ?? 0.0;
+
+                  return ProductCard(
                     id: product["id"] ?? '',
                     imageUrl: product["imageUrl"] ?? '',
                     productName: product["title"] ?? '',
@@ -187,10 +203,23 @@ class _ProductSearchResultState extends State<ProductSearchResult> {
                     discount: discount,
                     originalPrice: originalPrice,
                     discountedPrice: (originalPrice * (1 - (discount / 100))).round(),
-                    rating: product["rating"] ?? 0,
-                    description: product["description"] ?? '',
-                    modelUrl: modelUrl,
-                  ));
+                    rating: averageRating,
+                    onTap: () {
+                      Get.to(() => ProductPage(
+                        id: product["id"] ?? '',
+                        imageUrl: product["imageUrl"] ?? '',
+                        productName: product["title"] ?? '',
+                        brandName: product["brandName"] ?? 'Unknown',
+                        sellerEmail: product["sellerEmail"] ?? 'Unknown',
+                        discount: discount,
+                        originalPrice: originalPrice,
+                        discountedPrice: (originalPrice * (1 - (discount / 100))).round(),
+                        rating: averageRating,
+                        description: product["description"] ?? '',
+                        modelUrl: modelUrl,
+                      ));
+                    },
+                  );
                 },
               );
             },

@@ -53,12 +53,26 @@ class _ProductSuggestionCategoryState extends State<ProductSuggestionCategory> {
       } else {
         product['brandName'] = 'Unknown';
       }
+
+      // Calculate the average rating
+      final reviewsSnapshot = await FirebaseFirestore.instance
+          .collection('Review and Ratings')
+          .where('productId', isEqualTo: product['id'])
+          .get();
+
+      if (reviewsSnapshot.docs.isNotEmpty) {
+        final ratings = reviewsSnapshot.docs.map((doc) => doc.data()['rating'] as double).toList();
+        final averageRating = ratings.reduce((a, b) => a + b) / ratings.length;
+        product['rating'] = averageRating;
+      } else {
+        product['rating'] = 0.0;
+      }
     }
 
     // Filter by price range if provided
     if (_currentPriceRange != null) {
       products.retainWhere((product) {
-        final price = (product["price"] * (1 - (product["discount"] / 100))).round() ;
+        final price = (product["price"] * (1 - (product["discount"] / 100))).round();
         return price >= _currentPriceRange!.start && price <= _currentPriceRange!.end;
       });
     }
@@ -195,7 +209,7 @@ class _ProductSuggestionCategoryState extends State<ProductSuggestionCategory> {
                   discount: discount,
                   originalPrice: originalPrice,
                   discountedPrice: (originalPrice * (1 - (discount / 100))).round(),
-                  rating: product["rating"] ?? 0,
+                  rating: product["rating"] ?? 0.0,
                   onTap: () {
                     // Increment tap count
                     var id = product["id"];
@@ -213,7 +227,7 @@ class _ProductSuggestionCategoryState extends State<ProductSuggestionCategory> {
                       discount: discount,
                       originalPrice: originalPrice,
                       discountedPrice: (originalPrice * (1 - (discount / 100))).round(),
-                      rating: product["rating"] ?? 0,
+                      rating: product["rating"] ?? 0.0,
                       modelUrl: modelUrl,
                       description: product["description"] ?? '',
                     ));

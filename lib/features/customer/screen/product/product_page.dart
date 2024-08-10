@@ -171,7 +171,8 @@ class _ProductPageState extends State<ProductPage> {
               productDescription: widget.description,
               originalPrice: widget.originalPrice,
               discountedPrice: widget.discountedPrice,
-              discount: widget.discount
+              discount: widget.discount,
+              rating: widget.rating
             ),
             const SizedBox(height: 8),
             Padding(
