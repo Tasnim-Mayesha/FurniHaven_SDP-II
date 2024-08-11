@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sdp2/features/customer/screen/notification/notification.dart';
-import 'package:sdp2/features/customer/screen/order_history/order_history.dart';
-import 'package:sdp2/features/customer/screen/wishlist/wishlist.dart';
 import 'package:sdp2/utils/global_colors.dart';
-
 import '../bottomnavbar/starting_controller.dart';
+
 
 class LanguageSelectorButton extends StatelessWidget {
   final List<Map<String, dynamic>> locale = [
@@ -41,6 +39,10 @@ class LanguageSelectorButton extends StatelessWidget {
 
 AppBar customAppBarIn(BuildContext context) {
   CustNavController navController = Get.find<CustNavController>();
+  NotificationController notificationController = Get.put(NotificationController());
+
+  // Initialize listener
+  initCouponListener(notificationController);
 
   return AppBar(
     backgroundColor: GlobalColors.mainColor,
@@ -63,12 +65,42 @@ AppBar customAppBarIn(BuildContext context) {
       },
     ),
     actions: [
-      IconButton(
-        icon: const Icon(Icons.notifications, color: Colors.white),
-        onPressed: () {
-          Get.to(()=> NotificationsPage() );
-        },
-      ),
+      Obx(() => Stack(
+        children: [
+          IconButton(
+            icon: const Icon(Icons.notifications, color: Colors.white),
+            onPressed: () {
+              notificationController.resetNotificationCount();
+              Get.to(() => NotificationsPage());
+            },
+          ),
+          if (notificationController.notificationCount.value > 0)
+            Positioned(
+              right: 10,
+              top: 10,
+              child: Container(
+                padding: const EdgeInsets.all(2),
+                decoration: const BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
+                constraints: const BoxConstraints(
+                  minWidth: 16,
+                  minHeight: 16,
+                ),
+                child: Text(
+                  '${notificationController.notificationCount.value}',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+        ],
+      )),
       LanguageSelectorButton(),
     ],
   );

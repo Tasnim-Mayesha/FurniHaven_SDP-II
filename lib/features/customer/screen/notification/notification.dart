@@ -1,6 +1,27 @@
+import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sdp2/utils/global_colors.dart';
+
+class NotificationController extends GetxController {
+  RxInt notificationCount = 0.obs;
+
+  // Listen for changes in the 'coupons' collection
+  void listenToCouponChanges() {
+    FirebaseFirestore.instance.collection('coupons').snapshots().listen((snapshot) {
+      notificationCount.value = snapshot.docChanges.length;
+    });
+  }
+
+  // Reset the notification count when the user checks the notifications
+  void resetNotificationCount() {
+    notificationCount.value = 0;
+  }
+}
+
+void initCouponListener(NotificationController notificationController) {
+  notificationController.listenToCouponChanges();
+}
 
 class NotificationsPage extends StatelessWidget {
   const NotificationsPage({super.key});
