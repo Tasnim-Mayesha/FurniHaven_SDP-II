@@ -40,10 +40,20 @@ class ReviewCard extends StatelessWidget {
                     const SizedBox(height: 5),
                     Row(
                       children: [
-                        ...List.generate(
-                          review['rating'].toInt(),
-                              (index) => const Icon(Icons.star, color: Colors.amber, size: 16),
-                        ),
+                        ...List.generate(5, (index) {
+                          final double rating = review['rating'];
+                          final int fullStars = rating.floor();
+                          final double fractionalPart = rating - fullStars;
+
+                          if (index < fullStars) {
+                            return const Icon(Icons.star, color: Colors.amber, size: 16);
+                          } else if (index == fullStars && fractionalPart >= 0.5) {
+                            return const Icon(Icons.star_half, color: Colors.amber, size: 16);
+                          } else {
+                            return const Icon(Icons.star_border, color: Colors.amber, size: 16);
+                          }
+                        }),
+
                       ],
                     ),
                   ],
@@ -96,7 +106,6 @@ class ReviewCard extends StatelessWidget {
 
     if (action == 'like') {
       if (likedBy.contains(userId)) {
-        // User is un-liking the review
         likedBy.remove(userId);
         await docRef.update({'likes': FieldValue.increment(-1)});
       } else {
@@ -109,7 +118,6 @@ class ReviewCard extends StatelessWidget {
       }
     } else if (action == 'dislike') {
       if (dislikedBy.contains(userId)) {
-        // User is un-disliking the review
         dislikedBy.remove(userId);
         await docRef.update({'dislikes': FieldValue.increment(-1)});
       } else {
