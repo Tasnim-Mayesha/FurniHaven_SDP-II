@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController {
@@ -46,4 +47,45 @@ class CartController extends GetxController {
       cartItems.add({'id': id, 'quantity': 1});
     }
   }
+  Future<void> applyCoupon(String couponCode) async {
+    try {
+      QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection('coupons')
+          .where('code', isEqualTo: couponCode)
+          .get();
+
+      if (snapshot.docs.isEmpty) {
+        Get.snackbar('Invalid Coupon', 'Coupon code does not exist.');
+        return;
+      }
+
+      for (var doc in snapshot.docs) {
+        var coupon = doc.data() as Map<String, dynamic>;
+        final double discount = coupon['discount'] as double? ?? 0.0;
+        final String sellerEmail = coupon['email'] as String? ?? '';
+        final String expiryDateStr = coupon['expiryDate'] as String;
+
+        // Parse the expiry date string to DateTime
+        DateTime expiryDate = DateTime.parse(expiryDateStr);
+
+        // Check if the coupon is expired
+        if (expiryDate.isBefore(DateTime.now())) {
+          Get.snackbar('Expired Coupon', 'The coupon code has expired.');
+          return;
+        }
+
+        for (var item in cartItems) {
+          if (item['sellerEmail'] == sellerEmail) {
+            item['price'] = item['price'] * (1 - (discount / 100));
+          }
+        }
+      }
+
+      cartItems.refresh();
+      Get.snackbar('Success', 'Coupon applied successfully.',);
+    } catch (e) {
+      Get.snackbar('Error', 'Failed to apply coupon.');
+    }
+  }
+
 }

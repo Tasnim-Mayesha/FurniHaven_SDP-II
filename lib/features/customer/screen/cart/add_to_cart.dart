@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sdp2/features/customer/screen/cart/widget/add_remove_button.dart';
@@ -13,8 +14,9 @@ class CartView extends StatelessWidget {
   Widget build(BuildContext context) {
     final CartController controller = Get.put(CartController());
 
-    return Scaffold(
+    TextEditingController couponController = TextEditingController();
 
+    return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Obx(() {
@@ -83,6 +85,37 @@ class CartView extends StatelessWidget {
                   },
                 ),
               ),
+              // Coupon Input Field
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: couponController,
+                      decoration: InputDecoration(
+                        hintText: "Enter coupon code",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  ElevatedButton(
+                    onPressed: () async {
+                      final couponCode = couponController.text.trim();
+                      await controller.applyCoupon(couponCode);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: GlobalColors.mainColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    child: const Text("Apply"),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
               SizedBox(
                 width: double.infinity,
                 height: 56,
