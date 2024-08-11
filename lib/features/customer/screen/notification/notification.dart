@@ -5,6 +5,7 @@ import 'package:sdp2/utils/global_colors.dart';
 class NotificationsPage extends StatelessWidget {
   const NotificationsPage({super.key});
 
+  // Fetch coupons and their associated brand names from Firestore
   Future<List<Coupon>> fetchCoupons() async {
     List<Coupon> coupons = [];
 
@@ -12,7 +13,7 @@ class NotificationsPage extends StatelessWidget {
       // Fetch all coupons
       QuerySnapshot couponsSnapshot = await FirebaseFirestore.instance.collection('coupons').get();
 
-      // Fetch all sellers
+      // Fetch all sellers and map their email to brand names
       QuerySnapshot sellersSnapshot = await FirebaseFirestore.instance.collection('Sellers').get();
       Map<String, String> emailToBrandMap = {
         for (var doc in sellersSnapshot.docs) doc['email']: doc['brandName'],
@@ -28,7 +29,7 @@ class NotificationsPage extends StatelessWidget {
         coupons.add(Coupon.fromFirestore(couponData, brandName, discount));
       }
     } catch (e) {
-      print("Error fetching coupons: $e");
+      debugPrint("Error fetching coupons: $e");
       throw e;
     }
 
@@ -39,7 +40,10 @@ class NotificationsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Notifications",style: TextStyle(color: Colors.white),),
+        title: const Text(
+          "Notifications",
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: GlobalColors.mainColor,
       ),
       body: FutureBuilder<List<Coupon>>(
@@ -56,51 +60,7 @@ class NotificationsPage extends StatelessWidget {
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
                 Coupon coupon = snapshot.data![index];
-                return Card(
-                  elevation: 4,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: ListTile(
-                      leading: Icon(Icons.local_offer, color: GlobalColors.mainColor, size: 40),
-                      title: Text(
-                        coupon.code,
-                        style: TextStyle(
-                          color: GlobalColors.mainColor,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w900,
-                        ),
-                      ),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(height: 8),
-                          Text(
-                            "${coupon.discount.toInt()}% off",
-                            style: TextStyle(
-                              color: Colors.green,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            "Brand: ${coupon.brandName}",
-                            style: TextStyle(fontSize: 16, color: Colors.black87),
-                          ),
-                          const SizedBox(height: 2),
-                          Text(
-                            "Expiry Date: ${coupon.expiryDate.toLocal()}",
-                            style: TextStyle(fontSize: 14, color: Colors.black54),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
+                return CouponCard(coupon: coupon);
               },
             );
           }
@@ -110,6 +70,63 @@ class NotificationsPage extends StatelessWidget {
   }
 }
 
+// Widget to display a single coupon in a card format
+class CouponCard extends StatelessWidget {
+  final Coupon coupon;
+
+  const CouponCard({required this.coupon});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15),
+      ),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Padding(
+        padding: const EdgeInsets.all(4),
+        child: ListTile(
+          leading: Icon(Icons.local_offer, color: GlobalColors.mainColor, size: 40),
+          title: Text(
+            coupon.code,
+            style: TextStyle(
+              color: GlobalColors.mainColor,
+              fontSize: 20,
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 8),
+              Text(
+                "${coupon.discount.toInt()}% off",
+                style: TextStyle(
+                  color: Colors.green,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                "Brand: ${coupon.brandName}",
+                style: TextStyle(fontSize: 16, color: Colors.black87),
+              ),
+              const SizedBox(height: 2),
+              Text(
+                "Expiry Date: ${coupon.expiryDate.toLocal()}",
+                style: TextStyle(fontSize: 14, color: Colors.black54),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// Model class representing a Coupon
 class Coupon {
   final String code;
   final num discount;
@@ -125,6 +142,7 @@ class Coupon {
     required this.brandName,
   });
 
+  // Factory constructor to create a Coupon instance from Firestore data
   factory Coupon.fromFirestore(Map<String, dynamic> couponData, String brandName, num discount) {
     return Coupon(
       code: couponData['code'],
