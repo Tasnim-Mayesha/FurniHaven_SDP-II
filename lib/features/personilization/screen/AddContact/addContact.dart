@@ -75,7 +75,7 @@ class _AddContactState extends State<AddContact> {
           backgroundColor: Colors.grey,
         ),
       );
-      Get.off(() => ProfileView()); // Navigate back to ProfileView and refresh it
+      Get.back();
     } catch (e) {
       print('Failed to update phone number: $e');
       ScaffoldMessenger.of(context).showSnackBar(

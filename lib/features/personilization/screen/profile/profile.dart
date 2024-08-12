@@ -27,25 +27,181 @@ class _ProfileViewState extends State<ProfileView> {
   bool _isLoading = false;
 
   @override
-  void initState() {
-    super.initState();
-    _loadProfilePicture();
-  }
+  Widget build(BuildContext context) {
+    String userId = FirebaseAuth.instance.currentUser!.uid;
 
-  Future<void> _loadProfilePicture() async {
-    try {
-      String userId = FirebaseAuth.instance.currentUser!.uid;
-      DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('Users').doc(userId).get();
-      if (userDoc.exists) {
-        setState(() {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Profile'.tr,
+          style: const TextStyle(color: Colors.white),
+        ),
+        centerTitle: true,
+        iconTheme: const IconThemeData(
+          color: Colors.black,
+        ),
+      ),
+      body: StreamBuilder<DocumentSnapshot>(
+        stream: FirebaseFirestore.instance.collection('Users').doc(userId).snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          if (snapshot.hasError) {
+            return const Center(child: Text('Error loading profile information'));
+          }
+
+          if (!snapshot.hasData || !snapshot.data!.exists) {
+            return const Center(child: Text('No profile data available'));
+          }
+
+          var userDoc = snapshot.data!;
           _imageUrl = userDoc['profilePicture'];
           _userName = userDoc['userName'];
           _email = userDoc['email'];
-        });
-      }
-    } catch (e) {
-      print('Error loading profile picture: $e');
-    }
+
+          return Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Stack(
+                      children: [
+                        CircleAvatar(
+                          radius: 40.0,
+                          backgroundImage: _imageUrl != null
+                              ? NetworkImage(_imageUrl!)
+                              : const AssetImage('assets/images/profile.jpg') as ImageProvider,
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: GestureDetector(
+                            onTap: _pickImage,
+                            child: const CircleAvatar(
+                              radius: 12.0,
+                              backgroundColor: Colors.white,
+                              child: Icon(
+                                Icons.add,
+                                color: Colors.deepOrange,
+                                size: 16.0,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(width: 16.0),
+                    Text(
+                      _userName ?? 'User Name',
+                      style: const TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 32.0),
+                if (_isLoading)
+                  const Center(child: CircularProgressIndicator()),
+                Expanded(
+                  child: ListView(
+                    children: [
+                      ListTile(
+                        leading: const Icon(Icons.person, color: Colors.deepOrange),
+                        title: Text(
+                          'User Name'.tr,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w900,
+                            fontSize: 16.0,
+                            color: Color(0xFF2D2727),
+                          ),
+                        ),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.edit, color: Colors.deepOrange),
+                          onPressed: () {
+                            Get.to(() => const EditName());
+                          },
+                        ),
+                      ),
+                      const Divider(),
+                      ListTile(
+                        leading: const Icon(Icons.email, color: Colors.deepOrange),
+                        title: RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: 'Email: '.tr,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: 16.0,
+                                  color: Color(0xFF2D2727),
+                                ),
+                              ),
+                              TextSpan(
+                                text: _email ?? 'Your Email',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 16.0,
+                                  color: Color(0xFF2D2727),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.edit, color: Colors.deepOrange),
+                          onPressed: () {
+                            Get.to(() => const EditEmail());
+                          },
+                        ),
+                      ),
+                      const Divider(),
+                      ListTile(
+                        leading: const Icon(Icons.phone, color: Colors.deepOrange),
+                        title: Text(
+                          'Phone Number'.tr,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w900,
+                            fontSize: 16.0,
+                            color: Color(0xFF2D2727),
+                          ),
+                        ),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.edit, color: Colors.deepOrange),
+                          onPressed: () {
+                            Get.to(() => const AddContact());
+                          },
+                        ),
+                      ),
+                      const Divider(),
+                      ListTile(
+                        leading: const Icon(Icons.lock, color: Colors.deepOrange),
+                        title: Text(
+                          'Password'.tr,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w900,
+                            fontSize: 16.0,
+                            color: Color(0xFF2D2727),
+                          ),
+                        ),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.edit, color: Colors.deepOrange),
+                          onPressed: () {
+                            Get.to(() => const ChangePassword());
+                          },
+                        ),
+                      ),
+                      const Divider(),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
   }
 
   Future<void> _pickImage() async {
@@ -85,159 +241,5 @@ class _ProfileViewState extends State<ProfileView> {
       });
     }
   }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Profile'.tr,
-          style: TextStyle(color: Colors.white),
-        ),
-        centerTitle: true, // Center the title
-        // backgroundColor: GlobalColors.mainColor, // Set the AppBar color
-        iconTheme: const IconThemeData(
-          color: Colors.black, // Set the back button color to white
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Stack(
-                  children: [
-                    CircleAvatar(
-                      radius: 40.0,
-                      backgroundImage: _imageUrl != null
-                          ? NetworkImage(_imageUrl!)
-                          : AssetImage('assets/images/profile.jpg') as ImageProvider,
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      right: 0,
-                      child: GestureDetector(
-                        onTap: _pickImage,
-                        child: CircleAvatar(
-                          radius: 12.0,
-                          backgroundColor: Colors.white,
-                          child: Icon(
-                            Icons.add,
-                            color: Colors.deepOrange,
-                            size: 16.0,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(width: 16.0),
-                Text(
-                  _userName ?? 'User Name',
-                  style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            const SizedBox(height: 32.0),
-            if (_isLoading)
-              Center(child: CircularProgressIndicator()),
-            Expanded(
-              child: ListView(
-                children: [
-                  ListTile(
-                    leading: const Icon(Icons.person, color: Colors.deepOrange),
-                    title: Text(
-                      'User Name'.tr,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        fontSize: 16.0,
-                        color: Color(0xFF2D2727),
-                      ),
-                    ),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.edit, color: Colors.deepOrange),
-                      onPressed: () {
-                        Get.to(() => EditName());
-                      },
-                    ),
-                  ),
-                  const Divider(),
-                  ListTile(
-                    leading: const Icon(Icons.email, color: Colors.deepOrange),
-                    title: RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text: 'Email: '.tr,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontSize: 16.0,
-                              color: Color(0xFF2D2727),
-                            ),
-                          ),
-                          TextSpan(
-                            text: _email ?? 'Your Email',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 16.0,
-                              color: Color(0xFF2D2727),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.edit, color: Colors.deepOrange),
-                      onPressed: () {
-                        Get.to(() => EditEmail());
-                      },
-                    ),
-                  ),
-                  const Divider(),
-                  ListTile(
-                    leading: const Icon(Icons.phone, color: Colors.deepOrange),
-                    title: Text(
-                      'Phone Number'.tr,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        fontSize: 16.0,
-                        color: Color(0xFF2D2727),
-                      ),
-                    ),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.edit, color: Colors.deepOrange),
-                      onPressed: () {
-                        Get.to(() => AddContact());
-                      },
-                    ),
-                  ),
-                  const Divider(),
-                  ListTile(
-                    leading: const Icon(Icons.lock, color: Colors.deepOrange),
-                    title: Text(
-                      'Password'.tr,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        fontSize: 16.0,
-                        color: Color(0xFF2D2727),
-                      ),
-                    ),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.edit, color: Colors.deepOrange),
-                      onPressed: () {
-                        Get.to(() => ChangePassword());
-                      },
-                    ),
-                  ),
-                  const Divider(),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 }
+

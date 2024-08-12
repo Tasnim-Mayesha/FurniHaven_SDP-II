@@ -57,7 +57,7 @@ class _EditNameState extends State<EditName> {
           backgroundColor: Colors.grey,
         ),
       );
-      Get.off(() => ProfileView()); // Navigate back to ProfileView and refresh it
+      Get.back(); // Navigate back to the previous page (ProfileView)
     } catch (e) {
       print('Failed to update name: $e');
       ScaffoldMessenger.of(context).showSnackBar(

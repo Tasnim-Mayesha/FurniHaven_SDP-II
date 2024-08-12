@@ -44,20 +44,19 @@ class AuthenticationRepository extends GetxController {
   }
 
   void screenRedirect() async {
+
     final user = _auth.currentUser;
     final isFirstTime = deviceStorage.read('isFirstTime') ?? true;
 
     print("User: ${user?.uid}, Email Verified: ${user?.emailVerified}, First Time: $isFirstTime");
 
+
+
     if (user != null) {
-      if (user.emailVerified) {
         await LocalStorage.init(user.uid);
         print("Navigating to CustMainPage");
         Get.offAll(() => CustMainPage()); // Change this to your home screen widget
-      } else {
-        print("Email not verified, navigating to LoginOption");
-        Get.offAll(() => const LoginOption());
-      }
+
     } else {
       if (isFirstTime) {
         print("First time user, navigating to OnBoardingScreen");
@@ -213,7 +212,6 @@ class AuthenticationRepository extends GetxController {
       final userDoc = _firestore.collection('Users').doc(user.uid);
       await userDoc.set({
         'email': user.email,
-        'userName': userAccount?.displayName ?? user.email?.split('@')[0],
         'profilePicture': userAccount?.photoUrl ?? '',
         'createdAt': FieldValue.serverTimestamp(),
       }, SetOptions(merge: true));

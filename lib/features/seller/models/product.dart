@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Product {
   String id;
   String title;
@@ -5,6 +7,8 @@ class Product {
   double price;
   int quantity;
   String description;
+  int discount;
+  DateTime timestamp;
   bool is3DEnabled;
   String category;
   String modelUrl;
@@ -17,6 +21,8 @@ class Product {
     required this.price,
     required this.quantity,
     required this.description,
+    required this.discount,
+    required this.timestamp,
     required this.is3DEnabled,
     required this.category,
     this.modelUrl = '',
@@ -31,6 +37,8 @@ class Product {
       'price': price,
       'quantity': quantity,
       'description': description,
+      'discount': discount,
+      'timestamp': timestamp,  // Store as Firestore timestamp
       'is3DEnabled': is3DEnabled,
       'category': category,
       'modelUrl': modelUrl,
@@ -46,6 +54,8 @@ class Product {
       price: map['price'],
       quantity: map['quantity'],
       description: map['description'],
+      discount: map['discount'],
+      timestamp: (map['timestamp'] as Timestamp).toDate(),  // Convert from Firestore timestamp
       is3DEnabled: map['is3DEnabled'],
       category: map['category'],
       modelUrl: map['modelUrl'],

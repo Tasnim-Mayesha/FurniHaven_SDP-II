@@ -21,9 +21,11 @@ class _NagadState extends State<Nagad> {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       final ordersCollection = FirebaseFirestore.instance.collection('Orders');
+      final productsCollection = FirebaseFirestore.instance.collection('Products');  // Define productsCollection here
       final timestamp = Timestamp.now();
-      // Iterate over each item in cartItems
+
       for (var item in cartItems) {
+        // Add order to 'Orders' collection
         await ordersCollection.add({
           'productID': item['id'],  // Assuming 'id' is the product ID
           'userID': user.uid,
@@ -35,9 +37,23 @@ class _NagadState extends State<Nagad> {
           'address': selectedAddress,
           'timestamp': timestamp
         });
+
+        // Update product quantity in 'Products' collection
+        DocumentReference productRef = productsCollection.doc(item['id']);
+        FirebaseFirestore.instance.runTransaction((transaction) async {
+          DocumentSnapshot snapshot = await transaction.get(productRef);
+          if (snapshot.exists) {
+            int currentStock = snapshot.get('quantity');
+            num newStock = currentStock - item['quantity'];
+            if (newStock < 0) newStock = 0;  // Prevent negative stock
+
+            transaction.update(productRef, {'quantity': newStock});
+          }
+        });
       }
     }
   }
+
 
   @override
   Widget build(BuildContext context) {

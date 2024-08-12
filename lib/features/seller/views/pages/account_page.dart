@@ -5,6 +5,8 @@ import 'package:sdp2/features/seller/controllers/nav_controller.dart';
 import 'package:sdp2/features/seller/views/pages/controllers/SellerProfile/sellerProfile.dart';
 import 'package:sdp2/data/repositories/seller/seller_repository.dart';
 
+import '../main_page.dart';
+
 class SellerAccountPage extends StatefulWidget {
   const SellerAccountPage({super.key});
 
@@ -40,7 +42,7 @@ class _SellerAccountPageState extends State<SellerAccountPage> {
             context,
             0,
             Icons.person,
-            'Profile',
+            'Profile'.tr,
             () {
               Get.to(() => const SellerProfileView());
             },
@@ -49,40 +51,36 @@ class _SellerAccountPageState extends State<SellerAccountPage> {
           _buildListTile(
             context,
             1,
-            Icons.message_sharp,
-            'Promotional Messages',
+            Icons.discount,
+            'Coupons'.tr,
             () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => OrderPage()),
-              // );
+              final controller1 = Get.find<NavController>();
+              controller1.changePage(3);
+              Get.to(() => MainPage());
             },
           ),
           const Divider(),
           _buildListTile(
             context,
             2,
-            Icons.location_on,
-            'Stores',
+            Icons.message_sharp,
+            'Messages',
             () {
-              //Stores
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => AddressPage()),
-              // );
+              final controller1 = Get.find<NavController>();
+              controller1.changePage(1);
+              Get.to(() => MainPage());
             },
           ),
           const Divider(),
           _buildListTile(
             context,
             3,
-            Icons.payment,
-            'Payment Methods',
+            Icons.shopping_cart,
+            'Products',
             () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => PaymentPage()),
-              // );
+              final controller1 = Get.find<NavController>();
+              controller1.changePage(2);
+              Get.to(() => MainPage());
             },
           ),
           const Divider(),

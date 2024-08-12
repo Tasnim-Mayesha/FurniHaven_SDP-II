@@ -60,7 +60,7 @@ class _SellerAddContactState extends State<SellerAddContact> {
           backgroundColor: Colors.grey,
         ),
       );
-      Get.off(() => SellerProfileView()); // Navigate back to SellerProfileView and refresh it
+      Get.back();
     } catch (e) {
       print('Failed to update phone number: $e');
       ScaffoldMessenger.of(context).showSnackBar(

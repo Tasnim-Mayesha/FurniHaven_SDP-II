@@ -15,6 +15,7 @@ class AddEditProductController extends GetxController {
   TextEditingController priceController = TextEditingController();
   TextEditingController quantityController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
+  TextEditingController discountController = TextEditingController();  // Add this line
   String? imageUrl;
   String? modelUrl;
   var imageFile = Rx<File?>(null);
@@ -30,6 +31,7 @@ class AddEditProductController extends GetxController {
       priceController.text = product.price.toString();
       quantityController.text = product.quantity.toString();
       descriptionController.text = product.description;
+      discountController.text = product.discount.toString();  // Make sure this is defined
       is3DEnabled.value = product.is3DEnabled;
       category.value = product.category;
       imageUrl = product.imageUrl;
@@ -67,6 +69,7 @@ class AddEditProductController extends GetxController {
     priceController.dispose();
     quantityController.dispose();
     descriptionController.dispose();
+    discountController.dispose();  // Make sure to dispose the controller
     super.onClose();
   }
 
@@ -87,6 +90,8 @@ class AddEditProductController extends GetxController {
       price: double.tryParse(priceController.text) ?? 0.0,
       quantity: int.tryParse(quantityController.text) ?? 0,
       description: descriptionController.text,
+      discount: int.tryParse(discountController.text) ?? 0,
+      timestamp: DateTime.now(),  // Set current timestamp as DateTime
       is3DEnabled: is3DEnabled.value,
       category: category.value,
       modelUrl: modelUrl ?? '',
@@ -109,4 +114,6 @@ class AddEditProductController extends GetxController {
       isLoading.value = false;
     }
   }
+
+
 }

@@ -62,7 +62,7 @@ class _EditEmailState extends State<EditEmail> {
           backgroundColor: Colors.grey,
         ),
       );
-      Get.off(() => ProfileView()); // Navigate back to SellerProfileView and refresh it
+      Get.back();
     } catch (e) {
       print('Failed to update email: $e');
       ScaffoldMessenger.of(context).showSnackBar(

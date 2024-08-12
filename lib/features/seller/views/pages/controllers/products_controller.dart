@@ -12,34 +12,23 @@ class ProductsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    fetchProducts(); // Initial fetch
+    listenToProductChanges(); // Listen to real-time updates
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-    fetchProducts(); // Fetch every time the controller is used
-  }
+  void listenToProductChanges() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? sellerEmail = prefs.getString('seller_email');
+    if (sellerEmail == null) {
+      return;
+    }
 
-  void fetchProducts() async {
-    try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      String? sellerEmail = prefs.getString('seller_email');
-      print("Seller Email from prod control: $sellerEmail");
-      if (sellerEmail == null) {
-        return;
-      }
-      QuerySnapshot snapshot = await _firestore.collection('Products').get();
-      var fetchedProducts = snapshot.docs
-          .map((doc) =>
-              Product.fromMap(doc.data() as Map<String, dynamic>, doc.id))
-          .toList();
+    _firestore.collection('Products').snapshots().listen((snapshot) {
+      var fetchedProducts = snapshot.docs.map((doc) =>
+          Product.fromMap(doc.data() as Map<String, dynamic>, doc.id)).toList();
 
       products.assignAll(fetchedProducts);
       allProducts.assignAll(fetchedProducts);
-    } catch (e) {
-      Get.snackbar("Error", "Failed to fetch products: ${e.toString()}");
-    }
+    });
   }
 
   void addProductToList(Product newProduct) {
@@ -54,7 +43,7 @@ class ProductsController extends GetxController {
       products.assignAll(
         allProducts
             .where((product) =>
-                product.title.toLowerCase().contains(query.toLowerCase()))
+            product.title.toLowerCase().contains(query.toLowerCase()))
             .toList(),
       );
     }
@@ -71,7 +60,7 @@ class ProductsController extends GetxController {
 
   void updateProductInList(Product updatedProduct) {
     int index =
-        products.indexWhere((product) => product.id == updatedProduct.id);
+    products.indexWhere((product) => product.id == updatedProduct.id);
     if (index != -1) {
       products[index] = updatedProduct;
       products.refresh();

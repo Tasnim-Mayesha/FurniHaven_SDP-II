@@ -6,7 +6,7 @@ import 'package:sdp2/utils/global_colors.dart';
 
 class AddEditProductPage extends StatelessWidget {
   final AddEditProductController controller =
-      Get.put(AddEditProductController());
+  Get.put(AddEditProductController());
   final Product? product;
 
   AddEditProductPage({super.key, this.product}) {
@@ -38,6 +38,8 @@ class AddEditProductPage extends StatelessWidget {
                   _buildImageField(),
                   const SizedBox(height: 10),
                   _buildPriceAndQuantityFields(),
+                  const SizedBox(height: 10),
+                  _buildDiscountField(),
                   const SizedBox(height: 10),
                   _buildDescriptionField(),
                   const SizedBox(height: 10),
@@ -107,27 +109,27 @@ class AddEditProductPage extends StatelessWidget {
         Row(
           children: [
             Obx(() => Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[300],
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: controller.imageFile.value != null
-                      ? ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.file(controller.imageFile.value!,
-                              fit: BoxFit.cover),
-                        )
-                      : const Center(child: Text('No Image')),
-                )),
+              width: 100,
+              height: 100,
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: controller.imageFile.value != null
+                  ? ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.file(controller.imageFile.value!,
+                    fit: BoxFit.cover),
+              )
+                  : const Center(child: Text('No Image')),
+            )),
             const SizedBox(width: 5),
             ElevatedButton(
               onPressed: controller.pickImage,
               style: ElevatedButton.styleFrom(
                 backgroundColor: GlobalColors.mainColor,
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               ),
               child: const Icon(Icons.file_upload),
             ),
@@ -174,6 +176,23 @@ class AddEditProductPage extends StatelessWidget {
     );
   }
 
+  Widget _buildDiscountField() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text('Discount (%)',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        const SizedBox(height: 5),
+        TextField(
+          controller: controller.discountController,
+          decoration:
+          const InputDecoration(hintText: 'Enter discount percentage'),
+          keyboardType: TextInputType.number,
+        ),
+      ],
+    );
+  }
+
   Widget _buildDescriptionField() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -185,7 +204,7 @@ class AddEditProductPage extends StatelessWidget {
           controller: controller.descriptionController,
           maxLines: 3,
           decoration:
-              const InputDecoration(hintText: 'Enter product description'),
+          const InputDecoration(hintText: 'Enter product description'),
         ),
       ],
     );
@@ -193,10 +212,10 @@ class AddEditProductPage extends StatelessWidget {
 
   Widget _buildMake3DCheckbox() {
     return Obx(() => CheckboxListTile(
-          title: const Text("Enable 3D Model"),
-          value: controller.is3DEnabled.value,
-          onChanged: controller.toggle3DEnabled,
-        ));
+      title: const Text("Enable 3D Model"),
+      value: controller.is3DEnabled.value,
+      onChanged: controller.toggle3DEnabled,
+    ));
   }
 
   Widget _build3DModelUploader() {
@@ -225,18 +244,18 @@ class AddEditProductPage extends StatelessWidget {
 
   Widget _buildCategoryDropdown() {
     return Obx(() => DropdownButtonFormField<String>(
-          value: controller.category.value.isNotEmpty
-              ? controller.category.value
-              : null,
-          hint: const Text('Select category'),
-          items: <String>['Sofas','Beds','Dining','Shoe Rack','Study Table','Chair','Cupboard','Bookshelf']
-              .map((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            );
-          }).toList(),
-          onChanged: (value) => controller.category.value = value!,
-        ));
+      value: controller.category.value.isNotEmpty
+          ? controller.category.value
+          : null,
+      hint: const Text('Select category'),
+      items: <String>['Sofas','Beds','Dining','Shoe Rack','Study Table','Chair','Cupboard','Bookshelf']
+          .map((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+      onChanged: (value) => controller.category.value = value!,
+    ));
   }
 }

@@ -1,18 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sdp2/features/seller/models/Product.dart';
 import 'package:sdp2/utils/global_colors.dart';
 
 class SellerProductCard extends StatelessWidget {
   final Product product;
   final VoidCallback onTap;
-  final bool isSelected; // Add this property
+  final bool isSelected;
 
   const SellerProductCard({
     super.key,
     required this.product,
     required this.onTap,
-    this.isSelected = false, // Add default value
+    this.isSelected = false,
   });
+
+  Future<double> getAverageRating() async {
+    double averageRating = 0.0;
+    int totalRatings = 0;
+
+    final querySnapshot = await FirebaseFirestore.instance
+        .collection('Review and Ratings')
+        .where('productId', isEqualTo: product.id)
+        .get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      for (var doc in querySnapshot.docs) {
+        averageRating += doc['rating'] as double;
+        totalRatings++;
+      }
+      averageRating = averageRating / totalRatings;
+    }
+
+    return averageRating;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +55,7 @@ class SellerProductCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
             color: isSelected ? Colors.orange : Colors.grey.shade400,
-            width: 2, // Increase width for better visibility
+            width: 2,
           ),
         ),
         child: SingleChildScrollView(
@@ -61,7 +82,7 @@ class SellerProductCard extends StatelessWidget {
                       right: 8,
                       child: const Icon(
                         Icons.check_circle,
-                        color: Colors.orange, // Change to orange
+                        color: Colors.orange,
                         size: 24,
                       ),
                     ),
@@ -76,7 +97,7 @@ class SellerProductCard extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8.0, vertical: 4.0),
                       child: Text(
-                        '${20}%',
+                        '${product.discount}%',
                         style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -94,19 +115,37 @@ class SellerProductCard extends StatelessWidget {
                 maxLines: 2,
               ),
               const SizedBox(height: 4),
-              Wrap(
-                children: List.generate(
-                  5,
-                  (index) => Icon(
-                    Icons.star,
-                    size: 20.0,
-                    color: index < 4 ? Colors.amber : Colors.grey,
-                  ),
-                ),
+              FutureBuilder<double>(
+                future: getAverageRating(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const CircularProgressIndicator();
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else if (snapshot.hasData) {
+                    double averageRating = snapshot.data!;
+                    int fullStars = averageRating.floor();
+                    double fractionalPart = averageRating - fullStars;
+
+                    return Wrap(
+                      children: List.generate(5, (index) {
+                        if (index < fullStars) {
+                          return const Icon(Icons.star, color: Colors.amber, size: 16);
+                        } else if (index == fullStars && fractionalPart >= 0.5) {
+                          return const Icon(Icons.star_half, color: Colors.amber, size: 16);
+                        } else {
+                          return const Icon(Icons.star_border, color: Colors.amber, size: 16);
+                        }
+                      }),
+                    );
+                  } else {
+                    return const Text('No rating available');
+                  }
+                },
               ),
               const SizedBox(height: 4),
               Text(
-                '${product.price} Tk',
+                '${(product.price * (1 - (product.discount / 100))).toInt()} Tk',
                 style: const TextStyle(
                   color: Colors.deepOrange,
                   fontWeight: FontWeight.bold,
