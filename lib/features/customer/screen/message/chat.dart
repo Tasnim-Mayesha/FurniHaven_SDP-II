@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -32,12 +31,15 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _controller = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
   final ImagePicker _picker = ImagePicker();
   String? sellerId;
   String? userId;
   String? sellerName;
   String? sellerImage;
   Map<String, dynamic>? _replyingTo;
+  String _searchQuery = '';
+  bool _isSearching = false;
 
   @override
   void initState() {
@@ -128,6 +130,12 @@ class _ChatScreenState extends State<ChatScreen> {
     });
   }
 
+  void _updateSearchQuery(String newQuery) {
+    setState(() {
+      _searchQuery = newQuery;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -151,6 +159,7 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
       body: Column(
         children: <Widget>[
+          _buildSearchField(), // Added search field below the AppBar
           if (_replyingTo != null)
             Container(
               color: Colors.grey[200],
@@ -203,19 +212,30 @@ class _ChatScreenState extends State<ChatScreen> {
                   return const Center(child: CircularProgressIndicator());
                 }
                 final chatDocs = snapshot.data!.docs;
+                final filteredChatDocs = chatDocs.where((doc) {
+                  final chatData = doc.data() as Map<String, dynamic>;
+                  final message = chatData['message'] ?? '';
+                  return message.toLowerCase().contains(_searchQuery.toLowerCase());
+                }).toList();
+
                 return ListView.builder(
                   reverse: true,
-                  itemCount: chatDocs.length,
+                  itemCount: filteredChatDocs.length,
                   itemBuilder: (ctx, i) {
-                    final chatData = chatDocs[i].data() as Map<String, dynamic>;
+                    final chatData = filteredChatDocs[i].data() as Map<String, dynamic>;
                     bool isMe = chatData['sender'] == userId;
+                    String formattedTime = chatData['timestamp'] != null
+                        ? DateFormat('hh:mm a, dd/MM/yyyy')
+                        .format((chatData['timestamp'] as Timestamp).toDate())
+                        : 'Unknown Time'; // Handle null timestamp
+
                     return GestureDetector(
                       onLongPress: () => _setReplyingTo(chatData),
                       child: ChatBubble(
                         message: chatData['message'] ?? '',
                         image: chatData['imageUrl'],
                         isMe: isMe,
-                        time: (chatData['timestamp'] as Timestamp?)?.toDate().toString() ?? '',
+                        time: formattedTime,
                         replyTo: chatData['replyTo'],
                       ),
                     );
@@ -224,12 +244,41 @@ class _ChatScreenState extends State<ChatScreen> {
               },
             ),
           ),
+
           ChatInputField(
             controller: _controller,
             onSend: _sendMessage,
             onPickImage: _pickImage,
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildSearchField() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextField(
+        controller: _searchController,
+        decoration: InputDecoration(
+          hintText: 'Search...',
+          prefixIcon: const Icon(Icons.search),
+          suffixIcon: _searchQuery.isNotEmpty
+              ? IconButton(
+            icon: const Icon(Icons.clear),
+            onPressed: () {
+              _searchController.clear();
+              _updateSearchQuery('');
+            },
+          )
+              : null,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+          filled: true,
+          fillColor: Colors.grey[200],
+        ),
+        onChanged: _updateSearchQuery,
       ),
     );
   }
@@ -309,8 +358,8 @@ class ChatBubble extends StatelessWidget {
                 padding: const EdgeInsets.all(10),
                 child: CachedNetworkImage(
                   imageUrl: image!,
-                  width: 150,
-                  height: 150,
+                  width: 250,
+                  height: 250,
                   placeholder: (context, url) => CircularProgressIndicator(
                     backgroundColor: GlobalColors.mainColor,
                   ),
@@ -359,6 +408,7 @@ class ChatBubble extends StatelessWidget {
   }
 }
 
+
 class ChatInputField extends StatelessWidget {
   final TextEditingController controller;
   final Function(String, [File?]) onSend;
@@ -379,7 +429,7 @@ class ChatInputField extends StatelessWidget {
       child: Row(
         children: <Widget>[
           IconButton(
-            icon: const Icon(Icons.photo_camera),
+            icon: Icon(Icons.photo_camera, color: GlobalColors.mainColor),
             onPressed: onPickImage,
           ),
           Expanded(
@@ -401,7 +451,7 @@ class ChatInputField extends StatelessWidget {
             ),
           ),
           IconButton(
-            icon: const Icon(Icons.send),
+            icon: Icon(Icons.send, color: GlobalColors.mainColor),
             onPressed: () {
               onSend(controller.text);
             },
