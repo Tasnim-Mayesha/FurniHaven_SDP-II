@@ -70,50 +70,59 @@ class WishlistView extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Obx(() {
-          return GridView.builder(
-            itemCount: wishlistController.wishlistItems.length,
-            shrinkWrap: true,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              mainAxisSpacing: 8,
-              crossAxisSpacing: 8,
-              mainAxisExtent: 335,
-            ),
-            itemBuilder: (_, index) {
-              final product = wishlistController.wishlistItems[index];
-              return ProductCard(
-                id: product["id"],
-                imageUrl: product["imageUrl"],
-                productName: product["productName"],
-                brandName: product["brandName"], // Will be updated later
-                sellerEmail: product["sellerEmail"],
-                discount: product["discount"],
-                originalPrice: product["originalPrice"],
-                discountedPrice: product["discountedPrice"],
-                rating: product["rating"], // Rating passed from the product data
-                onTap: () async {
-                  var productData = await fetchProductData(product["id"]);
-                  if (productData != null) {
-                    print("brand name: ${productData["brandName"]}");
-                    print("discounted price: ${productData["discountedPrice"]}");
-                    Get.to(() => ProductPage(
-                      id: productData["id"] as String? ?? '',
-                      imageUrl: productData["imageUrl"] as String? ?? '',
-                      productName: productData["title"] as String? ?? 'Unknown',
-                      brandName: productData["brandName"] as String? ?? 'Unknown',
-                      sellerEmail: productData["sellerEmail"] as String? ?? 'Unknown',
-                      discount: (productData["discount"] as num?)?.toInt() ?? 0,
-                      originalPrice: (productData["price"] as num?)?.toInt() ?? 0,
-                      discountedPrice: (product["discountedPrice"] as num?)?.toInt() ?? 0,
-                      rating: (productData["rating"] as num?)?.toDouble() ?? 0.0,
-                      modelUrl: productData["modelUrl"] as String? ?? '',
-                      description: productData["description"] as String? ?? '',
-                    ));
-                  }
-                },
-              );
-            },
-          );
+          if (wishlistController.wishlistItems.isEmpty) {
+            return const Center(
+              child: Text(
+                "Your wishlist is empty",
+                style: TextStyle(fontSize: 18,color: Colors.grey),
+              ),
+            );
+          } else {
+            return GridView.builder(
+              itemCount: wishlistController.wishlistItems.length,
+              shrinkWrap: true,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 8,
+                crossAxisSpacing: 8,
+                mainAxisExtent: 335,
+              ),
+              itemBuilder: (_, index) {
+                final product = wishlistController.wishlistItems[index];
+                return ProductCard(
+                  id: product["id"],
+                  imageUrl: product["imageUrl"],
+                  productName: product["productName"],
+                  brandName: product["brandName"], // Will be updated later
+                  sellerEmail: product["sellerEmail"],
+                  discount: product["discount"],
+                  originalPrice: product["originalPrice"],
+                  discountedPrice: product["discountedPrice"],
+                  rating: product["rating"], // Rating passed from the product data
+                  onTap: () async {
+                    var productData = await fetchProductData(product["id"]);
+                    if (productData != null) {
+                      print("brand name: ${productData["brandName"]}");
+                      print("discounted price: ${productData["discountedPrice"]}");
+                      Get.to(() => ProductPage(
+                        id: productData["id"] as String? ?? '',
+                        imageUrl: productData["imageUrl"] as String? ?? '',
+                        productName: productData["title"] as String? ?? 'Unknown',
+                        brandName: productData["brandName"] as String? ?? 'Unknown',
+                        sellerEmail: productData["sellerEmail"] as String? ?? 'Unknown',
+                        discount: (productData["discount"] as num?)?.toInt() ?? 0,
+                        originalPrice: (productData["price"] as num?)?.toInt() ?? 0,
+                        discountedPrice: (product["discountedPrice"] as num?)?.toInt() ?? 0,
+                        rating: (productData["rating"] as num?)?.toDouble() ?? 0.0,
+                        modelUrl: productData["modelUrl"] as String? ?? '',
+                        description: productData["description"] as String? ?? '',
+                      ));
+                    }
+                  },
+                );
+              },
+            );
+          }
         }),
       ),
     );
