@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:firebase_auth/firebase_auth.dart'; // Add this import for Firebase Auth
 import 'package:iconsax/iconsax.dart';
 import 'package:sdp2/features/customer/screen/wishlist/wishlist_controller.dart';
 import 'package:sdp2/utils/global_colors.dart';
@@ -35,6 +36,17 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final CartController cartController = Get.put(CartController());
     final WishlistController wishlistController = Get.put(WishlistController());
+    final User? currentUser = FirebaseAuth.instance.currentUser; // Check current user
+
+    // Function to show snackbar when user is not logged in
+    void showLoginRequiredSnackbar(String action) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('You must be logged in to $action.'.tr),
+          duration: const Duration(seconds: 2),
+        ),
+      );
+    }
 
     return Container(
       width: 180,
@@ -105,6 +117,11 @@ class ProductCard extends StatelessWidget {
                           ),
                           child: IconButton(
                             onPressed: () {
+                              if (currentUser == null) {
+                                showLoginRequiredSnackbar('add to wishlist');
+                                return;
+                              }
+
                               if (wishlistController.isInWishlist(id)) {
                                 wishlistController.removeFromWishlist(id);
                               } else {
@@ -229,14 +246,18 @@ class ProductCard extends StatelessWidget {
                           child: quantity == 0
                               ? IconButton(
                             onPressed: () {
+                              if (currentUser == null) {
+                                showLoginRequiredSnackbar('add to cart');
+                                return;
+                              }
                               cartController.addProductToCart({
                                 'id': id,
                                 'productName': productName,
-                                'imageUrl':imageUrl,
+                                'imageUrl': imageUrl,
                                 'sellerEmail': sellerEmail,
                                 'quantity': 1,
                                 'price': discountedPrice,
-                                'brandName':brandName
+                                'brandName': brandName,
                               });
                             },
                             icon: const Icon(Iconsax.add),
@@ -244,7 +265,9 @@ class ProductCard extends StatelessWidget {
                           )
                               : GestureDetector(
                             onTap: () {
-                              cartController.incrementProduct(id);
+                              if (currentUser != null) {
+                                cartController.incrementProduct(id);
+                              }
                             },
                             child: Center(
                               child: Text(

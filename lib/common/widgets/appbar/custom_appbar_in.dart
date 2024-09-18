@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:firebase_auth/firebase_auth.dart'; // Firebase Auth for login state check
 import 'package:sdp2/features/customer/screen/notification/notification.dart';
+import 'package:sdp2/features/personilization/screen/Login/login_option.dart';
 import 'package:sdp2/utils/global_colors.dart';
 import '../bottomnavbar/starting_controller.dart';
-
 
 class LanguageSelectorButton extends StatelessWidget {
   final List<Map<String, dynamic>> locale = [
@@ -40,6 +41,7 @@ class LanguageSelectorButton extends StatelessWidget {
 AppBar customAppBarIn(BuildContext context) {
   CustNavController navController = Get.find<CustNavController>();
   NotificationController notificationController = Get.put(NotificationController());
+  final User? currentUser = FirebaseAuth.instance.currentUser; // Get the current user from Firebase Auth
 
   // Initialize listener
   initCouponListener(notificationController);
@@ -64,43 +66,58 @@ AppBar customAppBarIn(BuildContext context) {
         );
       },
     ),
+
+    // Moved Login button to the `actions` list
     actions: [
-      Obx(() => Stack(
-        children: [
-          IconButton(
-            icon: const Icon(Icons.notifications, color: Colors.white),
-            onPressed: () {
-              notificationController.resetNotificationCount();
-              Get.to(() => NotificationsPage());
-            },
+      // Show "Login" button if the user is not logged in
+      if (currentUser == null)
+        TextButton(
+          onPressed: () {
+            Get.to(() => LoginOption()); // Navigate to the login option page
+          },
+          child:  Text(
+            'Login'.tr,
+            style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500,fontSize: 16),
           ),
-          if (notificationController.notificationCount.value > 0)
-            Positioned(
-              right: 10,
-              top: 10,
-              child: Container(
-                padding: const EdgeInsets.all(2),
-                decoration: const BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                ),
-                constraints: const BoxConstraints(
-                  minWidth: 16,
-                  minHeight: 16,
-                ),
-                child: Text(
-                  '${notificationController.notificationCount.value}',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
+        ),
+      Obx(
+            () => Stack(
+          children: [
+            IconButton(
+              icon: const Icon(Icons.notifications, color: Colors.white),
+              onPressed: () {
+                notificationController.resetNotificationCount();
+                Get.to(() => NotificationsPage());
+              },
+            ),
+            if (notificationController.notificationCount.value > 0)
+              Positioned(
+                right: 10,
+                top: 10,
+                child: Container(
+                  padding: const EdgeInsets.all(2),
+                  decoration: const BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
-                  textAlign: TextAlign.center,
+                  constraints: const BoxConstraints(
+                    minWidth: 16,
+                    minHeight: 16,
+                  ),
+                  child: Text(
+                    '${notificationController.notificationCount.value}',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ),
-            ),
-        ],
-      )),
+          ],
+        ),
+      ),
       LanguageSelectorButton(),
     ],
   );

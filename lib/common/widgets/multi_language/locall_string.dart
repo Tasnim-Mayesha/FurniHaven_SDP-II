@@ -39,7 +39,8 @@ class LocalString extends Translations{
       'Recommendation for you' : 'Recommendation for you',
       'Based on your Activity' : 'Based on your Activity',
       'Brand: ' : 'Brand: ',
-      'Profile' : 'Profile'
+      'Profile' : 'Profile',
+      'Login':'Login',
 
 
     },
@@ -79,7 +80,8 @@ class LocalString extends Translations{
       'Recommendation for you' : 'আপনার জন্য',
       'Based on your Activity' : 'আপনার কার্যকলাপ উপর ভিত্তি করে',
       'Brand: ' : 'ব্র্যান্ড: ',
-      'Profile' : 'প্রোফাইল'
+      'Profile' : 'প্রোফাইল',
+      'Login': 'লগইন',
     }
   };
 }
