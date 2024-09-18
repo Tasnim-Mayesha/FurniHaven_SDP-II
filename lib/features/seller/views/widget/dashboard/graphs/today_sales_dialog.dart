@@ -2,7 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:sdp2/features/seller/views/widget/dashboard/graphs/today_sales.dart';
 
 class TodaySalesDialog extends StatelessWidget {
-  const TodaySalesDialog({super.key});
+  final int soldProducts;
+  final int unsoldProducts;
+
+  const TodaySalesDialog({
+    required this.soldProducts,
+    required this.unsoldProducts,
+    Key? key,
+  }) : super(key: key);
 
   Widget _buildLegendItem(Color color, String label) {
     return Row(
@@ -22,8 +29,8 @@ class TodaySalesDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     // Example legend items; replace with your actual data
     final legendItems = [
-      _buildLegendItem(Colors.yellow, "Products Sold Today"),
-      _buildLegendItem(Colors.orange, "Products Received Today"),
+      _buildLegendItem(Colors.yellow, "Products Unsold"),
+      _buildLegendItem(Colors.orange, "Products Sold"),
     ];
 
     return AlertDialog(
@@ -42,7 +49,11 @@ class TodaySalesDialog extends StatelessWidget {
               ),
             ),
             // Chart
-            Expanded(child: const TodaySalesPieChart()),
+            Expanded(
+                child: TodaySalesPieChart(
+              soldProducts: soldProducts,
+              unsoldProducts: unsoldProducts,
+            )),
           ],
         ),
       ),

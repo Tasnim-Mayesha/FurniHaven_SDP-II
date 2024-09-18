@@ -75,4 +75,94 @@ class ProductRepository {
       rethrow;
     }
   }
+
+  Future<int> countTotalProductsBySeller(String sellerEmail) async {
+    try {
+      QuerySnapshot snapshot = await _firestore
+          .collection('Products')
+          .where('sellerEmail', isEqualTo: sellerEmail)
+          .get();
+
+      var totalQuantity = 0;
+
+      for (var doc in snapshot.docs) {
+        var data = doc.data() as Map<String, dynamic>;
+        var quantity = (data['quantity'] ?? 0) as int; // Cast quantity to int
+        totalQuantity += quantity;
+      }
+      return totalQuantity;
+    } catch (e) {
+      throw Exception("Failed to count total products: $e");
+    }
+  }
+
+  Future<int> countTotalSoldProductsBySeller(String sellerEmail) async {
+    try {
+      // Query the Orders collection to find orders related to the seller
+      QuerySnapshot snapshot = await _firestore
+          .collection('Orders')
+          .where('sellerEmail', isEqualTo: sellerEmail)
+          .get();
+
+      var totalSoldQuantity = 0;
+
+      // Loop through each document and sum the quantity
+      for (var doc in snapshot.docs) {
+        var data = doc.data() as Map<String, dynamic>;
+        var quantity = (data['quantity'] ?? 0) as int;
+        totalSoldQuantity += quantity;
+      }
+
+      return totalSoldQuantity;
+    } catch (e) {
+      throw Exception("Failed to count total sold products: $e");
+    }
+  }
+
+  Future<int> calculateTotalSoldQuantityBySeller(String sellerEmail) async {
+    try {
+      // Query the Orders collection for orders by the given seller
+      QuerySnapshot snapshot = await _firestore
+          .collection('Orders')
+          .where('sellerEmail', isEqualTo: sellerEmail)
+          .get();
+
+      var totalSoldQuantity = 0;
+
+      // Loop through each document and sum the quantity field
+      for (var doc in snapshot.docs) {
+        var data = doc.data() as Map<String, dynamic>;
+        var quantity = (data['quantity'] ?? 0)
+            as int; // Assuming quantity is stored as int
+        totalSoldQuantity += quantity;
+      }
+
+      return totalSoldQuantity;
+    } catch (e) {
+      throw Exception("Failed to calculate total sold quantity: $e");
+    }
+  }
+  Future<double> calculateTotalSalesBySeller(String sellerEmail) async {
+  try {
+    // Query the Orders collection for orders related to the seller
+    QuerySnapshot snapshot = await _firestore
+        .collection('Orders')
+        .where('sellerEmail', isEqualTo: sellerEmail)
+        .get();
+
+    var totalSalesAmount = 0.0; // Initialize as double
+
+    // Loop through each document and sum the totalPrice
+    for (var doc in snapshot.docs) {
+      var data = doc.data() as Map<String, dynamic>;
+      var totalPrice = (data['totalPrice'] ?? 0.0) as double; // Assuming totalPrice is stored as double
+      totalSalesAmount += totalPrice;
+    }
+
+    return totalSalesAmount;
+  } catch (e) {
+    throw Exception("Failed to calculate total sales: $e");
+  }
+}
+
 }

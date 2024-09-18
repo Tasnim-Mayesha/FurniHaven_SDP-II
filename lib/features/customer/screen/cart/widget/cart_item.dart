@@ -33,21 +33,21 @@ class CartItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(8.0),
           child: isValidUrl(imageUrl)
               ? Image.network(
-            imageUrl,
-            width: 60,
-            height: 60,
-            fit: BoxFit.cover,
-            errorBuilder: (context, error, stackTrace) => const Icon(
-              Icons.image_not_supported,
-              size: 60,
-              color: Colors.grey,
-            ),
-          )
+                  imageUrl,
+                  width: 60,
+                  height: 60,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) => const Icon(
+                    Icons.image_not_supported,
+                    size: 60,
+                    color: Colors.grey,
+                  ),
+                )
               : const Icon(
-            Icons.image_not_supported,
-            size: 60,
-            color: Colors.grey,
-          ),
+                  Icons.image_not_supported,
+                  size: 60,
+                  color: Colors.grey,
+                ),
         ),
         const SizedBox(width: 16),
         Expanded(
@@ -56,18 +56,18 @@ class CartItem extends StatelessWidget {
             children: [
               Text(
                 productName,
-                style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
               ),
               const SizedBox(height: 4),
               Text(
                 brandName,
-                style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                  fontSize: 14,
-                  color: GlobalColors.mainColor,
-                ),
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontSize: 14,
+                      color: GlobalColors.mainColor,
+                    ),
               ),
             ],
           ),
@@ -78,11 +78,11 @@ class CartItem extends StatelessWidget {
           children: [
             Text(
               '$quantity x ${price.toStringAsFixed(2)} Tk',
-              style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Colors.black87,
-              ),
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
             ),
             IconButton(
               onPressed: onDelete,

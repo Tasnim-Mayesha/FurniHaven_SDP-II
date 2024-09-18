@@ -3,10 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:sdp2/utils/global_colors.dart';
 
 class TodaySalesPieChart extends StatelessWidget {
-  const TodaySalesPieChart({super.key});
+  final int soldProducts;
+  final int unsoldProducts;
+
+  const TodaySalesPieChart({
+    required this.soldProducts,
+    required this.unsoldProducts,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final totalProducts = soldProducts + unsoldProducts;
+
+    // Avoid division by zero and cast to double
+    final double soldPercentage =
+        totalProducts > 0 ? (soldProducts / totalProducts) * 100.0 : 0.0;
+    final double unsoldPercentage =
+        totalProducts > 0 ? (unsoldProducts / totalProducts) * 100.0 : 0.0;
+
     return Stack(
       alignment: Alignment.center,
       children: <Widget>[
@@ -15,37 +30,37 @@ class TodaySalesPieChart extends StatelessWidget {
             centerSpaceRadius: 40,
             sections: [
               PieChartSectionData(
-                value: 70, // example percentage of sold products
+                value: soldPercentage, // Ensure value is double
                 color: GlobalColors.mainColor,
-                title: '2520',
+                title: '$soldProducts', // You can keep the title as string
               ),
               PieChartSectionData(
-                value: 30, // example percentage of unsold products
+                value: unsoldPercentage, // Ensure value is double
                 color: GlobalColors.secondary,
-                title: '1080',
+                title: '$unsoldProducts', // You can keep the title as string
               ),
             ],
             sectionsSpace: 0,
             borderData: FlBorderData(show: false),
           ),
         ),
-        const Column(
+        Column(
           mainAxisSize: MainAxisSize.min, // Use min size for the content
           children: <Widget>[
-            Text(
+            const Text(
               'Products:',
               style: TextStyle(
-                fontSize: 16, // Adjust the font size as needed
-                fontWeight: FontWeight.w200, // Optional: change the font weight
-                color: Colors.black, // Adjust the text color as needed
+                fontSize: 16,
+                fontWeight: FontWeight.w200,
+                color: Colors.black,
               ),
             ),
             Text(
-              '3600',
-              style: TextStyle(
-                fontSize: 16, // Adjust the font size as needed
-                fontWeight: FontWeight.bold, // Optional: change the font weight
-                color: Colors.black, // Adjust the text color as needed
+              '$totalProducts', // Total number of products
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
               ),
             ),
           ],

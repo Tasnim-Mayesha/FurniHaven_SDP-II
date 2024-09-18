@@ -3,17 +3,19 @@ import 'package:get/get.dart';
 import 'package:sdp2/features/seller/views/widget/dashboard/graphs/monthly_sales.dart';
 import 'package:sdp2/features/seller/views/widget/dashboard/graphs/today_sales.dart';
 import 'package:sdp2/features/seller/views/widget/dashboard/graphs/yearly_growth.dart';
-import 'package:sdp2/features/seller/views/widget/dashboard/total_profit_sales.dart';
-
 import 'package:sdp2/features/seller/views/widget/dashboard/graphs/today_sales_dialog.dart';
 import 'package:sdp2/features/seller/views/widget/dashboard/graphs/yearly_growth_dialog.dart';
 import 'package:sdp2/features/seller/views/widget/dashboard/graphs/monthly_sales_dialog.dart';
+import 'package:sdp2/features/seller/views/pages/controllers/dashboard_controller.dart';
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final DashboardController dashboardController =
+        Get.put(DashboardController());
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -22,8 +24,7 @@ class DashboardPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                padding:
-                const EdgeInsets.only(bottom: 20.0), // Add some padding
+                padding: const EdgeInsets.only(bottom: 20.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -51,24 +52,46 @@ class DashboardPage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _buildDashboardContainer(
-                          context: context,
-                          iconData: Icons.pie_chart,
-                          title: "Today's Sale",
-                          child: GestureDetector(
-                            onTap: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return const TodaySalesDialog();
+                        // Today's Sale with GetX
+                        Obx(() {
+                          if (dashboardController.isLoading.value) {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          } else {
+                            return _buildDashboardContainer(
+                              context: context,
+                              iconData: Icons.pie_chart,
+                              title: "Sales",
+                              child: GestureDetector(
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return TodaySalesDialog(
+                                        soldProducts: dashboardController
+                                            .soldProductsCount
+                                            .value, // Pass sold products
+                                        unsoldProducts: dashboardController
+                                            .unsoldProductsCount.value,
+                                      );
+                                    },
+                                  );
                                 },
-                              );
-                            },
-                            child: const TodaySalesPieChart(),
-                          ),
-                          height: 230,
-                        ),
+                                child: TodaySalesPieChart(
+                                  soldProducts: dashboardController
+                                      .soldProductsCount.value,
+                                  unsoldProducts: dashboardController
+                                      .unsoldProductsCount.value,
+                                ),
+                              ),
+                              height: 230,
+                            );
+                          }
+                        }),
+
                         const SizedBox(height: 10),
+
+                        // Yearly Growth
                         _buildDashboardContainer(
                           context: context,
                           iconData: Icons.show_chart,
@@ -94,6 +117,7 @@ class DashboardPage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        // Monthly Sales
                         _buildDashboardContainer(
                           context: context,
                           iconData: Icons.bar_chart,
@@ -112,21 +136,39 @@ class DashboardPage extends StatelessWidget {
                           height: 300,
                         ),
                         const SizedBox(height: 10),
-                        _buildDashboardContainer(
-                          context: context,
-                          iconData: Icons.attach_money,
-                          title: "Total Sales",
-                          child: const TotalSalesBox(),
-                          height: 150,
-                        ),
+
+                        // Total Sales with GetX
+                        Obx(() {
+                          return _buildDashboardContainer(
+                            context: context,
+                            iconData: Icons.attach_money,
+                            title: "Total Sales",
+                            child: Text(
+                              '${dashboardController.totalSales.value.toStringAsFixed(2)} Tk', // Ensure you format double values to 2 decimal places
+                              style: const TextStyle(
+                                  fontSize: 24, fontWeight: FontWeight.bold),
+                            ),
+                            height: 150,
+                          );
+                        }),
+
                         const SizedBox(height: 10),
-                        _buildDashboardContainer(
-                          context: context,
-                          iconData: Icons.money_off,
-                          title: "Total Profit",
-                          child: const TotalProfitBox(),
-                          height: 150,
-                        ),
+
+                        // Total Profit with GetX
+                        // Total Profit with GetX
+                        Obx(() {
+                          return _buildDashboardContainer(
+                            context: context,
+                            iconData: Icons.money_off,
+                            title: "Total Profit",
+                            child: Text(
+                              '${dashboardController.totalProfit.value.toStringAsFixed(2)} Tk', // Display profit with two decimal places
+                              style: const TextStyle(
+                                  fontSize: 24, fontWeight: FontWeight.bold),
+                            ),
+                            height: 150,
+                          );
+                        }),
                       ],
                     ),
                   ),
@@ -164,22 +206,21 @@ class DashboardPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ListTile(
-            contentPadding: const EdgeInsets.symmetric(
-                horizontal: 8), // Matching top and left padding
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 8), // Matching padding
             leading: Container(
               padding: const EdgeInsets.all(4),
               decoration: BoxDecoration(
-                color: const Color(
-                    0xFFFAFAFA), // Light grey color for the icon background
+                color:
+                    const Color(0xFFFAFAFA), // Light grey for icon background
                 borderRadius: BorderRadius.circular(4),
                 boxShadow: [
-                  // Soft shadow for the icon
                   BoxShadow(
                     color: Colors.black.withOpacity(0.1),
                     spreadRadius: 1,
                     blurRadius: 3,
                     offset: const Offset(0, 2),
-                  )
+                  ),
                 ],
               ),
               child: Icon(iconData, color: Theme.of(context).primaryColor),
@@ -187,7 +228,7 @@ class DashboardPage extends StatelessWidget {
             title: Text(title.tr),
             horizontalTitleGap: 10,
           ),
-          Expanded(child: child),
+          Expanded(child: Center(child: child)),
         ],
       ),
     );
