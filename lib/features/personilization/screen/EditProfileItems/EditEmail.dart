@@ -59,7 +59,7 @@ class _EditEmailState extends State<EditEmail> {
         SnackBar(
           content: Text('Your Email has been Updated Successfully'.tr),
           duration: Duration(seconds: 3),
-          backgroundColor: Colors.grey,
+          backgroundColor: Colors.orange,
         ),
       );
       Get.back();

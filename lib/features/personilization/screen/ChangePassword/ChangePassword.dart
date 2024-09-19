@@ -96,7 +96,7 @@ class _ChangePasswordState extends State<ChangePassword> {
           SnackBar(
             content: Text('Your Password has been Changed'.tr),
             duration: Duration(seconds: 3),
-            backgroundColor: Colors.grey,
+            backgroundColor: Colors.orange,
           ),
         );
         Navigator.pop(context);

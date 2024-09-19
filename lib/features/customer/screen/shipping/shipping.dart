@@ -62,6 +62,11 @@ class _ShippingPageState extends State<ShippingPage> {
               'phone': phone,
             };
           });
+
+          // Default select the first address if available
+          if (addresses.isNotEmpty) {
+            _selectedAddressIndex = 0;
+          }
         });
       }
     }
@@ -292,6 +297,10 @@ class _ShippingPageState extends State<ShippingPage> {
   void _addAddress(Map<String, String> newAddress) {
     setState(() {
       addresses.add(newAddress);
+
+      // Automatically select the newly added address
+      _selectedAddressIndex = addresses.length - 1;
+
       Get.snackbar(
         'Success',
         'Address added successfully',

@@ -72,7 +72,7 @@ class _AddContactState extends State<AddContact> {
         SnackBar(
           content: Text('Phone Number has been Added'.tr),
           duration: Duration(seconds: 3),
-          backgroundColor: Colors.grey,
+          backgroundColor: Colors.orange,
         ),
       );
       Get.back();

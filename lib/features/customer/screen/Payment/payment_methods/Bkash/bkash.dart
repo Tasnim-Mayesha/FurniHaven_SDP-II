@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sdp2/features/customer/screen/order_history/order_history.dart';
 import '../../../../../../common/widgets/button.dart';
 import '../../../../../../common/widgets/success_screen.dart';
@@ -15,6 +16,33 @@ class Bkash extends StatefulWidget {
 
 class _BkashState extends State<Bkash> {
   bool _isObscured = true;
+  TextEditingController _phoneController = TextEditingController();
+  TextEditingController _pinController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _loadCredentials();
+  }
+
+  Future<void> _loadCredentials() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? phoneNumber = prefs.getString('bkashPhoneNumber');
+    String? pin = prefs.getString('bkashPin');
+
+    if (phoneNumber != null) {
+      _phoneController.text = phoneNumber;
+    }
+    if (pin != null) {
+      _pinController.text = pin;
+    }
+  }
+
+  Future<void> _saveCredentials(String phoneNumber, String pin) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('bkashPhoneNumber', phoneNumber);
+    await prefs.setString('bkashPin', pin);
+  }
 
   Future<void> _addOrderToFirestore(List<dynamic> cartItems, String paymentMethod, double totalCost, Map<String, String> selectedAddress) async {
     User? user = FirebaseAuth.instance.currentUser;
@@ -53,7 +81,6 @@ class _BkashState extends State<Bkash> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     final totalCost = Get.arguments['totalCost'] as double;
@@ -84,12 +111,13 @@ class _BkashState extends State<Bkash> {
                         fit: BoxFit.contain,
                       ),
                       const SizedBox(height: 20),
-                      const Padding(
-                        padding: EdgeInsets.all(8.0),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
                         child: SizedBox(
                           height: 50,
                           child: TextField(
-                            decoration: InputDecoration(
+                            controller: _phoneController,
+                            decoration: const InputDecoration(
                               border: InputBorder.none,
                               hintText: 'Enter your phone number',
                               hintStyle: TextStyle(color: Color(0xFF979797)),
@@ -107,6 +135,7 @@ class _BkashState extends State<Bkash> {
                         child: SizedBox(
                           height: 50,
                           child: TextField(
+                            controller: _pinController,
                             obscureText: _isObscured,
                             decoration: InputDecoration(
                               border: InputBorder.none,
@@ -144,17 +173,34 @@ class _BkashState extends State<Bkash> {
                 child: CustomButton(
                   text: 'Pay',
                   onTap: () async {
-                    await _addOrderToFirestore(cartItems, 'Bkash', totalCost, selectedAddress);
+                    String phone = _phoneController.text;
+                    String pin = _pinController.text;
 
-                    Get.to(() => SuccessScreen(
-                      image: 'assets/images/success.png',
-                      title: 'Payment Successful',
-                      subTitle: 'Your payment was successfully completed. Your product will be delivered to your door.',
-                      onPressed: () {
-                        Get.to(() =>  const OrderHistoryPage());
-                      },
-                      buttonTitle: 'See your order',
-                    ));
+                    if (phone.isNotEmpty && pin.isNotEmpty) {
+                      // Save credentials to local storage
+                      await _saveCredentials(phone, pin);
+
+                      // Proceed with payment and order creation
+                      await _addOrderToFirestore(cartItems, 'Bkash', totalCost, selectedAddress);
+
+                      Get.to(() => SuccessScreen(
+                        image: 'assets/images/success.png',
+                        title: 'Payment Successful',
+                        subTitle: 'Your payment was successfully completed. Your product will be delivered to your door.',
+                        onPressed: () {
+                          Get.to(() =>  const OrderHistoryPage());
+                        },
+                        buttonTitle: 'See your order',
+                      ));
+                    } else {
+                      Get.snackbar(
+                        'Error',
+                        'Please fill in both phone number and pin',
+                        snackPosition: SnackPosition.BOTTOM,
+                        backgroundColor: Colors.red,
+                        colorText: Colors.white,
+                      );
+                    }
                   },
                 ),
               ),

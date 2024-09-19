@@ -54,7 +54,7 @@ class _EditNameState extends State<EditName> {
         SnackBar(
           content: Text('Your Name has been Updated Successfully'.tr),
           duration: Duration(seconds: 3),
-          backgroundColor: Colors.grey,
+          backgroundColor: Colors.orange,
         ),
       );
       Get.back(); // Navigate back to the previous page (ProfileView)

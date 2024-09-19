@@ -56,10 +56,12 @@ class _ProfileViewState extends State<ProfileView> {
             return const Center(child: Text('No profile data available'));
           }
 
-          var userDoc = snapshot.data!;
-          _imageUrl = userDoc['profilePicture'];
-          _userName = userDoc['userName'];
-          _email = userDoc['email'];
+          var userDoc = snapshot.data!.data() as Map<String, dynamic>;
+
+          // Check if fields exist before accessing them
+          _imageUrl = userDoc.containsKey('profilePicture') ? userDoc['profilePicture'] : null;
+          _userName = userDoc.containsKey('userName') ? userDoc['userName'] : 'User Name';
+          _email = userDoc.containsKey('email') ? userDoc['email'] : 'Your Email';
 
           return Padding(
             padding: const EdgeInsets.all(16.0),
@@ -242,4 +244,3 @@ class _ProfileViewState extends State<ProfileView> {
     }
   }
 }
-

@@ -54,35 +54,6 @@ class SocialLogin extends StatelessWidget {
               const SizedBox(
                 width: 10,
               ),
-
-              /// Facebook
-              Expanded(
-                child: GestureDetector(
-                  onTap: () async {
-                    //await controller.signInWithFacebook();
-                  },
-                  child: Container(
-                    alignment: Alignment.center,
-                    height: 55,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? GlobalColors.darkContainer
-                          : GlobalColors.white,
-                      borderRadius: BorderRadius.circular(6),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          blurRadius: 10,
-                        )
-                      ],
-                    ),
-                    child: Image.asset(
-                      'assets/images/fb.png',
-                      height: 30,
-                    ),
-                  ),
-                ),
-              ),
             ],
           ),
         ),
