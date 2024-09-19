@@ -31,32 +31,62 @@ class _ProductSuggestionBrandState extends State<ProductSuggestionBrand> {
   }
 
   Future<List<Map<String, dynamic>>> _fetchProducts() async {
-    final querySnapshot = await FirebaseFirestore.instance.collection('Products').get();
-    final products = querySnapshot.docs.map((doc) => doc.data()).toList();
+    // Fetch products and sellers in parallel
+    final productsQuery = FirebaseFirestore.instance.collection('Products').get();
+    final sellersQuery = FirebaseFirestore.instance.collection('Sellers').get();
 
-    for (var product in products) {
-      final sellerEmail = product['sellerEmail'];
-      if (sellerEmail != null) {
-        final sellerSnapshot = await FirebaseFirestore.instance
-            .collection('Sellers')
-            .where('email', isEqualTo: sellerEmail)
-            .get();
+    // Wait for both queries to complete
+    final results = await Future.wait([productsQuery, sellersQuery]);
+    final productsSnapshot = results[0] as QuerySnapshot;
+    final sellersSnapshot = results[1] as QuerySnapshot;
 
-        if (sellerSnapshot.docs.isNotEmpty) {
-          product['brandName'] = sellerSnapshot.docs.first.data()['brandName'];
-        } else {
-          product['brandName'] = 'Unknown';
-        }
+    // Create a map of sellers for quick lookup
+    final sellersMap = Map.fromEntries(
+      sellersSnapshot.docs.map((doc) => MapEntry(doc['email'], doc['brandName'])),
+    );
+
+    // Process products data
+    final products = productsSnapshot.docs.map((doc) {
+      final data = doc.data() as Map<String, dynamic>;
+      final sellerEmail = data['sellerEmail'];
+
+      // Lookup brand name from sellers map
+      data['brandName'] = sellersMap[sellerEmail] ?? 'Unknown';
+      data['averageRating'] = 0.0; // Initialize rating, will calculate later
+      return data;
+    }).toList();
+
+    // Fetch all ratings in bulk
+    final productIds = products.map((p) => p['id'] as String).toList();
+    final ratingsSnapshot = await FirebaseFirestore.instance
+        .collection('Review and Ratings')
+        .where('productId', whereIn: productIds)
+        .get();
+
+    // Create a map of productId to list of ratings
+    final ratingsMap = <String, List<double>>{};
+    for (var doc in ratingsSnapshot.docs) {
+      final productId = doc['productId'];
+      final rating = doc['rating'] as double;
+      if (!ratingsMap.containsKey(productId)) {
+        ratingsMap[productId] = [];
       }
+      ratingsMap[productId]!.add(rating);
+    }
 
-      // Calculate average rating for each product
-      product['averageRating'] = await _getAverageRating(product['id']);
+    // Calculate average rating for each product
+    for (var product in products) {
+      final productId = product['id'];
+      final ratings = ratingsMap[productId] ?? [];
+      if (ratings.isNotEmpty) {
+        product['averageRating'] = ratings.reduce((a, b) => a + b) / ratings.length;
+      }
     }
 
     // Filter by brand name
     var filteredProducts = products.where((product) => product['brandName'] == widget.brandName).toList();
 
-    // Filter by price range if it's provided
+    // Filter by price range if provided
     if (_currentPriceRange != null) {
       filteredProducts = filteredProducts.where((product) {
         final price = (product["price"] * (1 - (product["discount"] / 100))).round();
@@ -76,11 +106,15 @@ class _ProductSuggestionBrandState extends State<ProductSuggestionBrand> {
             .toList();
       } else if (_sortOption == "PriceLtH") {
         filteredProducts.sort((a, b) {
-          return a["price"].compareTo(b["price"]);
+          final priceA = (a["price"] * (1 - (a["discount"] / 100))).round();
+          final priceB = (b["price"] * (1 - (b["discount"] / 100))).round();
+          return priceA.compareTo(priceB);
         });
       } else if (_sortOption == "PriceHtL") {
         filteredProducts.sort((a, b) {
-          return b["price"].compareTo(a["price"]);
+          final priceA = (a["price"] * (1 - (a["discount"] / 100))).round();
+          final priceB = (b["price"] * (1 - (b["discount"] / 100))).round();
+          return priceB.compareTo(priceA);
         });
       } else if (_sortOption == "Most Popular") {
         filteredProducts.sort((a, b) {
@@ -92,24 +126,6 @@ class _ProductSuggestionBrandState extends State<ProductSuggestionBrand> {
     }
 
     return filteredProducts;
-  }
-
-  Future<double> _getAverageRating(String productId) async {
-    final querySnapshot = await FirebaseFirestore.instance
-        .collection('Review and Ratings')
-        .where('productId', isEqualTo: productId)
-        .get();
-
-    if (querySnapshot.docs.isEmpty) {
-      return 0.0;
-    }
-
-    double totalRating = 0;
-    for (var doc in querySnapshot.docs) {
-      totalRating += doc['rating'] as double;
-    }
-
-    return totalRating / querySnapshot.docs.length;
   }
 
   void _applyFilter(RangeValues? priceRange) {

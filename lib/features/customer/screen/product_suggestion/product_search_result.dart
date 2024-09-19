@@ -7,6 +7,7 @@ import '../home/home_controller/home_controller.dart';
 import '../product/product_page.dart';
 import 'Filter/filterBy.dart';
 import 'Sort/sortBy.dart';
+import '../../../../utils/global_variables/tap_count.dart'; // Import the global tap count
 
 class ProductSearchResult extends StatefulWidget {
   final String searchQuery;
@@ -157,11 +158,21 @@ class _ProductSearchResultState extends State<ProductSearchResult> {
             products = products.where((product) => product["discount"] != null && product["discount"] > 0).toList();
           } else if (_sortOption == "PriceLtH") {
             products.sort((a, b) {
-              return a["price"].compareTo(b["price"]);
+              final priceA = (a["price"] * (1 - (a["discount"] / 100))).round();
+              final priceB = (b["price"] * (1 - (b["discount"] / 100))).round();
+              return priceA.compareTo(priceB);
             });
           } else if (_sortOption == "PriceHtL") {
             products.sort((a, b) {
-              return b["price"].compareTo(a["price"]);
+              final priceA = (a["price"] * (1 - (a["discount"] / 100))).round();
+              final priceB = (b["price"] * (1 - (b["discount"] / 100))).round();
+              return priceB.compareTo(priceA);
+            });
+          } else if (_sortOption == "Most Popular") {
+            products.sort((a, b) {
+              var countA = globalController.tapCount[a['id']] ?? 0;
+              var countB = globalController.tapCount[b['id']] ?? 0;
+              return countB.compareTo(countA);
             });
           }
         }
@@ -205,6 +216,14 @@ class _ProductSearchResultState extends State<ProductSearchResult> {
                     discountedPrice: (originalPrice * (1 - (discount / 100))).round(),
                     rating: averageRating,
                     onTap: () {
+                      // Increment global tap count
+                      var productId = product["id"];
+                      if (globalController.tapCount.containsKey(productId)) {
+                        globalController.tapCount[productId] += 1;
+                      } else {
+                        globalController.tapCount[productId] = 1;
+                      }
+
                       Get.to(() => ProductPage(
                         id: product["id"] ?? '',
                         imageUrl: product["imageUrl"] ?? '',

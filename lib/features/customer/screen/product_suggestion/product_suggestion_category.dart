@@ -72,19 +72,36 @@ class _ProductSuggestionCategoryState extends State<ProductSuggestionCategory> {
     // Filter by price range if provided
     if (_currentPriceRange != null) {
       products.retainWhere((product) {
-        final price = (product["price"] * (1 - (product["discount"] / 100))).round();
-        return price >= _currentPriceRange!.start && price <= _currentPriceRange!.end;
+        final originalPrice = product['price'] is int
+            ? product['price']
+            : (product['price'] as double).toInt();
+        final discount = product['discount'] ?? 0;
+        final discountedPrice = (originalPrice * (1 - (discount / 100))).round();
+        return discountedPrice >= _currentPriceRange!.start &&
+            discountedPrice <= _currentPriceRange!.end;
       });
     }
 
     // Sort products based on the current sort option
     if (_currentSortOption != null) {
       products.sort((a, b) {
+        final originalPriceA = a['price'] is int
+            ? a['price']
+            : (a['price'] as double).toInt();
+        final discountA = a['discount'] ?? 0;
+        final discountedPriceA = (originalPriceA * (1 - (discountA / 100))).round();
+
+        final originalPriceB = b['price'] is int
+            ? b['price']
+            : (b['price'] as double).toInt();
+        final discountB = b['discount'] ?? 0;
+        final discountedPriceB = (originalPriceB * (1 - (discountB / 100))).round();
+
         switch (_currentSortOption) {
-          case 'price_asc':
-            return (a['price'] as int).compareTo(b['price'] as int);
-          case 'price_desc':
-            return (b['price'] as int).compareTo(a['price'] as int);
+          case 'PriceLtH': // Sort by discounted price low to high
+            return discountedPriceA.compareTo(discountedPriceB);
+          case 'PriceHtL': // Sort by discounted price high to low
+            return discountedPriceB.compareTo(discountedPriceA);
           case 'rating':
             return (b['rating'] as double).compareTo(a['rating'] as double);
           default:
@@ -198,6 +215,7 @@ class _ProductSuggestionCategoryState extends State<ProductSuggestionCategory> {
                     ? product["price"]
                     : (product["price"] as double).toInt();
                 final discount = product["discount"] ?? 0;
+                final discountedPrice = (originalPrice * (1 - (discount / 100))).round();
                 final modelUrl = product["modelUrl"] ?? '';
 
                 return ProductCard(
@@ -208,7 +226,7 @@ class _ProductSuggestionCategoryState extends State<ProductSuggestionCategory> {
                   sellerEmail: product["sellerEmail"] ?? 'Unknown',
                   discount: discount,
                   originalPrice: originalPrice,
-                  discountedPrice: (originalPrice * (1 - (discount / 100))).round(),
+                  discountedPrice: discountedPrice,
                   rating: product["rating"] ?? 0.0,
                   onTap: () {
                     // Increment tap count
@@ -226,7 +244,7 @@ class _ProductSuggestionCategoryState extends State<ProductSuggestionCategory> {
                       sellerEmail: product["sellerEmail"] ?? 'Unknown',
                       discount: discount,
                       originalPrice: originalPrice,
-                      discountedPrice: (originalPrice * (1 - (discount / 100))).round(),
+                      discountedPrice: discountedPrice,
                       rating: product["rating"] ?? 0.0,
                       modelUrl: modelUrl,
                       description: product["description"] ?? '',
