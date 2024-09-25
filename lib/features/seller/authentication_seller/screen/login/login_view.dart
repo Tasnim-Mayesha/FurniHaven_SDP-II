@@ -12,10 +12,17 @@ import '../../../views/main_page.dart';
 import '../password_configuration/forget_password.dart';
 import '../signup/signup_view.dart';
 
-class SellerLoginView extends StatelessWidget {
+class SellerLoginView extends StatefulWidget {
   SellerLoginView({super.key});
+
+  @override
+  _SellerLoginViewState createState() => _SellerLoginViewState();
+}
+
+class _SellerLoginViewState extends State<SellerLoginView> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  bool _isPasswordVisible = false;
 
   // Method to handle login
   Future<void> _login(BuildContext context) async {
@@ -30,7 +37,7 @@ class SellerLoginView extends StatelessWidget {
 
     try {
       User? user =
-          await sellerRepository.loginUser(email: email, password: password);
+      await sellerRepository.loginUser(email: email, password: password);
       if (user != null) {
         // Fetch seller data
         // SellerModel seller = await sellerRepository.getSellerData(user.uid);
@@ -56,15 +63,15 @@ class SellerLoginView extends StatelessWidget {
               children: [
                 Center(
                     child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      'assets/images/furnihaven_logo.png',
-                      width: 100,
-                      height: 100,
-                    ),
-                  ],
-                )),
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/images/furnihaven_logo.png',
+                          width: 100,
+                          height: 100,
+                        ),
+                      ],
+                    )),
                 const SizedBox(height: 24),
                 Text(
                   'Login to your Account'.tr,
@@ -83,16 +90,29 @@ class SellerLoginView extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 10),
-                // Password Input
+                // Password Input with visibility toggle
                 TextFormField(
                   controller: passwordController,
                   expands: false,
+                  obscureText: !_isPasswordVisible, // Hide/show password
                   decoration: InputDecoration(
                     labelText: 'Password'.tr,
                     prefixIcon: const Icon(Iconsax.password_check,
                         color: GlobalColors.mainColorHex),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _isPasswordVisible
+                            ? Iconsax.eye // Eye open icon
+                            : Iconsax.eye_slash, // Eye closed icon
+                        color: GlobalColors.mainColorHex,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _isPasswordVisible = !_isPasswordVisible;
+                        });
+                      },
+                    ),
                   ),
-                  obscureText: true,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -109,7 +129,7 @@ class SellerLoginView extends StatelessWidget {
                   onTap: () => _login(context),
                 ),
                 const SizedBox(height: 25),
-                const SocialLogin(),
+                //const SocialLogin(),
               ],
             ),
           ),
@@ -134,3 +154,4 @@ class SellerLoginView extends StatelessWidget {
     );
   }
 }
+

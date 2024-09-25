@@ -1,10 +1,13 @@
 import "package:flutter/material.dart";
 import "package:get/get.dart";
 import "package:iconsax/iconsax.dart";
-import "package:sdp2/features/seller/authentication_seller/screen/password_configuration/reset_password.dart";
 import "package:sdp2/utils/global_colors.dart";
 
 import "../../../../../common/widgets/button.dart";
+import "../../../../../validators/validation.dart";
+import "../../../../authentication/controller/forget_password/forget_password_controller.dart";
+
+
 
 class SellerForgetPassword extends StatelessWidget {
   SellerForgetPassword({super.key});
@@ -13,6 +16,7 @@ class SellerForgetPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(ForgetPasswordController());
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
@@ -28,32 +32,23 @@ class SellerForgetPassword extends StatelessWidget {
             Text(
               'Don\'t worry sometimes people can forget too,enter your email and we will send you a password reset link.'.tr,
               style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-                color: GlobalColors.textColor.withOpacity(0.7)
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: GlobalColors.textColor.withOpacity(0.7)
               ),
             ),
             const SizedBox(height: 48,),
-            TextFormField(
-              controller: emailController,
-              keyboardType: TextInputType.emailAddress,
-              obscureText: false,
-              decoration: InputDecoration(
-                labelText: 'Email',
-                prefixIcon: Icon(Iconsax.direct_right, color: GlobalColors.mainColor),
-                border: const OutlineInputBorder(),
+            Form(
+              key: controller.forgetPasswordFormKey,
+              child: TextFormField(
+                controller: controller.email,
+                validator: Validator.validateEmail,
+                decoration: InputDecoration(labelText: "Email", prefixIcon: Icon(Iconsax.direct_right,color: GlobalColors.mainColor,)),
               ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter your email';
-                }
-                // Add more validation logic if needed
-                return null;
-              },
             ),
             const SizedBox(height: 24,),
             CustomButton(text: 'Submit',
-              onTap: ()=>Get.to(() => const SellerResetPassword()))
+              onTap: ()=> controller.sendPasswordResetEmail(),)
           ],
         ),
       ),

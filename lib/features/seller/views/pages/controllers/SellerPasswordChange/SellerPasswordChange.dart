@@ -23,6 +23,10 @@ class _SellerChangePasswordState extends State<SellerChangePassword> {
   bool _isConfirmPasswordValid = false;
   bool _isCurrentPasswordValid = false;
 
+  bool _isCurrentPasswordVisible = false;
+  bool _isNewPasswordVisible = false;
+  bool _isConfirmPasswordVisible = false;
+
   @override
   void initState() {
     super.initState();
@@ -142,11 +146,23 @@ class _SellerChangePasswordState extends State<SellerChangePassword> {
                     Icons.lock,
                     color: _isCurrentPasswordFocused ? Colors.deepOrange : Colors.grey,
                   ),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _isCurrentPasswordVisible
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _isCurrentPasswordVisible = !_isCurrentPasswordVisible;
+                      });
+                    },
+                  ),
                   hintStyle: const TextStyle(color: Colors.grey),
                   border: const OutlineInputBorder(),
                 ),
                 keyboardType: TextInputType.text,
-                obscureText: true,
+                obscureText: !_isCurrentPasswordVisible,
               ),
               const SizedBox(height: 16.0),
               _buildTextFieldHeader('New Password'),
@@ -159,16 +175,32 @@ class _SellerChangePasswordState extends State<SellerChangePassword> {
                     Icons.lock,
                     color: _isNewPasswordFocused ? Colors.deepOrange : Colors.grey,
                   ),
-                  suffixIcon: _newPasswordController.text.isNotEmpty
-                      ? _isNewPasswordValid
-                      ? const Icon(Icons.check, color: Colors.green)
-                      : const Icon(Icons.close, color: Colors.red)
-                      : null,
+                  suffixIcon: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (_newPasswordController.text.isNotEmpty)
+                        _isNewPasswordValid
+                            ? const Icon(Icons.check, color: Colors.green)
+                            : const Icon(Icons.close, color: Colors.red),
+                      IconButton(
+                        icon: Icon(
+                          _isNewPasswordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _isNewPasswordVisible = !_isNewPasswordVisible;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
                   hintStyle: const TextStyle(color: Colors.grey),
                   border: const OutlineInputBorder(),
                 ),
                 keyboardType: TextInputType.text,
-                obscureText: true,
+                obscureText: !_isNewPasswordVisible,
               ),
               const SizedBox(height: 16.0),
               _buildTextFieldHeader('Confirm Password'),
@@ -181,16 +213,32 @@ class _SellerChangePasswordState extends State<SellerChangePassword> {
                     Icons.lock,
                     color: _isConfirmPasswordFocused ? Colors.deepOrange : Colors.grey,
                   ),
-                  suffixIcon: _confirmPasswordController.text.isNotEmpty
-                      ? _isConfirmPasswordValid
-                      ? const Icon(Icons.check, color: Colors.green)
-                      : const Icon(Icons.close, color: Colors.red)
-                      : null,
+                  suffixIcon: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (_confirmPasswordController.text.isNotEmpty)
+                        _isConfirmPasswordValid
+                            ? const Icon(Icons.check, color: Colors.green)
+                            : const Icon(Icons.close, color: Colors.red),
+                      IconButton(
+                        icon: Icon(
+                          _isConfirmPasswordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _isConfirmPasswordVisible = !_isConfirmPasswordVisible;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
                   hintStyle: const TextStyle(color: Colors.grey),
                   border: const OutlineInputBorder(),
                 ),
                 keyboardType: TextInputType.text,
-                obscureText: true,
+                obscureText: !_isConfirmPasswordVisible,
               ),
               const SizedBox(height: 16.0),
               if (!validateForm())

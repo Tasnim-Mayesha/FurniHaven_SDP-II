@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../../customer/screen/message/chat.dart';
 
-
 class SellerMessageList extends StatefulWidget {
   const SellerMessageList({super.key});
 
@@ -32,7 +31,12 @@ class _SellerMessageListState extends State<SellerMessageList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
+      appBar: AppBar(
+        title: const Text("Messages"),
+      ),
+      body: sellerId == null
+          ? const Center(child: Text('Please log in to view messages')) // Check if the seller is logged in
+          : Padding(
         padding: const EdgeInsets.only(top: 16),
         child: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance
@@ -78,7 +82,7 @@ class _SellerMessageListState extends State<SellerMessageList> {
                             : const AssetImage('assets/images/placeholder.png') as ImageProvider,
                       ),
                       title: Text(userName),
-                      // trailing: const Text('12:20'), // Add last message time here
+                      // trailing: const Text('12:20'), // Add last message time here if needed
                       onTap: () {
                         Navigator.push(
                           context,
