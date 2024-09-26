@@ -5,6 +5,7 @@ import 'package:iconsax/iconsax.dart';
 
 import 'package:sdp2/common/widgets/bottomnavbar/bottom_nav_bar.dart';
 import 'package:sdp2/common/widgets/bottomnavbar/starting_controller.dart';
+import 'package:sdp2/features/customer/screen/About%20Us/about_us.dart';
 import 'package:sdp2/features/customer/screen/cart/add_to_cart.dart';
 import 'package:sdp2/features/customer/screen/home/home_view.dart';
 import 'package:sdp2/features/customer/screen/message/message_list.dart';
@@ -72,7 +73,7 @@ class CustMainPage extends StatelessWidget {
             ),
             ListTile(
               leading:
-                  const Icon(Icons.shopping_cart, color: Colors.deepOrange),
+              const Icon(Icons.shopping_cart, color: Colors.deepOrange),
               title: Text('Wishlist'.tr),
               onTap: () {
                 final controller = Get.find<CustNavController>();
@@ -94,6 +95,13 @@ class CustMainPage extends StatelessWidget {
               title: Text('Order History'.tr),
               onTap: () {
                 Get.to(() => OrderHistoryPage());
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.people, color: Colors.deepOrange),
+              title: Text('About Us'.tr),
+              onTap: () {
+                Get.to(() => AboutUsPage());
               },
             ),
           ],

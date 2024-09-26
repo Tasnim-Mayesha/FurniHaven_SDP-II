@@ -115,6 +115,7 @@ flutter:
     - assets/users/
     - assets/onboarding/
     - assets/payment/
+    - assets/developers/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

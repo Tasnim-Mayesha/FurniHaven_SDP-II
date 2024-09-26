@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:firebase_auth/firebase_auth.dart'; // Import Firebase Auth
+import 'package:sdp2/features/customer/screen/About%20Us/about_us.dart';
 import 'package:sdp2/features/customer/screen/order_history/order_history.dart';
 import 'package:sdp2/features/personilization/screen/Account/account_controller.dart';
 
@@ -83,6 +84,15 @@ class AccountPage extends StatelessWidget {
         const Divider(),
         _buildListTile(
           5,
+          Icons.people,
+          'About Us',
+              () {
+            Get.to(() => AboutUsPage());
+          },
+        ),
+        const Divider(),
+        _buildListTile(
+          6,
           Icons.logout,
           'Log Out',
               () async {
