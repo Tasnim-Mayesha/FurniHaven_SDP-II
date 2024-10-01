@@ -117,26 +117,56 @@ class OrderHistoryPage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        '${((order['price'] * order['quantity']) + 240).toStringAsFixed(2)} tk',
-                                        style: TextStyle(
-                                          color: Colors.blueAccent,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                      Image.network(
+                                        product['imageUrl'],
+                                        width: 80,
+                                        height: 80,
+                                        fit: BoxFit.cover,
                                       ),
-                                      const SizedBox(width: 8),
-                                      Text(
-                                        '${((product['price'] * order['quantity']) + 240).toStringAsFixed(2)} tk',
-                                        style: const TextStyle(
-                                          decoration: TextDecoration.lineThrough,
-                                          color: Colors.grey,
+                                      const SizedBox(width: 16),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              product['title'],
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.bold, fontSize: 16),
+                                            ),
+                                            const SizedBox(height: 4),
+                                            Text('Brand: $brandName',
+                                                style: TextStyle(color: Colors.orange)),
+                                            const SizedBox(height: 4),
+                                            Text('Quantity: ${order['quantity']}'),
+                                            const SizedBox(height: 4),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  // Format total price to 2 decimal places
+                                                  '${((order['price'] * order['quantity']) + 240).toStringAsFixed(2)} tk',
+                                                  style: TextStyle(
+                                                      color: Colors.blueAccent,
+                                                      fontSize: 16,
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                                const SizedBox(width: 8),
+                                                Text(
+                                                  // Format original price to 2 decimal places
+                                                  '${(product['price'] * order['quantity'] + 240).toStringAsFixed(2)} tk',
+                                                  style: const TextStyle(
+                                                    decoration: TextDecoration.lineThrough,
+                                                    color: Colors.grey,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ],
                                   ),
-
                                   const SizedBox(height: 8),
                                   ElevatedButton(
                                     style: ElevatedButton.styleFrom(
@@ -149,8 +179,7 @@ class OrderHistoryPage extends StatelessWidget {
                                         brandName: brandName as String? ?? 'Unknown', // Use fetched brandName
                                         discount: (product['discount'] as num?)?.toInt() ?? 0,
                                         originalPrice: (product['price'] as num?)?.toInt() ?? 0,
-                                        discountedPrice: (product['price'] * (1 - (product["discount"] / 100)))
-                                            .round(),
+                                        discountedPrice: ((product['price'] * (1 - (product["discount"] / 100))).round()),
                                         rating: (product['rating'] as num?)?.toDouble() ?? 0.0,
                                         modelUrl: product['modelUrl'] as String? ?? '',
                                         description: product['description'] as String? ?? '',
