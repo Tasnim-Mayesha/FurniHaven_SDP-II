@@ -8,11 +8,7 @@ FurniHaven is an innovative online furniture platform that connects consumers an
 
 ## Use Cases of Augmented Reality
 
-<div align="center" style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
-    <video src="chair.mp4" controls width="300px"></video>
-    <video src="bookshelf.mp4" controls width="300px"></video>
-    <video src="sofa.mp4" controls width="300px"></video>
-</div>
+<div align="center"> <video src="chair.mp4" controls style="margin-bottom: 15px;"></video> <video src="bookshelf.mp4" controls style="margin-bottom: 15px;"></video> <video src="sofa.mp4" controls style="margin-bottom: 15px;"></video> </div>
 
 ---
 
