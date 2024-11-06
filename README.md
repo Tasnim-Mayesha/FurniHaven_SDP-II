@@ -10,7 +10,12 @@ FurniHaven is an innovative online furniture platform that connects consumers an
 
 ## Watch Video
 
-[![Watch the video on YouTube](https://img.youtube.com/vi/PvLx2j3GaVg/0.jpg)](https://youtu.be/PvLx2j3GaVg)
+## Watch Video
+
+<div align="center">
+  [![Watch the video on YouTube](https://img.youtube.com/vi/PvLx2j3GaVg/0.jpg)](https://youtu.be/PvLx2j3GaVg)
+</div>
+
 
 ---
 
