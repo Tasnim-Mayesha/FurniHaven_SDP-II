@@ -1,5 +1,7 @@
 # FurniHaven: A Paradise for Furniture Lovers, Enhanced by AR Technology
 
+<div align="center">
+  
 ## Project Description
 
 FurniHaven is an innovative online furniture platform that connects consumers and sellers, offering a wide variety of furniture options. Using AR technology, users can visualize how items like sofas will look in their living spaces, while tap count tracks user preferences to provide personalized recommendations. To make quality furniture more accessible, the app will be available in Bangla, removing language barriers. Additionally, reviews and ratings will help users make informed choices. With advanced features and a user-focused design, FurniHaven aims to enhance the furniture shopping experience and transform the industry.
@@ -7,16 +9,11 @@ FurniHaven is an innovative online furniture platform that connects consumers an
 ---
 
 ## Use Cases of Augmented Reality
-
 ## Watch Video
 
-## Watch Video
+[![Watch the video on YouTube](https://img.youtube.com/vi/PvLx2j3GaVg/0.jpg)](https://youtu.be/PvLx2j3GaVg)
 
-<div align="center">
-  [![Watch the video on YouTube](https://img.youtube.com/vi/PvLx2j3GaVg/0.jpg)](https://youtu.be/PvLx2j3GaVg)
 </div>
-
-
 ---
 
 ## Key Features
